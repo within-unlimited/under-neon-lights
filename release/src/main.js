@@ -1,7 +1,5 @@
 has.ready(function() {
 
-  console.log('ready', has.webvr);
-
   var DEBUG = url.boolean('debug', false);
 
   var $elems = new Elements({

@@ -34,8 +34,6 @@
     this.heading = new THREE.Vector2();
     this.controls = new THREE[has.webvr ? 'VRControls' : (has.mobile ? 'DeviceOrientationControls' : 'MouseControls')](this.ghost);
 
-    console.log(this.controls);
-
     this.ghost.theta = 0;
     this.rotation.order = this.ghost.rotation.order = 'YXZ';
 
