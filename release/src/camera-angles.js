@@ -39,6 +39,18 @@
 
   };
 
+  CameraAngles.prototype.set = function(id) {
+
+    if (id < 0 || id >= this.length) {
+      console.warn('Camera index', id, 'doesn\'t exist.');
+      return this;
+    }
+
+    this.index = id;
+    return this[index];
+
+  };
+
   Object.defineProperty(CameraAngles.prototype, 'current', {
 
     get: function() {
