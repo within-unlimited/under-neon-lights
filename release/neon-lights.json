@@ -3,11 +3,11 @@
 	"effects": [
 		[
 			"Clear",
-			"while ( dom.children.length ) {\n\n\tdom.removeChild( dom.lastChild );\n\n}\n\nvar renderer = new THREE.WebGLRenderer( { preserveDrawingBuffer: true } );\nrenderer.autoClear = false;\nrenderer.setSize( dom.clientWidth, dom.clientHeight );\ndom.appendChild( renderer.domElement );\n\nresources.renderer = renderer;\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){\n\n\trenderer.clear();\n\n}"
+			"while ( dom.children.length ) {\n\n\tdom.removeChild( dom.lastChild );\n\n}\n\nvar clock = new THREE.Clock();\n\nresources.clock = clock;\n\nvar renderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer: true } );\nrenderer.autoClear = false;\nrenderer.setSize( dom.clientWidth, dom.clientHeight );\ndom.appendChild( renderer.domElement );\n\nresources.renderer = renderer;\n\nvar camera = new THREE.PerspectiveCamera();\ncamera.aspect = dom.clientWidth / dom.clientHeight;\ncamera.updateProjectionMatrix();\n\ncamera.far = 1000;\n\nvar annie = new THREE.Mesh(\n\tnew THREE.CylinderBufferGeometry(0, 2, 6, 16),\n\tnew THREE.MeshBasicMaterial({\n\t\tcolor: 'white'\n\t})\n);\n\nannie.cursor = new THREE.Vector2();\nannie.update = function( speed, theta ) {\n\tvar step = speed * clock.getDelta();\n\tannie.cursor.x += step * Math.sin( theta );\n\tannie.cursor.y += step * Math.cos( theta );\n\treturn annie;\n};\nannie.rotation.set(Math.PI / 2, 0, Math.PI);\nannie.add( new THREE.Mesh(\n\tannie.geometry.clone(),\n\tnew THREE.MeshBasicMaterial({\n\t\ttransparent: true,\n\t    color: 'white',\n\t    depthTest: false,\n\t    depthWrite: false,\n\t    opacity: 0.33\n\t})\n) );\n\nresources.annie = annie;\n\ncamera.position.set( 0, 50, 100 );\ncamera.lookAt( annie.position );\n\nresources.camera = camera;\n\nfunction start() {}\n\nfunction update( progress ){\n\t\n\trenderer.clear();\n\n}"
 		],
 		[
 			"Effect",
-			"var parameters = {\n\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )\n};\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){}"
+			"var parameters = {\n\tspeed: new FRAME.Parameters.Float( 'Speed', 50 ),\n\tamount: new FRAME.Parameters.Integer( 'Amount', 512 )\n};\n\nvar amount = parameters.amount.value;\nvar stage = new THREE.Vector2( 512, 1024 );\n\nvar scene = new THREE.Scene();\nvar geometries = [\n\tnew THREE.CylinderBufferGeometry( 0, 0.1, 1, 16, 16 ),\n\tnew THREE.CylinderBufferGeometry( 0.1, 0.1, 1, 16, 16 ),\n\tnew THREE.BoxBufferGeometry( 0.1, 1, 0.1 )\n];\nvar materials = [\n\tnew THREE.MeshBasicMaterial({\n\t\tcolor: 'green',\n\t\ttransparent: true,\n\t\topacity: 0.33\n//\t\twireframe: true\n\t})\n];\n\nvar meshes = [];\nfor (var i = 0; i < amount; i++) {\n\n\tvar mesh = new THREE.Mesh(\n\t\tgeometries[Math.floor(Math.random() * geometries.length)],\n\t\tmaterials[Math.floor(Math.random() * materials.length)]\n\t);\n\tmesh.position.offset = new THREE.Vector2(\n\t\tMath.random() * stage.x - stage.x / 2, Math.random() * stage.y - stage.y / 2);\n\n\tmesh.position.x = mesh.position.offset.x;\n\tmesh.position.z = mesh.position.offset.y;\n\t\n\tvar scale = Math.random() * 100 + 1;\n\tmesh.scale.set(scale, scale, scale);\n\n\tscene.add(mesh);\n\tmeshes.push(mesh);\n}\n\nfunction start() {\n\tscene.add( resources.annie );\n}\n\nfunction update( progress ) {\n\n\tvar density = Math.sin( progress * Math.PI );\n\t\n\tresources.annie.update( parameters.speed.value, 0 );\n\t\n\tfor ( var i = 0; i < meshes.length; i++ ) {\n\n\t\tvar mesh = meshes[ i ];\n\t\tvar cursor = resources.annie.cursor;\n\t\tvar offset = mesh.position.offset;\n\n\t\tmesh.position.x = ( cursor.x + offset.x ) % ( stage.x / 2 );\n\t\tmesh.position.z = ( cursor.y + offset.y ) % ( stage.y / 2 ) - stage.y / 4;\n\t\t\n\t\tmesh.scale.y = Math.max( mesh.scale.x * density, 0.1 );\n\t\tmesh.position.y = mesh.scale.y / 2;\n\t\t\n\t}\n\t\n\tresources.renderer.render( scene, resources.camera );\n\t\n}\n\nfunction mod(v, l) {\n\twhile (v < 0) {\n\t\tv += l;\n\t}\n\treturn v % l;\n}"
 		],
 		[
 			"Effect",
@@ -35,39 +35,32 @@
 			0
 		],
 		[
-			"Intro: Forest",
-			0,
-			42.06924502084303,
-			1,
-			1
-		],
-		[
 			"Stage 1: Forest",
-			42.05766558591937,
+			0.02195130020508873,
 			73.8012951083819,
 			2,
-			2
+			1
 		],
 		[
 			"Stage 2: House",
 			73.78378378378376,
 			184.9931190030203,
 			1,
-			3
+			2
 		],
 		[
 			"Stage 3: City",
 			153.01310043668113,
 			232.49535420775473,
 			2,
-			4
+			3
 		],
 		[
 			"Stage 4: Neon Lights",
 			232.4999999999999,
 			266.5124507874008,
 			1,
-			5
+			4
 		]
 	]
 }
