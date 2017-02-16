@@ -93,14 +93,15 @@
         'p.z = mod( origin.y - cursor.y / TWO_PI + 0.5, 1.0 ) - 0.5;',
 
         'p.y = displace( p.x * TWO_PI + cursor.x ) * displace( p.z * TWO_PI + cursor.y );',
-        'p.y -= displace( cursor.x ) * displace( cursor.y );',
+        // 'p.y -= displace( cursor.x ) * displace( cursor.y );',
+        'p.y *= abs( distance( p.xz, vec2( 0.0 ) ) ) - 0.125;',
 
         'placement = vec2( p.xz );',
 
         'pos.y += 0.45;',
 
         'p.xz *= stage;',
-        'p.y *= 0.125 * ( stage.x + stage.y ) / 2.0;',
+        'p.y *= 0.75 * ( stage.x + stage.y ) / 2.0;',
 
         'pos *= size * 0.5;',
 

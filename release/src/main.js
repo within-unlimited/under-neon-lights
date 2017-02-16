@@ -148,9 +148,6 @@ has.ready(function() {
 
     forest.update(annie.heading);
 
-    var theta = forest.cursor.theta;
-    annie.cone.rotation.x = theta * 0.5 + Math.PI / 2;
-
     renderer.effect.render(scene, cameras.current);
 
   }

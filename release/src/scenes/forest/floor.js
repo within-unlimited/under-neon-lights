@@ -68,10 +68,11 @@
 
         'pos.z = displace( pos.x * TWO_PI + cursor.x ) * displace( pos.y * TWO_PI + cursor.y );',
         // Offset character position
-        'pos.z -= displace( cursor.x ) * displace( cursor.y );',
+        // 'pos.z -= displace( cursor.x ) * displace( cursor.y );',
+        'pos.z *= abs( distance( pos.xy, vec2( 0.0 ) ) ) - 0.125;',
 
         'pos.xy *= stage;',
-        'pos.z *= 0.125 * ( stage.x + stage.y ) / 2.0;',
+        'pos.z *= 0.75 * ( stage.x + stage.y ) / 2.0;',
 
         'gl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );',
 
