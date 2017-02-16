@@ -1,41 +1,87 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Under Neon Lights</title>
-    <link rel="stylesheet" type="text/css" href="./styles/main.css">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-  </head>
-  <body>
-    <div class="scripts">
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<style>
+			html, body {
+				margin: 0;
+				height: 100%;
+			}
+			#audio {
+				position: absolute;
+				left: calc(50% - 150px);
+				bottom: 10px;
+			}
+			#container {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<audio id="audio" src="../assets/audio/03 Under Neon Lights.mp3" controls></audio>
+		<div id="container"></div>
+		<script src="src/Frame.js"></script>
+		<script src="third-party/three.js"></script>
+		<script>
 
-      <script src="./third-party/url.js"></script>
-      <script src="./third-party/has.js"></script>
+			FRAME.dom = document.getElementById( 'container' );
 
-      <script src="./third-party/xhr.js"></script>
-      <script src="./third-party/two.js"></script>
-      <script src="./third-party/equalizer.clean.js"></script>
+			var audio = document.getElementById( 'audio' );
+			var timeline = new FRAME.Timeline();
 
-      <script src="./third-party/three.js"></script>
-      <script src="./third-party/three/js/effects/StereoEffect.js"></script>
-      <script src="./third-party/three/js/effects/VREffect.js"></script>
-      <script src="./src/mouse-controls.js"></script>
-      <script src="./third-party/three/js/controls/DeviceOrientationControls.js"></script>
-      <script src="./third-party/three/js/controls/VRControls.js"></script>
-      <script src="./third-party/screenfull.js"></script>
+			//
 
-      <script src="./src/elements.js"></script>
-      <script src="./src/camera-angles.js"></script>
-      <script src="./src/transition.js"></script>
-      <script src="./src/annie.js"></script>
-      <script src="./src/scenes/forest.js"></script>
-      <script src="./src/scenes/forest/floor.js"></script>
-      <script src="./src/scenes/forest/grass.js"></script>
-      <script src="./src/scenes/forest/rock.js"></script>
-      <script src="./src/scenes/forest/mushroom.js"></script>
+			var request = new XMLHttpRequest();
+			request.open( 'GET', 'neon-lights.json', true );
+			request.addEventListener( 'load', function ( event ) {
 
-      <script src="./src/main.js"></script>
+				var json = JSON.parse( event.target.response );
 
-    </div>
-  </body>
+				var library = [];
+				var effects = json.effects;
+
+				for ( var i = 0, l = effects.length; i < l; i ++ ) {
+
+					var data = effects[ i ];
+
+					library.push( new FRAME.Effect( data[ 0 ], data[ 1 ] ) );
+
+				}
+
+				var animations = json.animations;
+
+				for ( var i = 0, l = animations.length; i < l; i ++ ) {
+
+					var data = animations[ i ];
+
+					var animation = new FRAME.Animation(
+						data[ 0 ],
+						data[ 1 ],
+						data[ 2 ],
+						data[ 3 ],
+						library[ data[ 4 ] ]
+					);
+
+					timeline.add( animation );
+
+				}
+
+			} );
+			request.send( null );
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+				timeline.update( audio.currentTime );
+
+			}
+
+			audio.play();
+			animate();
+
+		</script>
+	</body>
 </html>
