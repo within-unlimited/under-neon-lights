@@ -33,6 +33,11 @@
 
     this.heading = new THREE.Vector2();
     this.controls = new THREE[has.webvr ? 'VRControls' : (has.mobile ? 'DeviceOrientationControls' : 'MouseControls')](this.ghost);
+    if (this.controls instanceof THREE.VRControls) {
+      this.controls.connect = function() {
+        this.enabled = true;
+      };
+    }
 
     this.ghost.theta = 0;
     this.rotation.order = this.ghost.rotation.order = 'YXZ';
@@ -74,25 +79,7 @@
 
   Annie.prototype.update = function() {
 
-    this.controls.update();
-
-    var theta = mod(this.ghost.rotation.y, TWO_PI);
-
-    this._step += (this.step - this._step) * Annie.Drag;
-
-    this.rotation.y = theta;
-
-    this.heading.set(
-      - this._step * Math.sin(theta),
-      this._step * Math.cos(theta)
-    );
-
-    if (!this.camera || !this.controls.enabled) {
-      return;
-    }
-
-    this.camera.rotation.x = this.ghost.rotation.x;
-    this.camera.rotation.z = this.ghost.rotation.z;
+    // TODO: Write this based on prototypes
 
     return this;
 

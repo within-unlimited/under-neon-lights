@@ -64,7 +64,6 @@ var has = (function() {
     webAudio: !!(window.AudioContext || window.webkitAudioContext),
 
     webvr: !!(window.navigator.getVRDisplays && window.navigator.getVRDisplays().then(function(displays) {
-      console.log(displays);
       if (displays.length <= 0) {
         has.webvr = false;
       }
