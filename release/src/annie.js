@@ -4,7 +4,10 @@
   var TWO_PI = Math.PI * 2;
   var euler = new THREE.Euler(0, 0, 0, 'YXZ');
 
-  var Annie = root.Annie = function() {
+  var Annie = root.Annie = function(s) {
+
+    var size = s || Forest.defaultSize;
+    var ratio = size / Forest.defaultSize;
 
     var geometry = Annie.Geometry;
     var material = Annie.Material;
@@ -14,7 +17,7 @@
     var cone = this.cone = new THREE.Mesh(geometry, material);
     cone.rotation.x = Math.PI / 2;
     cone.rotation.z = Math.PI;
-    cone.position.y += 20;
+    cone.position.y += 20 * ratio;
 
     cone.outline = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
       transparent: true,
@@ -25,7 +28,7 @@
     }));
 
     cone.add(cone.outline);
-    cone.scale.set(5, 5, 5);
+    cone.scale.setScalar(5 * ratio);
     this.add(cone);
 
     this.ghost = new THREE.Object3D();

@@ -9,13 +9,14 @@
   var Forest = root.Forest = function(s) {
 
     var size = s || Forest.defaultSize;
+    var ratio = size / Forest.defaultSize;
 
     THREE.Group.call(this);
 
     this.stage = new THREE.Vector2(size, size);
     this.cursor = new THREE.Vector3();
     this.wind = new THREE.Vector3(
-      2 * Math.random() - 1, 2 * Math.random() - 1, 20);
+      2 * Math.random() - 1, 2 * Math.random() - 1, 20 * ratio);
 
     this.floor = new Forest.Floor(this.cursor, this.stage);
     this.add(this.floor);
@@ -31,7 +32,7 @@
         Math.random() - 0.5,
         Math.random() - 0.5
       );
-      mesh.material.uniforms.size.value = Math.random() * 150 + 10;
+      mesh.material.uniforms.size.value = (Math.random() * 150 + 10) * ratio;
 
       this.add(mesh);
 
