@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			html, body {
 				margin: 0;
@@ -31,6 +32,8 @@
 
 			//
 
+			var effect;
+
 			var request = new XMLHttpRequest();
 			request.open( 'GET', 'neon-lights.json', true );
 			request.addEventListener( 'load', function ( event ) {
@@ -48,6 +51,11 @@
 					document.head.appendChild( script );
 
 				}
+
+				// TOCLEAN
+
+				effect = FRAME.getResource( 'effect' );
+				effect.requestAnimationFrame( animate );
 
 				var library = [];
 				var effects = json.effects;
@@ -83,15 +91,47 @@
 
 			//
 
+			/*
+			function findGamepad( id ) {
+
+				var gamepads = navigator.getGamepads();
+
+				for ( var i = 0; i < 4; i ++ ) {
+
+					var gamepad = gamepads[ i ];
+
+					if ( gamepad !== null && ( gamepad.id === id ) ) {
+
+						return gamepad;
+
+					}
+
+				}
+
+			}
+			*/
+
 			function animate() {
 
-				requestAnimationFrame( animate );
-				timeline.update( audio.currentTime );
+				effect.requestAnimationFrame( animate );
+
+				/*
+				var gamepad = findGamepad( 'Daydream Controller' );
+
+				if ( gamepad !== undefined && gamepad.buttons[ 0 ].pressed ) {
+
+					audio.play();
+
+				}
+				*/
+
+				// timeline.update(  audio.currentTime );
+
+				timeline.update( performance.now() / 1000 );
 
 			}
 
-			audio.play();
-			animate();
+			// animate();
 
 		</script>
 	</body>

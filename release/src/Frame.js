@@ -157,11 +157,11 @@ var FRAME = ( function () {
 		Effect: function ( name, source ) {
 
 			this.name = name;
-			this.source = source || 'var parameters = {\n\tvalue: new FRAME.Parameters.Float( \'Value\', 1.0 )\n};\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){}';
+			this.source = source || 'var parameters = {\n\tvalue: new FRAME.Parameters.Float( \'Value\', 1.0 )\n};\n\n// function init(){}\n\nfunction start(){}\n\nfunction end(){}\n\nfunction update( progress ){}';
 			this.program = null;
 			this.compile = function () {
 
-				this.program = ( new Function( 'parameters, init, start, update', this.source + '\nreturn { parameters: parameters, init: init, start: start, update: update };' ) )();
+				this.program = ( new Function( 'parameters, init, start, end, update', this.source + '\nreturn { parameters: parameters, init: init, start: start, end: end, update: update };' ) )();
 
 			};
 
@@ -254,8 +254,13 @@ var FRAME = ( function () {
 
 						if ( animation.end > time ) {
 
+							if ( animation.effect.program.start ) {
+
+								animation.effect.program.start();
+
+							}
+
 							active.push( animation );
-							animation.effect.program.start();
 
 						}
 
@@ -271,9 +276,16 @@ var FRAME = ( function () {
 
 						animation = active[ i ];
 
-						if ( animation.end < time ) {
+						if ( animation.start > time || animation.end < time ) {
+
+							if ( animation.effect.program.end ) {
+
+								animation.effect.program.end();
+
+							}
 
 							active.splice( i, 1 );
+
 							continue;
 
 						}
@@ -307,7 +319,18 @@ var FRAME = ( function () {
 
 				reset: function () {
 
-					while ( active.length ) active.pop();
+					while ( active.length ) {
+
+						var animation = active.pop();
+
+						if ( animation.effect.program.end ) {
+
+							animation.effect.program.end();
+
+						}
+
+					}
+
 					next = 0;
 
 				}
