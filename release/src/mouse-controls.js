@@ -15,6 +15,7 @@ THREE.MouseControls = function( object, domElement ) {
 
   this.drag = 0.66;
   this.scale = 1;
+  this.dragging = false;
 
   this.mouse = new THREE.Vector2();
   this.destination = new THREE.Euler(
@@ -32,6 +33,7 @@ THREE.MouseControls = function( object, domElement ) {
 
     window.addEventListener('mousemove', mousemove, false);
     window.addEventListener('mouseup', mouseup, false);
+    scope.dragging = true;
 
   };
 
@@ -61,6 +63,7 @@ THREE.MouseControls = function( object, domElement ) {
     e.preventDefault();
     window.removeEventListener('mousemove', mousemove, false);
     window.removeEventListener('mouseup', mouseup, false);
+    scope.dragging = false;
   };
 
   this.connect = function() {
