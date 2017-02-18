@@ -1,16 +1,41 @@
 var FRAME = ( function () {
 
+	var dom = null;
+	var resources = {};
+
 	return {
 
 		VERSION: 3,
 
-		dom: null,
+		getDOM: function () {
 
-		Resources: {},
+			return dom;
 
+		},
+
+		setDOM: function ( value ) {
+
+			dom = value;
+
+		},
+
+		addResource: function ( name, resource ) {
+
+			resources[ name ] = resource;
+
+		},
+
+		getResource: function ( name ) {
+
+			return resources[ name ];
+
+		},
+
+		//
+
+		/*
 		Curves: {
 
-			/*
 			Linear: function ( points ) {
 
 				function linear( p0, p1, t0, t1, t ) {
@@ -82,9 +107,9 @@ var FRAME = ( function () {
 				};
 
 			}
-			*/
 
 		},
+		*/
 
 		Parameters: {
 
@@ -136,7 +161,7 @@ var FRAME = ( function () {
 			this.program = null;
 			this.compile = function () {
 
-				this.program = ( new Function( 'dom, resources, parameters, init, start, update', this.source + '\nreturn { parameters: parameters, init: init, start: start, update: update };' ) )( FRAME.dom, FRAME.Resources );
+				this.program = ( new Function( 'parameters, init, start, update', this.source + '\nreturn { parameters: parameters, init: init, start: start, update: update };' ) )();
 
 			};
 
