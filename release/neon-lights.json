@@ -11,7 +11,7 @@
 		],
 		[
 			"WebGLRenderer",
-			"var dom = FRAME.getDOM();\n\nvar renderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer: true } );\nrenderer.autoClear = false;\nrenderer.setSize( dom.clientWidth, dom.clientHeight );\ndom.appendChild( renderer.domElement );\n\nconsole.log( dom.clientWidth, dom.clientHeight );\n\nvar camera = new THREE.PerspectiveCamera( 50, dom.clientWidth / dom.clientHeight, 0.01, 100 );\n\nwindow.addEventListener( 'resize', function ( event ) {\n\t\n\tcamera.aspect = dom.clientWidth / dom.clientHeight;\n\tcamera.updateProjectionMatrix();\n\t\n\trenderer.setSize( dom.clientWidth, dom.clientHeight );\n\t\n} );\n\nFRAME.addResource( 'renderer', renderer );\nFRAME.addResource( 'camera', camera );"
+			"var dom = FRAME.getDOM();\n\nvar renderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer: true } );\nrenderer.autoClear = false;\nrenderer.setSize( dom.clientWidth, dom.clientHeight );\ndom.appendChild( renderer.domElement );\n\nvar camera = new THREE.PerspectiveCamera( 50, dom.clientWidth / dom.clientHeight, 0.01, 100 );\n\nwindow.addEventListener( 'resize', function ( event ) {\n\t\n\tcamera.aspect = dom.clientWidth / dom.clientHeight;\n\tcamera.updateProjectionMatrix();\n\t\n\trenderer.setSize( dom.clientWidth, dom.clientHeight );\n\t\n} );\n\nFRAME.addResource( 'renderer', renderer );\nFRAME.addResource( 'camera', camera );"
 		]
 	],
 	"effects": [
@@ -21,15 +21,15 @@
 		],
 		[
 			"Effect",
-			"var path = '../assets/models/forest/';\nvar files = [\n\t'mdl_env_1_forest_flower_a_v01.fbx',\n\t'mdl_env_1_forest_grass_a01_v01.fbx',\n\t'mdl_env_1_forest_grass_a02_v01.fbx',\n\t'mdl_env_1_forest_grass_b01_v01.fbx',\n\t'mdl_env_1_forest_grass_b02_v01.fbx',\n\t'mdl_env_1_forest_grass_c01_v01.fbx',\n\t'mdl_env_1_forest_grass_c02_v01.fbx',\n\t'mdl_env_1_forest_grass_c03_v01.fbx',\n\t'mdl_env_1_forest_rock_a_v01.fbx',\n\t'mdl_env_1_forest_rock_b_v01.fbx',\n\t'mdl_env_1_forest_tree_a_v01.fbx',\n\t'mdl_env_1_forest_tree_b_v01.fbx',\n\t'mdl_env_1_forest_tree_c_v01.fbx',\n\t'mdl_env_1_forest_tree_d_v01.fbx'\n];\n\nvar camera = FRAME.getResource( 'camera' );\nvar renderer = FRAME.getResource( 'renderer' );\n\nvar scene = new THREE.Scene();\nscene.add( new THREE.AmbientLight( 0xffffff ) );\n\nvar ground = new THREE.Mesh(\n\tnew THREE.PlaneBufferGeometry( 70, 70 ),\n\tnew THREE.MeshBasicMaterial({\n\t\tcolor: 0x72fa8c\n\t})\n);\nground.rotation.x = - Math.PI / 2;\nscene.add( ground );\n\nvar loader = new THREE.FBXLoader();\nloader.load( path + 'mdl_chr_1-forest_girl_v02.fbx', function ( obj ) {\n\t\n\tscene.add( obj );\n\n} );\n\nfiles.forEach(function(file) {\n\tloader.load(path + file, function(obj) {\n\n\t\tobj.position.x = Math.random() * 10 - 5;\n\t\tobj.position.z = Math.random() * 10 - 5;\n\t\tobj.userData.startPosition = obj.position.clone();\n\t\tscene.add( obj );\n\t\n\t});\n});\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){\n\t\n\tcamera.position.set( 0, 0.6, 1.5 );\n\tcamera.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\t\n\tfor ( var i = 0; i < scene.children.length; i ++ ) {\n\n\t\tvar mesh = scene.children[ i ];\n\t\tvar startPosition = mesh.userData.startPosition;\n\n\t\tif ( startPosition !== undefined ) {\n\n\t\t\tmesh.position.z = ( ( startPosition.z + progress * 1000 ) % 30 ) - 30;\n\t\t\n\t\t}\n\t\t\n\t}\n\n\trenderer.render( scene, camera );\n\n}"
+			"var path = '../assets/models/forest/';\nvar files = [\n\t'mdl_env_1_forest_flower_a_v01.fbx',\n\t'mdl_env_1_forest_grass_a01_v01.fbx',\n\t'mdl_env_1_forest_grass_a02_v01.fbx',\n\t'mdl_env_1_forest_grass_b01_v01.fbx',\n\t'mdl_env_1_forest_grass_b02_v01.fbx',\n\t'mdl_env_1_forest_grass_c01_v01.fbx',\n\t'mdl_env_1_forest_grass_c02_v01.fbx',\n\t'mdl_env_1_forest_grass_c03_v01.fbx',\n\t'mdl_env_1_forest_rock_a_v01.fbx',\n\t'mdl_env_1_forest_rock_b_v01.fbx',\n\t'mdl_env_1_forest_tree_a_v01.fbx',\n\t'mdl_env_1_forest_tree_b_v01.fbx',\n\t'mdl_env_1_forest_tree_c_v01.fbx',\n\t'mdl_env_1_forest_tree_d_v01.fbx'\n];\n\nvar camera = FRAME.getResource( 'camera' );\nvar renderer = FRAME.getResource( 'renderer' );\n\nvar scene = new THREE.Scene();\nscene.add( new THREE.AmbientLight( 0xffffff ) );\n\nvar ground = new THREE.Mesh(\n\tnew THREE.PlaneBufferGeometry( 70, 70 ),\n\tnew THREE.MeshBasicMaterial({\n\t\tcolor: 0x72fa8c\n\t})\n);\nground.rotation.x = - Math.PI / 2;\nscene.add( ground );\n\nvar loader = new THREE.FBXLoader();\n\nfiles.forEach(function(file) {\n\tloader.load(path + file, function(obj) {\n\n\t\tobj.position.x = Math.random() * 10 - 5;\n\t\tobj.position.z = Math.random() * 10 - 5;\n\t\tobj.userData.startPosition = obj.position.clone();\n\t\tscene.add( obj );\n\t\n\t});\n});\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){\n\t\n\tcamera.position.set( 0, 0.6, 1.5 );\n\tcamera.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\t\n\tfor ( var i = 0; i < scene.children.length; i ++ ) {\n\n\t\tvar mesh = scene.children[ i ];\n\t\tvar startPosition = mesh.userData.startPosition;\n\n\t\tif ( startPosition !== undefined ) {\n\n\t\t\tmesh.position.z = ( ( startPosition.z + progress * 1000 ) % 30 ) - 30;\n\t\t\n\t\t}\n\t\t\n\t}\n\n\trenderer.render( scene, camera );\n\n}"
 		],
 		[
 			"Effect",
-			"var path = '../assets/models/forest/';\n\nvar camera = FRAME.getResource( 'camera' );\nvar renderer = FRAME.getResource( 'renderer' );\n\nvar scene = new THREE.Scene();\nscene.add( new THREE.AmbientLight( 0xffffff ) );\n\nvar loader = new THREE.FBXLoader();\nloader.load( path + 'mdl_chr_1-forest_girl_v02.fbx', function ( obj ) {\n\t\n\tscene.add( obj );\n\n} );\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){\n\n\tcamera.position.set( Math.sin( progress * 100 ) * 1.5, 0.6, Math.cos( progress * 100 ) * 1.5 );\n\tcamera.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\n\trenderer.render( scene, camera );\n\n}"
+			"var camera = FRAME.getResource( 'camera' );\nvar renderer = FRAME.getResource( 'renderer' );\n\n// House\n\nvar scene = new THREE.Scene();\nscene.add( new THREE.AmbientLight( 0xffffff ) );\n\nvar geometry = new THREE.BoxBufferGeometry( 4, 4, 4 );\ngeometry.translate( 0, 2, 0 );\n\nvar material = new THREE.MeshNormalMaterial( { side: THREE.BackSide } );\nvar mesh = new THREE.Mesh( geometry, material );\nscene.add( mesh );\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){\n\n\tcamera.position.set( Math.sin( progress * 100 ) * 1.5, 0.6, Math.cos( progress * 100 ) * 1.5 );\n\tcamera.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\n\trenderer.render( scene, camera );\n\n}"
 		],
 		[
 			"Effect",
-			"var parameters = {\n\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )\n};\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){}"
+			"var camera = FRAME.getResource( 'camera' );\nvar renderer = FRAME.getResource( 'renderer' );\n\nvar scene = new THREE.Scene();\nscene.add( new THREE.AmbientLight( 0xffffff ) );\n\nvar ground = new THREE.Mesh(\n\tnew THREE.PlaneBufferGeometry( 70, 70 ),\n\tnew THREE.MeshBasicMaterial({\n\t\tcolor: 0x72fa8c\n\t})\n);\nground.rotation.x = - Math.PI / 2;\nscene.add( ground );\n\nvar geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );\ngeometry.translate( 0, 0.5, 0 );\n\nfor ( var i = 0; i < 20; i ++ ) {\n\n\tvar mesh = new THREE.Mesh( geometry );\n\tmesh.position.x = Math.random() * 20 - 10;\n\tmesh.position.z = Math.random() * 20 - 10;\n\tmesh.scale.y = Math.random() * 4.0 + 1;\n\tmesh.userData.startPosition = mesh.position.clone();\n\tscene.add( mesh );\t\n\n}\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){\n\t\n\tcamera.position.set( 0, 0.6, 1.5 );\n\tcamera.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\t\n\tfor ( var i = 0; i < scene.children.length; i ++ ) {\n\n\t\tvar mesh = scene.children[ i ];\n\t\tvar startPosition = mesh.userData.startPosition;\n\n\t\tif ( startPosition !== undefined ) {\n\n\t\t\tmesh.position.z = ( ( startPosition.z + progress * 1000 ) % 30 ) - 30;\n\t\t\n\t\t}\n\t\t\n\t}\n\n\trenderer.render( scene, camera );\n\n}"
 		],
 		[
 			"Effect",
@@ -46,6 +46,10 @@
 		[
 			"Effect",
 			"var path = '../assets/models/forest/';\n\nvar camera = FRAME.getResource( 'camera' );\nvar renderer = FRAME.getResource( 'renderer' );\n\nvar scene = new THREE.Scene();\nscene.add( new THREE.AmbientLight( 0xffffff ) );\n\nvar loader = new THREE.FBXLoader();\nloader.load( path + 'mdl_chr_1-forest_girl_v02.fbx', function ( obj ) {\n\t\n\tscene.add( obj );\n\n} );\n\n// function init(){}\n\nfunction start(){}\n\nfunction update( progress ){\n\n\tcamera.position.set( Math.sin( progress * 10 ) * 1.5, 0.6, Math.cos( progress * 10 ) * 1.5 );\n\tcamera.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\n\trenderer.render( scene, camera );\n\n}"
+		],
+		[
+			"Effect",
+			"var path = '../assets/models/forest/';\n\nvar camera = FRAME.getResource( 'camera' );\nvar renderer = FRAME.getResource( 'renderer' );\n\nvar scene = new THREE.Scene();\nscene.add( new THREE.AmbientLight( 0xffffff ) );\n\nvar loader = new THREE.FBXLoader();\nloader.load( path + 'mdl_chr_1-forest_girl_v02.fbx', function ( obj ) {\n\t\n\tscene.add( obj );\n\n} );\n\nfunction start(){}\n\nfunction update( progress ){\n\n\trenderer.render( scene, camera );\n\n}"
 		]
 	],
 	"animations": [
@@ -60,8 +64,15 @@
 			"Stage 1: Forest",
 			0,
 			73.75129510838185,
-			2,
+			1,
 			1
+		],
+		[
+			"Annie",
+			0,
+			266.5348837209304,
+			3,
+			8
 		],
 		[
 			"Stage 2: House",
