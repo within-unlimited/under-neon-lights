@@ -22,7 +22,6 @@
 		<audio id="audio" src="../assets/audio/03 Under Neon Lights.mp3" controls></audio>
 		<div id="container"></div>
 		<script src="src/Frame.js"></script>
-		<script src="third-party/three.js"></script>
 		<script>
 
 			FRAME.dom = document.getElementById( 'container' );
@@ -37,6 +36,18 @@
 			request.addEventListener( 'load', function ( event ) {
 
 				var json = JSON.parse( event.target.response );
+
+				var includes = json.includes;
+
+				for ( var i = 0, l = includes.length; i < l; i ++ ) {
+
+					var include = includes[ i ];
+
+					var script = document.createElement( 'script' );
+					script.textContent = include[ 1 ];
+					document.head.appendChild( script );
+
+				}
 
 				var library = [];
 				var effects = json.effects;
