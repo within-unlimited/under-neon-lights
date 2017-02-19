@@ -33,15 +33,15 @@
 		],
 		[
 			"Effect",
-			"var path = '../assets/models/forest/';\nvar files = [\n\t'mdl_env_1_forest_flower_a_v01.fbx',\n\t'mdl_env_1_forest_grass_a01_v01.fbx',\n\t'mdl_env_1_forest_grass_a02_v01.fbx',\n\t'mdl_env_1_forest_grass_b01_v01.fbx',\n\t'mdl_env_1_forest_grass_b02_v01.fbx',\n\t'mdl_env_1_forest_grass_c01_v01.fbx',\n\t'mdl_env_1_forest_grass_c02_v01.fbx',\n\t'mdl_env_1_forest_grass_c03_v01.fbx',\n\t'mdl_env_1_forest_rock_a_v01.fbx',\n\t'mdl_env_1_forest_rock_b_v01.fbx',\n\t'mdl_env_1_forest_tree_a_v01.fbx',\n\t'mdl_env_1_forest_tree_b_v01.fbx',\n\t'mdl_env_1_forest_tree_c_v01.fbx',\n\t'mdl_env_1_forest_tree_d_v01.fbx'\n];\n\nvar dolly = FRAME.getResource( 'dolly' );\nvar camera = FRAME.getResource( 'camera' );\nvar scene = FRAME.getResource( 'scene' );\nvar renderer = FRAME.getResource( 'renderer' );\n\nvar group = new THREE.Scene();\n\nvar ground = new THREE.Mesh(\n\tnew THREE.PlaneBufferGeometry( 70, 70 ),\n\tnew THREE.MeshBasicMaterial({\n\t\tcolor: 0x72fa8c\n\t})\n);\nground.rotation.x = - Math.PI / 2;\ngroup.add( ground );\n\nvar loader = new THREE.FBXLoader();\n\nfiles.forEach(function(file) {\n\tloader.load(path + file, function(obj) {\n\n\t\tobj.position.x = Math.random() * 10 - 5;\n\t\tobj.position.z = Math.random() * 10 - 5;\n\t\tobj.userData.startPosition = obj.position.clone();\n\t\tgroup.add( obj );\n\t\n\t});\n});\n\n// function init(){}\n\nfunction start(){\n\n\tscene.add( group );\n\n}\n\nfunction end() {\n\t\n\tscene.remove( group );\n\t\n}\n\nfunction update( progress ){\n\t\n\tdolly.position.set( 0, 0.6, 1.5 );\n\tdolly.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\t\n\tfor ( var i = 0; i < group.children.length; i ++ ) {\n\n\t\tvar mesh = group.children[ i ];\n\t\tvar startPosition = mesh.userData.startPosition;\n\n\t\tif ( startPosition !== undefined ) {\n\n\t\t\tmesh.position.z = ( ( startPosition.z + progress * 800 ) % 30 ) - 30;\n\t\t\n\t\t}\n\t\t\n\t}\n\n\trenderer.render( scene, camera );\n\n}"
+			"var path = '../assets/models/forest/';\nvar files = [\n\t'mdl_env_1_forest_flower_a_v01.fbx',\n\t'mdl_env_1_forest_grass_a01_v01.fbx',\n\t'mdl_env_1_forest_grass_a02_v01.fbx',\n\t'mdl_env_1_forest_grass_b01_v01.fbx',\n\t'mdl_env_1_forest_grass_b02_v01.fbx',\n\t'mdl_env_1_forest_grass_c01_v01.fbx',\n\t'mdl_env_1_forest_grass_c02_v01.fbx',\n\t'mdl_env_1_forest_grass_c03_v01.fbx',\n\t'mdl_env_1_forest_rock_a_v01.fbx',\n\t'mdl_env_1_forest_rock_b_v01.fbx',\n\t'mdl_env_1_forest_tree_a_v01.fbx',\n\t'mdl_env_1_forest_tree_b_v01.fbx',\n\t'mdl_env_1_forest_tree_c_v01.fbx',\n\t'mdl_env_1_forest_tree_d_v01.fbx'\n];\n\nvar dolly = FRAME.getResource( 'dolly' );\nvar scene = FRAME.getResource( 'scene' );\n\nvar group = new THREE.Scene();\n\nvar ground = new THREE.Mesh(\n\tnew THREE.PlaneBufferGeometry( 70, 70 ),\n\tnew THREE.MeshBasicMaterial({\n\t\tcolor: 0x72fa8c\n\t})\n);\nground.rotation.x = - Math.PI / 2;\ngroup.add( ground );\n\nvar loader = new THREE.FBXLoader();\n\nfiles.forEach(function(file) {\n\tloader.load(path + file, function(obj) {\n\n\t\tobj.position.x = Math.random() * 10 - 5;\n\t\tobj.position.z = Math.random() * 10 - 5;\n\t\tobj.userData.startPosition = obj.position.clone();\n\t\tgroup.add( obj );\n\t\n\t});\n});\n\n// function init(){}\n\nfunction start(){\n\n\tscene.add( group );\n\n}\n\nfunction end() {\n\t\n\tscene.remove( group );\n\t\n}\n\nfunction update( progress ){\n\t\n\tdolly.position.set( 0, 0.6, 1.5 );\n\tdolly.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\t\n\tfor ( var i = 0; i < group.children.length; i ++ ) {\n\n\t\tvar mesh = group.children[ i ];\n\t\tvar startPosition = mesh.userData.startPosition;\n\n\t\tif ( startPosition !== undefined ) {\n\n\t\t\tmesh.position.z = ( ( startPosition.z + progress * 800 ) % 30 ) - 30;\n\t\t\n\t\t}\n\t\t\n\t}\n\n}"
 		],
 		[
 			"Effect",
-			"var dolly = FRAME.getResource( 'dolly' );\nvar camera = FRAME.getResource( 'camera' );\nvar scene = FRAME.getResource( 'scene' );\nvar renderer = FRAME.getResource( 'renderer' );\n\n// House\n\nvar group = new THREE.Group();\n\nvar geometry = new THREE.BoxBufferGeometry( 4, 4, 4 );\ngeometry.translate( 0, 2, 0 );\n\nvar material = new THREE.MeshNormalMaterial( { side: THREE.BackSide } );\nvar mesh = new THREE.Mesh( geometry, material );\ngroup.add( mesh );\n\n// function init(){}\n\nfunction start(){\n\t\n\tscene.add( group );\n\t\n}\n\nfunction end() {\n\t\n\tscene.remove( group );\n\t\n}\n\nfunction update( progress ){\n\n\tdolly.position.set( Math.sin( progress * 80 ) * 1.5, 0.6, Math.cos( progress * 80 ) * 1.5 );\n\tdolly.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\n\trenderer.render( scene, camera );\n\n}"
+			"var dolly = FRAME.getResource( 'dolly' );\nvar scene = FRAME.getResource( 'scene' );\n\n// House\n\nvar group = new THREE.Group();\n\nvar geometry = new THREE.BoxBufferGeometry( 4, 4, 4 );\ngeometry.translate( 0, 2, 0 );\n\nvar material = new THREE.MeshNormalMaterial( { side: THREE.BackSide } );\nvar mesh = new THREE.Mesh( geometry, material );\ngroup.add( mesh );\n\n// function init(){}\n\nfunction start(){\n\t\n\tscene.add( group );\n\t\n}\n\nfunction end() {\n\t\n\tscene.remove( group );\n\t\n}\n\nfunction update( progress ){\n\n\tdolly.position.set( Math.sin( progress * 80 ) * 1.5, 0.6, Math.cos( progress * 80 ) * 1.5 );\n\tdolly.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\n}"
 		],
 		[
 			"Effect",
-			"var dolly = FRAME.getResource( 'dolly' );\nvar camera = FRAME.getResource( 'camera' );\nvar scene = FRAME.getResource( 'scene' );\nvar renderer = FRAME.getResource( 'renderer' );\n\nvar group = new THREE.Group();\n\nvar ground = new THREE.Mesh(\n\tnew THREE.PlaneBufferGeometry( 70, 70 ),\n\tnew THREE.MeshBasicMaterial({\n\t\tcolor: 0x72fa8c\n\t})\n);\nground.rotation.x = - Math.PI / 2;\ngroup.add( ground );\n\nvar geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );\ngeometry.translate( 0, 0.5, 0 );\n\nfor ( var i = 0; i < 20; i ++ ) {\n\n\tvar mesh = new THREE.Mesh( geometry );\n\tmesh.position.x = Math.random() * 20 - 10;\n\tmesh.position.z = Math.random() * 20 - 10;\n\tmesh.scale.y = Math.random() * 4.0 + 1;\n\tmesh.userData.startPosition = mesh.position.clone();\n\tgroup.add( mesh );\t\n\n}\n\n// function init(){}\n\nfunction start(){\n\t\n\tscene.add( group );\n}\n\nfunction end() {\n\t\n\tscene.remove( group );\n\t\n}\n\nfunction update( progress ){\n\t\n\tdolly.position.set( 0, 0.6, 1.5 );\n\tdolly.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\t\n\tfor ( var i = 0; i < group.children.length; i ++ ) {\n\n\t\tvar mesh = group.children[ i ];\n\t\tvar startPosition = mesh.userData.startPosition;\n\n\t\tif ( startPosition !== undefined ) {\n\n\t\t\tmesh.position.z = ( ( startPosition.z + progress * 800 ) % 30 ) - 30;\n\t\t\n\t\t}\n\t\t\n\t}\n\n\trenderer.render( scene, camera );\n\n}"
+			"var dolly = FRAME.getResource( 'dolly' );\nvar scene = FRAME.getResource( 'scene' );\n\nvar group = new THREE.Group();\n\nvar ground = new THREE.Mesh(\n\tnew THREE.PlaneBufferGeometry( 70, 70 ),\n\tnew THREE.MeshBasicMaterial({\n\t\tcolor: 0x72fa8c\n\t})\n);\nground.rotation.x = - Math.PI / 2;\ngroup.add( ground );\n\nvar geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );\ngeometry.translate( 0, 0.5, 0 );\n\nfor ( var i = 0; i < 20; i ++ ) {\n\n\tvar mesh = new THREE.Mesh( geometry );\n\tmesh.position.x = Math.random() * 20 - 10;\n\tmesh.position.z = Math.random() * 20 - 10;\n\tmesh.scale.y = Math.random() * 4.0 + 1;\n\tmesh.userData.startPosition = mesh.position.clone();\n\tgroup.add( mesh );\t\n\n}\n\n// function init(){}\n\nfunction start(){\n\t\n\tscene.add( group );\n}\n\nfunction end() {\n\t\n\tscene.remove( group );\n\t\n}\n\nfunction update( progress ){\n\t\n\tdolly.position.set( 0, 0.6, 1.5 );\n\tdolly.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );\n\t\n\tfor ( var i = 0; i < group.children.length; i ++ ) {\n\n\t\tvar mesh = group.children[ i ];\n\t\tvar startPosition = mesh.userData.startPosition;\n\n\t\tif ( startPosition !== undefined ) {\n\n\t\t\tmesh.position.z = ( ( startPosition.z + progress * 800 ) % 30 ) - 30;\n\t\t\n\t\t}\n\t\t\n\t}\n\n}"
 		],
 		[
 			"Effect",
@@ -66,6 +66,10 @@
 		[
 			"Effect",
 			"var controls = FRAME.getResource( 'controls' );\n\nfunction update( progress ){\n\n\tcontrols.update();\n\n}"
+		],
+		[
+			"Effect",
+			"var parameters = {\n\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )\n};\n\nvar camera = FRAME.getResource( 'camera' );\nvar scene = FRAME.getResource( 'scene' );\nvar renderer = FRAME.getResource( 'renderer' );\n\n// function init(){}\n\nfunction start(){}\n\nfunction end(){}\n\nfunction update( progress ){\n\n\trenderer.render( scene, camera );\n\n}"
 		]
 	],
 	"animations": [
@@ -73,28 +77,35 @@
 			"VR Update",
 			0,
 			266.5340909090911,
-			0,
+			3,
 			9
+		],
+		[
+			"Render",
+			0,
+			262.38197327452,
+			4,
+			10
 		],
 		[
 			"Stage 1: Forest",
 			0,
-			73.75129510838185,
-			1,
+			73.75129510838187,
+			0,
 			1
 		],
 		[
 			"Stage 2: House",
-			73.7504504504504,
-			184.9931190030203,
-			1,
+			73.75257811002484,
+			184.9952466625948,
+			0,
 			2
 		],
 		[
 			"Stage 3: City",
-			153.01310043668113,
-			232.49535420775473,
-			2,
+			153.02143377001445,
+			232.50368754108806,
+			1,
 			3
 		],
 		[
