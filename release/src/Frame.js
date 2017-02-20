@@ -209,6 +209,64 @@ var FRAME = ( function () {
 				curves: curves,
 				animations: animations,
 
+				load: function ( url, onLoad ) {
+
+					var scope = this;
+
+					var request = new XMLHttpRequest();
+					request.open( 'GET', url, true );
+					request.addEventListener( 'load', function ( event ) {
+
+						var json = JSON.parse( event.target.response );
+
+						var includes = json.includes;
+
+						for ( var i = 0, l = includes.length; i < l; i ++ ) {
+
+							var include = includes[ i ];
+
+							var script = document.createElement( 'script' );
+							script.textContent = include[ 1 ];
+							document.head.appendChild( script );
+
+						}
+
+						var library = [];
+						var effects = json.effects;
+
+						for ( var i = 0, l = effects.length; i < l; i ++ ) {
+
+							var data = effects[ i ];
+
+							library.push( new FRAME.Effect( data[ 0 ], data[ 1 ] ) );
+
+						}
+
+						var animations = json.animations;
+
+						for ( var i = 0, l = animations.length; i < l; i ++ ) {
+
+							var data = animations[ i ];
+
+							var animation = new FRAME.Animation(
+								data[ 0 ],
+								data[ 1 ],
+								data[ 2 ],
+								data[ 3 ],
+								library[ data[ 4 ] ]
+							);
+
+							scope.add( animation );
+
+						}
+
+						if ( onLoad ) onLoad();
+
+					} );
+					request.send( null );
+
+				},
+
 				add: function ( animation ) {
 
 					animations.push( animation );

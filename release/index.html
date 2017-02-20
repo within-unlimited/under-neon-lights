@@ -35,36 +35,19 @@
 		<script src="src/WebAudio.js"></script>
 		<script>
 
-			FRAME.setDOM( document.getElementById( 'container' ) );
-
 			var audio = new WebAudio();
 			audio.src = '../assets/audio/03 Under Neon Lights.mp3';
 
-			var timeline = new FRAME.Timeline();
-
 			//
 
+			FRAME.setDOM( document.getElementById( 'container' ) );
+
+			var buttonPlay = document.getElementById( 'buttonPlay' );
+			var buttonVR = document.getElementById( 'buttonVR' );
 			var effect;
 
-			var request = new XMLHttpRequest();
-			request.open( 'GET', 'neon-lights.json', true );
-			request.addEventListener( 'load', function ( event ) {
-
-				var json = JSON.parse( event.target.response );
-
-				var includes = json.includes;
-
-				for ( var i = 0, l = includes.length; i < l; i ++ ) {
-
-					var include = includes[ i ];
-
-					var script = document.createElement( 'script' );
-					script.textContent = include[ 1 ];
-					document.head.appendChild( script );
-
-				}
-
-				// TOCLEAN
+			var timeline = new FRAME.Timeline();
+			timeline.load( 'neon-lights.json', function () {
 
 				effect = FRAME.getResource( 'effect' );
 				effect.requestAnimationFrame( animate );
@@ -89,39 +72,7 @@
 
 				} );
 
-				//
-
-				var library = [];
-				var effects = json.effects;
-
-				for ( var i = 0, l = effects.length; i < l; i ++ ) {
-
-					var data = effects[ i ];
-
-					library.push( new FRAME.Effect( data[ 0 ], data[ 1 ] ) );
-
-				}
-
-				var animations = json.animations;
-
-				for ( var i = 0, l = animations.length; i < l; i ++ ) {
-
-					var data = animations[ i ];
-
-					var animation = new FRAME.Animation(
-						data[ 0 ],
-						data[ 1 ],
-						data[ 2 ],
-						data[ 3 ],
-						library[ data[ 4 ] ]
-					);
-
-					timeline.add( animation );
-
-				}
-
 			} );
-			request.send( null );
 
 			//
 
