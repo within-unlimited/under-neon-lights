@@ -20,8 +20,8 @@
 				text-align: center;
 			}
 			#controls button {
-				font-size: 18px;
-				padding: 10px 20px;
+				font-size: 16px;
+				padding: 10px;
 			}
 		</style>
 	</head>
@@ -85,6 +85,7 @@
 				buttonPlay.addEventListener( 'click', function () {
 
 					audio.paused ? audio.play() : audio.pause();
+					buttonPlay.textContent = audio.paused ? 'PLAY' : 'STOP';
 
 				} );
 
