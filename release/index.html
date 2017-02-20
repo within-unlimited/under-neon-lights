@@ -8,11 +8,6 @@
 				margin: 0;
 				height: 100%;
 			}
-			#audio {
-				position: absolute;
-				left: calc(50% - 150px);
-				bottom: 10px;
-			}
 			#container {
 				width: 100%;
 				height: 100%;
@@ -20,14 +15,16 @@
 		</style>
 	</head>
 	<body>
-		<audio id="audio" src="../assets/audio/03 Under Neon Lights.mp3" controls></audio>
 		<div id="container"></div>
 		<script src="src/Frame.js"></script>
+		<script src="src/WebAudio.js"></script>
 		<script>
 
 			FRAME.setDOM( document.getElementById( 'container' ) );
 
-			var audio = document.getElementById( 'audio' );
+			var audio = new WebAudio();
+			audio.src = '../assets/audio/03 Under Neon Lights.mp3';
+
 			var timeline = new FRAME.Timeline();
 
 			//
@@ -56,6 +53,15 @@
 
 				effect = FRAME.getResource( 'effect' );
 				effect.requestAnimationFrame( animate );
+
+				var daydream = FRAME.getResource( 'daydream' );
+				daydream.addEventListener( 'touchpadup', function () {
+
+					audio.paused ? audio.play() : audio.pause();
+
+				} );
+
+				//
 
 				var library = [];
 				var effects = json.effects;
@@ -91,47 +97,12 @@
 
 			//
 
-			/*
-			function findGamepad( id ) {
-
-				var gamepads = navigator.getGamepads();
-
-				for ( var i = 0; i < 4; i ++ ) {
-
-					var gamepad = gamepads[ i ];
-
-					if ( gamepad !== null && ( gamepad.id === id ) ) {
-
-						return gamepad;
-
-					}
-
-				}
-
-			}
-			*/
-
 			function animate() {
 
 				effect.requestAnimationFrame( animate );
-
-				/*
-				var gamepad = findGamepad( 'Daydream Controller' );
-
-				if ( gamepad !== undefined && gamepad.buttons[ 0 ].pressed ) {
-
-					audio.play();
-
-				}
-				*/
-
-				// timeline.update(  audio.currentTime );
-
-				timeline.update( performance.now() / 1000 );
+				timeline.update(  audio.currentTime );
 
 			}
-
-			// animate();
 
 		</script>
 	</body>

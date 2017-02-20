@@ -1,3 +1,7 @@
+/**
+ * @author mrdoob / http://mrdoob.com/
+ */
+
 var FRAME = ( function () {
 
 	var dom = null;
