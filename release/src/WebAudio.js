@@ -27,6 +27,7 @@ function WebAudio() {
 	function play() {
 
 		if ( paused === false ) return;
+		if ( buffer === undefined ) return; // TODO
 
 		source = context.createBufferSource();
 		source.buffer = buffer;
