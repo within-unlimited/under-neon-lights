@@ -51,3 +51,22 @@ body {
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+.vr-button {
+  position: absolute;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.3);
+  width: 80px;
+  left: calc(50% - 50px);
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+    background: rgba(0,0,0,0.5);
+  }
+}
