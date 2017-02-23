@@ -53,8 +53,6 @@ THREE.MouseControls = function( object, domElement ) {
     scope.destination.y += dx * scope.scale;
     scope.destination.x += dy * scope.scale;
 
-    scope.destination.x = clamp(scope.destination.x, - HALF_PI, HALF_PI);
-
     scope.mouse.set(x, y);
 
   };
@@ -90,13 +88,19 @@ THREE.MouseControls = function( object, domElement ) {
       return this;
     }
 
-    scope.object.rotation.x += ( scope.destination.x - scope.object.rotation.x ) * scope.drag;
-    scope.object.rotation.y += ( scope.destination.y - scope.object.rotation.y ) * scope.drag;
-    scope.object.rotation.z += ( scope.destination.z - scope.object.rotation.z ) * scope.drag;
+    var dx = clamp(scope.destination.x, - HALF_PI, HALF_PI);;
+    var dy = scope.destination.y;
+    var dz = scope.destination.z;
+
+    scope.object.rotation.x += ( dx - scope.object.rotation.x ) * scope.drag;
+    scope.object.rotation.y += ( dy - scope.object.rotation.y ) * scope.drag;
+    scope.object.rotation.z += ( dz - scope.object.rotation.z ) * scope.drag;
 
     return this;
 
   };
+
+  THREE.MouseControls.clamp = clamp;
 
   function clamp(v, min, max) {
     return Math.min(Math.max(v, min), max);
