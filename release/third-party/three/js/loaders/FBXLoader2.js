@@ -251,21 +251,24 @@
 
 					var FBX_ID = textureNode.id;
 					var name = textureNode.name;
-					var filePath = textureNode.properties.FileName;
-					var split = filePath.split( /[\\\/]/ );
-					if ( split.length > 0 ) {
+					// todo: paths are specific to maya and neon lights, don't use this anywhere else :P
+					var filePath = textureNode.properties.RelativeFilename
+						.replace(/\\/g, '/').replace(/\.\./i, '/assets');
+					// var filePath = textureNode.properties.FileName;
+					// var split = filePath.split( /[\\\/]/ );
+					// if ( split.length > 0 ) {
 
-						var fileName = split[ split.length - 1 ];
+					// 	var fileName = split[ split.length - 1 ];
 
-					} else {
+					// } else {
 
-						var fileName = filePath;
+					// 	var fileName = filePath;
 
-					}
+					// }
 					/**
 					 * @type {THREE.Texture}
 					 */
-					var texture = loader.textureLoader.load( resourceDirectory + '/' + fileName );
+					var texture = loader.textureLoader.load( filePath );
 					texture.name = name;
 					texture.FBX_ID = FBX_ID;
 
