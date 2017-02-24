@@ -161,11 +161,14 @@ var FRAME = ( function () {
 		Effect: function ( name, source ) {
 
 			this.name = name;
-			this.source = source || 'var parameters = {\n\tvalue: new FRAME.Parameters.Float( \'Value\', 1.0 )\n};\n\n// function init(){}\n\nfunction start(){}\n\nfunction end(){}\n\nfunction update( progress ){}';
+			this.source = source || 'var name = \'Effect\';\n\nvar parameters = {\n\tvalue: new FRAME.Parameters.Float( \'Value\', 1.0 )\n};\n\n// function init(){}\n\nfunction start(){}\n\nfunction end(){}\n\nfunction update( progress ){}';
 			this.program = null;
 			this.compile = function () {
 
-				this.program = ( new Function( 'parameters, init, start, end, update', this.source + '\nreturn { parameters: parameters, init: init, start: start, end: end, update: update };' ) )();
+				this.program = ( new Function( 'name, parameters, init, start, end, update', this.source + '\nreturn { parameters: parameters, init: init, start: start, end: end, update: update, name: name };' ) )();
+				if ( this.program.name && this.program.name !== this.name ) {
+					this.name = this.program.name;
+				}
 
 			};
 
