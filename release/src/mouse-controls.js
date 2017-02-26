@@ -34,6 +34,9 @@ THREE.MouseControls = function( object, domElement ) {
     window.addEventListener('mousemove', mousemove, false);
     window.addEventListener('mouseup', mouseup, false);
     scope.dragging = true;
+    if (scope._onTriggerDown) {
+      scope._onTriggerDown();
+    }
 
   };
 
@@ -62,6 +65,9 @@ THREE.MouseControls = function( object, domElement ) {
     window.removeEventListener('mousemove', mousemove, false);
     window.removeEventListener('mouseup', mouseup, false);
     scope.dragging = false;
+    if (scope._onTriggerUp) {
+      scope._onTriggerUp();
+    }
   };
 
   this.connect = function() {
