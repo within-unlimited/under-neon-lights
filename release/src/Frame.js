@@ -229,7 +229,7 @@ var FRAME = ( function () {
 							var include = includes[ i ];
 
 							var script = document.createElement( 'script' );
-							script.textContent = include[ 1 ];
+							script.textContent = '( function () { ' + include[ 1 ] + '} )()';
 							document.head.appendChild( script );
 
 						}
