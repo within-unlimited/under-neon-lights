@@ -49,7 +49,7 @@
 
 		<script>
 
-			var audio = new WebAudio();
+			var audio = new Audio();
 			audio.src = '../assets/audio/03 Under Neon Lights.mp3';
 
 			//
@@ -58,7 +58,7 @@
 
 			var buttonPlay = document.getElementById( 'buttonPlay' );
 			var buttonVR = document.getElementById( 'buttonVR' );
-			var effect;
+			var effect, renderer;
 
 			var timeline = new FRAME.Timeline();
 			timeline.load( 'neon-lights.json', function () {
@@ -72,14 +72,12 @@
 
 				} );
 
-				/*
-				var daydream = FRAME.getResource( 'daydream' );
-				daydream.addEventListener( 'touchpadup', function () {
+				renderer = FRAME.getResource( 'renderer' );
+				renderer.domElement.addEventListener( 'click', function ( event ) {
 
 					audio.paused ? audio.play() : audio.pause();
 
 				} );
-				*/
 
 				buttonPlay.addEventListener( 'click', function () {
 
