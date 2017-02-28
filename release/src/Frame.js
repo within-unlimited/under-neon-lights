@@ -411,7 +411,7 @@ var FRAME = ( function () {
 
 					for ( i = 0, l = curves.length; i < l; i ++ ) {
 
-						curves[ i ].update( time );
+						curves[ i ].update( time, ( time - prevtime ) || 0 );
 
 					}
 
@@ -422,7 +422,7 @@ var FRAME = ( function () {
 					for ( i = 0, l = active.length; i < l; i ++ ) {
 
 						animation = active[ i ];
-						animation.effect.program.update( ( time - animation.start ) / ( animation.end - animation.start ) );
+						animation.effect.program.update( ( time - animation.start ) / ( animation.end - animation.start ), (time - prevtime) || 0 );
 
 					}
 
