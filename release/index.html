@@ -59,18 +59,19 @@
 				} );
 
 				renderer = FRAME.getResource( 'renderer' );
-				renderer.domElement.addEventListener( 'click', function ( event ) {
 
-					audio.paused ? audio.play() : audio.pause();
+				renderer.domElement.addEventListener( 'click', toggle );
+				buttonPlay.addEventListener( 'click', toggle );
 
-				} );
-
-				buttonPlay.addEventListener( 'click', function () {
+				function toggle () {
 
 					audio.paused ? audio.play() : audio.pause();
 					buttonPlay.textContent = audio.paused ? 'PLAY' : 'STOP';
+					if ( audio.paused ) {
+						timeline.pause();
+					}
 
-				} );
+				}
 
 			} );
 
@@ -79,7 +80,7 @@
 			function animate() {
 
 				effect.requestAnimationFrame( animate );
-				timeline.update(  audio.currentTime );
+				timeline.update( audio.currentTime );
 
 			}
 

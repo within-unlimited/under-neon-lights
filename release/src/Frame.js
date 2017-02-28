@@ -430,6 +430,18 @@ var FRAME = ( function () {
 
 				},
 
+				pause: function () {
+
+					while ( active.length ) {
+
+						var animation = active.pop();
+
+					}
+
+					next = 0;
+
+				},
+
 				reset: function () {
 
 					while ( active.length ) {
