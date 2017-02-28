@@ -214,59 +214,107 @@ var FRAME = ( function () {
 
 				load: function ( url, onLoad ) {
 
+					function loadFile( url, onLoad ) {
+
+						var request = new XMLHttpRequest();
+						request.open( 'GET', url, true );
+						request.addEventListener( 'load', function ( event ) {
+
+							onLoad( event.target.response );
+
+						} );
+						request.send( null );
+
+					}
+
+					function loadLibraries( libraries, onLoad ) {
+
+						var count = 0;
+
+						function loadNext() {
+
+							if ( count === libraries.length ) {
+
+								onLoad();
+								return;
+
+							}
+
+							var url = libraries[ count ++ ];
+
+							loadFile( url, function ( content ) {
+
+								var script = document.createElement( 'script' );
+								script.textContent = '( function () { ' + content + '} )()';
+								document.head.appendChild( script );
+
+								loadNext();
+
+							} );
+
+						}
+
+						loadNext();
+
+					}
+
 					var scope = this;
 
-					var request = new XMLHttpRequest();
-					request.open( 'GET', url, true );
-					request.addEventListener( 'load', function ( event ) {
+					loadFile( url, function ( contents ) {
 
 						var json = JSON.parse( event.target.response );
 
+						var libraries = json.libraries || [];
 						var includes = json.includes;
-
-						for ( var i = 0, l = includes.length; i < l; i ++ ) {
-
-							var include = includes[ i ];
-
-							var script = document.createElement( 'script' );
-							script.textContent = '( function () { ' + include[ 1 ] + '} )()';
-							document.head.appendChild( script );
-
-						}
-
-						var library = [];
 						var effects = json.effects;
-
-						for ( var i = 0, l = effects.length; i < l; i ++ ) {
-
-							var data = effects[ i ];
-
-							library.push( new FRAME.Effect( data[ 0 ], data[ 1 ] ) );
-
-						}
-
 						var animations = json.animations;
 
-						for ( var i = 0, l = animations.length; i < l; i ++ ) {
+						loadLibraries( libraries, function () {
 
-							var data = animations[ i ];
+							for ( var i = 0, l = includes.length; i < l; i ++ ) {
 
-							var animation = new FRAME.Animation(
-								data[ 0 ],
-								data[ 1 ],
-								data[ 2 ],
-								data[ 3 ],
-								library[ data[ 4 ] ]
-							);
+								var include = includes[ i ];
 
-							scope.add( animation );
+								var script = document.createElement( 'script' );
+								script.textContent = '( function () { ' + include[ 1 ] + '} )()';
+								document.head.appendChild( script );
 
-						}
+							}
 
-						if ( onLoad ) onLoad();
+							var library = [];
+							var effects = json.effects;
+
+							for ( var i = 0, l = effects.length; i < l; i ++ ) {
+
+								var data = effects[ i ];
+
+								library.push( new FRAME.Effect( data[ 0 ], data[ 1 ] ) );
+
+							}
+
+							var animations = json.animations;
+
+							for ( var i = 0, l = animations.length; i < l; i ++ ) {
+
+								var data = animations[ i ];
+
+								var animation = new FRAME.Animation(
+									data[ 0 ],
+									data[ 1 ],
+									data[ 2 ],
+									data[ 3 ],
+									library[ data[ 4 ] ]
+								);
+
+								scope.add( animation );
+
+							}
+
+							if ( onLoad ) onLoad();
+
+						} );
 
 					} );
-					request.send( null );
 
 				},
 

@@ -1,5 +1,18 @@
 {
 	"config": {},
+	"libraries": [
+		"../release/third-party/url.js",
+		"../release/third-party/has.js",
+		"../release/third-party/three.js",
+		"../release/third-party/three/js/effects/VREffect.js",
+		"../release/third-party/three/js/loaders/FBXLoader2.js",
+		"../release/third-party/three/js/controls/OrbitControls.js",
+		"../release/third-party/three/js/controls/DeviceOrientationControls.js",
+		"../release/third-party/three/js/controls/VRControls.js",
+		"../release/third-party/three/js/vr/DaydreamController.js",
+		"../release/third-party/orientation-arm-model.js",
+		"../release/third-party/three/js/vr/ViveController.js"
+	],
 	"includes": [
 		[
 			"Setup",
