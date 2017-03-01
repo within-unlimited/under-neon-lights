@@ -262,7 +262,7 @@ var FRAME = ( function () {
 
 					loadFile( url, function ( contents ) {
 
-						var json = JSON.parse( event.target.response );
+						var json = JSON.parse( contents );
 
 						var libraries = json.libraries || [];
 						var includes = json.includes;
