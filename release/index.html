@@ -31,26 +31,12 @@
 			<button id="buttonPlay">PLAY</button>
 			<button id="buttonVR">ENTER VR</button>
 		</div>
+		<script src="../editor/js/libs/signals.min.js"></script>
 		<script src="src/Frame.js"></script>
-		<script src="src/WebAudio.js"></script>
-
-		<script src="../release/third-party/url.js"></script>
-		<script src="../release/third-party/has.js"></script>
-		<script src="../release/third-party/three.js"></script>
-
-		<script src="../release/third-party/three/js/effects/VREffect.js"></script>
-		<script src="../release/third-party/three/js/loaders/FBXLoader2.js"></script>
-		<script src="../release/third-party/three/js/controls/OrbitControls.js"></script>
-		<script src="../release/third-party/three/js/controls/DeviceOrientationControls.js"></script>
-		<script src="../release/third-party/three/js/controls/VRControls.js"></script>
-		<script src="../release/third-party/three/js/vr/DaydreamController.js"></script>
-		<script src="../release/third-party/orientation-arm-model.js"></script>
-		<script src="../release/third-party/three/js/vr/ViveController.js"></script>
-
 		<script>
 
 			var audio = new Audio();
-			audio.src = '../assets/audio/03 Under Neon Lights.mp3';
+			audio.src = /localhost/.test(window.location.href) ? '../assets/audio/03 Under Neon Lights.mp3' : '//player-dev.cabrilleros.com/NEON_LIGHTS/assets/audio/03 Under Neon Lights.mp3';
 
 			//
 
@@ -73,18 +59,19 @@
 				} );
 
 				renderer = FRAME.getResource( 'renderer' );
-				renderer.domElement.addEventListener( 'click', function ( event ) {
 
-					audio.paused ? audio.play() : audio.pause();
+				renderer.domElement.addEventListener( 'click', toggle );
+				buttonPlay.addEventListener( 'click', toggle );
 
-				} );
-
-				buttonPlay.addEventListener( 'click', function () {
+				function toggle () {
 
 					audio.paused ? audio.play() : audio.pause();
 					buttonPlay.textContent = audio.paused ? 'PLAY' : 'STOP';
+					if ( audio.paused ) {
+						timeline.pause();
+					}
 
-				} );
+				}
 
 			} );
 
@@ -93,7 +80,7 @@
 			function animate() {
 
 				effect.requestAnimationFrame( animate );
-				timeline.update(  audio.currentTime );
+				timeline.update( audio.currentTime );
 
 			}
 

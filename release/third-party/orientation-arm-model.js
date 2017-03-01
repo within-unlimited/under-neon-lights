@@ -24,7 +24,7 @@ var MIN_ANGULAR_SPEED = 0.61; // 35 degrees per second (in radians).
 // the controller. Update it on a RAF.
 // Get the model's pose using getPose().
 
-var OrientationArmModel = function () {
+var OrientationArmModel = this.OrientationArmModel = function () {
   this.isLeftHanded = false;
 
   // Current and previous controller orientations.
