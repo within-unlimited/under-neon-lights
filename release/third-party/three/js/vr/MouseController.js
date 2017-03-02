@@ -43,8 +43,8 @@ THREE.MouseController = function ( domElement ) {
 	};
 
 	domElement.addEventListener( 'mousedown', mousedown, false );
-	domElement.addEventListener( 'mousemove', mousemove, false );
-	domElement.addEventListener( 'mouseup', mouseup, false );
+	window.addEventListener( 'mousemove', mousemove, false );
+	window.addEventListener( 'mouseup', mouseup, false );
 	domElement.addEventListener( 'resize', resize, false );
 
 	this.update = function () {
