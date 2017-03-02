@@ -3,7 +3,6 @@
 	"libraries": [
 		"../release/third-party/url.js",
 		"../release/third-party/has.js",
-		"../release/third-party/sound.js",
 		"../release/third-party/signals.min.js",
 		"../release/third-party/three.js",
 		"../release/third-party/three/js/effects/VREffect.js",
