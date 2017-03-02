@@ -60,7 +60,9 @@
 
 				renderer = FRAME.getResource( 'renderer' );
 
-				renderer.domElement.addEventListener( 'click', toggle );
+				renderer.domElement.addEventListener( 'click', function () {
+					if ( audio.paused ) audio.play()
+				} );
 				buttonPlay.addEventListener( 'click', toggle );
 
 				function toggle () {
