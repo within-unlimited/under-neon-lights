@@ -7,6 +7,7 @@
 			html, body {
 				margin: 0;
 				height: 100%;
+				overflow: hidden;
 			}
 			#container {
 				width: 100%;
@@ -31,46 +32,61 @@
 			<button id="buttonPlay">PLAY</button>
 			<button id="buttonVR">ENTER VR</button>
 		</div>
-		<script src="../editor/js/libs/signals.min.js"></script>
 		<script src="src/Frame.js"></script>
 		<script>
 
-			var audio = new Audio();
-			audio.src = /localhost/.test(window.location.href) ? '../assets/audio/03 Under Neon Lights.mp3' : '//player-dev.cabrilleros.com/NEON_LIGHTS/assets/audio/03 Under Neon Lights.mp3';
-
-			//
-
-			FRAME.setDOM( document.getElementById( 'container' ) );
-
 			var buttonPlay = document.getElementById( 'buttonPlay' );
 			var buttonVR = document.getElementById( 'buttonVR' );
-			var effect, renderer;
+			var effect, renderer, sound;
+
+			var src = /localhost/.test(window.location.href)
+				? '../assets/audio/03 Under Neon Lights.mp3'
+				: '//player-dev.cabrilleros.com/NEON_LIGHTS/assets/audio/03 Under Neon Lights.mp3';
+
+				//
+
+			FRAME.setDOM( document.getElementById( 'container' ) );
 
 			var timeline = new FRAME.Timeline();
 			timeline.load( 'neon-lights.json', function () {
 
-				effect = FRAME.getResource( 'effect' );
-				effect.requestAnimationFrame( animate );
+				sound = new Sound( src, function () {
 
-				buttonVR.addEventListener( 'click', function () {
+					effect = FRAME.getResource( 'effect' );
+					effect.requestAnimationFrame( animate );
 
-					effect.requestPresent();
+					buttonVR.addEventListener( 'click', function () {
+
+						if ( buttonVR.isPresenting ) {
+
+							buttonVR.textContent = 'ENTER VR';
+							effect.exitPresent();
+							buttonVR.isPresenting = false;
+
+						} else {
+
+							buttonVR.textContent = 'EXIT VR';
+							effect.requestPresent();
+							buttonVR.isPresenting = true;
+
+						}
+
+					} );
+
+					renderer = FRAME.getResource( 'renderer' );
+					buttonPlay.addEventListener( 'click', toggle );
 
 				} );
-
-				renderer = FRAME.getResource( 'renderer' );
-
-				renderer.domElement.addEventListener( 'click', function () {
-					if ( audio.paused ) audio.play()
-				} );
-				buttonPlay.addEventListener( 'click', toggle );
 
 				function toggle () {
 
-					audio.paused ? audio.play() : audio.pause();
-					buttonPlay.textContent = audio.paused ? 'PLAY' : 'STOP';
-					if ( audio.paused ) {
+					if ( sound.playing ) {
+						sound.pause();
+						buttonPlay.textContent = 'PLAY';
 						timeline.pause();
+					} else {
+						sound.play();
+						buttonPlay.textContent = 'PAUSE';
 					}
 
 				}
@@ -82,7 +98,7 @@
 			function animate() {
 
 				effect.requestAnimationFrame( animate );
-				timeline.update( audio.currentTime );
+				timeline.update( sound.currentTime );
 
 			}
 

@@ -32,10 +32,11 @@
     this.url = url;
 
     this._ended = function() {
+      scope._offset = scope.currentTime;
       scope.playing = false;
     };
 
-    Sound.load(url, function(buffer) {
+    var assignBuffer = function(buffer) {
 
       scope.buffer = buffer;
 
@@ -47,7 +48,24 @@
         callback(scope);
       }
 
-    });
+    };
+
+    switch (typeof url) {
+
+      case 'string':
+        this.url = url;
+        Sound.load(url, assignBuffer);
+        break;
+
+      case 'array':
+      case 'object':
+        assignBuffer(url);
+        break;
+
+      default:
+        throw new Error('Sound.js: no audio information supplied.')
+
+    }
 
   };
 
@@ -162,24 +180,29 @@
 
     pause: function(options) {
 
-      Sound.prototype.stop.apply(this, arguments);
-
-      if (this.source && this.playing) {
-
-        var currentTime = ctx.currentTime;
-        if (options.time != 'undefined') {
-          currentTime = options.time;
-        }
-
-        this._offset = currentTime - this._startTime;
-
-        if (this._loop) {
-          this._offset = Math.max(this._offset, 0.0) % this.buffer.duration;
-        } else {
-          this._offset = Math.min(Math.max(this._offset, 0.0), this.buffer.duration);
-        }
-
+      if (!this.source || !this.playing) {
+        return this;
       }
+
+      var params = defaults(options || {}, {
+        time: ctx.currentTime
+      });
+
+      this._offset = this.currentTime;
+
+      if (this._loop) {
+        this._offset = Math.max(this._offset, 0.0) % this.buffer.duration;
+      } else {
+        this._offset = Math.min(Math.max(this._offset, 0.0), this.buffer.duration);
+      }
+
+      if (this.source.stop) {
+        this.source.stop(params.time);
+      } else if (this.source.noteOff) {
+        this.source.noteOff(params.time);
+      }
+
+      this.playing = false;
 
       return this;
 
@@ -203,7 +226,6 @@
 
       this.playing = false;
       this._offset = 0;
-
       return this;
 
     }
@@ -211,6 +233,8 @@
   });
 
   Object.defineProperty(Sound.prototype, 'loop', {
+
+    enumerable: true,
 
     get: function() {
       return this._loop;
@@ -227,6 +251,8 @@
 
   Object.defineProperty(Sound.prototype, 'volume', {
 
+    enumerable: true,
+
     get: function() {
       return this._volume;
     },
@@ -241,6 +267,8 @@
   });
 
   Object.defineProperty(Sound.prototype, 'speed', {
+
+    enumerable: true,
 
     get: function() {
       return this._speed;
@@ -257,8 +285,13 @@
 
   Object.defineProperty(Sound.prototype, 'currentTime', {
 
+    enumerable: true,
+
     get: function() {
-      return (ctx.currentTime - this._startTime) * this._speed;
+      if (this.playing) {
+        return (ctx.currentTime - this._startTime + this._offset) * this._speed;
+      }
+      return this._offset;
     },
 
     set: function(t) {
