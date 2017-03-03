@@ -4,6 +4,7 @@
 		"../release/third-party/url.js",
 		"../release/third-party/has.js",
 		"../release/third-party/signals.min.js",
+		"../release/third-party/tween.js",
 		"../release/third-party/three.js",
 		"../release/third-party/three/js/effects/VREffect.js",
 		"../release/third-party/three/js/loaders/FBXLoader2.js",
