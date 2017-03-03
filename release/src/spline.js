@@ -226,8 +226,8 @@ Spline.prototype.update = function( obj ) {
   var lookAt = curve.getPointAt( ( t + 30 / curve.getLength() ) % 1 );
 
   // Camera Orientation 2 - up orientation via normal
-  if ( !this.lookAhead ) lookAt.copy( pos ).add( dir.multiplyScalar(-1) );
-  obj.matrix.lookAt(obj.position, lookAt, this.normal.multiplyScalar(-1) );
+  if ( !this.lookAhead ) lookAt.copy( pos ).add( dir.negate() );
+  obj.matrix.lookAt(obj.position, lookAt, this.normal.negate() );
   obj.rotation.setFromRotationMatrix( obj.matrix, obj.rotation.order );
 
 };
