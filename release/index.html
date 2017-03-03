@@ -32,6 +32,7 @@
 			<button id="buttonPlay">PLAY</button>
 			<button id="buttonVR">ENTER VR</button>
 		</div>
+		<script src="third-party/has.js"></script>
 		<script src="src/Frame.js"></script>
 		<script src="third-party/sound.js"></script>
 		<script>
@@ -41,8 +42,10 @@
 			var effect, renderer, sound;
 
 			var src = /localhost/.test(window.location.href)
-				? '../assets/audio/03 Under Neon Lights.mp3'
-				: '//player-dev.cabrilleros.com/NEON_LIGHTS/assets/audio/03 Under Neon Lights.mp3';
+				? '../assets/audio/03 Under Neon Lights'
+				: '//player-dev.cabrilleros.com/NEON_LIGHTS/assets/audio/03 Under Neon Lights';
+
+			src += has.Chromium ? '.ogg' : '.mp3';
 
 				//
 
