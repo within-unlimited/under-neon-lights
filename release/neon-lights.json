@@ -1098,7 +1098,7 @@
 				"var direction = {",
 				"\tdestination: 0,",
 				"\tcurrent: 0,",
-				"\tdrag: 0.0625,",
+				"\tdrag: 0.125,",
 				"\tclear: function() {",
 				"\t\tdirection.destination = direction.current = 0;",
 				"\t}",
