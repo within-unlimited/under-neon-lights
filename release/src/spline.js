@@ -1,14 +1,16 @@
 
-var Spline = function(scale, closed) {
+var Spline = function( opts ) {
+
+  // opts: scale, closed, duration, yoyo, visible
 
   this.splineHelperObjects = [];
   this.splinePointsLength = 4;
   this.positions = [];
 
-  this.scale = scale || 1;
-  var size = 20 * scale;
+  this.scale = opts.scale || 1;
+  var size = 20 * this.scale;
   this.helperGeo = new THREE.BoxGeometry( size, size, size );
-  this._visible = true;
+  this._visible = opts.visible || false;
 
   this.ARC_SEGMENTS = 200;
 
@@ -29,12 +31,12 @@ var Spline = function(scale, closed) {
   // how to update duration when adding or modifying point? create new tween?
   this.pct = { t: 0 };
   this.tween = new TWEEN.Tween( this.pct )
-    .to({ t: 1 }, 2000)
+    .to({ t: 1 }, opts.duration || 2000)
     .onUpdate(function() {
       // scope.update();
     })
     .repeat( Infinity )
-    .yoyo( true );
+    .yoyo( opts.yoyo || false );
 
   // --------------------------------------------
 
@@ -61,7 +63,7 @@ var Spline = function(scale, closed) {
 
   var curve = this.curve = new THREE.CatmullRomCurve3( this.positions );
   curve.type = 'centripetal';
-  curve.closed = closed || false;
+  curve.closed = opts.closed || false;
   curve.tension = 0.5; // only for uniform 'catmullrom' curve.type
 
   this.curveMesh = new THREE.Line(
@@ -72,6 +74,8 @@ var Spline = function(scale, closed) {
       linewidth: 2
     })
   );
+
+  this.curveMesh.visible = this._visible;
 
   scene.add( this.curveMesh );
 
@@ -86,6 +90,8 @@ Spline.prototype.addSplineObject = function( position ) {
     } )
   );
 
+  object.visible = this._visible;
+
   if ( position ) {
 
     object.position.copy( position );
@@ -99,8 +105,6 @@ Spline.prototype.addSplineObject = function( position ) {
 
   }
 
-  object.castShadow = true;
-  object.receiveShadow = true;
   scene.add( object );
   this.splineHelperObjects.push( object );
   return object;
