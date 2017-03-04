@@ -274,7 +274,7 @@ var FRAME = ( function () {
 
 								var source = data[ 1 ];
 
-								if ( Array.isArray( source ) ) source = string.join( '\n' );
+								if ( Array.isArray( source ) ) source = source.join( '\n' );
 
 								var script = document.createElement( 'script' );
 								script.textContent = '( function () { ' + source + '} )()';
