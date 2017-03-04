@@ -982,6 +982,7 @@
 		[
 			"House",
 			[
+				"var annie = FRAME.getResource( 'annie' );",
 				"var dolly = FRAME.getResource( 'dolly' );",
 				"var scene = FRAME.getResource( 'scene' );",
 				"",
@@ -1012,6 +1013,8 @@
 				"",
 				"function update( progress ){",
 				"",
+				"\tannie.userData.play( 'run' );",
+				"\t",
 				"\tdolly.position.set( Math.sin( progress * 80 ) * 2, 0.6, Math.cos( progress * 80 ) * 2 );",
 				"\tdolly.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );",
 				"",
@@ -1119,8 +1122,6 @@
 				"} );",
 				"",
 				"function start () {",
-				"",
-				"\tannie.userData.play( 'run' );",
 				"\t",
 				"\tdolly.position.set( 0, 0.6, - 2 );",
 				"\tdolly.lookAt( new THREE.Vector3( 0, 0.6, 0 ) );",
@@ -1142,6 +1143,8 @@
 				"\t\tmaterial.uniforms.time.value += (dt || 0 ) * 4;",
 				"\t}",
 				"",
+				"\tannie.userData.play( 'run' );",
+				"\t",
 				"\tvar animation = annie.userData.currentAnimation;",
 				"\t",
 				"\tif ( controllers.dragging() ) {",
@@ -1216,15 +1219,17 @@
 		[
 			"Effect",
 			[
-				"var parameters = {",
-				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
-				"};",
+				"var annie = FRAME.getResource( 'annie' );",
 				"",
 				"// function init(){}",
 				"",
 				"function start(){}",
 				"",
-				"function update( progress ){}"
+				"function update( progress ){",
+				"",
+				"\tannie.userData.play( 'run' );",
+				"",
+				"}"
 			]
 		],
 		[
