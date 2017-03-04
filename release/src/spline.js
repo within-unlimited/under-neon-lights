@@ -1,11 +1,13 @@
 
-var Spline = function() {
+var Spline = function(scale, closed) {
 
   this.splineHelperObjects = [];
   this.splinePointsLength = 4;
   this.positions = [];
 
-  this.helperGeo = new THREE.BoxGeometry( 20, 20, 20 );
+  this.scale = scale || 1;
+  var size = 20 * scale;
+  this.helperGeo = new THREE.BoxGeometry( size, size, size );
   this._visible = true;
 
   this.ARC_SEGMENTS = 200;
@@ -59,7 +61,7 @@ var Spline = function() {
 
   var curve = this.curve = new THREE.CatmullRomCurve3( this.positions );
   curve.type = 'centripetal';
-  curve.closed = false;
+  curve.closed = closed || false;
   curve.tension = 0.5; // only for uniform 'catmullrom' curve.type
 
   this.curveMesh = new THREE.Line(
@@ -90,10 +92,10 @@ Spline.prototype.addSplineObject = function( position ) {
 
   } else {
 
-    object.position.x = Math.random() * 1000 - 500;
-    // object.position.y = Math.random() * 600;
+    object.position.x = THREE.Math.randFloatSpread( 1000 * this.scale );
+    // object.position.y = Math.random() * 600 * this.scale;
     object.position.y = 0;
-    object.position.z = Math.random() * 800 - 400;
+    object.position.z = THREE.Math.randFloatSpread( 800 * this.scale );
 
   }
 
