@@ -436,13 +436,6 @@ var FRAME = ( function () {
 
 				},
 
-				pause: function () {
-
-					active.length = 0;
-					next = 0;
-
-				},
-
 				reset: function () {
 
 					while ( active.length ) {
