@@ -27,7 +27,7 @@ void main() {
   vec4 pos0 = texture2D(tPrevPos, uv);
 
   float tailNorm = 2.0 - tail;
-  vec2 uvBiased = (uv - vec2(0.5)) * rand(uv) + vec2(0.5);
+  vec2 uvBiased = (uv - vec2(0.5)) * rand(uv + vec2(fTime, fTimeDelta)) + vec2(0.5);
 
   vec4 posInit = texture2D(tInit, uvBiased);
   vec4 sPosInit = mProjectionMatrix * mModelViewMatrix * vec4(posInit.xyz, 1.0);
