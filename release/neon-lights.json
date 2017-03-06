@@ -75,7 +75,7 @@
 				"\t\t\tcontrols.virtualReality.setVRDisplay( hmd );",
 				"",
 				"\t\t\twindow.addEventListener( 'vrdisplayactivate', function () {",
-				"\t\t\t\tcontrols.vr.resetPose();",
+				"\t\t\t\tcontrols.virtualReality.resetPose();",
 				"\t\t\t}, false );",
 				"",
 				"\t\t} )",
