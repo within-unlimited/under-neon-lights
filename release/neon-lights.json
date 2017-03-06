@@ -2954,25 +2954,6 @@
 				"",
 				"}"
 			]
-		],
-		[
-			"Bedroom.theta.center",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( !bedroom ) {",
-				"\t\treturn;",
-				"\t}",
-				"\tvar theta = bedroom.theta;",
-				"\ttheta.clear();",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
 		]
 	],
 	"animations": [
