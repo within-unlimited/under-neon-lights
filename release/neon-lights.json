@@ -14,7 +14,8 @@
 		"../release/third-party/three/js/vr/MouseController.js",
 		"../release/third-party/three/js/vr/DaydreamController.js",
 		"../release/third-party/orientation-arm-model.js",
-		"../release/third-party/three/js/vr/ViveController.js"
+		"../release/third-party/three/js/vr/ViveController.js",
+		"../release/third-party/three/js/Mirror.js"
 	],
 	"includes": [
 		[
