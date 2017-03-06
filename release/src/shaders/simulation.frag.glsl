@@ -42,13 +42,15 @@ void main() {
     pos = posInit;
     col = floatToVec4(pos.a);
     col.rgb *= 0.2 + 0.8 * rand(vec2(uv.y, col.b));
-    pos.a = tailNorm + rand(uv);
+    pos.a = tailNorm - rand(uv.yx);
   } else if (pos.a < (tailNorm) && pos.a > 1.0) {
-    pos.y += 0.05 * d;
-    pos.xyz += curlNoise((pos.xyz + vec3(0.0, fTime * 0.5, 0.0)) * 0.25) * 1.5 * d;
+    pos.y += 0.1 * d;
+    pos.xyz += curlNoise((pos.xyz + vec3(0.0, fTime * 1.5, 0.0)) * 0.25) * 5.0 * d;
     /*vec3 attractor = posInit.xyz - pos.xyz;
     pos.xyz += attractor * 0.5 * d;*/
   }
+
+  pos.xyz += snoiseVec3((pos.xyz + vec3(0.0, fTime * 1.5, 0.0)) * 0.5) * 0.2 * d;
 
   pos.a -= 0.01;
 

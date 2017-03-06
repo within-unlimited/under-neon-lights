@@ -121,8 +121,8 @@ NeonUtils.createParticle = function(size, tail_size) {
   let targetInit = NeonUtils.createRenderTarget(size, 1);
   let targetPos0 = NeonUtils.createRenderTarget(size, tail_size);
   let targetPos1 = NeonUtils.createRenderTarget(size, tail_size);
-  let targetCol0 = NeonUtils.createRenderTarget(size, tail_size);
-  let targetCol1 = NeonUtils.createRenderTarget(size, tail_size);
+  let targetCol0 = NeonUtils.createRenderTarget(size, 1);
+  let targetCol1 = NeonUtils.createRenderTarget(size, 1);
 
   // let particles = new THREE.Points(
   let particles = new THREE.LineSegments(
