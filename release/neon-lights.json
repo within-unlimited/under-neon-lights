@@ -1743,789 +1743,7 @@
 			]
 		],
 		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
 			"Bedroom.addAll",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.addAll();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
 			[
 				"function start () {",
 				"",
@@ -2671,125 +1889,6 @@
 				"\tvar forest = FRAME.getResource( 'Stage 1' );",
 				"\tif ( forest ) {",
 				"\t\tforest.sections.c.enable();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"",
-				"\tvar bedroom = FRAME.getResource( 'Stage 2' );",
-				"\tif ( bedroom ) {",
-				"\t\tbedroom.add();",
 				"\t}",
 				"",
 				"}",
@@ -2988,21 +2087,21 @@
 			2.533333333333333,
 			26.111556111806447,
 			2,
-			56
+			10
 		],
 		[
 			"Enable Mushrooms",
 			26.127659574468087,
 			42.02127659574469,
 			3,
-			57
+			11
 		],
 		[
 			"Enable Trees",
 			42,
 			73.76470588235294,
 			2,
-			58
+			12
 		],
 		[
 			"Stage 2",
@@ -3016,49 +2115,49 @@
 			73.90833333333329,
 			74.55000000000021,
 			2,
-			59
+			6
 		],
 		[
 			"Vocals, \"She\"",
 			74.30833333333328,
 			74.91666666666625,
 			3,
-			60
+			6
 		],
 		[
 			"Vocals, \"Moves\"",
 			74.68333333333334,
 			75.33333333333285,
 			2,
-			61
+			6
 		],
 		[
 			"Vocals, \"To\"",
 			75.07499999999992,
 			75.69166666666638,
 			3,
-			62
+			6
 		],
 		[
 			"Vocals, \"Su-\"",
 			75.49999999999996,
 			76.14166666666583,
 			2,
-			63
+			6
 		],
 		[
 			"Vocals, \"-i-\"",
 			75.77499999999996,
 			76.40833333333276,
 			4,
-			64
+			6
 		],
 		[
 			"Vocals, \"-side\"",
 			76.13333333333334,
 			77.2499999999997,
 			3,
-			65
+			6
 		],
 		[
 			"Vocals, \"In\"",
@@ -3072,364 +2171,364 @@
 			78.19166666666662,
 			78.77500000000003,
 			3,
-			7
+			6
 		],
 		[
 			"Vocals, \"Un-\"",
 			78.58333333333333,
 			79.20000000000007,
 			2,
-			8
+			6
 		],
 		[
 			"Vocals, \"-der\"",
 			78.95,
 			79.55000000000008,
 			3,
-			9
+			6
 		],
 		[
 			"Vocals, \"Ne-\"",
 			79.28333333333333,
 			79.8833333333334,
 			2,
-			10
+			6
 		],
 		[
 			"Vocals, \"-on\"",
 			79.61666666666666,
 			80.2333333333334,
 			3,
-			11
+			6
 		],
 		[
 			"Vocals, \"Lights\"",
 			80.11666666666666,
 			81.55000000000003,
 			2,
-			12
+			6
 		],
 		[
 			"Vocals, \"Got\"",
 			81.50265957446808,
 			82.27003546099299,
 			3,
-			13
+			6
 		],
 		[
 			"Vocals, \"No\"",
 			81.83333333333334,
 			82.57765957446817,
 			2,
-			14
+			6
 		],
 		[
 			"Vocals, \"Hus-\"",
 			82.31666666666668,
 			83.06560283687945,
 			3,
-			15
+			6
 		],
 		[
 			"Vocals, \"-band\"",
 			82.76666666666668,
 			83.5386524822696,
 			2,
-			16
+			6
 		],
 		[
 			"Vocals, \"Got\"",
 			83.25,
 			84.0202127659575,
 			3,
-			17
+			6
 		],
 		[
 			"Vocals, \"No\"",
 			83.71382978723405,
 			84.49326241134759,
 			2,
-			18
+			6
 		],
 		[
 			"Vocals, \"Wife\"",
 			84.08049645390071,
 			85.6971631205674,
 			3,
-			19
+			6
 		],
 		[
 			"Vocals, \"All\"",
 			85.59574468085107,
 			86.38297872340428,
 			2,
-			20
+			6
 		],
 		[
 			"Vocals, \"I\"",
 			86,
 			86.78723404255321,
 			3,
-			21
+			6
 		],
 		[
 			"Vocals, \"Want\"",
 			86.48936170212765,
 			87.25531914893618,
 			2,
-			22
+			6
 		],
 		[
 			"Vocals, \"'s A\"",
 			86.9583333333333,
 			87.72429078014183,
 			3,
-			23
+			6
 		],
 		[
 			"Vocals, \"View\"",
 			87.29875886524819,
 			88.06471631205672,
 			4,
-			24
+			6
 		],
 		[
 			"Vocals, \"To-\"",
 			87.59999999999995,
 			88.23333333333301,
 			2,
-			25
+			6
 		],
 		[
 			"Vocals, \"-night\"",
 			88.10000000000001,
 			89.47634408602161,
 			3,
-			26
+			6
 		],
 		[
 			"Vocals, \"All\"",
 			89.6304347826087,
 			90.32608695652182,
 			2,
-			27
+			6
 		],
 		[
 			"Vocals, \"I\"",
 			89.96739130434783,
 			90.65217391304355,
 			3,
-			28
+			6
 		],
 		[
 			"Vocals, \"Want\"",
 			90.51086956521739,
 			91.2173913043479,
 			2,
-			29
+			6
 		],
 		[
 			"Vocals, \"-'s A\"",
 			90.85869565217392,
 			91.57608695652182,
 			3,
-			30
+			6
 		],
 		[
 			"Vocals, \"View\"",
 			91.18478260869566,
 			91.91304347826095,
 			4,
-			31
+			6
 		],
 		[
 			"Vocals, \"To-\"",
 			91.58695652173914,
 			92.33695652173921,
 			2,
-			32
+			6
 		],
 		[
 			"Vocals, \"-night\"",
 			91.97826086956522,
 			93.304347826087,
 			3,
-			33
+			6
 		],
 		[
 			"Vocals, \"All\"",
 			93.53079710144918,
 			94.18079710144914,
 			2,
-			34
+			6
 		],
 		[
 			"Vocals, \"I\"",
 			93.94999999999996,
 			94.59166666666636,
 			3,
-			35
+			6
 		],
 		[
 			"Vocals, \"Want\"",
 			94.39999999999999,
 			95.0666666666662,
 			2,
-			36
+			6
 		],
 		[
 			"Vocals, \"-'s A\"",
 			94.82499999999995,
 			95.433333333333,
 			3,
-			37
+			6
 		],
 		[
 			"Vocals, \"View\"",
 			95.19166666666666,
 			95.8749999999996,
 			4,
-			38
+			6
 		],
 		[
 			"Vocals, \"To-\"",
 			95.475,
 			96.14999999999962,
 			2,
-			39
+			6
 		],
 		[
 			"Vocals, \"Night\"",
 			95.99166666666666,
 			97.55688405797103,
 			3,
-			40
+			6
 		],
 		[
 			"Vocals, \"All\"",
 			97.50649350649351,
 			98.22077922077939,
 			2,
-			41
+			7
 		],
 		[
 			"Vocals, \"I\"",
 			97.90909090909093,
 			98.6103896103898,
 			4,
-			42
+			7
 		],
 		[
 			"Vocals, \"Want\"",
 			98.35064935064936,
 			99.03896103896122,
 			3,
-			43
+			7
 		],
 		[
 			"Vocals, \"-'s A\"",
 			98.72727272727273,
 			99.50649350649364,
 			2,
-			44
+			7
 		],
 		[
 			"Vocals, \"View\"",
 			99.14285714285715,
 			99.90909090909108,
 			3,
-			45
+			7
 		],
 		[
 			"Vocals, \"To\"",
 			99.45454545454548,
 			100.2207792207794,
 			4,
-			46
+			7
 		],
 		[
 			"Vocals, \"Night\"",
 			99.93506493506497,
 			101.10897797854328,
 			2,
-			47
+			7
 		],
 		[
 			"Vocals, \"All\"",
 			101.51086956521739,
 			102.13043478260877,
 			3,
-			48
+			7
 		],
 		[
 			"Vocals, \"I\"",
 			101.86956521739131,
 			102.4782608695653,
 			4,
-			49
+			7
 		],
 		[
 			"Vocals, \"Want\"",
 			102.30434782608695,
 			102.94565217391312,
 			2,
-			50
+			7
 		],
 		[
 			"Vocals, \"-'s A\"",
 			102.68478260869566,
 			103.27173913043487,
 			3,
-			51
+			7
 		],
 		[
 			"Vocals, \"View\"",
 			103.09782608695653,
 			103.71739130434791,
 			4,
-			52
+			7
 		],
 		[
 			"Vocals, \"To-\"",
 			103.47826086956522,
 			104.0978260869566,
 			2,
-			53
+			7
 		],
 		[
 			"Vocals, \"-night\"",
 			103.91304347826087,
 			105.55434782608698,
 			3,
-			54
+			8
 		],
 		[
 			"Vocals, \"Let It Go\"",
 			105.51063829787235,
 			121.3404255319147,
 			2,
-			55
+			9
 		],
 		[
 			"Animation",
 			121.33529411764707,
 			124.75196078431381,
 			3,
-			67
+			14
 		],
 		[
 			"Vocals, \"Eye to Eye\"",
 			121.3404255319149,
 			152.9874843554444,
 			2,
-			66
+			13
 		],
 		[
 			"Animation",
 			125.39166666666667,
 			128.48333333333343,
 			4,
-			68
+			15
 		],
 		[
 			"Stage 3",
