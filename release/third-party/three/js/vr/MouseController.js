@@ -26,7 +26,6 @@ THREE.MouseController = function ( domElement ) {
 		scope.visible = true;
 		mouse.set( e.clientX, e.clientY );
 		dragging = true;
-		idle();
 		scope.dispatchEvent( { type: 'mousedown' } );
 
 	};
@@ -48,7 +47,40 @@ THREE.MouseController = function ( domElement ) {
 		scope.visible = true;
 		mouse.set( e.clientX, e.clientY );
 		dragging = false;
-		idle();
+		scope.dispatchEvent( { type: 'mouseup' } );
+
+	};
+
+	var touchstart = function ( e ) {
+
+		e.preventDefault();
+
+		var touches = e.touches;
+		var touch = touches[ 0 ];
+
+		scope.visible = true;
+		mouse.set( touch.pageX, touch.pageY );
+		dragging = true;
+		scope.dispatchEvent( { type: 'mousedown' } );
+
+	};
+
+	var touchmove = function ( e ) {
+
+		e.preventDefault();
+
+		var touches = e.touches;
+		var touch = touches[ 0 ];
+
+		mouse.set( touch.pageX, touch.pageY );
+
+	};
+
+	var touchend = function ( e ) {
+
+		e.preventDefault();
+		scope.visible = true;
+		dragging = false;
 		scope.dispatchEvent( { type: 'mouseup' } );
 
 	};
@@ -61,6 +93,11 @@ THREE.MouseController = function ( domElement ) {
 	};
 
 	domElement.addEventListener( 'mousedown', mousedown, false );
+	domElement.addEventListener( 'touchstart', touchstart, false );
+	domElement.addEventListener( 'touchmove', touchmove, false );
+	domElement.addEventListener( 'touchend', touchend, false );
+	domElement.addEventListener( 'touchcancel', touchend, false );
+
 	window.addEventListener( 'mousemove', mousemove, false );
 	window.addEventListener( 'mouseup', mouseup, false );
 	window.addEventListener( 'resize', resize, false );
