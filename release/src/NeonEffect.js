@@ -7,28 +7,38 @@
 
 (function(){
 
-THREE.NeonEffect = function( effect, renderer, size, tail_size ) {
+THREE.NeonEffect = function( effect, renderer ) {
+
+  const size = 64;
+  const tail_size = 4;
 
   let oddpass = false;
   let pass = 0;
+  let inited = false;
 
   let clock = new THREE.Clock();
+  let neonScene = new THREE.Scene();
 
-  this.targetInit = this.createRenderTarget(size * 4, 1);
+  this.targetInit = this.createRenderTarget(size * 8, 1);
   this.targetPos0 = this.createRenderTarget(size, tail_size);
   this.targetPos1 = this.createRenderTarget(size, tail_size);
   this.targetCol0 = this.createRenderTarget(size, 1);
   this.targetCol1 = this.createRenderTarget(size, 1);
 
-  this.enabled = true;
-
-  let basicMaterial = new THREE.MeshBasicMaterial({
-    wireframe: true,
-    vertexColors: THREE.VertexColors,
-    transparent: true,
-    opacity: 0.1,
-    blending: THREE.AdditiveBlending
+  this._enabled = false;
+  Object.defineProperty(this, 'enabled', {
+    get: function() {
+      return this._enabled;
+    },
+    set: function(value) {
+      if (value != this._enabled) {
+        this._enabled = value;
+        this.enabledChanged(value);
+      }
+    }
   });
+
+  this.scale = 1;
 
   let worldPosMaterial = this.loadMaterial( {
     vertexShader: "/release/src/shaders/worldPosition.vert.glsl",
@@ -62,6 +72,7 @@ THREE.NeonEffect = function( effect, renderer, size, tail_size ) {
         "fTarget": { type: "f", value: 0 },
         "fTime": { type: "f", value: 0 },
         "fTimeDelta": { type: "f", value: 0 },
+        "fScale": { type: "f", value: 1 },
         "mProjectionMatrix": { type: "m", value: null },
         "mModelViewMatrix": { type: "m", value: null }
     },
@@ -76,6 +87,7 @@ THREE.NeonEffect = function( effect, renderer, size, tail_size ) {
     particleMaterial
   );
   particles.frustumCulled = false;
+  neonScene.add(particles);
 
   this.isReady = function () {
     return worldPosMaterial.ready && simulationShader.ready && particleMaterial.ready;
@@ -95,6 +107,7 @@ THREE.NeonEffect = function( effect, renderer, size, tail_size ) {
     simulationShader.uniforms.fTimeDelta.value = Math.min(1/60, clock.getDelta());
     simulationShader.uniforms.fTime.value = clock.getElapsedTime();
     simulationShader.uniforms.fTarget.value = 0.0;
+    simulationShader.uniforms.fScale.value = this.scale;
     simulationShader.uniforms.mProjectionMatrix.value = camera.projectionMatrix;
     simulationShader.uniforms.mModelViewMatrix.value = camera.matrixWorldInverse;
     shaderPass.render(simulationShader, currentPos);
@@ -104,48 +117,73 @@ THREE.NeonEffect = function( effect, renderer, size, tail_size ) {
     particles.material.uniforms.tCurrCol.value = currentCol.texture;
   }
 
-  this.render = function( scene, camera ) {
+  this.enabledChanged = function(enabled) {
+    if (enabled) {
+      renderer._clearColor = renderer.getClearColor().getHex();
+      this.scene.traverse(function(obj) {
+        if (obj.material && !obj._material && !obj._neonMat) {
+          obj._material = obj.material;
+          if (obj.material.uniforms && obj.material.uniforms.neon) {
+            obj._neonMat = obj.material.clone();
+            obj._neonMat.uniforms.neon.value = true;
+          } else {
+            obj._neonMat = worldPosMaterial.clone();
+          }
+        }
+        obj.material = obj._neonMat;
+      });
+    } else {
+      renderer.setClearColor( renderer._clearColor );
+      this.scene.traverse(function(obj) {
+        if (obj._material) {
+          obj.material = obj._material;
+        }
+      });
+      this.clear();
+    }
+  };
 
+  this.clear = function() {
+    renderer.setClearAlpha( 0 );
+    renderer.clearTarget(this.targetInit, true);
+    renderer.clearTarget(this.targetPos0, true);
+    renderer.clearTarget(this.targetPos1, true);
+    renderer.clearTarget(this.targetCol0, true);
+    renderer.clearTarget(this.targetCol1, true);
+  };
+
+  // TODO: optimize
+  this.render = function( scene, camera ) {
     camera._fov = camera.fov;
     camera._aspect = camera.aspect;
-    scene.traverse(function(obj) {
-      if (obj.material) {
-        obj.material = obj._material || obj.material;
-      }
-    });
 
-    scene.remove(particles);
+    this.scene = scene;
+
+    if (this.isReady() && !inited) {
+      this.simulate(camera);
+      this.clear();
+      inited = true;
+    }
 
     if (!this.isReady() || !this.enabled) {
+      renderer.setClearColor( renderer._clearColor );
       effect.render(scene, camera);
       return;
     };
 
-    camera.fov = 120;
+    camera.fov = 90;
     camera.aspect = 1;
     camera.updateProjectionMatrix();
-
-    scene.overrideMaterial = worldPosMaterial;
 
     renderer.setClearColor( 0x000000 );
     renderer.render(scene, camera, this.targetInit);
     this.simulate(camera);
-    scene.overrideMaterial = null;
-
-    scene.traverse(function(obj) {
-      if (obj.material) {
-        obj._material = obj.material;
-        obj.material = basicMaterial;
-      }
-    })
-
-    scene.add(particles);
 
     camera.fov = camera._fov;
     camera.aspect = camera._aspect;
     camera.updateProjectionMatrix();
 
-    effect.render(scene, camera);
+    effect.render(neonScene, camera);
   }
 
 };
