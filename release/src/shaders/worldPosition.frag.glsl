@@ -1,8 +1,8 @@
 varying vec3 vColor;
 varying vec4 vPos;
 
-#inject /release/src/shaders/chunks/FloatPack.glsl
-#inject /release/src/shaders/chunks/Utils.glsl
+#inject ../release/src/shaders/chunks/FloatPack.glsl
+#inject ../release/src/shaders/chunks/Utils.glsl
 
 void main() {
   vec3 col = vColor.rgb;

@@ -12,9 +12,9 @@ uniform float fTime;
 uniform float fTimeDelta;
 uniform float fScale;
 
-#inject /release/src/shaders/chunks/Rand.glsl
-#inject /release/src/shaders/chunks/FloatPack.glsl
-#inject /release/src/shaders/chunks/NoiseFuncs.glsl
+#inject ../release/src/shaders/chunks/Rand.glsl
+#inject ../release/src/shaders/chunks/FloatPack.glsl
+#inject ../release/src/shaders/chunks/NoiseFuncs.glsl
 
 void main() {
   float d = fTimeDelta;
