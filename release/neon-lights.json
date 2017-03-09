@@ -1114,7 +1114,7 @@
 				"var camera = FRAME.getResource( 'camera' );",
 				"",
 				"var group = new THREE.Scene();",
-				"group.fog = new THREE.Fog( '#333', 0, parameters.size.value * 0.66 );",
+				"group.fog = new THREE.Fog( 0x372f5c, 0, parameters.size.value * 0.66 );",
 				"",
 				"materials.floor.uniforms.color.value.set( 0x72fa8c );",
 				"materials.backdrop.uniforms.color.value.set( 0xdde9ab );",
