@@ -1509,7 +1509,7 @@
 				");",
 				"ground.rotation.x = - Math.PI / 2;",
 				"ground.position.y = -1;",
-				"group.add( ground );",
+				"// group.add( ground );",
 				"",
 				"materials.backdrop.uniforms.offset.value = 0.66;",
 				"materials.backdrop.uniforms.color.value.set( 0x420c6b );",
