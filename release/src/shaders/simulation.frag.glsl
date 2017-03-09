@@ -10,6 +10,7 @@ uniform mat4 mModelViewMatrix;
 
 uniform float fTime;
 uniform float fTimeDelta;
+uniform float fScale;
 
 #inject /release/src/shaders/chunks/Rand.glsl
 #inject /release/src/shaders/chunks/FloatPack.glsl
@@ -27,32 +28,37 @@ void main() {
   vec4 pos0 = texture2D(tPrevPos, uv);
 
   float tailNorm = 2.0 - tail;
-  vec2 uvBiased = (uv - vec2(0.5)) * rand(uv + vec2(fTime, fTimeDelta)) + vec2(0.5);
+  vec2 uvRandomized = vec2(
+    0.5 + 2.0 * abs(uv.x - 0.5) * (rand(100.0 * (uv.xy + vec2(fTime, fTimeDelta))) - 0.5),
+    0.5 + 2.0 * abs(uv.y - 0.5) * (rand(100.0 * (uv.yx + vec2(fTimeDelta, fTime))) - 0.5)
+  );
 
-  vec4 posInit = texture2D(tInit, uvBiased);
-  vec4 sPosInit = mProjectionMatrix * mModelViewMatrix * vec4(posInit.xyz, 1.0);
-  if (length(posInit.xyz) == 0.0) {
-    posInit.a = -0.0;
+  vec4 posInit = texture2D(tInit, uvRandomized);
+  if (length(posInit.xyz) <= 0.01) {
+    posInit.a = 0.0;
   } else {
-    posInit.xyz += curlNoise(uv.xyx * 1000.0) * (0.1 + 0.04 * sPosInit.z);
+    posInit.xyz += curlNoise(uv.xyx * 1000.0) * 0.05;
   }
 
+  float speed = 0.04;
+  float len = fScale * 50.0;
 
-  if (pos0.a <= 0.0) {
+  if (pos0.a <= 0.0 && posInit.a != 0.0) {
     pos = posInit;
     col = floatToVec4(pos.a);
     col.rgb *= 0.2 + 0.8 * rand(vec2(uv.y, col.b));
-    pos.a = tailNorm - rand(uv.yx);
+    pos.a = tailNorm - rand(uv.yx) * 1.0;
   } else if (pos.a < (tailNorm) && pos.a > 1.0) {
-    pos.y += 0.1 * d;
-    pos.xyz += curlNoise((pos.xyz + vec3(0.0, fTime * 1.5, 0.0)) * 0.25) * 5.0 * d;
-    /*vec3 attractor = posInit.xyz - pos.xyz;
-    pos.xyz += attractor * 0.5 * d;*/
+    float dist = max(1.0, 0.05 * length(pos.xyz));
+    vec3 force = curlNoise((pos.xyz + vec3(0.0, fTime * 0.5, 0.0)) * 0.3 / fScale / dist) * d * speed * len;
+    pos.xyz += force * dist;
+
   }
 
-  pos.xyz += snoiseVec3((pos.xyz + vec3(0.0, fTime * 1.5, 0.0)) * 0.5) * 0.2 * d;
+  pos.xyz += snoiseVec3((pos.xyz + vec3(0.0, fTime * 0.3, 0.0)) * 0.4 / fScale) * d * speed;
 
-  pos.a -= 0.01;
+  pos.a -= 0.5 * speed;
+
 
   gl_FragColor = (fTarget == 0.0) ? pos : col;
 }

@@ -13,5 +13,4 @@ void main() {
     } else {
       gl_FragColor = vColorPacked;
     }
-    /*gl_FragColor = vec4(floatToVec4(fColorPacked).rgb, 1.0);*/
 }
