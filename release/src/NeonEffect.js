@@ -41,8 +41,8 @@ THREE.NeonEffect = function( effect, renderer ) {
   this.scale = 1;
 
   let worldPosMaterial = this.loadMaterial( {
-    vertexShader: "/release/src/shaders/worldPosition.vert.glsl",
-    fragmentShader: "/release/src/shaders/worldPosition.frag.glsl",
+    vertexShader: "../release/src/shaders/worldPosition.vert.glsl",
+    fragmentShader: "../release/src/shaders/worldPosition.frag.glsl",
     side: THREE.DoubleSide,
     vertexColors: THREE.VertexColors
   });
@@ -55,8 +55,8 @@ THREE.NeonEffect = function( effect, renderer ) {
         "tCurrPos": { type: "t", value: null },
         "tCurrCol": { type: "t", value: null }
     },
-    vertexShader: "/release/src/shaders/particle.vert.glsl",
-    fragmentShader: "/release/src/shaders/particle.frag.glsl"
+    vertexShader: "../release/src/shaders/particle.vert.glsl",
+    fragmentShader: "../release/src/shaders/particle.frag.glsl"
   });
 
   let particleMaterial2 = this.loadMaterial({
@@ -67,8 +67,8 @@ THREE.NeonEffect = function( effect, renderer ) {
         "tCurrPos": { type: "t", value: null },
         "tCurrCol": { type: "t", value: null }
     },
-    vertexShader: "/release/src/shaders/particle.vert.glsl",
-    fragmentShader: "/release/src/shaders/particle.frag.glsl"
+    vertexShader: "../release/src/shaders/particle.vert.glsl",
+    fragmentShader: "../release/src/shaders/particle.frag.glsl"
   });
 
   let simulationShader = this.loadMaterial({
@@ -88,8 +88,8 @@ THREE.NeonEffect = function( effect, renderer ) {
         "mProjectionMatrix": { type: "m", value: null },
         "mModelViewMatrix": { type: "m", value: null }
     },
-    vertexShader: "/release/src/shaders/simulation.vert.glsl",
-    fragmentShader: "/release/src/shaders/simulation.frag.glsl"
+    vertexShader: "../release/src/shaders/simulation.vert.glsl",
+    fragmentShader: "../release/src/shaders/simulation.frag.glsl"
   });
 
   var shaderPass = new THREE.ShaderPass(renderer);
