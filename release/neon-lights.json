@@ -1258,7 +1258,7 @@
 				"var parameters = {",
 				"\tsize: new FRAME.Parameters.Float( 'Size', 12 ),",
 				"\tamount: new FRAME.Parameters.Integer( 'Amount', 25 ),",
-				"\tstep: new FRAME.Parameters.Float( 'Step', 1 ),",
+				"\tstep: new FRAME.Parameters.Float( 'Step', 0.75 ),",
 				"\tdistance: new FRAME.Parameters.Float( 'Distance', 2 )",
 				"};",
 				"",
@@ -1640,7 +1640,7 @@
 				"\t\tvar x2 = x * 2;",
 				"\t\tvar y2 = y * 2;",
 				"",
-				"\t\tvar phi = Math.atan2( - y, - x );",
+				"\t\tvar phi =  Math.atan2( - y, - x );",
 				"\t\tvar dist = curvature * Math.sqrt( x2 * x2 + y2 * y2 );",
 				"",
 				"\t\tmesh.position.x = x;",
@@ -2087,18 +2087,18 @@
 			0
 		],
 		[
-			"Render",
-			0,
-			266.422875,
-			5,
-			5
-		],
-		[
 			"VR Update",
 			0,
 			266.422875,
 			0,
 			4
+		],
+		[
+			"Render",
+			0,
+			266.422875,
+			5,
+			5
 		],
 		[
 			"Enable Grass",
