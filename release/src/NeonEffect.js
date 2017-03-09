@@ -49,7 +49,19 @@ THREE.NeonEffect = function( effect, renderer ) {
 
   let particleMaterial = this.loadMaterial({
     defines: {
-        "POINT_SIZE": "1.0",
+        "POINT_SIZE": "6.0",
+    },
+    uniforms: {
+        "tCurrPos": { type: "t", value: null },
+        "tCurrCol": { type: "t", value: null }
+    },
+    vertexShader: "/release/src/shaders/particle.vert.glsl",
+    fragmentShader: "/release/src/shaders/particle.frag.glsl"
+  });
+
+  let particleMaterial2 = this.loadMaterial({
+    defines: {
+        "POINT_SIZE": "3.0",
     },
     uniforms: {
         "tCurrPos": { type: "t", value: null },
@@ -83,14 +95,21 @@ THREE.NeonEffect = function( effect, renderer ) {
   var shaderPass = new THREE.ShaderPass(renderer);
 
   let particles = new THREE.LineSegments(
-    this.createParticleGeometry(size, tail_size),
+    this.createLineGeometry(size, tail_size),
     particleMaterial
   );
   particles.frustumCulled = false;
   neonScene.add(particles);
 
+  let particles2 = new THREE.Points(
+    this.createParticleGeometry(size, tail_size),
+    particleMaterial2
+  );
+  particles2.frustumCulled = false;
+  neonScene.add(particles2);
+
   this.isReady = function () {
-    return worldPosMaterial.ready && simulationShader.ready && particleMaterial.ready;
+    return worldPosMaterial.ready && simulationShader.ready && particleMaterial.ready && particleMaterial2.ready;
   }
 
   this.simulate = function(camera) {
@@ -115,6 +134,8 @@ THREE.NeonEffect = function( effect, renderer ) {
     shaderPass.render(simulationShader, currentCol);
     particles.material.uniforms.tCurrPos.value = currentPos.texture;
     particles.material.uniforms.tCurrCol.value = currentCol.texture;
+    particles2.material.uniforms.tCurrPos.value = currentPos.texture;
+    particles2.material.uniforms.tCurrCol.value = currentCol.texture;
   }
 
   this.enabledChanged = function(enabled) {
@@ -171,7 +192,7 @@ THREE.NeonEffect = function( effect, renderer ) {
       return;
     };
 
-    camera.fov = 90;
+    camera.fov = 45;
     camera.aspect = 1;
     camera.updateProjectionMatrix();
 
@@ -197,7 +218,7 @@ THREE.NeonEffect.prototype.createRenderTarget = function(size, tail_size) {
   return target;
 };
 
-THREE.NeonEffect.prototype.createParticleGeometry = function(size, tail_size) {
+THREE.NeonEffect.prototype.createLineGeometry = function(size, tail_size) {
     let ATTR_WIDTH = 3;
     let indices = [];
     let i = 0;
@@ -223,6 +244,34 @@ THREE.NeonEffect.prototype.createParticleGeometry = function(size, tail_size) {
     geo.setIndex( new THREE.BufferAttribute( new Uint32Array( indices ), 1 ) );
     geo.computeBoundingBox();
     return geo;
+}
+
+THREE.NeonEffect.prototype.createParticleGeometry = function(size, tail_size) {
+  let ATTR_WIDTH = 3;
+  let indices = [];
+  let i = 0;
+  let geo = new THREE.BufferGeometry();
+  let pos = new Float32Array(size * size * tail_size * ATTR_WIDTH);
+  var idx = 0;
+  for (let x = 0; x < size; x++) {
+    for (let y = 0; y < size; y++) {
+      for (let z = 0; z < 1; z++) {
+        pos[idx + 1] = (x + 0.5) / size; // +0.5 to be at center of texel
+        pos[idx + 0] = ((y + 0.5) / size) + ((z - tail_size / 2 + 0.5) / tail_size / size);// / tail_size;
+        pos[idx + 2] = 0;//z / tail_size;
+        if (z < tail_size - 1) {
+          indices.push(i);
+          indices.push(i + 1);
+        }
+        i++;
+        idx += ATTR_WIDTH;
+      }
+    }
+  }
+  geo.addAttribute( 'position', new THREE.BufferAttribute( pos, ATTR_WIDTH ) );
+  geo.setIndex( new THREE.BufferAttribute( new Uint32Array( indices ), 1 ) );
+  geo.computeBoundingBox();
+  return geo;
 }
 
 THREE.NeonEffect.prototype.loadMaterial = function( args, callback ) {
