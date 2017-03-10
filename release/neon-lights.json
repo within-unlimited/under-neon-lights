@@ -3,7 +3,6 @@
 	"libraries": [
 		"../release/third-party/url.js",
 		"../release/third-party/has.js",
-		"../release/third-party/xhr.js",
 		"../release/third-party/signals.min.js",
 		"../release/third-party/tween.js",
 		"../release/third-party/three.js",
@@ -18,7 +17,8 @@
 		"../release/third-party/orientation-arm-model.js",
 		"../release/third-party/three/js/vr/ViveController.js",
 		"../release/third-party/texture-animator.js",
-		"../release/src/NeonEffect.js"
+		"../release/src/NeonEffect.js",
+		"../release/src/NeonShader.js"
 	],
 	"includes": [
 		[

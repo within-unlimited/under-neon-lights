@@ -59,6 +59,5 @@ void main() {
 
   pos.a -= 0.5 * speed;
 
-
   gl_FragColor = (fTarget == 0.0) ? pos : col;
 }
