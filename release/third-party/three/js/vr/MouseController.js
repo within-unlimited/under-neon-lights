@@ -8,8 +8,8 @@ THREE.MouseController = function ( domElement ) {
 
 	var HALF_PI = Math.PI / 2;
 
-	var width = domElement.clientWidth;
-	var height = domElement.clientHeight;
+	var width = domElement.clientWidth || window.innerWidth;
+	var height = domElement.clientHeight || window.innerHeight;
 
 	this.rotation.reorder( 'YXZ' );
 	this.matrixAutoUpdate = false;
@@ -88,8 +88,8 @@ THREE.MouseController = function ( domElement ) {
 
 	var resize = function () {
 
-		width = domElement.clientWidth;
-		height = domElement.clientHeight;
+		width = domElement.clientWidth || window.innerWidth;
+		height = domElement.clientHeight || window.innerHeight;
 
 	};
 

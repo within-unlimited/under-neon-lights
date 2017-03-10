@@ -11,21 +11,16 @@
   root.AudioContext = root.AudioContext || root.webkitAudioContext;
   has = !!(root.AudioContext);
 
-  if (has) {
-
-    ctx = new root.AudioContext();
-    analysis = ctx.createAnalyser();
-
-    analysis.connect(ctx.destination);
-    analysis.fftSize = 128;
-    analysis.data = new Uint8Array(analysis.frequencyBinCount);
-
-  }
-
   /**
    * @class
    */
-  var Sound = root.Sound = function(url, callback) {
+  var Sound = root.Sound = function(url, callback, context) {
+
+    if (context) {
+      ctx = context;
+    } else {
+      Sound.initialize();
+    }
 
     var scope = this;
 
@@ -63,7 +58,7 @@
         break;
 
       default:
-        throw new Error('Sound.js: no audio information supplied.')
+        console.warn('Sound.js: no audio information supplied.')
 
     }
 
@@ -76,6 +71,21 @@
     ctx: ctx,
 
     analysis: analysis,
+
+    initialize: function() {
+
+      if (has) {
+
+        ctx = new root.AudioContext();
+        analysis = ctx.createAnalyser();
+
+        analysis.connect(ctx.destination);
+        analysis.fftSize = 128;
+        analysis.data = new Uint8Array(analysis.frequencyBinCount);
+
+      }
+
+    },
 
     noConflict: function() {
       root.Sound = previousSound;
@@ -156,6 +166,7 @@
         this.stop();
       }
 
+      this._offset = params.offset;
       this._startTime = params.time;
       this._loop = params.loop;
       this.playing = true;
@@ -311,7 +322,9 @@
       this._offset = time;
 
       if (this.playing) {
-        this.play();
+        this.play({
+          offset: this._offset
+        });
       }
 
     }
@@ -322,6 +335,22 @@
 
     get: function() {
       return Math.floor(this.currentTime * 1000);
+    }
+
+  });
+
+  Object.defineProperty(Sound.prototype, 'duration', {
+
+    get: function() {
+      return (this.buffer && this.buffer.duration) || 0;
+    }
+
+  });
+
+  Object.defineProperty(Sound.prototype, 'paused', {
+
+    get: function() {
+      return !this.playing;
     }
 
   });
