@@ -41,80 +41,31 @@ THREE.NeonEffect = function( effect, renderer ) {
   this.scale = 1;
   this.fogColor = new THREE.Color(0x333333);
 
-  let worldPosMaterial = this.loadMaterial( {
-    vertexShader: "../release/src/shaders/worldPosition.vert.glsl",
-    fragmentShader: "../release/src/shaders/worldPosition.frag.glsl",
-    side: THREE.DoubleSide,
-    vertexColors: THREE.VertexColors
-  });
-
-  let particleMaterial = this.loadMaterial({
-    defines: {
-        "POINT_SIZE": "6.0",
-    },
-    uniforms: {
-        "tCurrPos": { type: "t", value: null },
-        "tCurrCol": { type: "t", value: null }
-    },
-    vertexShader: "../release/src/shaders/particle.vert.glsl",
-    fragmentShader: "../release/src/shaders/particle.frag.glsl"
-  });
-
-  let particleMaterial2 = this.loadMaterial({
-    defines: {
-        "POINT_SIZE": "3.0",
-    },
-    uniforms: {
-        "tCurrPos": { type: "t", value: null },
-        "tCurrCol": { type: "t", value: null }
-    },
-    vertexShader: "../release/src/shaders/particle.vert.glsl",
-    fragmentShader: "../release/src/shaders/particle.frag.glsl"
-  });
-
-  let simulationShader = this.loadMaterial({
-    defines: {
-        "SIZE": size + ".0",
-        "TAIL_SIZE": tail_size + ".0"
-    },
-    uniforms: {
-        "tInit": { type: "t", value: this.targetInit.texture },
-        "tPrevPos": { type: "t", value: null },
-        "tPrevCol": { type: "t", value: null },
-        "fPass": { type: "f", value: 0 },
-        "fTarget": { type: "f", value: 0 },
-        "fTime": { type: "f", value: 0 },
-        "fTimeDelta": { type: "f", value: 0 },
-        "fScale": { type: "f", value: 1 },
-        "mProjectionMatrix": { type: "m", value: null },
-        "mModelViewMatrix": { type: "m", value: null }
-    },
-    vertexShader: "../release/src/shaders/simulation.vert.glsl",
-    fragmentShader: "../release/src/shaders/simulation.frag.glsl"
-  });
+  let worldPosMaterial = THREE.neonShader.worldPositionShader.clone();
+  let lineMaterial = THREE.neonShader.particleShader.clone();
+  let particleMaterial = THREE.neonShader.particleShader.clone();
+  let simulationShader =  THREE.neonShader.simulationShader.clone();;
+  simulationShader.defines.SIZE = size + ".0";
+  simulationShader.defines.TAIL_SIZE = tail_size + ".0";
+  simulationShader.uniforms.tInit.value = this.targetInit.texture;
 
   var shaderPass = new THREE.ShaderPass(renderer);
 
   let particles = new THREE.LineSegments(
     this.createLineGeometry(size, tail_size),
-    particleMaterial
+    lineMaterial
   );
   particles.frustumCulled = false;
   neonScene.add(particles);
 
-  let particles2 = new THREE.Points(
+  let points = new THREE.Points(
     this.createParticleGeometry(size, tail_size),
-    particleMaterial2
+    particleMaterial
   );
-  particles2.frustumCulled = false;
-  neonScene.add(particles2);
-
-  this.isReady = function () {
-    return worldPosMaterial.ready && simulationShader.ready && particleMaterial.ready && particleMaterial2.ready;
-  }
+  points.frustumCulled = false;
+  neonScene.add(points);
 
   this.simulate = function(camera) {
-    if (!this.isReady()) return;
     oddpass = !oddpass;
     let currentPos = oddpass ? this.targetPos1 : this.targetPos0;
     let previousPos = oddpass ? this.targetPos0 : this.targetPos1;
@@ -135,8 +86,8 @@ THREE.NeonEffect = function( effect, renderer ) {
     shaderPass.render(simulationShader, currentCol);
     particles.material.uniforms.tCurrPos.value = currentPos.texture;
     particles.material.uniforms.tCurrCol.value = currentCol.texture;
-    particles2.material.uniforms.tCurrPos.value = currentPos.texture;
-    particles2.material.uniforms.tCurrCol.value = currentCol.texture;
+    points.material.uniforms.tCurrPos.value = currentPos.texture;
+    points.material.uniforms.tCurrCol.value = currentCol.texture;
   }
 
   this.enabledChanged = function(enabled) {
@@ -188,13 +139,13 @@ THREE.NeonEffect = function( effect, renderer ) {
 
     this.scene = scene;
 
-    if (this.isReady() && !inited) {
+    if (!inited) {
       this.simulate(camera);
       this.clear();
       inited = true;
     }
 
-    if (!this.isReady() || !this.enabled) {
+    if (!this.enabled) {
       renderer.setClearColor( renderer._clearColor );
       effect.render(scene, camera);
       return;
@@ -204,9 +155,10 @@ THREE.NeonEffect = function( effect, renderer ) {
     camera.aspect = 1;
     camera.updateProjectionMatrix();
 
-    renderer.setClearColor( this.fogColor );
+    renderer.setClearColor( 0x000000 );
     renderer.render(scene, camera, this.targetInit);
     this.simulate(camera);
+    renderer.setClearColor( this.fogColor );
 
     camera.fov = camera._fov;
     camera.aspect = camera._aspect;
@@ -281,66 +233,5 @@ THREE.NeonEffect.prototype.createParticleGeometry = function(size, tail_size) {
   geo.computeBoundingBox();
   return geo;
 }
-
-THREE.NeonEffect.prototype.loadMaterial = function( args, callback ) {
-  let vertexShader, fragmentShader;
-  let mat = new THREE.ShaderMaterial();
-  callback = callback || function () {}
-  const compile = function() {
-    if (vertexShader && fragmentShader) {
-      args.vertexShader = vertexShader;
-      args.fragmentShader = fragmentShader;
-      for (let arg in args) mat[arg] = args[arg];
-      mat.ready = true;
-      callback(mat);
-    }
-  }
-  this.loadShader(args.vertexShader, function(result) {
-    vertexShader = result;
-    compile();
-  });
-  this.loadShader(args.fragmentShader, function(result) {
-    fragmentShader = result;
-    compile();
-  });
-  return mat;
-}
-
-THREE.NeonEffect.prototype.loadShader = function(url, callback) {
-  let shaderStr;
-  let injectLine;
-  const regex = /#inject .+/g;
-  var compile = function(fileStr) {
-    if (!shaderStr) {
-      shaderStr = fileStr;
-    }
-    if (injectLine) {
-      shaderStr = shaderStr.replace(injectLine, fileStr);
-      injectLine = null;
-    }
-    var matches = shaderStr.match(regex);
-    if (!matches) {
-      callback(shaderStr);
-    } else {
-      injectLine = matches[0];
-      xhr.get(injectLine.split(" ")[1], compile);
-    }
-  }
-  xhr.get(url, compile);
-};
-
-THREE.NeonEffect.prototype.loadTextFile = function(url) {
-  let result;
-  const req = new XMLHttpRequest();
-  req.onerror = function() {
-    console.log("Error: request error on " + url);
-  };
-  req.onload = function() {
-    result = this.responseText;
-  };
-  req.open("GET", url, false);
-  req.send();
-  return result;
-};
 
 })();
