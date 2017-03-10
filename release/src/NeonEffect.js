@@ -19,6 +19,8 @@ THREE.NeonEffect = function( effect, renderer ) {
   var clock = new THREE.Clock();
   var neonScene = new THREE.Scene();
 
+  this.motionVector = new THREE.Vector3(0,0,0);
+
   this.targetInit = this.createRenderTarget(size * 8, 1);
   this.targetPos0 = this.createRenderTarget(size, tail_size);
   this.targetPos1 = this.createRenderTarget(size, tail_size);
@@ -81,6 +83,7 @@ THREE.NeonEffect = function( effect, renderer ) {
     simulationShader.uniforms.fScale.value = this.scale;
     simulationShader.uniforms.mProjectionMatrix.value = camera.projectionMatrix;
     simulationShader.uniforms.mModelViewMatrix.value = camera.matrixWorldInverse;
+    simulationShader.uniforms.vMotionVector.value = this.motionVector;
     shaderPass.render(simulationShader, currentPos);
     simulationShader.uniforms.fTarget.value = 1.0;
     shaderPass.render(simulationShader, currentCol);
