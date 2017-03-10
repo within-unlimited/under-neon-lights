@@ -305,7 +305,6 @@
 				"\t\t\tvar handDaydream = new THREE.Mesh( geo, mat );",
 				"",
 				"\t\t\thandLeft.scale.x *= - 1;",
-				"\t\t\thandLeft.material.side = THREE.BackSide;",
 				"",
 				"\t\t\tcontrollers.right.add( handRight );",
 				"\t\t\tcontrollers.left.add( handLeft );",
