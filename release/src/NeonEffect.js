@@ -39,6 +39,7 @@ THREE.NeonEffect = function( effect, renderer ) {
   });
 
   this.scale = 1;
+  this.fogColor = new THREE.Color(0x333333);
 
   let worldPosMaterial = this.loadMaterial( {
     vertexShader: "../release/src/shaders/worldPosition.vert.glsl",
@@ -139,6 +140,9 @@ THREE.NeonEffect = function( effect, renderer ) {
   }
 
   this.enabledChanged = function(enabled) {
+    if (!this.scene) {
+      return;
+    }
     if (enabled) {
       renderer._clearColor = renderer.getClearColor().getHex();
       this.scene.traverse(function(obj) {
@@ -155,13 +159,17 @@ THREE.NeonEffect = function( effect, renderer ) {
       });
     } else {
       renderer.setClearColor( renderer._clearColor );
-      this.scene.traverse(function(obj) {
-        if (obj._material) {
-          obj.material = obj._material;
-        }
-      });
+      this.resetScene( this.scene );
       this.clear();
     }
+  };
+
+  this.resetScene = function(scene) {
+    scene.traverse(function(obj) {
+      if (obj._material) {
+        obj.material = obj._material;
+      }
+    });
   };
 
   this.clear = function() {
@@ -196,7 +204,7 @@ THREE.NeonEffect = function( effect, renderer ) {
     camera.aspect = 1;
     camera.updateProjectionMatrix();
 
-    renderer.setClearColor( 0x000000 );
+    renderer.setClearColor( this.fogColor );
     renderer.render(scene, camera, this.targetInit);
     this.simulate(camera);
 
