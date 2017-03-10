@@ -90,6 +90,7 @@
 				"",
 				"var dolly = new THREE.Camera();",
 				"var camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 500 );",
+				"// camera.position.z = -1;",
 				"",
 				"dolly.userData.distance = 2;",
 				"dolly.userData.target = new THREE.Vector3( 0.0, 0.6, 0 );",
@@ -656,6 +657,8 @@
 				"",
 				"\t\tannie.userData.models[ age ] = fbx;",
 				"\t\tannie.add( fbx );",
+				"\t\t",
+				"\t\t// fbx.rotation.y = Math.PI;",
 				"",
 				"\t\tfbx.mixer = new THREE.AnimationMixer( fbx );",
 				"\t\tfbx.visible = false;",
@@ -2251,7 +2254,7 @@
 			]
 		],
 		[
-			"Effect",
+			"VRUpdateEffect",
 			[
 				"var dolly = FRAME.getResource( 'dolly' );",
 				"var clock = FRAME.getResource( 'clock' );",
@@ -2314,7 +2317,7 @@
 			]
 		],
 		[
-			"Effect",
+			"RenderEffect",
 			[
 				"var dolly = FRAME.getResource( 'dolly' );",
 				"var camera = FRAME.getResource( 'camera' );",
@@ -2420,6 +2423,102 @@
 				"",
 				"function update( progress ){}"
 			]
+		],
+		[
+			"Mouth Half Open",
+			[
+				"function start(){",
+				"",
+				"\tvar annie = FRAME.getResource( 'annie' );",
+				"",
+				"\tif ( !annie ) {",
+				"\t\treturn;",
+				"\t}",
+				"",
+				"\tvar model = annie.userData.model;",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"\t",
+				"\tanimator.currentTile = 5;",
+				"\t",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Mouth Open",
+			[
+				"function start(){",
+				"",
+				"\tvar annie = FRAME.getResource( 'annie' );",
+				"",
+				"\tif ( !annie ) {",
+				"\t\treturn;",
+				"\t}",
+				"",
+				"\tvar model = annie.userData.model;",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"\t",
+				"\tanimator.currentTile = 7;",
+				"\t",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Mouth Half Open Wide",
+			[
+				"function start(){",
+				"\t",
+				"\tvar annie = FRAME.getResource( 'annie' );",
+				"",
+				"\tif ( !annie ) {",
+				"\t\treturn;",
+				"\t}",
+				"",
+				"\tvar model = annie.userData.model;",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"\t",
+				"\tanimator.currentTile = 6;",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Mouth Closed",
+			[
+				"function start(){",
+				"\t",
+				"\tvar annie = FRAME.getResource( 'annie' );",
+				"",
+				"\tif ( !annie )return;",
+				"",
+				"\tvar model = annie.userData.model;",
+				"\t",
+				"\tif ( !model ) return;",
+				"\t",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"\t",
+				"\tanimator.currentTile = 4;",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
 		]
 	],
 	"animations": [
@@ -2431,10 +2530,17 @@
 			0
 		],
 		[
+			"Lip Sync",
+			0,
+			10.75758082497216,
+			5,
+			15
+		],
+		[
 			"Render",
 			0,
 			266.42287499999986,
-			5,
+			6,
 			5
 		],
 		[
@@ -2450,6 +2556,83 @@
 			73.7678061118068,
 			2,
 			9
+		],
+		[
+			"U",
+			10.75758082497216,
+			10.888585858585877,
+			5,
+			13
+		],
+		[
+			"N",
+			10.888585858585877,
+			11.025000000000015,
+			5,
+			14
+		],
+		[
+			"D",
+			11.025000000000015,
+			11.148979591836712,
+			5,
+			12
+		],
+		[
+			"ER",
+			11.148979591836712,
+			11.26799999999999,
+			5,
+			12
+		],
+		[
+			"NE",
+			11.26799999999999,
+			11.42934751773048,
+			5,
+			14
+		],
+		[
+			"O",
+			11.42934751773048,
+			11.623999999999983,
+			5,
+			13
+		],
+		[
+			"O",
+			11.623999999999983,
+			11.748000000000008,
+			5,
+			12
+		],
+		[
+			"N",
+			11.748000000000008,
+			11.879005033613717,
+			5,
+			14
+		],
+		[
+			"LIGH",
+			11.93302664366495,
+			12.520821631269143,
+			5,
+			13
+		],
+		[
+			"TSSS",
+			12.520821631269143,
+			14.016528110469183,
+			5,
+			14
+		],
+		[
+			"Closed",
+			14.016528110469183,
+			14.713333333333335,
+			5,
+			15
 		],
 		[
 			"Enable Mushrooms",
