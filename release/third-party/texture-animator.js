@@ -1,6 +1,6 @@
 
-var TextureAnimator = function(texture, tilesHoriz, tilesVert) { 
-	// note: texture passed by reference, will be updated by the update function.
+var TextureAnimator = window.TextureAnimator = function(texture, tilesHoriz, tilesVert) {
+	// texture passed by reference, will be updated by the update function.
 
 	this.tilesHorizontal = tilesHoriz;
 	this.tilesVertical = tilesVert;
@@ -23,17 +23,17 @@ TextureAnimator.prototype.update = function() {
 
 Object.defineProperty(TextureAnimator.prototype, 'currentTile', {
 
-  get: function() {
-    return this._currentTile;
-  },
+	get: function() {
+		return this._currentTile;
+	},
 
-  set: function(i) {
+	set: function(i) {
 
-    this._currentTile = i;
-    this.update();
+		this._currentTile = i;
+		this.update();
 
-    return this;
+		return this;
 
-  }
+	}
 
 });
