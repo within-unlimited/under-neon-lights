@@ -15,7 +15,6 @@
 		"../release/third-party/three/js/vr/DaydreamController.js",
 		"../release/third-party/orientation-arm-model.js",
 		"../release/third-party/three/js/vr/ViveController.js",
-		"../release/third-party/texture-animator.js",
 		"../release/src/NeonEffect.js",
 		"../release/src/NeonShader.js"
 	],
@@ -60,6 +59,52 @@
 				"};",
 				"",
 				"FRAME.addResource( 'Ease', Ease );"
+			]
+		],
+		[
+			"Texture Animator",
+			[
+				"",
+				"var TextureAnimator = function(texture, tilesHoriz, tilesVert) {",
+				"\t// texture passed by reference, will be updated by the update function.",
+				"",
+				"\tthis.tilesHorizontal = tilesHoriz;",
+				"\tthis.tilesVertical = tilesVert;",
+				"",
+				"\tthis.texture = texture;",
+				"\ttexture.wrapS = texture.wrapT = THREE.RepeatWrapping; ",
+				"\ttexture.repeat.set( 1 / this.tilesHorizontal, 1 / this.tilesVertical );",
+				"",
+				"\t// which image is currently being displayed?",
+				"\tthis._currentTile = this.currentTile = 0;",
+				"",
+				"}",
+				"",
+				"TextureAnimator.prototype.update = function() {",
+				"\tvar currentColumn = this._currentTile % this.tilesHorizontal;",
+				"\tthis.texture.offset.x = currentColumn / this.tilesHorizontal;",
+				"\tvar currentRow = Math.floor( this._currentTile / this.tilesHorizontal );",
+				"\tthis.texture.offset.y = ( - currentRow - 1 ) / this.tilesVertical;",
+				"};",
+				"",
+				"Object.defineProperty(TextureAnimator.prototype, 'currentTile', {",
+				"",
+				"\tget: function() {",
+				"\t\treturn this._currentTile;",
+				"\t},",
+				"",
+				"\tset: function(i) {",
+				"",
+				"\t\tthis._currentTile = i;",
+				"\t\tthis.update();",
+				"",
+				"\t\treturn this;",
+				"",
+				"\t}",
+				"",
+				"});",
+				"",
+				"FRAME.addResource( 'TextureAnimator', TextureAnimator );"
 			]
 		],
 		[
@@ -456,6 +501,7 @@
 				"var path = [root, '/models/annie/'].join('');",
 				"var loader = FRAME.getResource( 'loader' );",
 				"var dolly = FRAME.getResource( 'dolly' );",
+				"var TextureAnimator = FRAME.getResource( 'TextureAnimator' );",
 				"",
 				"var annie = new THREE.Group();",
 				"var files = {",
@@ -2530,6 +2576,13 @@
 			0
 		],
 		[
+			"VR Update",
+			0,
+			266.422875,
+			0,
+			4
+		],
+		[
 			"Lip Sync",
 			0,
 			10.75758082497216,
@@ -2542,13 +2595,6 @@
 			266.42287499999986,
 			6,
 			5
-		],
-		[
-			"VR Update",
-			0,
-			266.422875,
-			0,
-			4
 		],
 		[
 			"Enable Grass",
