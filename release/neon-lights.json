@@ -1137,9 +1137,10 @@
 				"\t\t'void main() {',",
 				"",
 				"\t\t\t'float dist = distance( vec2( 0.5 ), vUv ) * 2.0;',",
-				"\t\t\t'float t = clamp( floor( pow( dist, 0.4 ) * amount ) / amount, 0.0, 1.0 );',",
+				"\t\t\t'dist = clamp( pow( dist, 0.5 ), 0.0, 1.0 );',",
+				"\t\t\t'float shadow = smoothstep( 0.1, 0.15, dist );',",
 				"",
-				"\t\t\t'vec3 col = mix( mix( color, fog, t ), fog, pow( dist, 0.5 ) );',",
+				"\t\t\t'vec3 col = mix( color / 2.0, mix( color, fog, dist ), shadow );',",
 				"\t\t\t'if (neon == 0.0) gl_FragColor = vec4( col, 1.0 );',",
 				"\t\t\t'else gl_FragColor = vec4(mPosition.xyz, vec4ToFloat(vec4(col.rgb, 1.0)));',",
 				"",
@@ -1313,14 +1314,6 @@
 				"\t\t\tcolor: 0xffffff,",
 				"\t\t\tvertexColors: true,",
 				"\t\t\tside: THREE.DoubleSide",
-				"\t\t} ),",
-				"",
-				"\t\tfloor: new THREE.ShaderMaterial( {",
-				"",
-				"\t\t\tuniforms: THREE.UniformsUtils.clone( floor.uniforms ),",
-				"\t\t\tvertexShader: floor.vertexShader,",
-				"\t\t\tfragmentShader: floor.fragmentShader",
-				"",
 				"\t\t} )",
 				"",
 				"\t},",
@@ -2576,13 +2569,6 @@
 			0
 		],
 		[
-			"VR Update",
-			0,
-			266.422875,
-			0,
-			4
-		],
-		[
 			"Lip Sync",
 			0,
 			10.75758082497216,
@@ -2595,6 +2581,13 @@
 			266.42287499999986,
 			6,
 			5
+		],
+		[
+			"VR Update",
+			0,
+			266.422875,
+			0,
+			4
 		],
 		[
 			"Enable Grass",
