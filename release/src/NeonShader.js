@@ -29,7 +29,7 @@ THREE.neonShader.loadTextFileInject = function(url) {
 };
 
 THREE.neonShader.load = function(url) {
-  let src = THREE.neonShader.loadTextFileInject(url).replace(/(?:\r\n|\r|\n)/g, ' ');;
+  var src = THREE.neonShader.loadTextFileInject(url).replace(/(?:\r\n|\r|\n)/g, ' ');;
   console.log(url, ':\n', src);
   return src;
 }
