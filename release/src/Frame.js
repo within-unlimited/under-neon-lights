@@ -351,8 +351,9 @@ var FRAME = ( function () {
 
 				update: function ( time ) {
 
-					if ( time < prevtime ) {
+					if ( prevtime > time ) {
 
+						prevtime = time;
 						this.reset();
 
 					}
@@ -428,7 +429,7 @@ var FRAME = ( function () {
 					for ( i = 0, l = active.length; i < l; i ++ ) {
 
 						animation = active[ i ];
-						animation.effect.program.update( ( time - animation.start ) / ( animation.end - animation.start ), (time - prevtime) || 0 );
+						animation.effect.program.update( ( time - animation.start ) / ( animation.end - animation.start ), ( time - prevtime ) || 0 );
 
 					}
 
