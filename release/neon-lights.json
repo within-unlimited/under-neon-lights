@@ -509,7 +509,7 @@
 			"Materials",
 			[
 				"var filter = {",
-				"\tsaturation: { type: 'f', value: 1 }",
+				"\tsaturation: { type: 'f', value: 0.25 }",
 				"};",
 				"",
 				"var chunks = {",
@@ -1086,6 +1086,7 @@
 				"\tfor ( var k in stage ) {",
 				"\t\tvar material = stage[ k ];",
 				"\t\tif ( material.uniforms ) {",
+				"\t\t\tmaterial.uniforms.saturation = filter.saturation;",
 				"\t\t}",
 				"\t}",
 				"}",
@@ -1304,8 +1305,6 @@
 				"\treturn function ( fbx ) {",
 				"",
 				"\t\tannie.userData.models[ age ] = fbx;",
-				"",
-				"\t\tconsole.log( fbx );",
 				"\t\t",
 				"\t\tfbx.traverse( function ( child ) {",
 				"",
@@ -1599,6 +1598,26 @@
 				"}",
 				"",
 				"FRAME.addResource( 'models', models );"
+			]
+		],
+		[
+			"Vignette",
+			[
+				"var camera = FRAME.getResource( 'camera' );",
+				"var materials = FRAME.getResource( 'materials' );",
+				"",
+				"var plane = new THREE.Mesh(",
+				"\tnew THREE.PlaneBufferGeometry(1, 1, 1, 1),",
+				"\tnew THREE.MeshBasicMaterial( {",
+				"\t\tcolor: 0xf28a1b,",
+				"\t\ttransparent: true,",
+				"\t\topacity: 0.75,",
+				"\t\tblending: THREE.AdditiveBlending",
+				"\t} )",
+				");",
+				"",
+				"camera.add( plane );",
+				"plane.position.z = - ( camera.near + 0.1 );"
 			]
 		]
 	],
@@ -2877,6 +2896,13 @@
 			5
 		],
 		[
+			"Stage 1",
+			0,
+			73.76897423610774,
+			1,
+			0
+		],
+		[
 			"Lip Sync",
 			0,
 			10.75758082497216,
@@ -2889,13 +2915,6 @@
 			266.422875,
 			0,
 			4
-		],
-		[
-			"Stage 1",
-			0,
-			73.76897423610774,
-			1,
-			0
 		],
 		[
 			"Enable Grass",
