@@ -9,15 +9,15 @@
 
 THREE.NeonEffect = function( effect, renderer ) {
 
-  const size = 64;
-  const tail_size = 4;
+  var size = 64;
+  var tail_size = 4;
 
-  let oddpass = false;
-  let pass = 0;
-  let inited = false;
+  var oddpass = false;
+  var pass = 0;
+  var inited = false;
 
-  let clock = new THREE.Clock();
-  let neonScene = new THREE.Scene();
+  var clock = new THREE.Clock();
+  var neonScene = new THREE.Scene();
 
   this.targetInit = this.createRenderTarget(size * 8, 1);
   this.targetPos0 = this.createRenderTarget(size, tail_size);
@@ -41,24 +41,24 @@ THREE.NeonEffect = function( effect, renderer ) {
   this.scale = 1;
   this.fogColor = new THREE.Color(0x333333);
 
-  let worldPosMaterial = THREE.neonShader.worldPositionShader.clone();
-  let lineMaterial = THREE.neonShader.particleShader.clone();
-  let particleMaterial = THREE.neonShader.particleShader.clone();
-  let simulationShader =  THREE.neonShader.simulationShader.clone();;
+  var worldPosMaterial = THREE.neonShader.worldPositionShader.clone();
+  var lineMaterial = THREE.neonShader.particleShader.clone();
+  var particleMaterial = THREE.neonShader.particleShader.clone();
+  var simulationShader =  THREE.neonShader.simulationShader.clone();;
   simulationShader.defines.SIZE = size + ".0";
   simulationShader.defines.TAIL_SIZE = tail_size + ".0";
   simulationShader.uniforms.tInit.value = this.targetInit.texture;
 
   var shaderPass = new THREE.ShaderPass(renderer);
 
-  let particles = new THREE.LineSegments(
+  var particles = new THREE.LineSegments(
     this.createLineGeometry(size, tail_size),
     lineMaterial
   );
   particles.frustumCulled = false;
   neonScene.add(particles);
 
-  let points = new THREE.Points(
+  var points = new THREE.Points(
     this.createParticleGeometry(size, tail_size),
     particleMaterial
   );
@@ -67,10 +67,10 @@ THREE.NeonEffect = function( effect, renderer ) {
 
   this.simulate = function(camera) {
     oddpass = !oddpass;
-    let currentPos = oddpass ? this.targetPos1 : this.targetPos0;
-    let previousPos = oddpass ? this.targetPos0 : this.targetPos1;
-    let currentCol = oddpass ? this.targetCol1 : this.targetCol0;
-    let previousCol = oddpass ? this.targetCol0 : this.targetCol1;
+    var currentPos = oddpass ? this.targetPos1 : this.targetPos0;
+    var previousPos = oddpass ? this.targetPos0 : this.targetPos1;
+    var currentCol = oddpass ? this.targetCol1 : this.targetCol0;
+    var previousCol = oddpass ? this.targetCol0 : this.targetCol1;
     simulationShader.uniforms.tPrevPos.value = previousPos.texture;
     simulationShader.uniforms.tPrevCol.value = previousCol.texture;
     simulationShader.uniforms.fPass.value = pass;
@@ -170,7 +170,7 @@ THREE.NeonEffect = function( effect, renderer ) {
 };
 
 THREE.NeonEffect.prototype.createRenderTarget = function(size, tail_size) {
-  let target = new THREE.WebGLRenderTarget( size, size * tail_size, {
+  var target = new THREE.WebGLRenderTarget( size, size * tail_size, {
     minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter,
     format: THREE.RGBAFormat, type: THREE.FloatType
   });
@@ -179,15 +179,15 @@ THREE.NeonEffect.prototype.createRenderTarget = function(size, tail_size) {
 };
 
 THREE.NeonEffect.prototype.createLineGeometry = function(size, tail_size) {
-    let ATTR_WIDTH = 3;
-    let indices = [];
-    let i = 0;
-    let geo = new THREE.BufferGeometry();
-    let pos = new Float32Array(size * size * tail_size * ATTR_WIDTH);
+    var ATTR_WIDTH = 3;
+    var indices = [];
+    var i = 0;
+    var geo = new THREE.BufferGeometry();
+    var pos = new Float32Array(size * size * tail_size * ATTR_WIDTH);
     var idx = 0;
-    for (let x = 0; x < size; x++) {
-      for (let y = 0; y < size; y++) {
-        for (let z = 0; z < tail_size; z++) {
+    for (var x = 0; x < size; x++) {
+      for (var y = 0; y < size; y++) {
+        for (var z = 0; z < tail_size; z++) {
           pos[idx + 1] = (x + 0.5) / size; // +0.5 to be at center of texel
           pos[idx + 0] = ((y + 0.5) / size) + ((z - tail_size / 2 + 0.5) / tail_size / size);// / tail_size;
           pos[idx + 2] = 0;//z / tail_size;
@@ -207,15 +207,15 @@ THREE.NeonEffect.prototype.createLineGeometry = function(size, tail_size) {
 }
 
 THREE.NeonEffect.prototype.createParticleGeometry = function(size, tail_size) {
-  let ATTR_WIDTH = 3;
-  let indices = [];
-  let i = 0;
-  let geo = new THREE.BufferGeometry();
-  let pos = new Float32Array(size * size * tail_size * ATTR_WIDTH);
+  var ATTR_WIDTH = 3;
+  var indices = [];
+  var i = 0;
+  var geo = new THREE.BufferGeometry();
+  var pos = new Float32Array(size * size * tail_size * ATTR_WIDTH);
   var idx = 0;
-  for (let x = 0; x < size; x++) {
-    for (let y = 0; y < size; y++) {
-      for (let z = 0; z < 1; z++) {
+  for (var x = 0; x < size; x++) {
+    for (var y = 0; y < size; y++) {
+      for (var z = 0; z < 1; z++) {
         pos[idx + 1] = (x + 0.5) / size; // +0.5 to be at center of texel
         pos[idx + 0] = ((y + 0.5) / size) + ((z - tail_size / 2 + 0.5) / tail_size / size);// / tail_size;
         pos[idx + 2] = 0;//z / tail_size;
