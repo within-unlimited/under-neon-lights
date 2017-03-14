@@ -1885,7 +1885,7 @@
 				");",
 				"",
 				"camera.add( plane );",
-				"plane.position.z = - ( camera.near + 0.1 );",
+				"plane.position.z = - ( camera.near + 0.001 );",
 				"",
 				"materials.filter.vignette = plane;"
 			]
