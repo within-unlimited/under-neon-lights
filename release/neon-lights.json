@@ -379,7 +379,7 @@
 				"",
 				"\t\tvar clickTime = 0;",
 				"\t\tvar isQuickClick = function () {",
-				"\t\t\treturn ( Date.now() - clickTime ) < 350;",
+				"\t\t\treturn ( Date.now() - clickTime ) < 100;",
 				"\t\t};",
 				"",
 				"\t\tcontrollers.mouse.addEventListener( 'mousedown', function () {",
@@ -536,7 +536,7 @@
 				"var sepia = {",
 				"",
 				"\tuniforms: {",
-				"\t\ttranslucency: { type: 'f', value: 0.5 }",
+				"\t\ttranslucency: { type: 'f', value: 0.75 }",
 				"\t},",
 				"",
 				"\tvertexShader: [",
@@ -566,6 +566,10 @@
 				"",
 				"\t\t'varying vec2 vUv;',",
 				"",
+				"\t\t'float average ( vec3 v ) {',",
+				"\t\t\t'return ( v.x + v.y + v.z ) / 3.0;',",
+				"\t\t'}',",
+				"\t\t",
 				"\t\t'void main () {',",
 				"",
 				"\t\t\t'float reduction = 1.4;',",
@@ -589,7 +593,8 @@
 				"\t\t\t't = magnitude - 3.0;',",
 				"\t\t\t'layer = mix( layer, e.xyz / space, clamp( t, 0.0, 1.0 ) );',",
 				"",
-				"\t\t\t'gl_FragColor = vec4( layer, translucency );',",
+				"\t\t\t'float o = translucency * ( 1.0 - pow( average( layer ), 2.0 ) );',",
+				"\t\t\t'gl_FragColor = vec4( layer, o );',",
 				"",
 				"\t\t'}'",
 				"",
@@ -2992,11 +2997,11 @@
 			5
 		],
 		[
-			"Lip Sync",
+			"VR Update",
 			0,
-			10.75758082497216,
-			5,
-			15
+			266.422875,
+			0,
+			4
 		],
 		[
 			"Stage 1",
@@ -3006,11 +3011,11 @@
 			0
 		],
 		[
-			"VR Update",
+			"Lip Sync",
 			0,
-			266.422875,
-			0,
-			4
+			10.75758082497216,
+			5,
+			15
 		],
 		[
 			"Enable Grass",
