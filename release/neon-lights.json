@@ -2090,7 +2090,7 @@
 				"\tscene.fog.color.set( group.fog.color );",
 				"\tscene.fog.near = group.fog.near;",
 				"\tscene.fog.far = group.fog.far;",
-				"\trenderer.setClearColor( scene.fog.color );",
+				"\trenderer.setClearColor( group.fog.color );",
 				"\t",
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
@@ -2318,7 +2318,7 @@
 				"\tscene.fog.color.set( group.fog.color );",
 				"\tscene.fog.near = group.fog.near;",
 				"\tscene.fog.far = group.fog.far;",
-				"\trenderer.setClearColor( scene.fog.color );",
+				"\trenderer.setClearColor( group.fog.color );",
 				"",
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
@@ -2559,7 +2559,7 @@
 				"\tscene.fog.color.set( group.fog.color );",
 				"\tscene.fog.near = group.fog.near;",
 				"\tscene.fog.far = group.fog.far;",
-				"\trenderer.setClearColor( scene.fog.color );",
+				"\trenderer.setClearColor( group.fog.color );",
 				"",
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
@@ -3009,11 +3009,11 @@
 			5
 		],
 		[
-			"VR Update",
+			"Lip Sync",
 			0,
-			266.422875,
-			0,
-			4
+			10.75758082497216,
+			5,
+			15
 		],
 		[
 			"Stage 1",
@@ -3023,11 +3023,11 @@
 			0
 		],
 		[
-			"Lip Sync",
+			"VR Update",
 			0,
-			10.75758082497216,
-			5,
-			15
+			266.422875,
+			0,
+			4
 		],
 		[
 			"Enable Grass",
