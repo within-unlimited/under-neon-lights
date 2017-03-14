@@ -532,7 +532,7 @@
 			"Materials",
 			[
 				"var filter = {",
-				"\tsaturation: { type: 'f', value: 0.33 }",
+				"\tsaturation: { type: 'f', value: 0.25 }",
 				"};",
 				"",
 				"var chunks = {",
@@ -1271,6 +1271,7 @@
 				"filter.sepia = new THREE.ShaderMaterial( {",
 				"",
 				"\ttransparent: true,",
+				"\tblending: THREE.MultiplyBlending,",
 				"",
 				"\tuniforms: THREE.UniformsUtils.clone( sepia.uniforms ),",
 				"\tvertexShader: sepia.vertexShader,",
