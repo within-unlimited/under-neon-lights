@@ -198,11 +198,12 @@ var FRAME = ( function () {
 
 		Timeline: function () {
 
-			var curves = [];
-			var animations = [];
+			var animations = [], curves = [];
 			var active = [];
 
 			var next = 0, prevtime = 0;
+
+			function layerSort( a, b ) { return a.layer - b.layer; }
 
 			return {
 
@@ -414,22 +415,24 @@ var FRAME = ( function () {
 
 					}
 
+					/*
 					// update curves
 
 					for ( i = 0, l = curves.length; i < l; i ++ ) {
 
-						curves[ i ].update( time, ( time - prevtime ) || 0 );
+						curves[ i ].update( time, time - prevtime );
 
 					}
+					*/
 
 					// render
 
-					active.sort( function ( a, b ) { return a.layer - b.layer; } );
+					active.sort( layerSort );
 
 					for ( i = 0, l = active.length; i < l; i ++ ) {
 
 						animation = active[ i ];
-						animation.effect.program.update( ( time - animation.start ) / ( animation.end - animation.start ), ( time - prevtime ) || 0 );
+						animation.effect.program.update( ( time - animation.start ) / ( animation.end - animation.start ), time - prevtime );
 
 					}
 
@@ -442,12 +445,9 @@ var FRAME = ( function () {
 					while ( active.length ) {
 
 						var animation = active.pop();
+						var program = animation.effect.program;
 
-						if ( animation.effect.program.end ) {
-
-							animation.effect.program.end();
-
-						}
+						if ( program.end ) program.end();
 
 					}
 
