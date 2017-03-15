@@ -2,7 +2,7 @@ THREE.NeonEffect = function( effect, renderer ) {
 
   this.annie = new THREE.Object3D();
   this.motionVector = new THREE.Vector3(0,0,0);
-  this.emmitRate = 1;
+  this.emissionRate = 1;
 
   var _particles = new THREE.NeonParticles( {
       renderer: renderer,
@@ -36,18 +36,22 @@ THREE.NeonEffect = function( effect, renderer ) {
 
   this.enabledChanged = function( enabled ) {
     if ( enabled ) {
-      _particles.setMaterials( _srcScene );
+      this.setScene( _srcScene );
     } else {
-      _particles.resetMaterials( _srcScene );
+      this.resetScene( _srcScene );
       _particles.clear();
     }
   };
 
-  this.resetScene = function () {
-      _particles.resetMaterials( _srcScene );
-      _particles.clear();
+  this.setScene = function ( scene ) {
+      _srcScene = scene;
+      _particles.setMaterials( _srcScene );
+      _annieParticles.setMaterials( this.annie );
+  }
+
+  this.resetScene = function ( scene ) {
+      _particles.resetMaterials( scene );
       _annieParticles.resetMaterials( this.annie );
-      _annieParticles.clear();
   }
 
   // TODO: optimize
@@ -56,22 +60,23 @@ THREE.NeonEffect = function( effect, renderer ) {
 
     if ( !this.enabled ) {
       this.annie.visible = true;
+      camera.visible = true;
       effect.render( _srcScene, camera );
       return;
     };
 
+    camera.visible = false;
     this.annie.visible = false;
-    _particles.emmitRate = this.emmitRate;
+    _particles.emissionRate = this.emissionRate;
     _particles.motionVector = this.motionVector;
     _particles.sampleScene( _srcScene, camera );
     _particles.simulate( camera );
 
     this.annie.visible = true;
-    _annieParticles.emmitRate = this.emmitRate;
+    _annieParticles.emissionRate = this.emissionRate;
     _annieParticles.sampleObject( this.annie );
     _annieParticles.simulate( camera );
 
-    // this.annie.visible = true;
     effect.render( _scene, camera );
   }
 

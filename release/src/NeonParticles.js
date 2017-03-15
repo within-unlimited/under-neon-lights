@@ -20,7 +20,7 @@ THREE.NeonParticles = function( options ) {
     var clock = new THREE.Clock();
 
     this.motionVector = new THREE.Vector3(0,0,0);
-    this.emmitRate = 1;
+    this.emissionRate = 1;
 
     this.renderer = renderer;
     this.targetInit = this.createRenderTarget( size * 8, 1);
@@ -52,7 +52,7 @@ THREE.NeonParticles = function( options ) {
     this.add( this.points );
 
     var _camera = this._camera = new THREE.PerspectiveCamera(45, 4, 0.01, 100 );
-    var _scene = this._scene = new THREE.Scene().add(_camera);
+    var _scene = this._scene = new THREE.Scene();
     var _randVector = new THREE.Vector3();
     var _center = new THREE.Vector3();
     var _target = new THREE.Vector3();
@@ -64,7 +64,7 @@ THREE.NeonParticles = function( options ) {
 
         _scene.add(object);
         renderer.setClearColor( 0x000000 );
-        this.setMaterials( object );
+        // this.setMaterials( object );
 
         _box.setFromObject( object );
         var fovFactor = Math.tan((_camera.fov / 2) * Math.PI / 180.0);
@@ -84,8 +84,8 @@ THREE.NeonParticles = function( options ) {
 
         renderer.render( _scene, _camera, this.targetInit );
 
-        this.resetMaterials( object );
-        object._parent.add(object);
+        // this.resetMaterials( object );
+        if (object._parent) object._parent.add(object);
         object.matrixAutoUpdate = true;
         renderer.setClearColor( renderer._clearColor );
     }
@@ -113,7 +113,7 @@ THREE.NeonParticles = function( options ) {
       var previousPos = oddpass ? this.targetPos0 : this.targetPos1;
       var currentCol = oddpass ? this.targetCol1 : this.targetCol0;
       var previousCol = oddpass ? this.targetCol0 : this.targetCol1;
-      simulationShader.uniforms.fEmmitRate.value = this.emmitRate;
+      simulationShader.uniforms.fEmissionRate.value = this.emissionRate;
       simulationShader.uniforms.tPrevPos.value = previousPos.texture;
       simulationShader.uniforms.tPrevCol.value = previousCol.texture;
       simulationShader.uniforms.fPass.value = pass;
