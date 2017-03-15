@@ -5,19 +5,22 @@
  * Inspiration: https://github.com/nopjia/webgl-particles2
 */
 
-THREE.NeonParticles = function( renderer ) {
+THREE.NeonParticles = function( options ) {
 
     THREE.Object3D.call( this );
     this.type = 'NeonParticles';
 
-    var size = 64;
-    var tail_size = 4;
+    var renderer = options.renderer;
+    var size = options.size || 64;
+    var tail_size = options.tail_size || 4;
+    var scale = options.scale || 0.3;
+
     var oddpass = false;
     var pass = -1;
-    var scale = 0.3;
     var clock = new THREE.Clock();
 
     this.motionVector = new THREE.Vector3(0,0,0);
+    this.emmitRate = 1;
 
     this.renderer = renderer;
     this.targetInit = this.createRenderTarget( size * 8, 1);
@@ -110,6 +113,7 @@ THREE.NeonParticles = function( renderer ) {
       var previousPos = oddpass ? this.targetPos0 : this.targetPos1;
       var currentCol = oddpass ? this.targetCol1 : this.targetCol0;
       var previousCol = oddpass ? this.targetCol0 : this.targetCol1;
+      simulationShader.uniforms.fEmmitRate.value = this.emmitRate;
       simulationShader.uniforms.tPrevPos.value = previousPos.texture;
       simulationShader.uniforms.tPrevCol.value = previousCol.texture;
       simulationShader.uniforms.fPass.value = pass;

@@ -192,7 +192,6 @@
 				"",
 				"var neon = new THREE.NeonEffect( effect, renderer );",
 				"neon.enabled = false;",
-				"neon.scale = 0.3;",
 				"",
 				"if ( navigator.getVRDisplays ) {",
 				"",
@@ -2026,7 +2025,7 @@
 				"",
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
-				"\tneon.fogColor.set( group.fog.color );",
+				"\t//neon.fogColor.set( group.fog.color );",
 				"",
 				"}",
 				"",
@@ -2263,7 +2262,7 @@
 				"\t",
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
-				"\tneon.fogColor.set( group.fog.color );",
+				"\t//neon.fogColor.set( group.fog.color );",
 				"",
 				"}",
 				"",
@@ -2511,7 +2510,7 @@
 				"",
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
-				"\tneon.fogColor.set( group.fog.color );",
+				"\t//neon.fogColor.set( group.fog.color );",
 				"",
 				"}",
 				"",
@@ -2767,7 +2766,7 @@
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
 				"\t",
-				"\tneon.fogColor.set( group.fog.color );",
+				"\t//neon.fogColor.set( group.fog.color );",
 				"\tneon.enabled = true;",
 				"\tStage4.playing = true;",
 				"\t",
@@ -2937,6 +2936,8 @@
 				"scene.add( dolly );",
 				"scene.add( new THREE.AmbientLight( 0xffffff ) );",
 				"scene.add( annie );",
+				"",
+				"neon.annie = annie;",
 				"",
 				"var playing = false;",
 				"var p = 0;",
@@ -3226,11 +3227,11 @@
 			5
 		],
 		[
-			"Stage 1",
+			"Lip Sync",
 			0,
-			73.76897423610774,
-			1,
-			0
+			10.75758082497216,
+			5,
+			15
 		],
 		[
 			"VR Update",
@@ -3240,11 +3241,11 @@
 			4
 		],
 		[
-			"Lip Sync",
+			"Stage 1",
 			0,
-			10.75758082497216,
-			5,
-			15
+			73.76897423610774,
+			1,
+			0
 		],
 		[
 			"Enable Grass",

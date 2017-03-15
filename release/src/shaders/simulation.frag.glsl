@@ -12,6 +12,7 @@ uniform mat4 mModelViewMatrix;
 uniform float fTime;
 uniform float fTimeDelta;
 uniform float fScale;
+uniform float fEmmitRate;
 
 #inject ../release/src/shaders/chunks/Rand.glsl
 #inject ../release/src/shaders/chunks/FloatPack.glsl
@@ -44,7 +45,7 @@ void main() {
   float speed = 0.04;
   float len = fScale * 50.0;
 
-  if (pos0.a <= 0.0 && posInit.a != 0.0) {
+  if (pos0.a <= 0.0 && posInit.a != 0.0 && uv.x < fEmmitRate) {
     pos = posInit;
     col = floatToVec4(pos.a);
     col.rgb *= 0.5 + 1.2 * rand(vec2(uv.y, col.b));
@@ -53,11 +54,11 @@ void main() {
     float dist = max(1.0, 0.05 * length(pos.xyz));
     vec3 force = curlNoise((pos.xyz + vec3(0.0, fTime * 0.5, 0.0)) * 0.3 / fScale / dist) * d * speed * len;
     pos.xyz += force * dist;
-    /*pos.xyz -= vMotionVector * d * 1000.0;*/
+    pos.xyz -= vMotionVector * d * 300.0;
   }
 
   pos.xyz += snoiseVec3((pos.xyz + vec3(0.0, fTime * 0.3, 0.0)) * 0.4 / fScale) * d * speed;
-  pos.xyz += vMotionVector * 20.0;
+  pos.xyz += vMotionVector * 46.0;
   pos.a -= 0.5 * speed;
 
   gl_FragColor = (fTarget == 0.0) ? pos : col;
