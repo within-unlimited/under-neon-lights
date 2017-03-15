@@ -44,6 +44,8 @@ THREE.neonShader.worldPositionShader = new THREE.ShaderMaterial({
 });
 
 THREE.neonShader.particleShader = new THREE.ShaderMaterial({
+  blending: THREE.AdditiveBlending,
+  transparent: true,
   defines: {
     "POINT_SIZE": "2.0",
   },

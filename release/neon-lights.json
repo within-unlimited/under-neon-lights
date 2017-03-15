@@ -15,8 +15,9 @@
 		"../release/third-party/three/js/vr/DaydreamController.js",
 		"../release/third-party/orientation-arm-model.js",
 		"../release/third-party/three/js/vr/ViveController.js",
-		"../release/src/NeonEffect.js",
-		"../release/src/NeonShader.js"
+		"../release/src/NeonShader.js",
+		"../release/src/NeonParticles.js",
+		"../release/src/NeonEffect.js"
 	],
 	"includes": [
 		[
