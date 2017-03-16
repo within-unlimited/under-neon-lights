@@ -11,6 +11,9 @@ THREE.NeonParticles = function( options ) {
     this.type = 'NeonParticles';
 
     var renderer = options.renderer;
+
+    if ( renderer.extensions.get( 'OES_texture_float_linear' ) === null ) return;
+
     var size = options.size || 64;
     var tail_size = options.tail_size || 4;
     var scale = options.scale || 0.3;
