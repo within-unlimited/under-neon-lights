@@ -2021,8 +2021,8 @@
 				"List.prototype.exhausted = false;",
 				"List.prototype.next = function () {",
 				"\tvar index = this.index;",
-				"\tindex = ( index + 1 ) % this.length;",
-				"\tif ( !this.exhausted && index === 0 ) {",
+				"\tthis.index = ( index + 1 ) % this.length;",
+				"\tif ( !this.exhausted && this.index === 0 ) {",
 				"\t\tthis.exhausted = true;",
 				"\t}",
 				"\treturn this[ index ];",
@@ -2034,7 +2034,8 @@
 				"\tmushroom: new List(),",
 				"\tgrass: new List(),",
 				"\trock: new List(),",
-				"\ttree: new List()",
+				"\ttree: new List(),",
+				"\tlist: ['flower', 'mushroom', 'grass', 'rock', 'tree']",
 				"};",
 				"",
 				"model.ready( function () {",
@@ -2058,7 +2059,8 @@
 				"\t\tmesh.scale.setScalar( Math.random() / 2 + 0.5 );",
 				"\t\tmesh.rotation.y = Math.random() * TWO_PI;",
 				"\t\tmesh.visible = false;",
-				"",
+				"\t\tmesh.userData.placed = false;",
+				"\t\t",
 				"\t\tfor ( var k in types ) {",
 				"\t\t\tvar list = types[ k ];",
 				"\t\t\tif ( !list.regex ) {",
@@ -2115,12 +2117,14 @@
 				"\tdolly.userData.reset();",
 				"",
 				"\tscene.fog.color.set( group.fog.color );",
+				"\tscene.fog.far = group.fog.far;",
+				"\tscene.fog.near = group.fog.near;",
 				"\trenderer.setClearColor( group.fog.color );",
 				"",
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
 				"\t",
-				"\tif (neon.enabled) neon.setScene( group );",
+				"\tif ( neon.enabled ) neon.setScene( group );",
 				"",
 				"}",
 				"",
@@ -2195,7 +2199,7 @@
 				"\t\tvar offset, x, y, angle, phi;",
 				"\t\tvar mesh = elements[ i ];",
 				"",
-				"\t\tif ( mesh.visible ) {",
+				"\t\tif ( mesh.userData.placed ) {",
 				"",
 				"\t\t\toffset = mesh.userData.offset;",
 				"\t\t\tx = mod( cursor.x + offset.x, 2 ) - 1;",
@@ -2209,6 +2213,10 @@
 				"",
 				"\t\t\tmesh.position.x *= - size;",
 				"\t\t\tmesh.position.z *= - size;",
+				"",
+				"\t\t\tif ( !mesh.visible ) {",
+				"\t\t\t\tmesh.visible = true;",
+				"\t\t\t}",
 				"",
 				"\t\t}",
 				"",
@@ -2235,13 +2243,16 @@
 				"",
 				"\tvar angle = a || 0;",
 				"\tvar theta = direction.destination + ( Math.random() * angle - angle / 2 );",
-				"\tvar amp = rad || 1;",
+				"\tvar amp = ( typeof rad == 'number' ) ? rad : 1;",
 				"",
-				"\tvar x = - cursor.x - rad * Math.cos( theta ) + 1;",
-				"\tvar y = - cursor.y - rad * Math.sin( theta ) + 1;",
+				"\tvar x = - cursor.x - amp * Math.cos( theta ) + 1;",
+				"\tvar y = - cursor.y - amp * Math.sin( theta ) + 1;",
 				"",
 				"\tobj.userData.offset.set( x, y );",
-				"\tobj.visible = true;",
+				"\tobj.material.uniforms.fogColor.value.set( scene.fog.color );",
+				"\tobj.material.uniforms.fogNear.value = scene.fog.near;",
+				"\tobj.material.uniforms.fogFar.value = scene.fog.far;",
+				"\tobj.userData.placed = true;",
 				"",
 				"}",
 				"",
@@ -2350,6 +2361,8 @@
 				"\tdolly.userData.reset();",
 				"",
 				"\tscene.fog.color.set( group.fog.color );",
+				"\tscene.fog.far = group.fog.far;",
+				"\tscene.fog.near = group.fog.near;",
 				"\trenderer.setClearColor( group.fog.color );",
 				"\t",
 				"\tscene.add( group );",
@@ -2596,6 +2609,8 @@
 				"\tdolly.userData.reset();",
 				"",
 				"\tscene.fog.color.set( group.fog.color );",
+				"\tscene.fog.far = group.fog.far;",
+				"\tscene.fog.near = group.fog.near;",
 				"\trenderer.setClearColor( group.fog.color );",
 				"",
 				"\tscene.add( group );",
@@ -3333,15 +3348,18 @@
 			]
 		],
 		[
-			"Recede Fog Full",
+			"Add Forest Object 'til Exhausted",
 			[
-				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var stages = FRAME.getResource( 'stages' );",
-				"var startValue = 0;",
+				"var stage;",
+				"var types;",
+				"var list;",
+				"var type;",
 				"",
 				"function start () {",
 				"",
-				"\tstartValue = fog.far;",
+				"\tstage = FRAME.getResource( 'stages' )[ 0 ];",
+				"\ttypes = stage.types;",
+				"\tlist = types.list;",
 				"",
 				"}",
 				"",
@@ -3350,16 +3368,22 @@
 				"}",
 				"",
 				"function update( progress ) {",
+				"\t",
+				"\tvar type = list[ Math.floor( Math.random() * list.length ) ];",
+				"\tvar items = types[ type ];",
 				"",
-				"\tvar scene = stages.current.scene;",
-				"\tvar t = TWEEN.Easing.Back.Out ( progress );",
-				"\tfog.far = t * ( scene.fog.far - startValue ) + startValue;",
+				"\tif ( items.exhausted ) {",
+				"\t\treturn;",
+				"\t}",
+				"",
+				"\telem = items.next();",
+				"\tstage.add( elem, Math.PI / 2, 1 );",
 				"",
 				"}"
 			]
 		],
 		[
-			"Recede Fog 1/3",
+			"Recede Fog",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var stages = FRAME.getResource( 'stages' );",
@@ -3378,7 +3402,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar scene = stages.current.scene;",
-				"\tvar dest = scene.fog.far * 0.75;",
+				"\tvar dest = scene.fog.far;",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
 				"\tfog.far = t * ( dest - startValue ) + startValue;",
 				"",
@@ -3394,8 +3418,32 @@
 				"",
 				"\tvar stage = FRAME.getResource( 'stages' )[ 0 ];",
 				"\telem = stage.types.mushroom.next();",
-				"\tstage.add( elem, 0, 0.25 );",
+				"\tstage.add( elem, 0, 0.5 );",
 				"\t",
+				"",
+				"}",
+				"",
+				"function end () {",
+				"",
+				"}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Add random Forest Object in FOV",
+			[
+				"var elem;",
+				"",
+				"function start () {",
+				"",
+				"\tvar stage = FRAME.getResource( 'stages' )[ 0 ];",
+				"\tvar types = stage.types;",
+				"\tvar list = types.list;",
+				"\tvar type = list[ Math.floor( Math.random() * list.length ) ];",
+				"",
+				"\telem = types[ type ].next();",
+				"\tstage.add( elem, Math.PI / 4, 0.5 );",
 				"",
 				"}",
 				"",
@@ -3409,11 +3457,18 @@
 	],
 	"animations": [
 		[
-			"Stage 1",
+			"Render",
 			0,
-			73.76897423610774,
-			1,
-			0
+			266.42287499999986,
+			6,
+			5
+		],
+		[
+			"Lip Sync",
+			0,
+			10.75758082497216,
+			5,
+			15
 		],
 		[
 			"VR Update",
@@ -3423,11 +3478,11 @@
 			4
 		],
 		[
-			"Render",
+			"Stage 1",
 			0,
-			266.42287499999986,
-			6,
-			5
+			73.76897423610774,
+			1,
+			0
 		],
 		[
 			"Reveal Scene 1/10",
@@ -3444,14 +3499,7 @@
 			0
 		],
 		[
-			"Lip Sync",
-			0,
-			10.75758082497216,
-			5,
-			15
-		],
-		[
-			"Reveal Scene 1/3",
+			"Reveal Scene",
 			10.252427564173855,
 			10.737864401284511,
 			2,
@@ -4242,6 +4290,13 @@
 			13
 		],
 		[
+			"In the Forest",
+			40.49280612061148,
+			54.49280612061148,
+			2,
+			17
+		],
+		[
 			"N",
 			40.55623748309381,
 			40.636397695648334,
@@ -4256,11 +4311,221 @@
 			15
 		],
 		[
-			"Reveal Scene",
-			42,
-			42.95274341453902,
-			2,
-			17
+			"Guitar Riff",
+			42.011034090630375,
+			43.01103405341384,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			42.49883891240055,
+			43.49883887518401,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			43.01103524434323,
+			44.011035207126696,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			43.49884006611331,
+			44.49884002889677,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			44.011035207126696,
+			45.01103516991016,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			44.49884002889677,
+			45.498839991680235,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			45.01103516991016,
+			46.01103513269362,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			45.498839991680235,
+			46.4988399544637,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			46.01103513269362,
+			47.011035095477084,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			46.4988399544637,
+			47.49883991724716,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			47.011035095477084,
+			48.011035058260546,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			47.49883991724716,
+			48.49883988003062,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			48.011035058260546,
+			49.01103502104401,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			48.49883988003062,
+			49.498839842814085,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			49.01103502104401,
+			50.01103498382747,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			49.498839842814085,
+			50.49883980559755,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			50.01103498382747,
+			51.011034946610934,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			50.49883980559755,
+			51.49883976838101,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			51.011034946610934,
+			52.0110349093944,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			51.49883976838101,
+			52.49883973116447,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			52.0110349093944,
+			53.01103487217786,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			52.49883973116447,
+			53.498839693947936,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			53.01103487217786,
+			54.01103483496132,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			53.498839693947936,
+			54.4988396567314,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			54.01103483496132,
+			55.011034797744784,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			54.4988396567314,
+			55.49883961951486,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			55.011034797744784,
+			56.01103476052825,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			55.49883961951486,
+			56.498839582298324,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			56.01103476052825,
+			57.01103472331171,
+			4,
+			20
+		],
+		[
+			"Guitar Riff",
+			56.498839582298324,
+			57.498839545081786,
+			3,
+			20
+		],
+		[
+			"Guitar Riff",
+			57.01103472331171,
+			58.01103468609517,
+			4,
+			20
 		],
 		[
 			"AH",
@@ -4270,11 +4535,25 @@
 			14
 		],
 		[
+			"Guitar Riff",
+			57.498839545081786,
+			58.49883950786525,
+			3,
+			20
+		],
+		[
 			"C",
 			57.83624534950841,
 			58.10993522198711,
 			5,
 			15
+		],
+		[
+			"Guitar Riff",
+			58.01103468609517,
+			59.011034648878635,
+			4,
+			20
 		],
 		[
 			"L",
