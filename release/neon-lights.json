@@ -2691,7 +2691,7 @@
 				"\t\ttypes.buildings.push( a );",
 				"\t\ttypes.pavements.push( b );",
 				"",
-				"\t\ta.scale.y = - 0.01;",
+				"\t\ta.scale.y = - 1;",
 				"",
 				"\t\tvar col = ( i + 0.5 ) % cols;",
 				"\t\tvar row = Math.floor( i / cols ) + 0.5;",
@@ -3603,6 +3603,7 @@
 				"function start () {",
 				"",
 				"\tannie.userData.age( 'adult' );",
+				"\tannie.userData.play( 'run' );",
 				"",
 				"}",
 				"",
@@ -3790,13 +3791,6 @@
 			5
 		],
 		[
-			"Lip Sync",
-			0,
-			10.75758082497216,
-			5,
-			12
-		],
-		[
 			"Stage 1",
 			0,
 			73.76897423610774,
@@ -3804,11 +3798,11 @@
 			0
 		],
 		[
-			"VR Update",
+			"Lip Sync",
 			0,
-			266.422875,
-			0,
-			4
+			10.75758082497216,
+			5,
+			12
 		],
 		[
 			"Reveal Scene 1/10",
@@ -3816,6 +3810,13 @@
 			10.25,
 			2,
 			13
+		],
+		[
+			"VR Update",
+			0,
+			266.422875,
+			0,
+			4
 		],
 		[
 			"Reveal Scene 1/3",
