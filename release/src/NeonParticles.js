@@ -14,11 +14,11 @@ THREE.NeonParticles = function( options ) {
 
     if ( renderer.extensions.get( 'OES_texture_float_linear' ) === null ) return;
 
-    var size = options.size || 64;
-    var tail_size = options.tail_size || 4;
+    var size = options.size || 32;
+    var tail_size = options.tail_size || 8;
     var scale = options.scale || 0.3;
 
-    var oddpass = false;
+    this.oddpass = false;
     var pass = -1;
     var clock = new THREE.Clock();
 
@@ -26,69 +26,71 @@ THREE.NeonParticles = function( options ) {
     this.emissionRate = 1;
 
     this.renderer = renderer;
-    this.targetInit = this.createRenderTarget( size * 8, 1);
+    this.targetInit = this.createRenderTarget( 128, 1);
     this.targetPos0 = this.createRenderTarget( size, tail_size );
     this.targetPos1 = this.createRenderTarget( size, tail_size );
     this.targetCol0 = this.createRenderTarget( size, 1 );
     this.targetCol1 = this.createRenderTarget( size, 1 );
 
-    // var worldPosMaterial = THREE.neonShader.worldPositionShader.clone();
-    var simulationShader =  THREE.neonShader.simulationShader.clone();
+    var simulationShader = THREE.neonShader.simulationShader.clone();
     simulationShader.defines.SIZE = size + ".0";
     simulationShader.defines.TAIL_SIZE = tail_size + ".0";
     simulationShader.uniforms.tInit.value = this.targetInit.texture;
 
     var shaderPass = new THREE.ShaderPass( renderer );
 
-    this.particles = new THREE.LineSegments(
+    this.lines = new THREE.LineSegments(
       this.createLineGeometry( size, tail_size ),
       THREE.neonShader.particleShader.clone()
     );
-    this.particles.frustumCulled = false;
-    this.add( this.particles );
+    this.lines.material.defines.IS_POINT = true;
+    this.lines.frustumCulled = false;
+    this.lines.isParticle = true;
+    this.add( this.lines );
 
     this.points = new THREE.Points(
       this.createParticleGeometry( size, tail_size ),
       THREE.neonShader.particleShader.clone()
     );
     this.points.frustumCulled = false;
+    this.points.isParticle = true;
     this.add( this.points );
 
-    var _camera = this._camera = new THREE.PerspectiveCamera(45, 4, 0.01, 100 );
-    var _scene = this._scene = new THREE.Scene();
+    var _camera = new THREE.PerspectiveCamera(45, 4, 0.01, 100 );;
     var _randVector = new THREE.Vector3();
     var _center = new THREE.Vector3();
     var _target = new THREE.Vector3();
     var _box = new THREE.Box3();
-    this.sampleObject = function( object ) {
-        object._parent = object.parent;
+    this.sampleObject = function( scene, object ) {
+
         object.matrixAutoUpdate = false;
-        renderer._clearColor = renderer.getClearColor().getHex();
-
-        _scene.add(object);
+        renderer._clearColor = renderer._clearColor || renderer.getClearColor().getHex();
         renderer.setClearColor( 0x000000 );
-        // this.setMaterials( object );
 
-        _box.setFromObject( object );
+        if (!object._box){
+          _box.setFromObject( object );
+          object._box = _box.clone();
+          object._center = _box.getCenter();
+          object._radius = _box.getBoundingSphere().radius;
+        }
+
         var fovFactor = Math.tan((_camera.fov / 2) * Math.PI / 180.0);
-        _camera.aspect = Math.max(_box.max.x, _box.max.z) / _box.max.y * 1.5;
+        _camera.aspect = Math.max(object._box.max.x, object._box.max.z) / object._box.max.y * 1.5;
         _camera.updateProjectionMatrix();
-        _target.copy(_box.getCenter());
+        _target.copy(object._center);
 
         _camera.position.copy(_target);
-        _randVector.set(Math.random()-0.5, 2*(Math.random()-0.5), Math.random()-0.5);//.normalize();
+        _randVector.set(Math.random()-0.5, 2*(Math.random()-0.5), Math.random()-0.5).normalize();
         _camera.position.add(_randVector);
 
         var offset = _camera.position.clone().sub(_target);
-        offset.normalize().multiplyScalar(_box.getBoundingSphere().radius  / fovFactor);
+        offset.normalize().multiplyScalar(object._radius  / fovFactor);
 
         _camera.position.copy(_target).add(offset);
         _camera.lookAt(_target);
 
-        renderer.render( _scene, _camera, this.targetInit );
+        renderer.render( scene, _camera, this.targetInit );
 
-        // this.resetMaterials( object );
-        if (object._parent) object._parent.add(object);
         object.matrixAutoUpdate = true;
         renderer.setClearColor( renderer._clearColor );
     }
@@ -96,8 +98,8 @@ THREE.NeonParticles = function( options ) {
     this.sampleScene = function( scene, camera ) {
         camera._fov = camera.fov;
         camera._aspect = camera.aspect;
-        renderer._clearColor = renderer.getClearColor().getHex();
-        camera.fov = 45;
+        renderer._clearColor = renderer._clearColor || renderer.getClearColor().getHex();
+        camera.fov = 60;
         camera.aspect = 1;
         camera.updateProjectionMatrix();
         renderer.setClearColor( 0x000000 );
@@ -110,31 +112,43 @@ THREE.NeonParticles = function( options ) {
     }
 
     this.simulate = function( camera ) {
-      oddpass = !oddpass;
+      this.oddpass = !this.oddpass;
       pass++;
-      var currentPos = oddpass ? this.targetPos1 : this.targetPos0;
-      var previousPos = oddpass ? this.targetPos0 : this.targetPos1;
-      var currentCol = oddpass ? this.targetCol1 : this.targetCol0;
-      var previousCol = oddpass ? this.targetCol0 : this.targetCol1;
+      var currentPos = this.oddpass ? this.targetPos1 : this.targetPos0;
+      var previousPos = this.oddpass ? this.targetPos0 : this.targetPos1;
+      var currentCol = this.oddpass ? this.targetCol1 : this.targetCol0;
+      var previousCol = this.oddpass ? this.targetCol0 : this.targetCol1;
+
+      simulationShader.uniforms.fTarget.value = 0.0;
       simulationShader.uniforms.fEmissionRate.value = this.emissionRate;
       simulationShader.uniforms.tPrevPos.value = previousPos.texture;
       simulationShader.uniforms.tPrevCol.value = previousCol.texture;
-      simulationShader.uniforms.fPass.value = pass;
       simulationShader.uniforms.fTimeDelta.value = Math.min( 1 / 60, clock.getDelta() );
       simulationShader.uniforms.fTime.value = clock.getElapsedTime();
-      simulationShader.uniforms.fTarget.value = 0.0;
       simulationShader.uniforms.fScale.value = scale;
       simulationShader.uniforms.mProjectionMatrix.value = camera.projectionMatrix;
       simulationShader.uniforms.mModelViewMatrix.value = camera.matrixWorldInverse;
       simulationShader.uniforms.vMotionVector.value = this.motionVector;
 
       shaderPass.render( simulationShader, currentPos );
+
       simulationShader.uniforms.fTarget.value = 1.0;
+    //   simulationColorShader.uniforms.fEmissionRate.value = this.emissionRate;
+    //   simulationColorShader.uniforms.tPrevPos.value = currentPos.texture;
+    //   simulationColorShader.uniforms.tPrevCol.value = previousCol.texture;
+    //   simulationColorShader.uniforms.fTimeDelta.value = Math.min( 1 / 60, clock.getDelta() );
+    //   simulationColorShader.uniforms.fTime.value = clock.getElapsedTime();
+    //   simulationColorShader.uniforms.fScale.value = scale;
+    //   simulationColorShader.uniforms.mProjectionMatrix.value = camera.projectionMatrix;
+    //   simulationColorShader.uniforms.mModelViewMatrix.value = camera.matrixWorldInverse;
+    //   simulationColorShader.uniforms.vMotionVector.value = this.motionVector;
+
       shaderPass.render( simulationShader, currentCol );
+
       // TODO: remove hack
-      if (this.particles.material.uniforms.tCurrPos) {
-          this.particles.material.uniforms.tCurrPos.value = currentPos.texture;
-          this.particles.material.uniforms.tCurrCol.value = currentCol.texture;
+      if (this.points.material.uniforms.tCurrPos) {
+          this.lines.material.uniforms.tCurrPos.value = currentPos.texture;
+          this.lines.material.uniforms.tCurrCol.value = currentCol.texture;
           this.points.material.uniforms.tCurrPos.value = currentPos.texture;
           this.points.material.uniforms.tCurrCol.value = currentCol.texture;
       }
@@ -151,6 +165,9 @@ THREE.NeonParticles.prototype.constructor = THREE.NeonParticles;
 
 THREE.NeonParticles.prototype.setMaterials = function( obj ) {
   obj.traverse( function( child ) {
+    if (child.isParticle) {
+      child._neonMat = child._material = child.material;
+    }
     if ( child.material && !child._material && !child._neonMat ) {
       child._material = child.material;
       if ( child.material.uniforms && child.material.uniforms.neon ) {

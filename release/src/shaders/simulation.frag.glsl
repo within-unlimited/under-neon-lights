@@ -38,8 +38,6 @@ void main() {
   vec4 posInit = texture2D(tInit, uvRandomized);
   if (length(posInit.xyz) <= 0.01) {
     posInit.a = 0.0;
-  } else {
-    posInit.xyz += curlNoise(uv.xyx * 1000.0) * 0.05;
   }
 
   float speed = 0.04;
@@ -54,11 +52,11 @@ void main() {
     float dist = max(1.0, 0.05 * length(pos.xyz));
     vec3 force = curlNoise((pos.xyz + vec3(0.0, fTime * 0.5, 0.0)) * 0.3 / fScale / dist) * d * speed * len;
     pos.xyz += force * dist;
-    pos.xyz -= vMotionVector * d * 200.0;
+    pos.xyz -= vMotionVector * d * 2.0;
   }
 
   pos.xyz += snoiseVec3((pos.xyz + vec3(0.0, fTime * 0.3, 0.0)) * 0.4 / fScale) * d * speed;
-  pos.xyz += vMotionVector * 40.0;
+  pos.xyz += vMotionVector;
   pos.a -= 0.5 * speed;
 
   gl_FragColor = (fTarget == 0.0) ? pos : col;
