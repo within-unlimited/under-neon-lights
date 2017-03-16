@@ -204,6 +204,7 @@ var FRAME = ( function () {
 			var next = 0, prevtime = 0;
 
 			function layerSort( a, b ) { return a.layer - b.layer; }
+			function startSort( a, b ) { return a.start === b.start ? layerSort( a, b ) : a.start - b.start; }
 
 			return {
 
@@ -346,7 +347,7 @@ var FRAME = ( function () {
 
 				sort: function () {
 
-					animations.sort( function ( a, b ) { return a.start - b.start; } );
+					animations.sort( startSort );
 
 				},
 
