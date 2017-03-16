@@ -1360,6 +1360,7 @@
 				"",
 				"\ttransparent: true,",
 				"\tblending: THREE.SubtractiveBlending,",
+				"\tfog: false,",
 				"",
 				"\tuniforms: THREE.UniformsUtils.clone( sepia.uniforms ),",
 				"\tvertexShader: sepia.vertexShader,",
@@ -2007,16 +2008,20 @@
 				"var camera = FRAME.getResource( 'camera' );",
 				"",
 				"var group = new THREE.Scene();",
-				"group.fog = new THREE.Fog( 0x372f5c, 0, parameters.size.value * 0.66 );",
+				"group.fog = new THREE.Fog( 0x333333, 0, parameters.size.value * 0.66 );",
 				"",
 				"materials.floor.uniforms.color.value.set( 0x72fa8c );",
 				"materials.floor.uniforms.size.value = parameters.size.value;",
+				"materials.floor.uniforms.fogColor.value.set( group.fog.color );",
 				"",
 				"materials.backdrop.uniforms.color.value.set( 0xdde9ab );",
 				"materials.backdrop.uniforms.fog.value = group.fog.color;",
 				"",
+				"materials.wave.uniforms.fogColor.value.set( group.fog.color );",
+				"",
 				"materials.grass.uniforms.size.value = parameters.size.value;",
 				"materials.grass.uniforms.base.value.set( 0x72fa8c );",
+				"materials.grass.uniforms.fogColor.value.set( group.fog.color );",
 				"",
 				"var ground = new THREE.Mesh(",
 				"\tnew THREE.PlaneBufferGeometry( parameters.size.value, parameters.size.value ),",
@@ -2026,33 +2031,14 @@
 				"group.add( ground );",
 				"",
 				"var backdrop = new THREE.Mesh(",
-				"\tnew THREE.SphereBufferGeometry( parameters.size.value ),",
+				"\tnew THREE.SphereBufferGeometry( parameters.size.value - 1 ),",
 				"\tmaterials.backdrop",
 				");",
-				"group.add( backdrop );",
 				"",
 				"var field = [];",
 				"field.geometry = new THREE.CylinderBufferGeometry( 0.2, 0.2, 1, 4, 16, true );",
 				"field.material = materials.grass;",
 				"field.geometry.translate( 0, 0.5, 0 );",
-				"",
-				"var List = function() {",
-				"\tArray.call( this );",
-				"};",
-				"",
-				"List.prototype = Object.create( Array.prototype );",
-				"List.prototype.constructor = List;",
-				"",
-				"List.prototype.index = 0;",
-				"List.prototype.exhausted = false;",
-				"List.prototype.next = function () {",
-				"\tvar index = this.index;",
-				"\tthis.index = ( index + 1 ) % this.length;",
-				"\tif ( !this.exhausted && this.index === 0 ) {",
-				"\t\tthis.exhausted = true;",
-				"\t}",
-				"\treturn this[ index ];",
-				"};",
 				"",
 				"var elements = [];",
 				"var types = {",
@@ -2119,18 +2105,26 @@
 				"var stages = FRAME.getResource( 'stages' );",
 				"stages.push( { ",
 				"",
+				"\tbackdrop: backdrop,",
 				"\ttypes: types,",
 				"\tscene: group,",
 				"\tstep: step,",
-				"\tadd: add",
+				"\tadd: add,",
+				"\tbuffer: { value: 1 },",
+				"\tclear: function() {",
+				"\t\tscene.remove( backdrop );",
+				"\t}",
 				"",
 				"} );",
+				"var stage = stages[ stages.length - 1 ];",
 				"",
 				"function start () {",
 				"",
 				"\tstages.current = stages[ 0 ];",
 				"\tstages.index = 0;",
 				"",
+				"\tgroup.position.y = 0;",
+				"\tstage.buffer.value = 1;",
 				"\tcursor.set( 0, 0 );",
 				"\t",
 				"\ttheta.reset();",
@@ -2147,6 +2141,7 @@
 				"\tscene.fog.near = group.fog.near;",
 				"\trenderer.setClearColor( group.fog.color );",
 				"",
+				"\tscene.add( backdrop );",
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
 				"\t",
@@ -2214,6 +2209,7 @@
 				"\tvar amplitude = step.value * ( dt || 0 );",
 				"\tvar forceField = parameters.forceField.value;",
 				"\tvar buffer = forceField * ( 128 / size );",
+				"\tbuffer *= stage.buffer.value;",
 				"",
 				"\tcursor.x += amplitude * Math.cos( direction.value );",
 				"\tcursor.y += amplitude * Math.sin( direction.value );",
@@ -2324,7 +2320,7 @@
 				"var cols = Math.sqrt( parameters.amount.value );",
 				"var rows = Math.ceil( parameters.amount.value / cols );",
 				"",
-				"var theta = new Ease( 0, 0.66 );",
+				"var theta = new Ease( 0, 0.33 );",
 				"var step = new Ease( 0.1 * parameters.step.value, 0.0625 );",
 				"var direction = new Ease( 0, 0.125 );",
 				"",
@@ -2398,9 +2394,11 @@
 				"\t\tgroup.add( mesh );",
 				"\t\telements.push( mesh );",
 				"",
+				"\t\t/*",
 				"\t\tif ( mesh.name == 'bedroom.json') {",
 				"\t\t\taddElephant( mesh );",
 				"\t\t}",
+				"\t\t*/",
 				"",
 				"\t}",
 				"",
@@ -2416,9 +2414,11 @@
 				"",
 				"function start () {",
 				"",
+				"\tstages[ 0 ].clear();",
 				"\tstages.current = stages[ 1 ];",
 				"\tstages.index = 1;",
 				"",
+				"\tstages[ 0 ].clear();",
 				"\tcursor.set( 0, 0 );",
 				"\tpc.copy( cursor );",
 				"\t",
@@ -2515,7 +2515,7 @@
 				"",
 				"\tupdateDirection();",
 				"",
-				"\thover();",
+				"//\thover();",
 				"",
 				"}",
 				"",
@@ -2538,6 +2538,7 @@
 				"\t\tvar angle = TWO_PI * Math.round( 4 * theta.destination / TWO_PI ) / 4;",
 				"\t\tdirection.destination += HALF_PI * Math.sin( angle - direction.destination );",
 				"\t\troom.set( cx, cy );",
+				"\t\ttheta.destination = direction.destination;",
 				"\t}",
 				"\t",
 				"\tpc.copy( cursor );",
@@ -2724,6 +2725,7 @@
 				"",
 				"function start () {",
 				"",
+				"\tstages[ 0 ].clear();",
 				"\tstage.curvature.value = 0;",
 				"\tstages.current = stages[ 2 ];",
 				"\tstages.index = 2;",
@@ -2992,6 +2994,7 @@
 				"",
 				"function start () {",
 				"",
+				"\tstages[ 0 ].clear();",
 				"\tstages.current = stages[ 3 ];",
 				"\tstages.index = 3;",
 				"",
@@ -3226,6 +3229,8 @@
 				"var enabled = false;",
 				"",
 				"function toggleBlink ()  {",
+				"",
+				"\treturn;",
 				"",
 				"\tif ( !playing || stages[ 3 ].playing || ( stages.current && stages.current.step.blinking ) ) {",
 				"\t\treturn;",
@@ -3780,6 +3785,36 @@
 				"\t",
 				"}"
 			]
+		],
+		[
+			"Forest Position Y",
+			[
+				"var stage = FRAME.getResource( 'stages' )[ 0 ];",
+				"var scene = stage.scene;",
+				"var fog = FRAME.getResource( 'scene' ).fog;",
+				"",
+				"function start () {",
+				"",
+				"\tif ( stage && stage.scene ) {",
+				"\t\tstage.scene.position.y = 0;",
+				"\t}",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update ( progress ) {",
+				"",
+				"\tif ( stage && stage.scene ) {",
+				"\t\tvar t = TWEEN.Easing.Sinusoidal.In( progress );",
+				"\t\tvar it = 1 - t;",
+				"\t\tstage.scene.position.y = - 64 * t;",
+				"\t\tstage.buffer.value = 2 * t + 1;",
+				"\t\tfog.far = scene.fog.far * it;",
+				"\t}",
+				"",
+				"}"
+			]
 		]
 	],
 	"animations": [
@@ -3791,11 +3826,11 @@
 			5
 		],
 		[
-			"Stage 1",
+			"VR Update",
 			0,
-			73.76897423610774,
-			1,
-			0
+			266.422875,
+			0,
+			4
 		],
 		[
 			"Lip Sync",
@@ -3805,18 +3840,18 @@
 			12
 		],
 		[
+			"Stage 1",
+			0,
+			72,
+			1,
+			0
+		],
+		[
 			"Reveal Scene 1/10",
 			0,
 			10.25,
 			2,
 			13
-		],
-		[
-			"VR Update",
-			0,
-			266.422875,
-			0,
-			4
 		],
 		[
 			"Reveal Scene 1/3",
@@ -5065,6 +5100,13 @@
 			12
 		],
 		[
+			"Lift Off (Environment)",
+			62,
+			72,
+			2,
+			27
+		],
+		[
 			"L",
 			62.07337033441556,
 			62.099690780142616,
@@ -5612,402 +5654,17 @@
 		],
 		[
 			"Stage 2",
-			73.79140817143754,
+			80,
 			144,
 			1,
 			1
 		],
 		[
-			"Vocals, \"As\"",
-			73.90833333333329,
-			74.55000000000021,
-			2,
-			6
-		],
-		[
-			"Vocals, \"She\"",
-			74.30833333333328,
-			74.91666666666625,
-			3,
-			6
-		],
-		[
-			"Vocals, \"Moves\"",
-			74.68333333333334,
-			75.33333333333285,
-			2,
-			6
-		],
-		[
-			"Vocals, \"To\"",
-			75.07499999999992,
-			75.69166666666638,
-			3,
-			6
-		],
-		[
-			"Vocals, \"Su-\"",
-			75.49999999999996,
-			76.14166666666583,
-			2,
-			6
-		],
-		[
-			"Vocals, \"-i-\"",
-			75.77499999999996,
-			76.40833333333276,
-			4,
-			6
-		],
-		[
-			"Vocals, \"-side\"",
-			76.13333333333334,
-			77.2499999999997,
-			3,
-			6
-		],
-		[
-			"Vocals, \"In\"",
-			77.6822429906542,
-			78.29890965732095,
-			2,
-			6
-		],
-		[
-			"Vocals, \"And\"",
-			78.19166666666662,
-			78.77500000000003,
-			3,
-			6
-		],
-		[
-			"Vocals, \"Un-\"",
-			78.58333333333333,
-			79.20000000000007,
-			2,
-			6
-		],
-		[
-			"Vocals, \"-der\"",
-			78.95,
-			79.55000000000008,
-			3,
-			6
-		],
-		[
-			"Vocals, \"Ne-\"",
-			79.28333333333333,
-			79.8833333333334,
-			2,
-			6
-		],
-		[
-			"Vocals, \"-on\"",
-			79.61666666666666,
-			80.2333333333334,
-			3,
-			6
-		],
-		[
-			"Vocals, \"Lights\"",
-			80.11666666666666,
-			81.55000000000003,
-			2,
-			6
-		],
-		[
-			"Vocals, \"Got\"",
-			81.50265957446808,
-			82.27003546099299,
-			3,
-			6
-		],
-		[
-			"Vocals, \"No\"",
-			81.83333333333334,
-			82.57765957446817,
-			2,
-			6
-		],
-		[
-			"Vocals, \"Hus-\"",
-			82.31666666666668,
-			83.06560283687945,
-			3,
-			6
-		],
-		[
-			"Vocals, \"-band\"",
-			82.76666666666668,
-			83.5386524822696,
-			2,
-			6
-		],
-		[
-			"Vocals, \"Got\"",
-			83.25,
-			84.0202127659575,
-			3,
-			6
-		],
-		[
-			"Vocals, \"No\"",
-			83.71382978723405,
-			84.49326241134759,
-			2,
-			6
-		],
-		[
-			"Vocals, \"Wife\"",
-			84.08049645390071,
-			85.6971631205674,
-			3,
-			6
-		],
-		[
-			"Vocals, \"All\"",
-			85.59574468085107,
-			86.38297872340428,
-			2,
-			6
-		],
-		[
-			"Vocals, \"I\"",
-			86,
-			86.78723404255321,
-			3,
-			6
-		],
-		[
-			"Vocals, \"Want\"",
-			86.48936170212765,
-			87.25531914893618,
-			2,
-			6
-		],
-		[
-			"Vocals, \"'s A\"",
-			86.9583333333333,
-			87.72429078014183,
-			3,
-			6
-		],
-		[
-			"Vocals, \"View\"",
-			87.29875886524819,
-			88.06471631205672,
-			4,
-			6
-		],
-		[
-			"Vocals, \"To-\"",
-			87.59999999999995,
-			88.23333333333301,
-			2,
-			6
-		],
-		[
-			"Vocals, \"-night\"",
-			88.10000000000001,
-			89.47634408602161,
-			3,
-			6
-		],
-		[
-			"Vocals, \"All\"",
-			89.6304347826087,
-			90.32608695652182,
-			2,
-			6
-		],
-		[
-			"Vocals, \"I\"",
-			89.96739130434783,
-			90.65217391304355,
-			3,
-			6
-		],
-		[
-			"Vocals, \"Want\"",
-			90.51086956521739,
-			91.2173913043479,
-			2,
-			6
-		],
-		[
-			"Vocals, \"-'s A\"",
-			90.85869565217392,
-			91.57608695652182,
-			3,
-			6
-		],
-		[
-			"Vocals, \"View\"",
-			91.18478260869566,
-			91.91304347826095,
-			4,
-			6
-		],
-		[
-			"Vocals, \"To-\"",
-			91.58695652173914,
-			92.33695652173921,
-			2,
-			6
-		],
-		[
-			"Vocals, \"-night\"",
-			91.97826086956522,
-			93.304347826087,
-			3,
-			6
-		],
-		[
-			"Vocals, \"All\"",
-			93.53079710144918,
-			94.18079710144914,
-			2,
-			6
-		],
-		[
-			"Vocals, \"I\"",
-			93.94999999999996,
-			94.59166666666636,
-			3,
-			6
-		],
-		[
-			"Vocals, \"Want\"",
-			94.39999999999999,
-			95.0666666666662,
-			2,
-			6
-		],
-		[
-			"Vocals, \"-'s A\"",
-			94.82499999999995,
-			95.433333333333,
-			3,
-			6
-		],
-		[
-			"Vocals, \"View\"",
-			95.19166666666666,
-			95.8749999999996,
-			4,
-			6
-		],
-		[
-			"Vocals, \"To-\"",
-			95.475,
-			96.14999999999962,
-			2,
-			6
-		],
-		[
-			"Vocals, \"Night\"",
-			95.99166666666666,
-			97.55688405797103,
-			3,
-			6
-		],
-		[
-			"Vocals, \"All\"",
-			97.50649350649351,
-			98.22077922077939,
-			2,
-			7
-		],
-		[
-			"Vocals, \"I\"",
-			97.90909090909093,
-			98.6103896103898,
-			4,
-			7
-		],
-		[
-			"Vocals, \"Want\"",
-			98.35064935064936,
-			99.03896103896122,
-			3,
-			7
-		],
-		[
-			"Vocals, \"-'s A\"",
-			98.72727272727273,
-			99.50649350649364,
-			2,
-			7
-		],
-		[
-			"Vocals, \"View\"",
-			99.14285714285715,
-			99.90909090909108,
-			3,
-			7
-		],
-		[
-			"Vocals, \"To\"",
-			99.45454545454548,
-			100.2207792207794,
-			4,
-			7
-		],
-		[
-			"Vocals, \"Night\"",
-			99.93506493506497,
-			101.10897797854328,
-			2,
-			7
-		],
-		[
-			"Vocals, \"All\"",
-			101.51086956521739,
-			102.13043478260877,
-			3,
-			7
-		],
-		[
-			"Vocals, \"I\"",
-			101.86956521739131,
-			102.4782608695653,
-			4,
-			7
-		],
-		[
-			"Vocals, \"Want\"",
-			102.30434782608695,
-			102.94565217391312,
-			2,
-			7
-		],
-		[
-			"Vocals, \"-'s A\"",
-			102.68478260869566,
-			103.27173913043487,
-			3,
-			7
-		],
-		[
-			"Vocals, \"View\"",
-			103.09782608695653,
-			103.71739130434791,
-			4,
-			7
-		],
-		[
-			"Vocals, \"To-\"",
-			103.47826086956522,
-			104.0978260869566,
-			2,
-			7
-		],
-		[
-			"Vocals, \"-night\"",
-			103.91304347826087,
-			105.55434782608698,
-			3,
-			8
+			"Stage 3",
+			143.94117647058823,
+			232.48206198834353,
+			1,
+			2
 		],
 		[
 			"Streetlight FOV",
@@ -6015,13 +5672,6 @@
 			154,
 			2,
 			13
-		],
-		[
-			"Stage 3",
-			144,
-			232.5408855177553,
-			1,
-			2
 		],
 		[
 			"Adult Transformation",
@@ -6144,8 +5794,8 @@
 		],
 		[
 			"Stage 4",
-			232.56548913043474,
-			266.516625,
+			232.4478420716112,
+			266.39897794117644,
 			1,
 			3
 		]
