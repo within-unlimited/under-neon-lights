@@ -98,7 +98,9 @@
 				"\t\tthis.exhausted = true;",
 				"\t}",
 				"\treturn this[ index ];",
-				"};"
+				"};",
+				"",
+				"FRAME.addResource( 'List', List );"
 			]
 		],
 		[
@@ -2596,6 +2598,7 @@
 				"var TWO_PI = Math.PI * 2;",
 				"var HALF_PI = Math.PI / 2;",
 				"var Ease = FRAME.getResource( 'Ease' );",
+				"var List = FRAME.getResource( 'List' );",
 				"",
 				"var annie = FRAME.getResource( 'annie' );",
 				"var renderer = FRAME.getResource( 'renderer' );",
@@ -2631,9 +2634,9 @@
 				"var group = new THREE.Scene();",
 				"group.fog = new THREE.Fog( '#333', 0, parameters.size.value * 0.4 );",
 				"",
-				"var buildings = new THREE.Group();",
-				"buildings.position.y = 1;",
-				"group.add( buildings );",
+				"var blocks = new THREE.Group();",
+				"blocks.position.y = 1;",
+				"group.add( blocks );",
 				"",
 				"materials.floor.uniforms.cursor.value = cursor;",
 				"materials.floor.uniforms.subdivisions.value = cols;",
@@ -2660,6 +2663,10 @@
 				"group.add( backdrop );",
 				"",
 				"var elements = [];",
+				"var types = {",
+				"\tbuildings: new List(),",
+				"\tpavements: new List()",
+				"};",
 				"",
 				"var material = materials.building;",
 				"",
@@ -2674,9 +2681,17 @@
 				"\tfor ( var i = 0; i < amount; i++ ) {",
 				"",
 				"\t\tvar id = Math.floor( Math.random() * length );",
-				"\t\tvar mesh = new THREE.Mesh( geometries[ id ], material );",
+				"\t\tvar mesh = new THREE.Group();",
+				"\t\tvar a = new THREE.Mesh( geometries[ id ], material );",
 				"\t\tvar b = new THREE.Mesh( pavement, material );",
+				"",
+				"\t\tmesh.add( a );",
 				"\t\tmesh.add( b );",
+				"",
+				"\t\ttypes.buildings.push( a );",
+				"\t\ttypes.pavements.push( b );",
+				"",
+				"\t\ta.scale.y = - 0.01;",
 				"",
 				"\t\tvar col = ( i + 0.5 ) % cols;",
 				"\t\tvar row = Math.floor( i / cols ) + 0.5;",
@@ -2689,7 +2704,7 @@
 				"\t\tmesh.rotation.reorder( 'ZXY' );",
 				"\t\tmesh.rotation.y = Math.PI * 2 * Math.floor( Math.random() * 4 ) / 4;",
 				"",
-				"\t\tbuildings.add( mesh );",
+				"\t\tblocks.add( mesh );",
 				"\t\telements.push( mesh );",
 				"",
 				"\t}",
@@ -2699,13 +2714,17 @@
 				"var stages = FRAME.getResource( 'stages' );",
 				"stages.push( {",
 				"",
-				"\telements: elements,",
-				"\tstep: step",
+				"\tscene: group,",
+				"\ttypes: types,",
+				"\tstep: step,",
+				"\tcurvature: { value: 0 }",
 				"",
 				"} );",
+				"var stage = stages[ stages.length - 1 ];",
 				"",
 				"function start () {",
 				"",
+				"\tstage.curvature.value = 0;",
 				"\tstages.current = stages[ 2 ];",
 				"\tstages.index = 2;",
 				"",
@@ -2716,7 +2735,6 @@
 				"\tstep.reset();",
 				"\tdirection.reset();",
 				"",
-				"\tannie.userData.age( 'adult' );",
 				"\tannie.userData.play( 'run' );",
 				"\tannie.rotation.y = 0;",
 				"\tdolly.userData.reset();",
@@ -2784,13 +2802,13 @@
 				"\tvar size = parameters.size.value;",
 				"\tvar cs = 1 / cols;",
 				"\tvar amplitude = step.value * ( dt || 0 );",
-				"\tvar curvature = Math.min( progress * 2, 1 );",
+				"\tvar curvature = stage.curvature.value;",
 				"",
 				"\tcursor.x += amplitude * Math.cos( direction.value );",
 				"\tcursor.y += amplitude * Math.sin( direction.value );",
 				"\t",
 				"\tgroup.rotation.y = direction.value - Math.PI / 2;",
-				"\tbuildings.position.y = 5 * Math.sqrt( curvature ) + 0.5;",
+				"\tblocks.position.y = 5 * Math.sqrt( curvature ) + 0.5;",
 				"",
 				"\tground.material.uniforms.curvature.value = curvature;",
 				"",
@@ -3453,7 +3471,7 @@
 			]
 		],
 		[
-			"Recede Fog",
+			"Recede Fog 1/2",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var stages = FRAME.getResource( 'stages' );",
@@ -3560,6 +3578,207 @@
 				"",
 				"}"
 			]
+		],
+		[
+			"Effect",
+			[
+				"var parameters = {",
+				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
+				"};",
+				"",
+				"// function init(){}",
+				"",
+				"function start(){}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Annie Age Adult",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"function start () {",
+				"",
+				"\tannie.userData.age( 'adult' );",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Effect",
+			[
+				"var parameters = {",
+				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
+				"};",
+				"",
+				"// function init(){}",
+				"",
+				"function start(){}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Building Y Scale",
+			[
+				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
+				"",
+				"function start () {",
+				"",
+				"\tvar types = stage.types;",
+				"\tif ( !types ) {",
+				"\t\treturn;",
+				"\t}",
+				"",
+				"\tvar buildings = stage.types.buildings;",
+				"\tfor ( var i = 0; i < buildings.length; i++ ) {",
+				"\t\tvar building = buildings[ i ];",
+				"\t\tbuilding.scale.y = 0.01;",
+				"\t}\t",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update ( progress ) {",
+				"",
+				"\tvar buildings = stage.types.buildings;",
+				"\tvar t = TWEEN.Easing.Elastic.Out( progress );",
+				"\tfor ( var i = 0; i < buildings.length; i++ ) {",
+				"\t\tvar building = buildings[ i ];",
+				"\t\tbuilding.scale.y = t || 0.01;",
+				"\t}",
+				"",
+				"}"
+			]
+		],
+		[
+			"Building Y Scale + 0.5",
+			[
+				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
+				"",
+				"function start () {",
+				"",
+				"\tvar types = stage.types;",
+				"\tif ( !types ) {",
+				"\t\treturn;",
+				"\t}",
+				"",
+				"\tvar buildings = stage.types.buildings;",
+				"\tfor ( var i = 0; i < buildings.length; i++ ) {",
+				"\t\tvar building = buildings[ i ];",
+				"\t\tbuilding.scale.y = 0.5;",
+				"\t}\t",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update ( progress ) {",
+				"",
+				"\tvar buildings = stage.types.buildings;",
+				"\tvar t = 0.5 * TWEEN.Easing.Elastic.Out( progress ) + 0.5;",
+				"\tfor ( var i = 0; i < buildings.length; i++ ) {",
+				"\t\tvar building = buildings[ i ];",
+				"\t\tbuilding.scale.y = t;",
+				"\t}",
+				"",
+				"}"
+			]
+		],
+		[
+			"City Curvature",
+			[
+				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
+				"",
+				"function start () {",
+				"",
+				"\tstage.curvature.value = 0;",
+				"",
+				"}",
+				"",
+				"function end () {",
+				"",
+				"\tstage.curvature.value = 0;",
+				"",
+				"}",
+				"",
+				"function update ( progress ) {",
+				"",
+				"\tvar t = Math.sin( progress * Math.PI );",
+				"\tt = TWEEN.Easing.Sinusoidal.InOut( t );",
+				"\tstage.curvature.value = t;",
+				"\t",
+				"}"
+			]
+		],
+		[
+			"Randomize Building Y",
+			[
+				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
+				"",
+				"function start () {",
+				"",
+				"\tvar types = stage.types;",
+				"\tif ( !types ) {",
+				"\t\treturn;",
+				"\t}",
+				"",
+				"\tvar buildings = stage.types.buildings;",
+				"\tfor ( var i = 0; i < buildings.length; i++ ) {",
+				"\t\tvar building = buildings[ i ];",
+				"\t\tbuilding.scale.y = 1;",
+				"\t}\t",
+				"",
+				"}",
+				"",
+				"function end () {}",
+				"",
+				"function update ( progress ) {",
+				"",
+				"\tvar buildings = stage.types.buildings;",
+				"\tvar amp = Math.sin( progress * Math.PI );",
+				"\tfor ( var i = 0; i < buildings.length; i++ ) {",
+				"\t\tvar building = buildings[ i ];",
+				"\t\tbuilding.scale.y = amp * Math.random() * 0.5 + 1;",
+				"\t}",
+				"",
+				"}"
+			]
+		],
+		[
+			"Effect",
+			[
+				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
+				"",
+				"function start () {",
+				"",
+				"\tstage.curvature.value = 0;",
+				"",
+				"}",
+				"",
+				"function end () {",
+				"",
+				"\tstage.curvature.value = 2;",
+				"",
+				"}",
+				"",
+				"function update ( progress ) {",
+				"",
+				"\tvar t = TWEEN.Easing.Sinusoidal.InOut( progress );",
+				"\tstage.curvature.value = 2 * t;",
+				"\t",
+				"}"
+			]
 		]
 	],
 	"animations": [
@@ -3569,13 +3788,6 @@
 			266.42287499999986,
 			6,
 			5
-		],
-		[
-			"VR Update",
-			0,
-			266.422875,
-			0,
-			4
 		],
 		[
 			"Lip Sync",
@@ -3590,6 +3802,13 @@
 			73.76897423610774,
 			1,
 			0
+		],
+		[
+			"VR Update",
+			0,
+			266.422875,
+			0,
+			4
 		],
 		[
 			"Reveal Scene 1/10",
@@ -5393,7 +5612,7 @@
 		[
 			"Stage 2",
 			73.79140817143754,
-			153.0534856239305,
+			144,
 			1,
 			1
 		],
@@ -5790,11 +6009,137 @@
 			8
 		],
 		[
+			"Streetlight FOV",
+			144,
+			154,
+			2,
+			13
+		],
+		[
 			"Stage 3",
-			153.08363174668168,
+			144,
 			232.5408855177553,
 			1,
 			2
+		],
+		[
+			"Adult Transformation",
+			153,
+			155,
+			3,
+			20
+		],
+		[
+			"Streetlight FOV",
+			165,
+			167,
+			2,
+			15
+		],
+		[
+			"Reveal Buildings",
+			169,
+			170,
+			3,
+			22
+		],
+		[
+			"Bounce Buildings",
+			172.96875,
+			173.96875,
+			3,
+			23
+		],
+		[
+			"Bounce Buildings",
+			177.03125,
+			178.03125,
+			3,
+			23
+		],
+		[
+			"Bounce Buildings",
+			180.90625,
+			181.90625,
+			3,
+			23
+		],
+		[
+			"Bounce Buildings",
+			184.78125,
+			186.03125,
+			3,
+			23
+		],
+		[
+			"Reveal City",
+			184.81862228776058,
+			187.01411100956508,
+			2,
+			18
+		],
+		[
+			"Bounce Buildings",
+			188.75,
+			190,
+			3,
+			23
+		],
+		[
+			"Bounce Buildings",
+			192.71875,
+			193.96875,
+			3,
+			23
+		],
+		[
+			"Bounce Buildings",
+			196.75,
+			198,
+			3,
+			23
+		],
+		[
+			"Radical Riff",
+			198.66336633663371,
+			200.66336633663371,
+			2,
+			25
+		],
+		[
+			"Bend City",
+			200,
+			205,
+			4,
+			24
+		],
+		[
+			"Bounce Buildings",
+			208.70544554455435,
+			209.95544554455435,
+			3,
+			23
+		],
+		[
+			"Bounce Buildings",
+			212.57920792079193,
+			213.82920792079193,
+			3,
+			23
+		],
+		[
+			"Radical Riff",
+			214.72277227722773,
+			216.72277227722773,
+			2,
+			25
+		],
+		[
+			"Inception Curve",
+			218.56435643564362,
+			232.4950495049505,
+			4,
+			26
 		],
 		[
 			"Stage 4",
