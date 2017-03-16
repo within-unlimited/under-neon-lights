@@ -80,6 +80,28 @@
 			]
 		],
 		[
+			"List",
+			[
+				"var List = function() {",
+				"\tArray.call( this );",
+				"};",
+				"",
+				"List.prototype = Object.create( Array.prototype );",
+				"List.prototype.constructor = List;",
+				"",
+				"List.prototype.index = 0;",
+				"List.prototype.exhausted = false;",
+				"List.prototype.next = function () {",
+				"\tvar index = this.index;",
+				"\tthis.index = ( index + 1 ) % this.length;",
+				"\tif ( !this.exhausted && this.index === 0 ) {",
+				"\t\tthis.exhausted = true;",
+				"\t}",
+				"\treturn this[ index ];",
+				"};"
+			]
+		],
+		[
 			"Texture Animator",
 			[
 				"",
@@ -1952,6 +1974,7 @@
 			[
 				"var TWO_PI = Math.PI * 2;",
 				"var Ease = FRAME.getResource( 'Ease' );",
+				"var List = FRAME.getResource( 'List' );",
 				"",
 				"var annie = FRAME.getResource( 'annie' );",
 				"var renderer = FRAME.getResource( 'renderer' );",
@@ -3537,13 +3560,6 @@
 			0
 		],
 		[
-			"VR Update",
-			0,
-			266.422875,
-			0,
-			4
-		],
-		[
 			"Reveal Scene 1/10",
 			0,
 			10.25,
@@ -3556,6 +3572,13 @@
 			10.75758082497216,
 			5,
 			12
+		],
+		[
+			"VR Update",
+			0,
+			266.422875,
+			0,
+			4
 		],
 		[
 			"Reveal Scene 1/3",
