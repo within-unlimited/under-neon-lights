@@ -9,9 +9,9 @@ THREE.NeonEffect = function( effect, renderer ) {
 
   var _particles = new THREE.NeonParticles( {
       renderer: renderer,
-      size: 32,
-      tail_size: 32,
-      scale: 0.5
+      size: 64,
+      tail_size: 4,
+      scale: 0.7
   } );
 
   // var _annieParticles = new THREE.NeonParticles( {

@@ -48,14 +48,6 @@ THREE.NeonParticles = function( options ) {
     this.lines.isParticle = true;
     this.add( this.lines );
 
-    this.points = new THREE.Points(
-      this.createParticleGeometry( size, tail_size ),
-      THREE.neonShader.particleShader.clone()
-    );
-    this.points.frustumCulled = false;
-    this.points.isParticle = true;
-    this.add( this.points );
-
     var _camera = new THREE.PerspectiveCamera(45, 4, 0.01, 100 );;
     var _randVector = new THREE.Vector3();
     var _center = new THREE.Vector3();
@@ -119,7 +111,6 @@ THREE.NeonParticles = function( options ) {
       var currentCol = this.oddpass ? this.targetCol1 : this.targetCol0;
       var previousCol = this.oddpass ? this.targetCol0 : this.targetCol1;
 
-      simulationShader.uniforms.fTarget.value = 0.0;
       simulationShader.uniforms.fEmissionRate.value = this.emissionRate;
       simulationShader.uniforms.tPrevPos.value = previousPos.texture;
       simulationShader.uniforms.tPrevCol.value = previousCol.texture;
@@ -130,27 +121,16 @@ THREE.NeonParticles = function( options ) {
       simulationShader.uniforms.mModelViewMatrix.value = camera.matrixWorldInverse;
       simulationShader.uniforms.vMotionVector.value = this.motionVector;
 
+      simulationShader.uniforms.fTarget.value = 0.0;
       shaderPass.render( simulationShader, currentPos );
 
       simulationShader.uniforms.fTarget.value = 1.0;
-    //   simulationColorShader.uniforms.fEmissionRate.value = this.emissionRate;
-    //   simulationColorShader.uniforms.tPrevPos.value = currentPos.texture;
-    //   simulationColorShader.uniforms.tPrevCol.value = previousCol.texture;
-    //   simulationColorShader.uniforms.fTimeDelta.value = Math.min( 1 / 60, clock.getDelta() );
-    //   simulationColorShader.uniforms.fTime.value = clock.getElapsedTime();
-    //   simulationColorShader.uniforms.fScale.value = scale;
-    //   simulationColorShader.uniforms.mProjectionMatrix.value = camera.projectionMatrix;
-    //   simulationColorShader.uniforms.mModelViewMatrix.value = camera.matrixWorldInverse;
-    //   simulationColorShader.uniforms.vMotionVector.value = this.motionVector;
-
       shaderPass.render( simulationShader, currentCol );
 
       // TODO: remove hack
-      if (this.points.material.uniforms.tCurrPos) {
+      if (this.lines.material.uniforms.tCurrPos) {
           this.lines.material.uniforms.tCurrPos.value = currentPos.texture;
           this.lines.material.uniforms.tCurrCol.value = currentCol.texture;
-          this.points.material.uniforms.tCurrPos.value = currentPos.texture;
-          this.points.material.uniforms.tCurrCol.value = currentCol.texture;
       }
   };
 
