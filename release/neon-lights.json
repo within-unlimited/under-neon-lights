@@ -2155,7 +2155,7 @@
 				"",
 				"\tif ( stage.inTransition ) {",
 				"",
-				"\t\ttheta.destination -= theta.destination * 0.0625;",
+				"\t\ttheta.destination -= ( direction.destination - theta.destination ) * 0.0625;",
 				"\t\tcamera.userData.fov.destination = 75;",
 				"\t\tif ( animation ) {",
 				"\t\t\tanimation.action.timeScale = 1;",
@@ -3462,7 +3462,7 @@
 				"\t}",
 				"",
 				"\telem = items.next();",
-				"\tstage.add( elem, Math.PI / 2, 1 );",
+				"\tstage.add( elem, Math.PI / 2, 0.75 );",
 				"",
 				"}"
 			]
