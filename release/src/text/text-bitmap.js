@@ -10,7 +10,7 @@ var TextBitmap = function( config, renderer ) {
   var geometry = this.geometry = createGeometry( config );
 
   var textureLoader = new THREE.TextureLoader();
-  var texture = textureLoader.load('../release/src/text/roboto-bold.png', function(){
+  var texture = textureLoader.load(config.imagePath, function(){
     texture.needsUpdate = true;
     texture.minFilter = THREE.LinearMipMapLinearFilter;
     texture.magFilter = THREE.LinearFilter;
