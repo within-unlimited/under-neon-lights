@@ -3,6 +3,9 @@ var TextBitmap = function( config, renderer ) {
 
   this.config = config;
   config.color = config.color || '#fff';
+  config.outlineColor = config.outlineColor || '#000';
+  config.outlineDistance = config.outlineDistance || 0.3;
+  config.threshold = config.threshold || 0.5;
 
   var geometry = this.geometry = createGeometry( config );
 
@@ -26,6 +29,9 @@ var TextBitmap = function( config, renderer ) {
 
   material.uniforms.map.value = texture;
   material.uniforms.color.value = new THREE.Color( config.color );
+  material.uniforms.outlineColor.value = new THREE.Color( config.outlineColor );
+  material.uniforms.outlineDistance.value = config.outlineDistance;
+  material.uniforms.threshold.value = config.threshold;
 
   var mesh = this.mesh = new THREE.Mesh( geometry, material );
   var group = this.group = new THREE.Group();
