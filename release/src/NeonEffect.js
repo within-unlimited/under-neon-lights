@@ -10,7 +10,7 @@ THREE.NeonEffect = function( effect, renderer ) {
   var _particles = new THREE.NeonParticles( {
       renderer: renderer,
       size: 32,
-      tail_size: 8,
+      tail_size: 32,
       scale: 0.5
   } );
 

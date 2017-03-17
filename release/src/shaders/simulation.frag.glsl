@@ -50,12 +50,12 @@ void main() {
     pos.a = tailNorm - rand(uv.yx) * 1.0;
   } else if (pos.a < (tailNorm) && pos.a > 1.0) {
     float dist = max(1.0, 0.05 * length(pos.xyz));
-    vec3 force = curlNoise((pos.xyz + vec3(0.0, fTime * 0.5, 0.0)) * 0.3 / fScale / dist) * d * speed * len;
-    pos.xyz += force * dist;
+    vec3 force = curlNoise((pos.xyz + vec3(0.0, fTime * 0.2, 0.0)) * 0.3 / fScale / dist) * d * speed * len;
+    pos.xyz += force * dist * 1.5;
     pos.xyz -= vMotionVector * d * 2.0;
   }
 
-  pos.xyz += snoiseVec3((pos.xyz + vec3(0.0, fTime * 0.3, 0.0)) * 0.4 / fScale) * d * speed;
+  pos.xyz += snoiseVec3((pos.xyz + vec3(0.0, fTime * 0.5, 0.0)) * 0.5 / fScale) * d * speed;
   pos.xyz += vMotionVector;
   pos.a -= 0.5 * speed;
 
