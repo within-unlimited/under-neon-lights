@@ -767,19 +767,17 @@
 				"\tanimations: {",
 				"\t\tchild: {",
 				"\t\t\trun: 'ani_chr_1-forest_run_v02.fbx',",
-				"//\t\t\tturn: 'ani_chr_1-forest_turn_v01.fbx',",
 				"\t\t\tidle: 'ani_chr_1-forest_idle_v02.fbx',",
-				"\t\t\twalk: 'ani_chr_1-forest_walk_v02.fbx'",
+				"\t\t\twalk: 'ani_chr_1-forest_walk_v02.fbx',",
+				"\t\t\ttransition: 'ani_chr_1-forest_flyAnnie_v02.fbx'",
 				"\t\t},",
 				"\t\tteenager: {",
 				"\t\t\trun: 'ani_chr_2-house_run_v02.fbx',",
-				"//\t\t\tturn: 'ani_chr_2-house_turn_v01.fbx',",
 				"\t\t\tidle: 'ani_chr_2-house_idle_v02.fbx',",
 				"\t\t\twalk: 'ani_chr_2-house_walk_v02.fbx'",
 				"\t\t},",
 				"\t\tadult: {",
 				"\t\t\trun: 'ani_chr_3-city_run_v02.fbx',",
-				"//\t\t\tturn: 'ani_chr_3-city_turn_v01.fbx',",
 				"\t\t\tidle: 'ani_chr_3-city_idle_v02.fbx'",
 				"\t\t}",
 				"\t}",
@@ -892,7 +890,7 @@
 				"",
 				"var faceImage = document.createElement('img');",
 				"faceImage.crossOrigin = 'anonymous';",
-				"faceImage.src = root + '/textures/TX_annieFacial_A01_C.png';",
+				"faceImage.src = root + '/textures/TX_annieFacial_A01_C_v02.png';",
 				"",
 				"faceImage.onload = function() {",
 				"",
@@ -1550,9 +1548,6 @@
 				"",
 				"\t\ttheta.destination += ( direction.destination - theta.destination ) * 0.0625;",
 				"\t\tcamera.userData.fov.destination = 75;",
-				"\t\tif ( animation ) {",
-				"\t\t\tanimation.action.timeScale = 1;",
-				"\t\t}",
 				"",
 				"\t} else if ( controllers.dragging() ) {",
 				"",
@@ -3343,6 +3338,85 @@
 				"",
 				"function update( progress ){}"
 			]
+		],
+		[
+			"Annie Fly Animation Triggers",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"function start () {",
+				"",
+				"\tannie.userData.play( 'transition' );",
+				"",
+				"\tvar animation = annie.userData.currentAnimation;",
+				"\tvar action = animation.action;",
+				"",
+				"\taction.timeScale = 1;",
+				"\taction.loop = THREE.LoopOnce;",
+				"\t",
+				"}",
+				"",
+				"function end () {",
+				"}",
+				"",
+				"function update( progress ) {",
+				"}"
+			]
+		],
+		[
+			"Effect",
+			[
+				"var parameters = {",
+				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
+				"};",
+				"",
+				"// function init(){}",
+				"",
+				"function start(){}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Effect",
+			[
+				"var parameters = {",
+				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
+				"};",
+				"",
+				"// function init(){}",
+				"",
+				"function start(){}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Annie Run 0.6",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"function start () {",
+				"",
+				"\tannie.userData.play( 'run' );",
+				"",
+				"\tvar animation = annie.userData.currentAnimation;",
+				"\tvar action = animation.action;",
+				"",
+				"\taction.timeScale = 0.6;",
+				"\t",
+				"}",
+				"",
+				"function end () {",
+				"}",
+				"",
+				"function update( progress ) {",
+				"}"
+			]
 		]
 	],
 	"animations": [
@@ -4614,6 +4688,13 @@
 			12
 		],
 		[
+			"Lift Off (Models)",
+			60.72,
+			73.75,
+			4,
+			32
+		],
+		[
 			"AH",
 			61.34442537206686,
 			61.79968046193686,
@@ -5186,6 +5267,13 @@
 			73.6899857992222,
 			5,
 			11
+		],
+		[
+			"Annie Hallway Walk",
+			73.55,
+			75.5,
+			1,
+			35
 		],
 		[
 			"C",
