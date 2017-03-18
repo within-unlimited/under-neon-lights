@@ -10,7 +10,7 @@ uniform vec3 base;
 uniform vec2 cursor;
 
 varying vec2 vUv;
-varying vec3 vertexColor;
+varying vec3 vColor;
 varying vec4 mPosition;
 varying vec4 mvPosition;
 
