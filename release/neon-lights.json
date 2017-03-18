@@ -769,18 +769,21 @@
 				"\tanimations: {",
 				"\t\tchild: {",
 				"\t\t\trun: 'ani_chr_1-forest_run_v02.fbx',",
-				"\t\t\tidle: 'ani_chr_1-forest_idle_v02.fbx',",
+				"//\t\t\tidle: 'ani_chr_1-forest_idle_v02.fbx',",
 				"\t\t\twalk: 'ani_chr_1-forest_walk_v02.fbx',",
 				"\t\t\ttransition: 'ani_chr_1-forest_flyAnnie_v02.fbx'",
 				"\t\t},",
 				"\t\tteenager: {",
 				"\t\t\trun: 'ani_chr_2-house_run_v02.fbx',",
-				"\t\t\tidle: 'ani_chr_2-house_idle_v02.fbx',",
-				"\t\t\twalk: 'ani_chr_2-house_walk_v02.fbx'",
+				"//\t\t\tidle: 'ani_chr_2-house_idle_v02.fbx',",
+				"\t\t\twalk: 'ani_chr_2-house_walk_v02.fbx',",
+				"\t\t\ttransition: 'ani_chr_2-house_houseToCity_v02.fbx'",
 				"\t\t},",
 				"\t\tadult: {",
 				"\t\t\trun: 'ani_chr_3-city_run_v02.fbx',",
-				"\t\t\tidle: 'ani_chr_3-city_idle_v02.fbx'",
+				"//\t\t\tidle: 'ani_chr_3-city_idle_v02.fbx',",
+				"\t\t\tfly: 'ani_chr_4-neon_fly_v02.fbx',",
+				"\t\t\ttransition: 'ani_chr_3-city_firstFlight_v02.fbx'",
 				"\t\t},",
 				"\t\tbird: {",
 				"\t\t\tflap: 'ani_chr_1-forest_flyBirdFlying_v02.fbx'",
@@ -2402,7 +2405,7 @@
 				"\tstep.reset();",
 				"",
 				"\tannie.userData.age( 'adult' );",
-				"\tannie.userData.play( 'run' );",
+				"\tannie.userData.play( 'fly' );",
 				"\tannie.rotation.y = 0;",
 				"\tdolly.userData.reset();",
 				"",
@@ -3497,6 +3500,45 @@
 				"",
 				"",
 				"}"
+			]
+		],
+		[
+			"Annie Adult Fly Transition",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"",
+				"function start () {",
+				"",
+				"\tannie.userData.age( 'adult' );",
+				"\tannie.userData.play( 'transition' );",
+				"\t",
+				"\tvar animation = annie.userData.currentAnimation;",
+				"\tanimation.action.loop = THREE.LoopOnce;",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Annie Fly",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"",
+				"function start () {",
+				"",
+				"\tannie.userData.age( 'adult' );",
+				"\tannie.userData.play( 'fly' );",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
 			]
 		]
 	],
@@ -5511,11 +5553,25 @@
 			25
 		],
 		[
+			"Annie can Fly?",
+			218.5531914893617,
+			220.5531914893617,
+			2,
+			37
+		],
+		[
 			"Inception Curve",
 			218.56435643564362,
 			232.4950495049505,
 			4,
 			26
+		],
+		[
+			"Annie Flies",
+			224.80851063829786,
+			226.80851063829786,
+			2,
+			38
 		],
 		[
 			"Stage 4",
