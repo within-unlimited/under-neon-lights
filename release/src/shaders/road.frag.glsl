@@ -1,4 +1,3 @@
-#inject ../release/src/shaders/chunks/FloatPack.glsl
 #inject ../release/src/shaders/chunks/NeonParsFragment.glsl
 
 float PI = 3.141592653589793;
@@ -38,6 +37,6 @@ void main() {
   vec3 factor = neonFactor();
   col = neonColor(col, factor, mPosition.xyz);
 
-  #inject ../release/src/shaders/chunks/NeonOut.glsl
+  gl_FragColor = vec4(col, 1.0);
 
 }
