@@ -7,7 +7,9 @@ uniform float neon;
 uniform float time;
 uniform float size;
 uniform vec3 base;
+uniform vec3 top;
 uniform vec2 cursor;
+uniform vec2 clipy;
 
 varying vec2 vUv;
 varying vec3 vColor;

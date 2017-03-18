@@ -7,17 +7,27 @@ uniform float time;
 uniform float curvature;
 uniform float size;
 
+#ifndef USE_COLOR
+	uniform vec3 color;
+#endif
+
 float PI = 3.141592653589793;
+
+#ifdef USE_SKINNING
+	#inject ../release/src/shaders/chunks/SkinningParsVertex.glsl
+#endif
 
 void main() {
 
 	vUv = uv;
 
-	#ifdef USE_COLOR
-		vColor = color;
-	#endif
+	vColor = color;
 
 	vec3 pos = vec3( position );
+
+	#ifdef USE_SKINNING
+		#inject ../release/src/shaders/chunks/SkinningVertex.glsl
+	#endif
 
 	#ifdef USE_GRASS
 		float pct = clamp( pos.y, 0.0, 1.0 );
