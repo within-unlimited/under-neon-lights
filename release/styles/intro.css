@@ -1,0 +1,83 @@
+body {
+  font-family: sans-serif;
+  background-color: #333333;
+  color: #fff;
+  margin: 0px;
+  overflow: hidden; }
+
+button {
+  font-family: sans-serif; }
+
+.button {
+  display: inline-block;
+  width: 174px;
+  padding: 11px;
+  cursor: pointer;
+  background-color: #2fbfc2;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 30px;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  font-style: normal;
+  text-align: center;
+  user-select: none;
+  z-index: 999;
+  box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.3);
+  -webkit-transition: background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  -moz-transition: background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition: background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+  .button:hover {
+    background-color: #2aacaf; }
+
+.abs-bc {
+  position: absolute;
+  left: calc(50% - 87px);
+  bottom: 20px; }
+
+.message {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #101421;
+  z-index: 1001;
+  padding: 25px 125px 25px 25px; }
+  .message .dialog > * {
+    display: inline-block;
+    font-size: 12.54px;
+    line-height: 16.5px;
+    color: #bcbdc0; }
+  .message .dialog a {
+    color: #bcbdc0;
+    -webkit-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    -moz-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+    .message .dialog a:hover {
+      color: #fff; }
+  .message .dialog p {
+    margin: 0;
+    margin-right: 6.25px; }
+  .message .dialog p + p {
+    margin-top: 8.33333px; }
+  .message .dialog button {
+    position: absolute;
+    right: 25px;
+    top: 15.5px;
+    background: #101421;
+    padding: 9.5px 19px 7.6px;
+    border: 1px solid #bcbdc0;
+    border-radius: 6.33333px;
+    cursor: pointer;
+    -webkit-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), border-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    -moz-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), border-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), border-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+    .message .dialog button:hover {
+      color: #fff;
+      border-color: #fff; }
+
+/*# sourceMappingURL=intro.css.map */
