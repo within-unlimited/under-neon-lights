@@ -82,6 +82,10 @@ THREE.neonShader._vert = [
 	"  }",
 	"#endif",
 	"#endif",
+	"#ifdef USE_INSTANCING",
+	"	attribute vec3 instancedTranslation;",
+	"	attribute vec3 instancedScale;",
+	"#endif",
 	"void main() {",
 	"	vUv = uv;",
 	"	vColor = color;",
@@ -120,6 +124,10 @@ THREE.neonShader._vert = [
 	"		float osc = ( 1.0 + sin( time + PI * ( t.x + t.y + t.z ) / 3.0 ) ) / 2.0;",
 	"		float sway = pow( pos.y, 2.0 ) * osc;",
 	"		pos.x += sway / 100.0;",
+	"	#endif",
+	"	#ifdef USE_INSTANCING",
+	"		pos *= instancedScale;",
+	"		pos += instancedTranslation;",
 	"	#endif",
 	"	mPosition = modelMatrix * vec4( pos, 1.0 );",
 	"	mvPosition = viewMatrix * mPosition;",
@@ -355,7 +363,8 @@ THREE.neonShader.floorShader = new THREE.ShaderMaterial({
 
 THREE.neonShader.grassShader = new THREE.ShaderMaterial({
 	defines: {
-		'USE_GRASS': ''
+		USE_GRASS: '',
+		USE_INSTANCING: ''
 	},
 	uniforms: {
 		size: { type: 'f', value: 1 },

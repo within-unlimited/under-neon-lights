@@ -17,6 +17,11 @@ float PI = 3.141592653589793;
 	#inject ../release/src/shaders/chunks/SkinningParsVertex.glsl
 #endif
 
+#ifdef USE_INSTANCING
+	attribute vec3 instancedTranslation;
+	attribute vec3 instancedScale;
+#endif
+
 void main() {
 
 	vUv = uv;
@@ -50,6 +55,11 @@ void main() {
 		float osc = ( 1.0 + sin( time + PI * ( t.x + t.y + t.z ) / 3.0 ) ) / 2.0;
 		float sway = pow( pos.y, 2.0 ) * osc;
 		pos.x += sway / 100.0;
+	#endif
+
+	#ifdef USE_INSTANCING
+		pos *= instancedScale;
+		pos += instancedTranslation;
 	#endif
 
 	mPosition = modelMatrix * vec4( pos, 1.0 );
