@@ -2134,7 +2134,6 @@
 				"\tstep.reset();",
 				"\tdirection.reset();",
 				"",
-				"\tannie.userData.play( 'run' );",
 				"\tannie.rotation.y = 0;",
 				"\tdolly.userData.reset();",
 				"",
@@ -3518,7 +3517,11 @@
 				"",
 				"}",
 				"",
-				"function end(){}",
+				"function end () {",
+				"",
+				"\tannie.userData.play( 'fly' );",
+				"",
+				"}",
 				"",
 				"function update( progress ){}"
 			]
@@ -3537,6 +3540,30 @@
 				"}",
 				"",
 				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Teenage Annie Transition",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"function start () {",
+				"",
+				"\tannie.userData.age( 'teenager' );",
+				"\tannie.userData.play( 'transition' );",
+				"\t",
+				"\tvar animation = annie.userData.currentAnimation;",
+				"\tanimation.action.loop = THREE.LoopOnce;",
+				"",
+				"}",
+				"",
+				"function end () {",
+				"",
+				"\tannie.userData.play( 'run' );",
+				"",
+				"}",
 				"",
 				"function update( progress ){}"
 			]
@@ -5427,6 +5454,13 @@
 			1
 		],
 		[
+			"Out the Door",
+			143.0212765957447,
+			145.89858673707118,
+			3,
+			39
+		],
+		[
 			"Stage 3",
 			144,
 			232.5408855177553,
@@ -5555,7 +5589,7 @@
 		[
 			"Annie can Fly?",
 			218.5531914893617,
-			220.5531914893617,
+			224.5,
 			2,
 			37
 		],
@@ -5565,13 +5599,6 @@
 			232.4950495049505,
 			4,
 			26
-		],
-		[
-			"Annie Flies",
-			224.80851063829786,
-			226.80851063829786,
-			2,
-			38
 		],
 		[
 			"Stage 4",
