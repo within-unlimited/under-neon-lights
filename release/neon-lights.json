@@ -3346,9 +3346,6 @@
 				"",
 				"\tscene.position.z = progress * ( destination.z - origin.z ) + origin.z;",
 				"",
-				"\tneon.motionVector.x = 0;",
-				"    neon.motionVector.y = 0;",
-				"    neon.motionVector.z = 0;",
 				"}"
 			]
 		],
