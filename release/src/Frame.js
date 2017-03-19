@@ -175,7 +175,9 @@ var FRAME = ( function () {
 
 			var id = 0;
 
-			return function ( name, start, end, layer, effect ) {
+			return function ( name, start, end, layer, effect, enabled ) {
+
+				if ( enabled === undefined ) enabled = true; // TODO remove this
 
 				this.id = id ++;
 				this.name = name;
@@ -183,6 +185,7 @@ var FRAME = ( function () {
 				this.end = end;
 				this.layer = layer;
 				this.effect = effect;
+				this.enabled = enabled;
 
 				// compile
 
@@ -311,7 +314,8 @@ var FRAME = ( function () {
 									data[ 1 ],
 									data[ 2 ],
 									data[ 3 ],
-									library[ data[ 4 ] ]
+									library[ data[ 4 ] ],
+									data[ 5 ]
 								);
 
 								scope.add( animation );
@@ -368,21 +372,21 @@ var FRAME = ( function () {
 
 						animation = animations[ next ];
 
-						if ( animation.start > time ) {
+						if ( animation.enabled ) {
 
-							break;
+							if ( animation.start > time ) break;
 
-						}
+							if ( animation.end > time ) {
 
-						if ( animation.end > time ) {
+								if ( animation.effect.program.start ) {
 
-							if ( animation.effect.program.start ) {
+									animation.effect.program.start();
 
-								animation.effect.program.start();
+								}
+
+								active.push( animation );
 
 							}
-
-							active.push( animation );
 
 						}
 
