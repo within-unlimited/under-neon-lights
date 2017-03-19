@@ -102,14 +102,13 @@ THREE.neonShader._vert = [
 	"mat4 boneMatY = getBoneMatrix( skinIndex.y );",
 	"mat4 boneMatZ = getBoneMatrix( skinIndex.z );",
 	"mat4 boneMatW = getBoneMatrix( skinIndex.w );",
-	"/* skinning_vertex */",
 	"vec4 skinVertex = bindMatrix * vec4( position.xyz, 1.0 );",
 	"vec4 skinned = vec4( 0.0 );",
 	"skinned += boneMatX * skinVertex * skinWeight.x;",
 	"skinned += boneMatY * skinVertex * skinWeight.y;",
 	"skinned += boneMatZ * skinVertex * skinWeight.z;",
 	"skinned += boneMatW * skinVertex * skinWeight.w;",
-	"pos = (bindMatrixInverse * skinned).xyz;",
+	"pos = ( bindMatrixInverse * skinned ).xyz;",
 	"	#endif",
 	"	#ifdef USE_GRASS",
 	"		float pct = clamp( pos.y, 0.0, 1.0 );",
@@ -287,28 +286,29 @@ THREE.neonShader._frag = [
 	"  const float divisor = 1.0 / ( 2.0 * e );",
 	"  return normalize( vec3( x , y , z ) * divisor );",
 	"}",
-	"float neonNoise(vec3 pos, float phase) {",
-	"  float noise = snoise(pos * 0.1);",
-	"  noise = max(0.0, sin(noise * 16.0 + time * 0.0) + phase);",
+	"vec3 neonFog( vec3 col ) {",
+	"  float fogDepth = length( mPosition.xz );",
+	"	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );",
+	"  return mix( col, fogColor, fogFactor );",
+	"}",
+	"float neonNoise( vec3 pos, float phase ) {",
+	"  float noise = snoise( pos * 0.1 );",
+	"  noise = max( 0.0, sin( noise * 16.0 + time * 0.0 ) + phase );",
 	"  return noise;",
 	"}",
-	"vec3 neonFactor() {",
-	"  vec3 p = mPosition.xyz + vec3(cursor.y, 0.0, cursor.x);",
+	"vec3 neonColor( vec3 col ) {",
+	"	vec3 p = mPosition.xyz + vec3( cursor.y, 0.0, cursor.x );",
 	"  // p.y += time;",
-	"  return vec3(",
-	"    neonNoise(p, 0.3),",
-	"    neonNoise(p, 0.0),",
-	"    neonNoise(p, -0.3)",
+	"  vec3 neonFactor = vec3(",
+	"    neonNoise( p, 0.3 ),",
+	"    neonNoise( p, 0.0 ),",
+	"    neonNoise( p, -0.3 )",
 	"  );",
-	"}",
-	"vec3 neonColor( vec3 c, vec3 neonFactor, vec3 pos ) {",
-	"  float fogDepth = length(pos.xz) * 0.50;",
-	"  float fogFactor = smoothstep( fogNear, fogFar, fogDepth );",
-	"  vec3 col = mix( c, fogColor, fogFactor );",
-	"  col = mix( col.rrr, col, saturation );",
-	"  vec3 nCol = mix( mix( vec3(0.0), fogColor, fogFactor ), col, neonFactor );",
-	"  nCol = clamp(nCol, fogColor, vec3(1.0));",
-	"  return mix(col, nCol, neon);",
+	"	float fogDepth = length( mPosition.xz );",
+	"	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );",
+	"  vec3 nCol = mix( mix( col, fogColor, fogFactor ), col, neonFactor );",
+	"  nCol = clamp( nCol, fogColor, vec3( 1.0 ) );",
+	"  return mix( col, nCol, neon );",
 	"}",
 	"#ifndef USE_COLOR",
 	"	uniform vec3 color;",
@@ -346,11 +346,14 @@ THREE.neonShader._frag = [
 	"		col = mix( col * 0.75, col, shadow );",
 	"	#endif",
 	"	#ifdef USE_SKINNING",
-	"		if (mPosition.y < clip.x || mPosition.y > clip.y) discard;",
+	"		if ( mPosition.y < clip.x || mPosition.y > clip.y ) discard;",
 	"	#endif",
-	"	vec3 factor = neonFactor();",
-	"  col = neonColor(col, factor, mPosition.xyz);",
-	"  gl_FragColor = vec4(col, 1.0);",
+	"	#ifdef USE_FOG",
+	"		col = neonFog( col );",
+	"	#endif",
+	"	col = mix( col.rrr, col, saturation );",
+	"  col = neonColor( col );",
+	"  gl_FragColor = vec4( col, 1.0 );",
 	"}",
 ].join( '\n' );
 // NOTE: Uncomment line below to use glsl shader source.
@@ -379,12 +382,12 @@ THREE.neonShader.floorShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.floorShader.setValues( {
 	defines: {
 		USE_FAKE_SHADOW: ''
-	},
-	uniforms: THREE.UniformsUtils.merge( [
-		THREE.neonShader._uniforms, {
-			size: { type: 'f', value: 1 }
-		}
-	] )
+	}
+	// uniforms: THREE.UniformsUtils.merge( [
+	// 	THREE.neonShader._uniforms, {
+	// 		size: { type: 'f', value: 1 }
+	// 	}
+	// ] )
 } );
 
 THREE.neonShader.grassShader = THREE.neonShader.basicShader.clone();
@@ -492,6 +495,7 @@ THREE.neonShader.vertexColoredDoubleSided.side = THREE.DoubleSide;
 
 THREE.neonShader.vertexColored = THREE.neonShader.basicShader.clone();
 THREE.neonShader.vertexColored.vertexColors = true;
+THREE.neonShader.vertexColored.defines.USE_FAKE_SHADOW = '';
 
 THREE.neonShader.doubleSided = THREE.neonShader.roadShader.clone();
 THREE.neonShader.doubleSided.side = THREE.DoubleSide;

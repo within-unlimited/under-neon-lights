@@ -28,12 +28,17 @@ void main() {
 	#endif
 
 	#ifdef USE_SKINNING
-		if (mPosition.y < clip.x || mPosition.y > clip.y) discard;
+		if ( mPosition.y < clip.x || mPosition.y > clip.y ) discard;
 	#endif
 
-	vec3 factor = neonFactor();
-  col = neonColor(col, factor, mPosition.xyz);
+	#ifdef USE_FOG
+		col = neonFog( col );
+	#endif
 
-  gl_FragColor = vec4(col, 1.0);
+	col = mix( col.rrr, col, saturation );
+
+  col = neonColor( col );
+
+  gl_FragColor = vec4( col, 1.0 );
 
 }
