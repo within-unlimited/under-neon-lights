@@ -3,7 +3,7 @@ THREE.neonShader = {
 		saturation: { type: 'f', value: url.number( 'saturation', 0.5 ) },
 		sepia: { type: 'f', value: url.number( 'sepia', 0 ) },
 		opacity: { type: 'f', value: url.number( 'opacity', 1 ) },
-		neon: { type: 'f', value: url.number( 'neon', 1.6 ) }
+		neon: { type: 'f', value: url.number( 'neon', 0 ) }
 	}
 }
 
