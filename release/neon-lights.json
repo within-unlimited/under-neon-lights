@@ -3109,9 +3109,10 @@
 				"var exterior = stages.exterior;",
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var scene;",
+				"var initialFar = 25;",
 				"",
 				"var destination = new THREE.Vector3( 0, - 16.55, 3 );",
-				"var origin = new THREE.Vector3( 0, - 25, 25 );",
+				"var origin = new THREE.Vector3( 0, - 32, 36 );",
 				"",
 				"function start () {\t",
 				"",
@@ -3129,7 +3130,7 @@
 				"\tvar t = TWEEN.Easing.Sinusoidal.InOut( progress );",
 				"\tscene.position.y = t * ( destination.y - origin.y ) + origin.y;",
 				"\tscene.position.z = progress * ( destination.z - origin.z ) + origin.z;",
-				"\tfog.far = progress * ( 4 - 10 ) + 10;",
+				"\tfog.far = progress * ( 4 - initialFar ) + initialFar;",
 				"",
 				"}"
 			]
@@ -4857,13 +4858,6 @@
 			9
 		],
 		[
-			"Lift Off (Models)",
-			60.72,
-			73.75,
-			4,
-			26
-		],
-		[
 			"AH",
 			61.34442537206686,
 			61.79968046193686,
@@ -4883,6 +4877,13 @@
 			69,
 			2,
 			22
+		],
+		[
+			"Lift Off (Models)",
+			62,
+			73.75,
+			4,
+			26
 		],
 		[
 			"L",
