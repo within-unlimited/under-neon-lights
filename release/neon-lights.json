@@ -3519,25 +3519,6 @@
 			]
 		],
 		[
-			"Reduce Fog.far",
-			[
-				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var destination = 0;",
-				"var origin = 4;",
-				"",
-				"function start(){}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ) {",
-				"",
-				"\tvar t = TWEEN.Easing.Sinusoidal.In( progress );",
-				"\tfog.far = t * ( destination - origin ) + origin;",
-				"",
-				"}"
-			]
-		],
-		[
 			"Door.rotation Y",
 			[
 				"var stage = FRAME.getResource( 'stages' ).hallway;",
@@ -4705,7 +4686,7 @@
 			54,
 			60,
 			6,
-			39
+			38
 		],
 		[
 			"Guitar Riff",
@@ -4985,7 +4966,7 @@
 			62,
 			64,
 			6,
-			38
+			37
 		],
 		[
 			"L",
@@ -5538,7 +5519,7 @@
 			72.5,
 			74,
 			6,
-			40
+			39
 		],
 		[
 			"AH",
@@ -5615,7 +5596,7 @@
 			141.9375,
 			144.03125,
 			6,
-			36
+			35
 		],
 		[
 			"Stage 3",
@@ -5769,7 +5750,7 @@
 			223.75,
 			225.75,
 			3,
-			37
+			36
 		],
 		[
 			"Stage 4",
