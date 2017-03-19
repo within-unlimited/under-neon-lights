@@ -464,6 +464,7 @@ THREE.neonShader.skinnedShader.setValues( {
 	side: THREE.DoubleSide,
 	vertexColors: true,
 	skinning: true,
+	fog: false,
 	uniforms: THREE.UniformsUtils.merge( [
 		THREE.neonShader._uniforms, {
 			clip: { type: 'v2', value: new THREE.Vector2( -1e10, 1e10 ) }
