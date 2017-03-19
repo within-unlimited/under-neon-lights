@@ -755,12 +755,15 @@
 				"\t\t\t\tif ( current === animation ) {",
 				"\t\t\t\t\tbreak;",
 				"\t\t\t\t}",
-				"\t\t\t\tif ( !!forced ) {",
+				"\t\t\t\tanimation.action.stop();",
+				"\t\t\t\tif ( typeof forced === 'number' ) {",
+				"\t\t\t\t\tanimation.action.crossFadeFrom( current.action, forced );",
+				"\t\t\t\t} else if ( !!forced ) {",
 				"\t\t\t\t\tcurrent.action.stop();",
 				"\t\t\t\t} else {",
 				"\t\t\t\t\tanimation.action.crossFadeFrom( current.action, 0.35 );",
 				"\t\t\t\t}",
-				"\t\t\t\tanimation.action.stop().play();",
+				"\t\t\t\tanimation.action.play();",
 				"\t\t\t} else {",
 				"\t\t\t\tanimation.action.play();",
 				"\t\t\t}",
@@ -2055,6 +2058,7 @@
 				"\tcontrollers.direction = direction;",
 				"\tcontrollers.theta = theta;",
 				"",
+				"\tannie.userData.play( 'run' );",
 				"\tannie.rotation.y = 0;",
 				"\tdolly.userData.reset();",
 				"",
@@ -3280,16 +3284,14 @@
 				"\tannie.userData.play( 'transition' );",
 				"",
 				"\tvar animation = annie.userData.currentAnimation;",
-				"\tanimation.action.loop = THREE.LoopOnce;",
+				"\tvar action = animation.action;",
+				"",
+				"\taction.loop = THREE.LoopOnce;",
+				"\taction.timeScale = 1;",
 				"",
 				"}",
 				"",
-				"function end () {",
-				"",
-				"\tannie.userData.age( 'adult' );",
-				"\tannie.userData.play( 'fly' );",
-				"",
-				"}",
+				"function end () {}",
 				"",
 				"function update( progress ){}"
 			]
@@ -3554,6 +3556,28 @@
 				"\tdoor.rotation.y = t * ( destination - origin ) + origin;",
 				"",
 				"}"
+			]
+		],
+		[
+			"Effect",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"function start () {",
+				"",
+				"\tannie.userData.play( 'fly' );",
+				"",
+				"\tvar animation = annie.userData.currentAnimation;",
+				"\tvar action = animation.action;",
+				"",
+				"\taction.loop = THREE.Loop;",
+				"\taction.timeScale = 1;",
+				"",
+				"}",
+				"",
+				"function end () {}",
+				"",
+				"function update( progress ){}"
 			]
 		]
 	],
@@ -5619,7 +5643,7 @@
 		[
 			"Annie can Fly?",
 			218.55,
-			224.5,
+			223.75,
 			2,
 			29
 		],
@@ -5629,6 +5653,13 @@
 			232.4950495049505,
 			4,
 			21
+		],
+		[
+			"Animation",
+			223.75,
+			225.75,
+			3,
+			37
 		],
 		[
 			"Stage 4",
