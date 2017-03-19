@@ -1,4 +1,11 @@
-THREE.neonShader = {}
+THREE.neonShader = {
+	globals: {
+		saturation: { type: 'f', value: url.number( 'saturation', 0.5 ) },
+		sepia: { type: 'f', value: url.number( 'sepia', 0 ) },
+		opacity: { type: 'f', value: url.number( 'opacity', 1 ) },
+		neon: { type: 'f', value: url.number( 'neon', 1.6 ) }
+	}
+}
 
 THREE.neonShader.loadTextFile = function( url ) {
 	var result;
@@ -464,6 +471,7 @@ THREE.neonShader.skinnedShader.setValues( {
 	side: THREE.DoubleSide,
 	vertexColors: true,
 	skinning: true,
+	fog: false,
 	uniforms: THREE.UniformsUtils.merge( [
 		THREE.neonShader._uniforms, {
 			clip: { type: 'v2', value: new THREE.Vector2( -1e10, 1e10 ) }
@@ -473,3 +481,25 @@ THREE.neonShader.skinnedShader.setValues( {
 
 THREE.neonShader.waveShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.waveShader.defines.USE_WAVE = '';
+THREE.neonShader.waveShader.vertexColors = true;
+
+THREE.neonShader.backSided = THREE.neonShader.basicShader.clone();
+THREE.neonShader.backSided.side = THREE.BackSide;
+
+THREE.neonShader.vertexColoredDoubleSided = THREE.neonShader.basicShader.clone();
+THREE.neonShader.vertexColoredDoubleSided.vertexColors = true;
+THREE.neonShader.vertexColoredDoubleSided.side = THREE.DoubleSide;
+
+THREE.neonShader.vertexColored = THREE.neonShader.basicShader.clone();
+THREE.neonShader.vertexColored.vertexColors = true;
+
+THREE.neonShader.doubleSided = THREE.neonShader.roadShader.clone();
+THREE.neonShader.doubleSided.side = THREE.DoubleSide;
+
+for ( var i in THREE.neonShader  ) {
+	if ( THREE.neonShader[i] instanceof THREE.ShaderMaterial ) {
+		for ( var j in THREE.neonShader.globals ) {
+			THREE.neonShader[i].uniforms[j] = THREE.neonShader.globals[j];
+		}
+	}
+}
