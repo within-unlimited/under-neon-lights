@@ -754,6 +754,7 @@
 				"\t\t\t\tif ( !!forced ) {",
 				"\t\t\t\t\tcurrent.action.stop();",
 				"\t\t\t\t} else {",
+				"\t\t\t\t\tconsole.log( animation.action, current.action );",
 				"\t\t\t\t\tanimation.action.crossFadeFrom( current.action, 0.35 );",
 				"\t\t\t\t}",
 				"\t\t\t\tanimation.action.stop().play();",
@@ -1127,7 +1128,7 @@
 				"\t\t\t'giraffe.json',",
 				"\t\t\t'tricycle.json',",
 				"\t\t\t",
-				"\t\t\t'lollipop.json'",
+				"\t\t\t//'lollipop.json'",
 				"",
 				"\t\t]",
 				"\t},",
@@ -2692,7 +2693,7 @@
 				"",
 				"\tvar scene = stages.current.scene;",
 				"\tvar t = TWEEN.Easing.Sinusoidal.In( progress );",
-				"\tfog.far = t * scene.fog.far / 10 + 1;",
+				"\tfog.far = t * scene.fog.far / 5 + 1;",
 				"",
 				"}"
 			]
@@ -2755,7 +2756,6 @@
 				"\tvar dest = scene.fog.far * 0.4;",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
 				"\tfog.far = t * ( dest - startValue ) + startValue;",
-				"\tconsole.log( dest, startValue );",
 				"",
 				"}"
 			]
@@ -3278,6 +3278,7 @@
 				"",
 				"function end () {",
 				"",
+				"\tannie.userData.age( 'adult' );",
 				"\tannie.userData.play( 'fly' );",
 				"",
 				"}",
@@ -5565,7 +5566,7 @@
 		],
 		[
 			"Annie can Fly?",
-			218.5531914893617,
+			218.55,
 			224.5,
 			2,
 			29
