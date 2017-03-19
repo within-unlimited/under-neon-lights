@@ -2,7 +2,6 @@ THREE.NeonEffect = function( effect, renderer ) {
 
 	this.annie = new THREE.Object3D();
 	this.cursor = new THREE.Vector2();
-	this.motionVector = new THREE.Vector3( 0, 0, 0 );
 
 	var clock = new THREE.Clock();
 
@@ -32,7 +31,7 @@ THREE.NeonEffect = function( effect, renderer ) {
 		for ( var i = 0; i < this.materials.length; i++ ) {
 			this.materials[i].uniforms.neon.value = value;
 			this.materials[i].uniforms.time.value = time;
-			this.materials[i].uniforms.cursor.value = this.cursor;
+			// this.materials[i].uniforms.cursor.value = this.cursor;
 		}
 	}
 
@@ -40,8 +39,8 @@ THREE.NeonEffect = function( effect, renderer ) {
 	this.render = function( scene, camera ) {
 		time = clock.getElapsedTime();
 
-		this.cursor.x -= this.motionVector.z;
-		this.cursor.y -= this.motionVector.x;
+		// this.cursor.x -= this.motionVector.z;
+		// this.cursor.y -= this.motionVector.x;
 
 		if ( !this.enabled ) {
 
