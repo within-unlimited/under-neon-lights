@@ -1,5 +1,13 @@
 #inject ../release/src/shaders/chunks/NeonParsFragment.glsl
 
+#ifndef USE_COLOR
+	uniform vec3 color;
+#endif
+
+#ifdef USE_ROAD
+	#inject ../release/src/shaders/chunks/RoadFunc.glsl
+#endif
+
 void main() {
 
 	vec3 col = vColor;
@@ -8,16 +16,19 @@ void main() {
 		col = mix( base, top, abs( vUv.y ) );
 	#endif
 
-	#ifdef USE_FLOOR
-	/* float dist = distance( vec2( 0.5 ), vUv ) * 2.0; */
-  /* dist = clamp( dist, 0.0, 1.0 ); */
-  /* float shadow = smoothstep( 0.09, 0.15, pow( dist, 0.5 ) ); */
-  /* vec3 blend = mix( color, fogColor, pow( dist, 0.75 ) ); */
-  /* blend = mix( color * 0.75, blend, shadow ); */
+	#ifdef USE_ROAD
+		col = roadFunc();
+	#endif
+
+	#ifdef USE_FAKE_SHADOW
+		float dist = length( mPosition.xyz ) * .06;
+		dist = clamp( dist, 0.0, 1.0 );
+		float shadow = smoothstep( 0.09, 0.15, pow( dist, 0.5 ) );
+		col = mix( col * 0.75, col, shadow );
 	#endif
 
 	#ifdef USE_SKINNING
-		if (mPosition.y < clipy.x || mPosition.y > clipy.y) discard;
+		if (mPosition.y < clip.x || mPosition.y > clip.y) discard;
 	#endif
 
 	vec3 factor = neonFactor();

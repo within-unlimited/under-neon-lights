@@ -7205,6 +7205,8 @@
 
 			}
 
+			return this;
+
 		},
 
 		toJSON: function ( meta ) {
