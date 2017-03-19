@@ -394,6 +394,7 @@ THREE.neonShader.neonBasicShader = new THREE.ShaderMaterial({
 		cursor: { type: "v2", value: new THREE.Vector2() },
 		saturation: { type: "f", value: 1 }
 	},
+	fog: true,
 	vertexShader: THREE.neonShader._vert,
 	fragmentShader: THREE.neonShader._frag
 });
