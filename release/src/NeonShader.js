@@ -4,7 +4,8 @@ THREE.neonShader = {
 		sepia: { type: 'f', value: url.number( 'sepia', 2.5 ) },
 		neon: { type: 'f', value: url.number( 'neon', 0 ) },
 		time: { type: 'f', value: url.number( 'neon', 0 ) },
-		cursor: { type: 'v3', value: new THREE.Vector3() }
+		cursor: { type: 'v3', value: new THREE.Vector3() },
+		motionVector: { type: 'v3', value: new THREE.Vector3() }
 	}
 }
 
@@ -329,17 +330,16 @@ THREE.neonShader._frag = [
 	"	return noise;",
 	"}",
 	"vec3 neonColor( vec3 col ) {",
-	"	vec3 p = mPosition.xyz + vec3( cursor.x, cursor.y, cursor.z );",
-	"	/*p.y += time * 0.3;*/",
+	"	vec3 p = mPosition.xyz + vec3( cursor.x, cursor.y + time * 0.1, cursor.z );",
 	"	vec3 neonFactor = vec3(",
 	"		neonNoise( p, 0.3 ),",
 	"		neonNoise( p, 0.0 ),",
 	"		neonNoise( p, -0.3 )",
 	"	);",
+	"	vec3 nCol = mix( vec3( 0.0 ), col, neonFactor );",
 	"	float fogDepth = length( mPosition.xyz );",
 	"	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );",
-	"	vec3 nCol = mix( mix( vec3( 0.0 ), fogColor, fogFactor ), col, neonFactor );",
-	"	/*return vec3( mod( p.xyz, 1.0 ) );*/",
+	"	nCol = mix( nCol, vec3( 0.0 ), fogFactor );",
 	"	return mix( col, nCol, neon );",
 	"}",
 	"#ifndef USE_COLOR",
