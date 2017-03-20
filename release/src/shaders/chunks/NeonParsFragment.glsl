@@ -80,14 +80,13 @@ float neonNoise( vec3 pos, float phase ) {
 
 vec3 neonColor( vec3 col ) {
 
-	vec3 p = mPosition.xyz + vec3( cursor.x, cursor.y + time * 0.1, cursor.z );
-	vec3 neonFactor = vec3(
-		neonNoise( p, 0.3 ),
-		neonNoise( p, 0.0 ),
-		neonNoise( p, -0.3 )
-	);
+	vec3 p = mPosition.xyz + cursor * vec3( 1.0, 1.0, 1.2 );
 
-	vec3 nCol = mix( vec3( 0.0 ), col, neonFactor );
+	float neonFactor = neonNoise( p * 0.3 + 0.25, 0.0 );
+
+	if ( ( neonFactor + neon ) > 1.75 ) discard;
+
+	vec3 nCol = ( col * 1.5 ) + vec3( neonFactor, 0.0, 0.25 - neonFactor * 0.25 ) * 0.5; // mix( vec3( 0.0 ), col, neonFactor );
 
 	float fogDepth = length( mPosition.xyz );
 	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );
