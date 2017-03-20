@@ -13,7 +13,7 @@ uniform float time;
 uniform float size;
 uniform vec3 base;
 uniform vec3 top;
-uniform vec2 cursor;
+uniform vec3 cursor;
 uniform vec2 clip;
 
 varying vec2 vUv;
@@ -80,8 +80,8 @@ float neonNoise( vec3 pos, float phase ) {
 
 vec3 neonColor( vec3 col ) {
 
-	vec3 p = mPosition.xyz + vec3( cursor.y, 0.0, cursor.x );
-	p.y += time * 0.3;
+	vec3 p = mPosition.xyz + vec3( cursor.x, cursor.y, cursor.z );
+	/*p.y += time * 0.3;*/
 	vec3 neonFactor = vec3(
 		neonNoise( p, 0.3 ),
 		neonNoise( p, 0.0 ),
