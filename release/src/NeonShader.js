@@ -472,6 +472,7 @@ THREE.neonShader.waveShader.side = THREE.DoubleSide;
 
 THREE.neonShader.backSided = THREE.neonShader.basicShader.clone();
 THREE.neonShader.backSided.side = THREE.BackSide;
+THREE.neonShader.backSided.depthWrite = false;
 
 THREE.neonShader.vertexColoredDoubleSided = THREE.neonShader.basicShader.clone();
 THREE.neonShader.vertexColoredDoubleSided.vertexColors = true;
