@@ -11,6 +11,7 @@ body {
 // --------------------------------
 
 $green: #2fbfc2;
+$pink: #c0538d;
 
 // styles from webvr.js
 
@@ -22,16 +23,17 @@ button {
 // vr toggle
 .button {
 	display: inline-block;
-	width: 174px;
+	// width: 174px;
+	width: 150px;
 	padding: 11px;
 	cursor: pointer;
-	background-color: $green;
+	background-color: transparent;
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	text-decoration: none;
 	line-height: 30px;
-	color: #fff;
-	border: 0;
+	color: $pink;
+	border: 3px solid $pink;
 	border-radius: 6px;
 	font-weight: bold;
 	font-size: 16px;
@@ -39,11 +41,18 @@ button {
 	text-align: center;
 	user-select: none;
 	z-index: 999;
-	box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.3);
-	@include transition(background-color 0.35s $ease-in-out-circ);
+	
+	box-shadow: 0 0 5px 1px transparentize($pink, 0.4),
+							0 0 5px 1px transparentize($pink, 0.4) inset;
+
+	@include transition(all 0.35s $ease-in-out-circ);
 
 	&:hover {
-		background-color: shade($green, 10%);
+		// background-color: shade($pink, 10%);
+		background-color: transparentize($pink, 0.8);
+		color: #fff;
+		box-shadow: 0 0 15px 2px transparentize($pink, 0.4),
+								0 0 15px 2px transparentize($pink, 0.4) inset;
 	}
 }
 

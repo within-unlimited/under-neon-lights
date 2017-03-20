@@ -10,16 +10,16 @@ button {
 
 .button {
   display: inline-block;
-  width: 174px;
+  width: 150px;
   padding: 11px;
   cursor: pointer;
-  background-color: #2fbfc2;
+  background-color: transparent;
   letter-spacing: 2px;
   text-transform: uppercase;
   text-decoration: none;
   line-height: 30px;
-  color: #fff;
-  border: 0;
+  color: #c0538d;
+  border: 3px solid #c0538d;
   border-radius: 6px;
   font-weight: bold;
   font-size: 16px;
@@ -27,12 +27,14 @@ button {
   text-align: center;
   user-select: none;
   z-index: 999;
-  box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.3);
-  -webkit-transition: background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-  -moz-transition: background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-  transition: background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+  box-shadow: 0 0 5px 1px rgba(192, 83, 141, 0.6), 0 0 5px 1px rgba(192, 83, 141, 0.6) inset;
+  -webkit-transition: all 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  -moz-transition: all 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition: all 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
   .button:hover {
-    background-color: #2aacaf; }
+    background-color: rgba(192, 83, 141, 0.2);
+    color: #fff;
+    box-shadow: 0 0 15px 2px rgba(192, 83, 141, 0.6), 0 0 15px 2px rgba(192, 83, 141, 0.6) inset; }
 
 .abs-bc {
   position: absolute;
