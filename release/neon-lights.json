@@ -2035,7 +2035,7 @@
 				"\tblocks.position.y = 5 * Math.sqrt( curvature ) + 0.5;",
 				"",
 				"\tground.material.uniforms.curvature.value = curvature;",
-				"",
+				"\t",
 				"\tTHREE.neonShader.globals.motionVector.value.x = amplitude * Math.cos( direction.value ) * size;",
 				"\tTHREE.neonShader.globals.motionVector.value.z = amplitude * Math.sin( direction.value ) * size;",
 				"\tTHREE.neonShader.globals.motionVector.value.applyAxisAngle( new THREE.Vector3( 0, 1, 0 ), group.rotation.y );",
