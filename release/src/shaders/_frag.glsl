@@ -10,6 +10,10 @@
 
 void main() {
 
+	#ifdef USE_CLIPPING
+		if ( mPosition.y < clip.x * 2.0 || mPosition.y > clip.y * 2.0 ) discard;
+	#endif
+
 	vec3 col = vColor;
 
 	#ifdef USE_GRASS
@@ -27,8 +31,8 @@ void main() {
 		col = mix( col * 0.75, col, shadow );
 	#endif
 
-	#ifdef USE_SKINNING
-		if ( mPosition.y < clip.x || mPosition.y > clip.y ) discard;
+	#ifdef USE_SWIRL
+		col = mix( col, vec3( 0.0 ), smoothstep( 0.0, 1.0, length( mPosition.xz ) ) );
 	#endif
 
 	#ifdef USE_FOG
@@ -39,7 +43,6 @@ void main() {
 
 	vec3 hsv = rgb2hsv( col );
 	col = hsv2rgb( vec3( hsv.r, hsv.g * saturation, hsv.b ) );
-	/*col = mix( col.rrr, col, saturation );*/
 
 	col = sepiaColor( col );
 
