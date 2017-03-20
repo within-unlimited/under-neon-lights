@@ -3148,8 +3148,8 @@
 				"\tvar z = progress * ( destination.z - origin.z ) + origin.z;",
 				"",
 				"\tTHREE.neonShader.globals.motionVector.value.x = 0;",
-				"\tTHREE.neonShader.globals.motionVector.value.y = y - scene.position.y;",
-				"\tTHREE.neonShader.globals.motionVector.value.z = z - scene.position.z;",
+				"\tTHREE.neonShader.globals.motionVector.value.y = scene.position.y - y;",
+				"\tTHREE.neonShader.globals.motionVector.value.z = scene.position.z - z;",
 				"",
 				"\tscene.position.y = y;",
 				"\tscene.position.z = z;",
@@ -3188,8 +3188,8 @@
 				"\tvar z = progress * ( destination.z - origin.z ) + origin.z;",
 				"",
 				"\tTHREE.neonShader.globals.motionVector.value.x = 0;",
-				"\tTHREE.neonShader.globals.motionVector.value.y = y - scene.position.y;",
-				"\tTHREE.neonShader.globals.motionVector.value.z = z - scene.position.z;",
+				"\tTHREE.neonShader.globals.motionVector.value.y = scene.position.y - y;",
+				"\tTHREE.neonShader.globals.motionVector.value.z = scene.position.z - z;",
 				"",
 				"\tscene.position.y = y;",
 				"\tscene.position.z = z;",
@@ -3457,9 +3457,9 @@
 				"\tvar y = progress * ( destination.y - origin.y ) + origin.y;",
 				"\tvar z = progress * ( destination.z - origin.z ) + origin.z;",
 				"",
-				"\tTHREE.neonShader.globals.cursor.value.x -= x - group.position.x;",
-				"\tTHREE.neonShader.globals.cursor.value.y -= y - group.position.y;",
-				"\tTHREE.neonShader.globals.cursor.value.z -= z - group.position.z;",
+				"\tTHREE.neonShader.globals.motionVector.value.x = group.position.x - x;",
+				"\tTHREE.neonShader.globals.motionVector.value.y = group.position.y - y;",
+				"\tTHREE.neonShader.globals.motionVector.value.z = group.position.z - z;",
 				"",
 				"\tgroup.position.x = x;",
 				"\tgroup.position.y = y;",
@@ -3773,8 +3773,8 @@
 				"\tvar z = progress * ( destination.z - origin.z ) + origin.z;",
 				"",
 				"\tTHREE.neonShader.globals.motionVector.value.x = 0;",
-				"\tTHREE.neonShader.globals.motionVector.value.y = y - scene.position.y;",
-				"\tTHREE.neonShader.globals.motionVector.value.z = z - scene.position.z;",
+				"\tTHREE.neonShader.globals.motionVector.value.y = scene.position.y - y;",
+				"\tTHREE.neonShader.globals.motionVector.value.z = scene.position.z - z;",
 				"",
 				"\tscene.position.y = y;",
 				"\tscene.position.z = z;",
@@ -3856,6 +3856,22 @@
 				"",
 				"function update( progress ){}"
 			]
+		],
+		[
+			"Effect",
+			[
+				"var parameters = {",
+				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
+				"};",
+				"",
+				"// function init(){}",
+				"",
+				"function start(){}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
 		]
 	],
 	"animations": [
@@ -3905,6 +3921,14 @@
 			266.48537499999986,
 			8,
 			5,
+			true
+		],
+		[
+			"Animation",
+			6.09375,
+			8.09375,
+			0,
+			45,
 			true
 		],
 		[
