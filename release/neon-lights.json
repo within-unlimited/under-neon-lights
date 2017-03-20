@@ -174,7 +174,7 @@
 				"};",
 				"",
 				"var dolly = new THREE.Camera();",
-				"var camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 500 );",
+				"var camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 550 );",
 				"// camera.position.z = -1; // for animating mouth in editor -david",
 				"",
 				"dolly.userData.distance = 2;",
@@ -2668,7 +2668,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var stages = FRAME.getResource( 'stages' );",
-				"var origin = 6;",
+				"var origin = 3;",
 				"",
 				"function start () {",
 				"",
@@ -2687,7 +2687,7 @@
 				"",
 				"\tvar scene = stages.current.scene;",
 				"\tvar t = TWEEN.Easing.Sinusoidal.In( progress );",
-				"\tfog.far = t * ( scene.fog.far / 5 - origin ) + origin;",
+				"\tfog.far = t * ( ( scene.fog.far / 5 ) - origin ) + origin;",
 				"",
 				"}"
 			]
@@ -2722,7 +2722,7 @@
 				"\t}",
 				"",
 				"\telem = items.next();",
-				"\tstage.add( elem, Math.PI / 2, 0.75 );",
+				"\tstage.add( elem, Math.PI / 2, 0.5 );",
 				"",
 				"}"
 			]
@@ -2747,7 +2747,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar scene = stages.current.scene;",
-				"\tvar dest = scene.fog.far * 0.4;",
+				"\tvar dest = scene.fog.far * 0.5;",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
 				"\tfog.far = t * ( dest - startValue ) + startValue;",
 				"",
@@ -3229,6 +3229,14 @@
 				"\tgroup.add( string );",
 				"\tbone.add( bird );",
 				"",
+				"\tvar animation;",
+				"",
+				"\tanimation = bird.userData.animations.flap;",
+				"\tanimation.action.stop().play();",
+				"",
+				"\tanimation = string.userData.animations.loop;",
+				"\tanimation.action.stop().play();",
+				"",
 				"\tgroup.userData.string = string;",
 				"",
 				"} );",
@@ -3241,7 +3249,7 @@
 				"\tscene.add( group );",
 				"",
 				"\tvar animation;",
-				"",
+				"\t",
 				"\tif ( bird ) {",
 				"\t\tanimation = bird.userData.animations.flap;",
 				"\t\tanimation.action.stop().play();",
@@ -3250,7 +3258,7 @@
 				"\tif ( string ) {",
 				"\t\tanimation = string.userData.animations.loop;",
 				"\t\tanimation.action.stop().play();",
-				"\t}",
+				"\t}\t",
 				"",
 				"}",
 				"",
@@ -5833,7 +5841,7 @@
 			85.96590914233666,
 			4,
 			34,
-			true
+			false
 		],
 		[
 			"Bedroom Scene",
@@ -5841,7 +5849,7 @@
 			102.93749996423729,
 			1,
 			33,
-			true
+			false
 		],
 		[
 			"Stage 2",
