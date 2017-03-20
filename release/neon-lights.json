@@ -654,7 +654,7 @@
 				"\t\t},",
 				"\t\tteenager: {",
 				"\t\t\trun: 'ani_chr_2-house_run_v02.fbx',",
-				"//\t\t\tidle: 'ani_chr_2-house_idle_v02.fbx',",
+				"\t\t\tidle: 'ani_chr_2-house_idle_v02.fbx',",
 				"\t\t\twalk: 'ani_chr_2-house_walk_v02.fbx',",
 				"\t\t\ttransition: 'ani_chr_2-house_houseToCity_v02.fbx'",
 				"\t\t},",
@@ -679,7 +679,7 @@
 				"annie.userData.model = null;",
 				"",
 				"enhance( annie.userData.models, 6 );",
-				"enhance( annie.userData.animations, 11 );",
+				"enhance( annie.userData.animations, 14 );",
 				"",
 				"annie.userData.age = function ( age ) {",
 				"\tannie.userData.models.complete.ready( function () {",
@@ -697,7 +697,7 @@
 				"",
 				"\t\tvar bb = model.userData.boundingBox;",
 				"\t\tvar height = bb.max.y - bb.min.y;",
-				"\t\tdolly.userData.target.y = height * 0.66;",
+				"\t\tdolly.userData.target.y = height * 0.5;",
 				"",
 				"\t} );",
 				"};",
@@ -1714,7 +1714,7 @@
 				"",
 				"function start () {",
 				"",
-				"\tcamera.near = 1;",
+				"\tcamera.near = 0.5;",
 				"\tcamera.updateProjectionMatrix();",
 				"\tstages.current = stage;",
 				"\tstages.index = stage.index;",
@@ -3498,6 +3498,7 @@
 		[
 			"Bedroom Effect",
 			[
+				"var Ease = FRAME.getResource( 'Ease' );",
 				"var materials = FRAME.getResource( 'materials' ).house;",
 				"var scene = FRAME.getResource( 'scene' );",
 				"var models = FRAME.getResource( 'models' ).bedroom;",
@@ -3509,6 +3510,8 @@
 				"",
 				"var group = new THREE.Scene();",
 				"var bedroom, teddy;",
+				"",
+				"var theta = new Ease();",
 				"",
 				"models.ready( function () {",
 				"",
@@ -3543,6 +3546,7 @@
 				"",
 				"function start() {",
 				"",
+				"\ttheta.reset();",
 				"\tgroup.visible = true;",
 				"\tscene.add( group );",
 				"\tclock.getDelta();",
@@ -3564,10 +3568,6 @@
 				"\tif ( !stages ) {",
 				"\t\treturn;",
 				"\t}",
-				"",
-				"\tvar step = stage.step;",
-				"\tvar theta = stage.theta;",
-				"\tvar direction = stage.direction;",
 				"",
 				"\tif ( controllers.dragging() ) {",
 				"",
@@ -3842,6 +3842,38 @@
 				"\tannie.userData.play( 'idle' );",
 				"",
 				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Annie.userData.age Teenager",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"function start () {",
+				"",
+				"\tannie.userData.age( 'teenager' );",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Set Annie's Direction",
+			[
+				"var parameters = {",
+				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
+				"};",
+				"",
+				"// function init(){}",
+				"",
+				"function start(){}",
 				"",
 				"function end(){}",
 				"",
@@ -6075,9 +6107,25 @@
 			true
 		],
 		[
+			"Child -> Teenager",
+			95.83333681500183,
+			97.83333681500183,
+			2,
+			45,
+			true
+		],
+		[
+			"Reveal Direction",
+			100.04348157943996,
+			102.04348157943996,
+			2,
+			46,
+			true
+		],
+		[
 			"Stage 2",
 			105,
-			135.75,
+			136,
 			2,
 			1,
 			true
@@ -6117,7 +6165,7 @@
 		[
 			"Out the Door",
 			143.0212765957447,
-			145.89858673707118,
+			145.48949581270216,
 			3,
 			30,
 			true
