@@ -54,13 +54,13 @@ THREE.neonShader._vert = [
 
 ].join( '\n' );
 // NOTE: Uncomment line below to use glsl shader source.
-THREE.neonShader._vert = THREE.neonShader.load( '../release/src/shaders/_vert.glsl' );
+THREE.neonShader._vert = THREE.neonShader.load( '../release/src/shaders/vert.glsl' );
 
 THREE.neonShader._frag = [
 
 ].join( '\n' );
 // NOTE: Uncomment line below to use glsl shader source.
-THREE.neonShader._frag = THREE.neonShader.load( '../release/src/shaders/_frag.glsl' );
+THREE.neonShader._frag = THREE.neonShader.load( '../release/src/shaders/frag.glsl' );
 
 THREE.neonShader._uniforms = {
 	color: { type: 'c', value: new THREE.Color( 0xffffff ) },
