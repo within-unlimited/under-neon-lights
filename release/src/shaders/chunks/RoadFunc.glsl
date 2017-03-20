@@ -4,7 +4,7 @@ uniform vec3 median;
 vec3 roadFunc() {
 
 	float threshold = 6.0 / size;
-  vec2 pos = vec2( cursor.x + vUv.x, - cursor.y + vUv.y );
+  vec2 pos = vec2( cursor.z / size + vUv.x, - cursor.x / size + vUv.y );
   pos = mod( subdivisions * pos, 1.0 );
 
   vec2 isMedian = vec2( sin( pos * PI ) );
