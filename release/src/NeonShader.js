@@ -1,7 +1,7 @@
 THREE.neonShader = {
 	globals: {
 		saturation: { type: 'f', value: url.number( 'saturation', 0.2 ) },
-		sepia: { type: 'f', value: url.number( 'sepia', 0.8 ) },
+		sepia: { type: 'f', value: url.number( 'sepia', 3 ) },
 		neon: { type: 'f', value: url.number( 'neon', 0 ) },
 		time: { type: 'f', value: url.number( 'neon', 0 ) },
 		cursor: { type: 'v2', value: new THREE.Vector2() }
@@ -139,6 +139,7 @@ THREE.neonShader.skinnedShader.setValues( {
 THREE.neonShader.waveShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.waveShader.defines = { USE_WAVE: '' };
 THREE.neonShader.waveShader.vertexColors = true;
+THREE.neonShader.waveShader.side = THREE.DoubleSide;
 
 THREE.neonShader.backSided = THREE.neonShader.basicShader.clone();
 THREE.neonShader.backSided.side = THREE.BackSide;
