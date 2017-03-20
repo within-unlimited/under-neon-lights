@@ -1,7 +1,7 @@
 THREE.neonShader = {
 	globals: {
 		saturation: { type: 'f', value: url.number( 'saturation', 0.2 ) },
-		sepia: { type: 'f', value: url.number( 'sepia', 3 ) },
+		sepia: { type: 'f', value: url.number( 'sepia', 2.5 ) },
 		neon: { type: 'f', value: url.number( 'neon', 0 ) },
 		time: { type: 'f', value: url.number( 'neon', 0 ) },
 		cursor: { type: 'v2', value: new THREE.Vector2() }
