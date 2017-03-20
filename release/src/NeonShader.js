@@ -77,18 +77,6 @@ THREE.neonShader.basicShader = new THREE.ShaderMaterial( {
 	fragmentShader: THREE.neonShader._frag
 } );
 
-THREE.neonShader.floorShader = THREE.neonShader.basicShader.clone();
-THREE.neonShader.floorShader.setValues( {
-	defines: {
-		USE_FAKE_SHADOW: ''
-	}
-	// uniforms: THREE.UniformsUtils.merge( [
-	// 	THREE.neonShader._uniforms, {
-	// 		size: { type: 'f', value: 1 }
-	// 	}
-	// ] )
-} );
-
 THREE.neonShader.grassShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.grassShader.setValues( {
 	defines: {
@@ -133,6 +121,17 @@ THREE.neonShader.skinnedShader.setValues( {
 	] )
 } );
 THREE.neonShader.skinnedShader.defines = { USE_CLIPPING: '' };
+
+THREE.neonShader.swirlShader = THREE.neonShader.basicShader.clone();
+THREE.neonShader.swirlShader.uniforms = THREE.UniformsUtils.merge( [
+	THREE.neonShader._uniforms, {
+		progress: { type: 'f', value: 0 }
+	}
+] );
+THREE.neonShader.swirlShader.defines = { USE_SWIRL: '' };
+
+THREE.neonShader.floorShader = THREE.neonShader.basicShader.clone();
+THREE.neonShader.floorShader.defines = { USE_FAKE_SHADOW: '' };
 
 THREE.neonShader.waveShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.waveShader.defines = { USE_WAVE: '' };
