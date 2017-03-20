@@ -10,6 +10,10 @@
 
 void main() {
 
+	#ifdef USE_CLIPPING
+		if ( mPosition.y < clip.x * 2.0 || mPosition.y > clip.y * 2.0 ) discard;
+	#endif
+
 	vec3 col = vColor;
 
 	#ifdef USE_GRASS
@@ -25,10 +29,6 @@ void main() {
 		dist = clamp( dist, 0.0, 1.0 );
 		float shadow = smoothstep( 0.09, 0.15, pow( dist, 0.5 ) );
 		col = mix( col * 0.75, col, shadow );
-	#endif
-
-	#ifdef USE_SKINNING
-		if ( mPosition.y < clip.x || mPosition.y > clip.y ) discard;
 	#endif
 
 	#ifdef USE_FOG
