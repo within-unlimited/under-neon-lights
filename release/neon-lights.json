@@ -265,7 +265,7 @@
 				"resize();",
 				"",
 				"var isLocal = /localhost/i.test(window.location.href);",
-				"var root = FRAME.getResource( 'root' ) || ( isLocal ? '../assets' : '//player-dev.cabrilleros.com/NEON_LIGHTS/assets' );",
+				"var root = FRAME.getResource( 'root' ) || ( isLocal ? '../assets' : '//gzcdn.with.in/541-CHEM_BROS/assets' );",
 				"",
 				"var fbxLoader = new THREE.FBXLoader();",
 				"var objectLoader = new THREE.ObjectLoader();",
