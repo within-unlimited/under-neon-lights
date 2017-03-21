@@ -15,6 +15,7 @@ uniform vec3 base;
 uniform vec3 top;
 uniform vec3 cursor;
 uniform vec2 clip;
+uniform float yrot;
 
 varying vec2 vUv;
 varying vec3 vColor;
@@ -70,6 +71,16 @@ vec3 neonFog( vec3 col ) {
 
 }
 
+mat3 rotateY( float rad ) {
+	float c = cos( rad );
+	float s = sin( rad );
+	return mat3(
+		c, 0.0, -s,
+		0.0, 1.0, 0.0,
+		s, 0.0, c
+	);
+}
+
 float neonNoise( vec3 pos, float phase ) {
 
 	float noise = snoise( pos * 0.1 );
@@ -80,7 +91,9 @@ float neonNoise( vec3 pos, float phase ) {
 
 vec3 neonColor( vec3 col ) {
 
-	vec3 p = mPosition.xyz + cursor * vec3( 1.0, 1.0, 1.2 );
+	mat3 r = rotateY( -yrot );
+	vec3 p = r * mPosition.xyz;
+	p += cursor * vec3( 1.0, 1.0, 1.2 );
 
 	float neonFactor = neonNoise( p * 0.3, 0.0 );
 
