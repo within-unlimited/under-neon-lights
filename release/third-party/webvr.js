@@ -62,9 +62,11 @@ var WEBVR = {
 
 	getButton: function ( effect ) {
 
+		var icon = '<img src="../release/images/cardboard.svg" alt="VR Headset" /> ';
+
 		var button = document.createElement( 'a' );
 		button.classList.add('button', 'abs-bc'); // moved styles into vr-menu.scss
-		button.textContent = 'Enter VR';
+		button.innerHTML = icon + 'Enter VR';
 		button.onclick = function(e) {
 
 			e.preventDefault();
@@ -74,7 +76,7 @@ var WEBVR = {
 
 		window.addEventListener( 'vrdisplaypresentchange', function ( event ) {
 
-			button.textContent = effect.isPresenting ? 'Exit VR' : 'Enter VR';
+			button.innerHTML = icon + ( effect.isPresenting ? 'Exit VR' : 'Enter VR' );
 
 		}, false );
 

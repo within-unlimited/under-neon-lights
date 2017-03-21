@@ -28,6 +28,12 @@ button {
 	padding: 11px;
 	cursor: pointer;
 	background-color: transparent;
+
+
+	// background-image: url('../images/cardboard.svg');
+	// background-repeat: no-repeat;
+	// background-position: 20px center;
+	
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	text-decoration: none;
@@ -53,6 +59,12 @@ button {
 		color: #fff;
 		box-shadow: 0 0 15px 2px transparentize($pink, 0.4),
 								0 0 15px 2px transparentize($pink, 0.4) inset;
+	}
+
+	img {
+		width: 30px;
+		vertical-align: middle;
+		margin-right: 5px;
 	}
 }
 

@@ -35,6 +35,10 @@ button {
     background-color: rgba(192, 83, 141, 0.2);
     color: #fff;
     box-shadow: 0 0 15px 2px rgba(192, 83, 141, 0.6), 0 0 15px 2px rgba(192, 83, 141, 0.6) inset; }
+  .button img {
+    width: 30px;
+    vertical-align: middle;
+    margin-right: 5px; }
 
 .abs-bc {
   position: absolute;
