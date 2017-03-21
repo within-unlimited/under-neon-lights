@@ -1287,7 +1287,7 @@
 				"\tsize: new FRAME.Parameters.Integer( 'Size', 32 ),",
 				"\tamount: new FRAME.Parameters.Integer( 'Amount', 512 ),",
 				"\ttheta: new FRAME.Parameters.Float( 'Theta', 10 ),",
-				"\tstep: new FRAME.Parameters.Float( 'Step', 1 ),",
+				"\tstep: new FRAME.Parameters.Float( 'Step', 0.66 ),",
 				"\tforceField: new FRAME.Parameters.Float( 'Field', 0.025 )",
 				"};",
 				"",
@@ -2702,7 +2702,7 @@
 				"\t}",
 				"",
 				"\telem = items.next();",
-				"\tstage.add( elem, Math.PI / 2, 0.5 );",
+				"\tstage.add( elem, Math.PI / 2, 0.4 );",
 				"",
 				"}"
 			]
@@ -2743,7 +2743,7 @@
 				"",
 				"\tvar stage = FRAME.getResource( 'stages' )[ 0 ];",
 				"\telem = stage.types.mushroom.next();",
-				"\tstage.add( elem, Math.PI / 16, 0.16 );",
+				"\tstage.add( elem, Math.PI / 16, 0.1 );",
 				"",
 				"}",
 				"",
