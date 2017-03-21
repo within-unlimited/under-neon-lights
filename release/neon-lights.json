@@ -1326,6 +1326,7 @@
 				"\tnew THREE.SphereBufferGeometry( camera.far - 1 ),",
 				"\tTHREE.neonShader.backSided",
 				");",
+				"backdrop.renderOrder = 1; // render backdrop last",
 				"scene.add( backdrop );",
 				"",
 				"var ground = new THREE.Mesh(",
