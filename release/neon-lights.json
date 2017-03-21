@@ -1883,7 +1883,6 @@
 				"group.fog = new THREE.Fog( '#333', 0, parameters.size.value * 0.4 );",
 				"",
 				"var blocks = new THREE.Group();",
-				"blocks.position.y = 1;",
 				"group.add( blocks );",
 				"",
 				"materials.floor.uniforms.subdivisions.value = cols;",
@@ -2047,7 +2046,7 @@
 				"\tcursor.y += amplitude * Math.sin( direction.value );",
 				"",
 				"\tgroup.rotation.y = direction.value - Math.PI / 2;",
-				"\tblocks.position.y = 5 * Math.sqrt( curvature ) + 0.5;",
+				"\tblocks.position.y = 5 * Math.sqrt( curvature ) + 0.35;",
 				"",
 				"\tground.material.uniforms.curvature.value = curvature;",
 				"",
@@ -2406,7 +2405,6 @@
 				"",
 				"scene.userData.clear();",
 				"scene.add( dolly );",
-				"scene.add( new THREE.AmbientLight( 0xffffff ) );",
 				"scene.add( annie );",
 				"",
 				"var playing = false;",
@@ -4019,7 +4017,7 @@
 			266.5,
 			9,
 			47,
-			true
+			false
 		],
 		[
 			"Reveal Scene 1/3",
