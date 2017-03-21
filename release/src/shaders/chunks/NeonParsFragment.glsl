@@ -74,23 +74,33 @@ float neonNoise( vec3 pos, float phase ) {
 
 }
 
+float neonNoise2( vec3 pos ) {
+
+	float dist = sin( pos.x * 0.32 ) + sin( pos.y * 0.56 ) + sin( pos.z * 0.45 ) +
+		// sin( pos.x * 0.078 ) + sin( pos.y * 0.089 ) + sin( pos.z * 0.091 ) +
+		sin( pos.x * 0.12 ) + sin( pos.y * 0.34 ) + sin( pos.z * 0.23 ) +
+		sin( sqrt( pos.x * pos.x + pos.y * pos.y + pos.z * pos.z ) );
+
+	return cos( dist * 2.0 );
+
+}
+
 vec3 neonColor( vec3 col ) {
 
-	mat3 r = rotateY( -yrot );
-	vec3 p = r * mPosition.xyz;
-	p += cursor * vec3( 1.0, 1.0, 1.2 );
+	vec3 p = rotateY( - yrot ) * mPosition.xyz + cursor * vec3( 1.2, 1.0, 1.2 );
 
 	#ifndef DONTUSE_NEON
 
 		float neonFactor = neonNoise( p * 0.3, 0.0 );
+		// float neonFactor = max( neonNoise2( p * 0.5 ), 0.0 );
 
 		if ( ( neonFactor + neon ) > 1.75 ) discard;
 
-		vec3 nCol = ( col * 1.5 ) + vec3( neonFactor, 0.0, 0.25 - neonFactor * 0.25 ) * 0.5;
+		vec3 nCol = ( col * 1.25 ) + vec3( neonFactor, 0.0, 0.2 - neonFactor * 0.2 ) * 0.5;
 
 	#else
 
-	vec3 nCol = col;
+		vec3 nCol = col;
 
 	#endif
 
