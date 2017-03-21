@@ -25,8 +25,7 @@ void main() {
 	#endif
 
 	#ifdef USE_FAKE_SHADOW
-		float dist = length( mPosition.xyz ) * .06;
-		dist = clamp( dist, 0.0, 1.0 );
+		float dist = min( length( mPosition.xyz ) * .06, 1.0 );
 		float shadow = smoothstep( 0.09, 0.15, pow( dist, 0.5 ) );
 		col = mix( col * 0.75, col, shadow );
 	#endif
