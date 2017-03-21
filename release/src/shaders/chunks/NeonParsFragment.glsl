@@ -63,7 +63,7 @@ vec3 sepiaColor( vec3 col ) {
 
 vec3 neonFog( vec3 col ) {
 
-	float fogDepth = length( mPosition.xyz );
+	float fogDepth = length( mPosition.xz );
 	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );
 	fogFactor -= rand( mPosition.xz ) / 128.0;
 	return mix( col, fogColor, fogFactor );
