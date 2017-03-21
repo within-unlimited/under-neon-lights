@@ -159,7 +159,7 @@
 				"gui.add(THREE.neonShader.globals.saturation, 'value', 0, 5);",
 				"gui.add(THREE.neonShader.globals.sepia, 'value', 0, 5);",
 				"",
-				"if ( sidebar ) {",
+				"if ( 'sidebar' in window ) {",
 				"",
 				"\tsidebar.dom.querySelector('#settings').appendChild( gui.domElement );",
 				"",
