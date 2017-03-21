@@ -2506,11 +2506,17 @@
 		[
 			"RenderEffect",
 			[
+				"var parameters = {",
+				"\tdebug: new FRAME.Parameters.Boolean( 'Debug', false )",
+				"};",
+				"",
 				"var dolly = FRAME.getResource( 'dolly' );",
 				"var camera = FRAME.getResource( 'camera' );",
 				"var scene = FRAME.getResource( 'scene' );",
 				"var effect = FRAME.getResource( 'effect' );",
 				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"var debugMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );",
 				"",
 				"function start(){}",
 				"",
@@ -2520,6 +2526,8 @@
 				"\t",
 				"\tTHREE.neonShader.globals.cursor.value.add( THREE.neonShader.globals.motionVector.value );",
 				"",
+				"\tscene.overrideMaterial = parameters.debug.value ? debugMaterial : null;",
+				"\t",
 				"\teffect.render( scene, camera );",
 				"",
 				"}"
