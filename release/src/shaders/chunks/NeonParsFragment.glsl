@@ -80,11 +80,19 @@ vec3 neonColor( vec3 col ) {
 	vec3 p = r * mPosition.xyz;
 	p += cursor * vec3( 1.0, 1.0, 1.2 );
 
-	float neonFactor = neonNoise( p * 0.3, 0.0 );
+	#ifndef DONTUSE_NEON
 
-	if ( ( neonFactor + neon ) > 1.75 ) discard;
+		float neonFactor = neonNoise( p * 0.3, 0.0 );
 
-	vec3 nCol = ( col * 1.5 ) + vec3( neonFactor, 0.0, 0.25 - neonFactor * 0.25 ) * 0.5;
+		if ( ( neonFactor + neon ) > 1.75 ) discard;
+
+		vec3 nCol = ( col * 1.5 ) + vec3( neonFactor, 0.0, 0.25 - neonFactor * 0.25 ) * 0.5;
+
+	#else
+
+	vec3 nCol = col;
+
+	#endif
 
 	float fogDepth = length( mPosition.xz );
 	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );

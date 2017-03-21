@@ -119,7 +119,7 @@ THREE.neonShader.skinnedShader.setValues( {
 		}
 	] )
 } );
-THREE.neonShader.skinnedShader.defines = { USE_CLIPPING: '' };
+THREE.neonShader.skinnedShader.defines = { USE_CLIPPING: '', DONTUSE_NEON: '' };
 
 THREE.neonShader.swirlShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.swirlShader.uniforms = THREE.UniformsUtils.merge( [
@@ -137,6 +137,7 @@ THREE.neonShader.waveShader.vertexColors = true;
 THREE.neonShader.waveShader.side = THREE.DoubleSide;
 
 THREE.neonShader.backSided = THREE.neonShader.basicShader.clone();
+THREE.neonShader.backSided.defines = { DONTUSE_NEON: '' };
 THREE.neonShader.backSided.side = THREE.BackSide;
 THREE.neonShader.backSided.depthWrite = false;
 
