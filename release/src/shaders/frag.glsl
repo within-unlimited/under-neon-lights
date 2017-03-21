@@ -41,9 +41,7 @@ void main() {
 
 	col = neonColor( col );
 
-	vec3 hsv = rgb2hsv( col );
-	col = hsv2rgb( vec3( hsv.r, hsv.g * saturation, hsv.b ) );
-
+	col = mix( vec3( length( col ) * 0.75 ), col, saturation );
 	col = sepiaColor( col );
 
 	gl_FragColor = vec4( col, 1.0 );
