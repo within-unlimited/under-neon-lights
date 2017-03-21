@@ -5,7 +5,8 @@ THREE.neonShader = {
 		neon: { type: 'f', value: url.number( 'neon', 0 ) },
 		time: { type: 'f', value: url.number( 'neon', 0 ) },
 		cursor: { type: 'v3', value: new THREE.Vector3() },
-		motionVector: { type: 'v3', value: new THREE.Vector3() }
+		motionVector: { type: 'v3', value: new THREE.Vector3() },
+		yrot: { type: 'f', value: 0 }
 	}
 }
 
