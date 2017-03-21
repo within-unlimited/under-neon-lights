@@ -359,7 +359,6 @@ var FRAME = ( function () {
 
 					if ( prevtime > time ) {
 
-						prevtime = time;
 						this.reset();
 
 					}

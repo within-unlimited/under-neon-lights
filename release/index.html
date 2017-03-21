@@ -61,6 +61,8 @@
 
 					buttonVR.addEventListener( 'click', function () {
 
+						event.stopPropagation();
+
 						if ( buttonVR.isPresenting ) {
 
 							buttonVR.textContent = 'ENTER VR';
@@ -78,7 +80,12 @@
 					} );
 
 					renderer = FRAME.getResource( 'renderer' );
-					buttonPlay.addEventListener( 'click', toggle );
+					buttonPlay.addEventListener( 'click', function ( event ) {
+
+						event.stopPropagation();
+						toggle();
+
+					} );
 
 				} );
 
