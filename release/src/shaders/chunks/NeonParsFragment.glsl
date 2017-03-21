@@ -23,8 +23,6 @@ varying vec4 mPosition;
 varying vec4 mvPosition;
 uniform mat4 projectionMatrix;
 
-#inject ../release/src/shaders/chunks/NoiseFuncs.glsl
-
 float rand( vec2 co ) {
 	return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
@@ -66,20 +64,12 @@ mat3 rotateY( float rad ) {
 	);
 }
 
-float neonNoise( vec3 pos, float phase ) {
+float neonNoise( vec3 pos ) {
 
-	float noise = snoise( pos * 0.1 );
-	noise = max( 0.0, sin( noise * 16.0 + time * 0.1 ) + phase );
-	return noise;
-
-}
-
-float neonNoise2( vec3 pos ) {
-
-	float dist = sin( pos.x * 0.32 ) + sin( pos.y * 0.56 ) + sin( pos.z * 0.45 ) +
-		// sin( pos.x * 0.078 ) + sin( pos.y * 0.089 ) + sin( pos.z * 0.091 ) +
+	float dist = sin( pos.x * 0.32 ) + sin( pos.y * 0.26 ) + sin( pos.z * 0.45 ) +
+		sin( pos.x * 0.078 ) + sin( pos.y * 0.089 ) + sin( pos.z * 0.091 ) +
 		sin( pos.x * 0.12 ) + sin( pos.y * 0.34 ) + sin( pos.z * 0.23 ) +
-		sin( sqrt( pos.x * pos.x + pos.y * pos.y + pos.z * pos.z ) );
+		sin( sqrt( pos.x * pos.x + pos.y * pos.y + pos.z * pos.z ) * 0.5 );
 
 	return cos( dist * 2.0 );
 
@@ -91,8 +81,7 @@ vec3 neonColor( vec3 col ) {
 
 	#ifndef DONTUSE_NEON
 
-		float neonFactor = neonNoise( p * 0.3, 0.0 );
-		// float neonFactor = max( neonNoise2( p * 0.5 ), 0.0 );
+		float neonFactor = max( neonNoise( p * 0.5 ), 0.0 );
 
 		if ( ( neonFactor + neon ) > 1.75 ) discard;
 
