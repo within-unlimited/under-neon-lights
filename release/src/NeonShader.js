@@ -96,7 +96,8 @@ THREE.neonShader.grassShader.setValues( {
 THREE.neonShader.roadShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.roadShader.setValues( {
 	defines: {
-		USE_ROAD: ''
+		USE_ROAD: '',
+		USE_FAKE_SHADOW: ''
 	},
 	uniforms: THREE.UniformsUtils.merge( [
 		THREE.neonShader._uniforms, {
@@ -130,6 +131,7 @@ THREE.neonShader.swirlShader.uniforms = THREE.UniformsUtils.merge( [
 THREE.neonShader.swirlShader.defines = { USE_SWIRL: '' };
 
 THREE.neonShader.floorShader = THREE.neonShader.basicShader.clone();
+THREE.neonShader.floorShader.defines = { USE_FAKE_SHADOW: '' };
 
 THREE.neonShader.waveShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.waveShader.defines = { USE_WAVE: '' };
@@ -143,10 +145,12 @@ THREE.neonShader.backSided.depthWrite = false;
 
 THREE.neonShader.vertexColoredDoubleSided = THREE.neonShader.basicShader.clone();
 THREE.neonShader.vertexColoredDoubleSided.vertexColors = true;
+THREE.neonShader.vertexColoredDoubleSided.defines = { USE_FAKE_SHADOW: '' };
 THREE.neonShader.vertexColoredDoubleSided.side = THREE.DoubleSide;
 
 THREE.neonShader.vertexColored = THREE.neonShader.basicShader.clone();
 THREE.neonShader.vertexColored.vertexColors = true;
+THREE.neonShader.vertexColored.defines = { USE_FAKE_SHADOW: '' };
 
 THREE.neonShader.doubleSided = THREE.neonShader.roadShader.clone();
 THREE.neonShader.doubleSided.side = THREE.DoubleSide;

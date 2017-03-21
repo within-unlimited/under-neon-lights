@@ -24,6 +24,12 @@ void main() {
 		col = roadFunc();
 	#endif
 
+	#ifdef USE_FAKE_SHADOW
+		float dist = min( length( mPosition.xyz ) * .06, 1.0 );
+		float shadow = smoothstep( 0.09, 0.15, pow( dist, 0.5 ) );
+		col = mix( col * 0.75, col, shadow );
+	#endif
+
 	#ifdef USE_SWIRL
 		col = mix( col, vec3( 0.0 ), smoothstep( 0.0, 1.0, length( mPosition.xz ) ) );
 	#endif
