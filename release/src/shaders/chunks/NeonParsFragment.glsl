@@ -38,7 +38,7 @@ vec3 sepiaColor( vec3 col ) {
 	float radius = length( ( coord )  ) / 1.0;
 
 	float magnitude = ( 1.0 - radius ) * ( amount - 1.0 );
-	magnitude += rand( coord ) / 255.0;
+	// magnitude += rand( coord ) / 255.0;
 
 	vec3 layer = a.xyz / 128.0;
 	layer = mix( layer, b.xyz / 255.0, clamp( magnitude, 0.0, 1.0 ) );

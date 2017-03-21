@@ -10,11 +10,11 @@
 
 void main() {
 
+	vec3 col = vColor;
+
 	#ifdef USE_CLIPPING
 		if ( mPosition.y < clip.x * 2.0 || mPosition.y > clip.y * 2.0 ) discard;
 	#endif
-
-	vec3 col = vColor;
 
 	#ifdef USE_GRASS
 		col = mix( base, top, abs( vUv.y ) );
