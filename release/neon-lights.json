@@ -2406,7 +2406,6 @@
 				"",
 				"scene.userData.clear();",
 				"scene.add( dolly );",
-				"scene.add( new THREE.AmbientLight( 0xffffff ) );",
 				"scene.add( annie );",
 				"",
 				"var playing = false;",
