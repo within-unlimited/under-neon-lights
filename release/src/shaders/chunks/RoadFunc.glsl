@@ -3,6 +3,7 @@ uniform vec3 median;
 
 vec3 roadFunc() {
 
+	/*
 	float threshold = 6.0 / size;
 	vec2 wUv = vec2( mPosition.zx ) / size - vec2( 0.5 );
 	vec2 rCursor = cursor.zx / size;
@@ -23,5 +24,8 @@ vec3 roadFunc() {
 	layer = mix( median, layer, t );
 
 	return layer;
+	*/
+
+	return color;
 
 }

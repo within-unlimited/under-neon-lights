@@ -86,7 +86,7 @@ vec3 neonColor( vec3 col ) {
 
 	if ( ( neonFactor + neon ) > 1.75 ) discard;
 
-	vec3 nCol = ( col * 1.5 ) + vec3( neonFactor, 0.0, 0.25 - neonFactor * 0.25 ) * 0.5; // mix( vec3( 0.0 ), col, neonFactor );
+	vec3 nCol = ( col * 1.5 ) + vec3( neonFactor, 0.0, 0.25 - neonFactor * 0.25 ) * 0.5;
 
 	float fogDepth = length( mPosition.xz );
 	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );
