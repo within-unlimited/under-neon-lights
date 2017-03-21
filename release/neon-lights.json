@@ -3877,6 +3877,51 @@
 				"",
 				"function update( progress ){}"
 			]
+		],
+		[
+			"Stats",
+			[
+				"var dom = FRAME.getDOM();",
+				"var info = FRAME.getResource( 'renderer' ).info;",
+				"",
+				"var div = document.createElement( 'div' );",
+				"div.style.position = 'absolute';",
+				"div.style.bottom = 0;",
+				"div.style.left = 0;",
+				"div.style.color = '#fff';",
+				"div.style.margin = '8px';",
+				"",
+				"var prevTime;",
+				"",
+				"function start(){",
+				"",
+				"\tprevTime = performance.now();",
+				"\t",
+				"\tdom.appendChild( div );",
+				"",
+				"}",
+				"",
+				"function end(){",
+				"",
+				"\tdom.removeChild( div );",
+				"",
+				"}",
+				"",
+				"function update( progress ){",
+				"\t",
+				"\tvar time = performance.now();",
+				"\t",
+				"\tvar text = 'ms: ' + ( time - prevTime ).toFixed( 2 ) + '<br />' +",
+				"\t\t'calls: ' + info.render.calls + '<br />' +",
+				"\t\t'vertices: ' + info.render.vertices + '<br />' +",
+				"\t\t'programs: ' + info.programs.length;",
+				"",
+				"\tdiv.innerHTML = text;",
+				"\t",
+				"\tprevTime = time;",
+				"",
+				"}"
+			]
 		]
 	],
 	"animations": [
@@ -3926,6 +3971,14 @@
 			266.5,
 			8,
 			5,
+			true
+		],
+		[
+			"Stats",
+			0,
+			266.5,
+			9,
+			47,
 			true
 		],
 		[
