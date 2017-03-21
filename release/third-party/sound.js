@@ -134,7 +134,7 @@
 
     _offset: 0,
 
-    playing: false,
+    _playing: false,
 
     filter: null,
 
@@ -169,7 +169,7 @@
       this._offset = params.offset;
       this._startTime = params.time;
       this._loop = params.loop;
-      this.playing = true;
+      this._playing = true;
 
       this.source = ctx.createBufferSource();
       this.source.onended = this._ended;
@@ -213,8 +213,7 @@
         this.source.noteOff(params.time);
       }
 
-      this.playing = false;
-
+      this._playing = false;
       return this;
 
     },
@@ -235,10 +234,21 @@
         this.source.noteOff(params.time);
       }
 
-      this.playing = false;
+      this._playing = false;
       this._offset = 0;
+
       return this;
 
+    }
+
+  });
+
+  Object.defineProperty(Sound.prototype, 'playing', {
+
+    enumerable: true,
+
+    get: function() {
+      return this._playing
     }
 
   });
@@ -323,7 +333,7 @@
 
       if (this.playing) {
         this.play({
-          offset: this._offset
+          offset: time
         });
       }
 
