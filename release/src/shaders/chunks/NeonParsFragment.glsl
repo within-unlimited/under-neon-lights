@@ -65,7 +65,7 @@ vec3 neonFog( vec3 col ) {
 
 	float fogDepth = length( mPosition.xz );
 	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );
-	fogFactor -= rand( mPosition.xz ) / 128.0;
+	// fogFactor -= rand( mPosition.xz ) / 128.0;
 	return mix( col, fogColor, fogFactor );
 
 }
@@ -82,13 +82,13 @@ vec3 neonColor( vec3 col ) {
 
 	vec3 p = mPosition.xyz + cursor * vec3( 1.0, 1.0, 1.2 );
 
-	float neonFactor = neonNoise( p * 0.3 + 0.25, 0.0 );
+	float neonFactor = neonNoise( p * 0.3, 0.0 );
 
 	if ( ( neonFactor + neon ) > 1.75 ) discard;
 
 	vec3 nCol = ( col * 1.5 ) + vec3( neonFactor, 0.0, 0.25 - neonFactor * 0.25 ) * 0.5; // mix( vec3( 0.0 ), col, neonFactor );
 
-	float fogDepth = length( mPosition.xyz );
+	float fogDepth = length( mPosition.xz );
 	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );
 	nCol = mix( nCol, vec3( 0.0 ), fogFactor );
 
