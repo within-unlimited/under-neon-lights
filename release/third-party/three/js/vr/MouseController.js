@@ -5,6 +5,7 @@ THREE.MouseController = function ( domElement ) {
 	var scope = this;
 	var mouse = new THREE.Vector2();
 	var normal = new THREE.Vector2();
+	var axes = [ 0, 0 ];
 
 	var HALF_PI = Math.PI / 2;
 
@@ -34,9 +35,19 @@ THREE.MouseController = function ( domElement ) {
 
 		e.preventDefault();
 		scope.visible = true;
+
 		if ( !dragging ) {
 			idle();
 		}
+
+		var x = 2 * ( e.clientX / width ) - 1;
+		var y = 2 * ( e.clientY / height ) - 1;
+		if ( axes[ 0 ] !== x || axes[ 1 ] !== y ) {
+			axes[ 0 ] = x;
+			axes[ 1 ] = y;
+			scope.dispatchEvent( { type: 'axischanged', axes: axes } );
+		}
+
 		mouse.set( e.clientX, e.clientY );
 
 	};
