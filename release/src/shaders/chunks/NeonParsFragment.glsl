@@ -3,16 +3,15 @@ const float PI = 3.141592653589793;
 const vec3 b = vec3( 0.0, 69.0, 116.0 ) * 1.5;
 const vec3 a = vec3( 89.0, 188.0, 255.0 ) * 1.5;
 
-uniform float sepia;
 uniform vec3 fogColor;
 uniform float fogNear;
 uniform float fogFar;
+
+uniform float sepia;
 uniform float saturation;
 uniform float neon;
 uniform float time;
 uniform float size;
-uniform vec3 base;
-uniform vec3 top;
 uniform vec3 cursor;
 uniform vec2 clip;
 uniform float yrot;
@@ -24,10 +23,6 @@ varying vec4 mPosition;
 varying vec4 mvPosition;
 uniform mat4 projectionMatrix;
 
-float rand( vec2 co ) {
-	return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-}
-
 vec3 sepiaColor( vec3 col ) {
 
 	float amount = 2.0;
@@ -37,7 +32,6 @@ vec3 sepiaColor( vec3 col ) {
 	float radius = length( ( coord )  ) / 1.0;
 
 	float magnitude = ( 1.0 - radius ) * ( amount - 1.0 );
-	// magnitude += rand( coord ) / 255.0;
 
 	vec3 layer = a.xyz / 128.0;
 	layer = mix( layer, b.xyz / 255.0, clamp( magnitude, 0.0, 1.0 ) );
@@ -50,7 +44,6 @@ vec3 neonFog( vec3 col ) {
 
 	float fogDepth = length( mPosition.xz );
 	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );
-	// fogFactor -= rand( mPosition.xz ) / 128.0;
 	return mix( col, fogColor, fogFactor );
 
 }
