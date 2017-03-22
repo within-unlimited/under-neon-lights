@@ -17,7 +17,7 @@ void main() {
 	#endif
 
 	#ifdef USE_GRASS
-		col = mix( base, top, abs( vUv.y ) );
+		col = mix( vec3( 0.55, 0.98, 0.45 ), vec3( 0.559, 0.776, 0.247 ), abs( vUv.y ) );
 	#endif
 
 	#ifdef USE_ROAD

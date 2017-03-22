@@ -86,9 +86,7 @@ THREE.neonShader.grassShader.setValues( {
 	},
 	uniforms: THREE.UniformsUtils.merge( [
 		THREE.neonShader._uniforms, {
-			size: { type: 'f', value: 1 },
-			base: { type: 'c', value: new THREE.Color( 0xffffff ) },
-			top: { type: 'c', value: new THREE.Color( 0x8cc63f ) },
+			size: { type: 'f', value: 1 }
 		}
 	] )
 } );
