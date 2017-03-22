@@ -65,7 +65,7 @@ var WEBVR = {
 		var icon = '<img src="../release/images/cardboard.svg" alt="VR Headset" /> ';
 
 		var button = document.createElement( 'a' );
-		button.classList.add('button', 'abs-bc'); // moved styles into vr-menu.scss
+		button.classList.add('button'); // moved styles into vr-menu.scss
 		button.innerHTML = icon + 'Enter VR';
 		button.onclick = function(e) {
 

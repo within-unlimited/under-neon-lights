@@ -1,5 +1,7 @@
 @import "bourbon/bourbon";
 
+* { box-sizing: border-box; }
+
 body {
 	font-family: sans-serif;
 	background-color: #333333;
@@ -23,17 +25,10 @@ button {
 // vr toggle
 .button {
 	display: inline-block;
-	// width: 174px;
-	width: 150px;
+	width: 180px;
 	padding: 11px;
 	cursor: pointer;
-	background-color: transparent;
-
-
-	// background-image: url('../images/cardboard.svg');
-	// background-repeat: no-repeat;
-	// background-position: 20px center;
-	
+	background-color: transparent;	
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	text-decoration: none;
@@ -47,11 +42,13 @@ button {
 	text-align: center;
 	user-select: none;
 	z-index: 999;
-	
+
 	box-shadow: 0 0 5px 1px transparentize($pink, 0.4),
 							0 0 5px 1px transparentize($pink, 0.4) inset;
 
-	@include transition(all 0.35s $ease-in-out-circ);
+	@include transition(box-shadow 0.35s $ease-in-out-circ,
+											color 0.35s $ease-in-out-circ,
+											background-color 0.35s $ease-in-out-circ);
 
 	&:hover {
 		// background-color: shade($pink, 10%);
@@ -66,12 +63,28 @@ button {
 		vertical-align: middle;
 		margin-right: 5px;
 	}
+
+
+	@media (min-width: 420px) {
+		+ .button {
+			margin-left: 20px;
+		}
+	}
+
+	@media (max-width: 419px) {
+		display: block;
+		width: 100%;
+
+		+ .button { margin-top: 20px; }
+	}
 }
 
 .abs-bc {
 	position: absolute;
-	left: calc(50% - 87px);
 	bottom: 20px;
+	width: 100%;
+	text-align: center;
+	padding: 0 20px;
 }
 
 // webvr error message
@@ -97,7 +110,7 @@ button {
 
 		& > * {
 
-			@include inline-block;
+			display: inline-block;
 			font-size: $font-size * 0.66;
 			line-height: $line-height * 0.66;
 			color: $gray;
