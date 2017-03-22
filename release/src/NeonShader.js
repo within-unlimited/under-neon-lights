@@ -2,11 +2,19 @@ THREE.neonShader = {
 	globals: {
 		saturation: { type: 'f', value: url.number( 'saturation', 0.2 ) },
 		sepia: { type: 'f', value: url.number( 'sepia', 2.5 ) },
+		sepiaCol1: { type: 'c', value: new THREE.Color( 0, 0.35, 0.68 ) },
+		sepiaCol2: { type: 'c', value: new THREE.Color( 0.52, 1.10, 1.5 ) },
 		neon: { type: 'f', value: url.number( 'neon', 0 ) },
 		time: { type: 'f', value: url.number( 'neon', 0 ) },
 		cursor: { type: 'v3', value: new THREE.Vector3() },
 		motionVector: { type: 'v3', value: new THREE.Vector3() },
-		yrot: { type: 'f', value: 0 }
+		yrot: { type: 'f', value: 0 },
+		neonFade: { type: 'f', value: 0.5 },
+		neonGlow: { type: 'f', value: 0.7 },
+		neonFreq: { type: 'f', value: 1.0 },
+		neonFreq1: { type: 'f', value: 3.0 },
+		neonFreq2  : { type: 'f', value: 2.0 },
+		neonNearClip: { type: 'f', value: 0.0 }
 	}
 }
 

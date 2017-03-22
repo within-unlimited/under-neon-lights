@@ -40,10 +40,11 @@ void main() {
 		col = neonFog( col );
 	#endif
 
-	col = neonColor( col );
-
 	col = mix( vec3( length( col ) * 0.75 ), col, saturation );
+
 	col = sepiaColor( col );
+
+	col = neonFunc( col );
 
 	gl_FragColor = vec4( col, 1.0 );
 
