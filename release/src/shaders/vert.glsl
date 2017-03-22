@@ -6,7 +6,6 @@ varying vec3 vColor;
 uniform float time;
 uniform float curvature;
 uniform float size;
-uniform float progress;
 
 #ifndef USE_COLOR
 	uniform vec3 color;
@@ -56,16 +55,6 @@ void main() {
 		float osc = ( 1.0 + sin( time + PI * ( t.x + t.y + t.z ) / 3.0 ) ) / 2.0;
 		float sway = pow( pos.y, 2.0 ) * osc;
 		pos.x += sway / 100.0;
-	#endif
-
-	#ifdef USE_SWIRL
-		float wave = sin( uv.x * PI * 6.0 + progress * 10.0 );
-		wave *= clamp( min( progress, 1.0 - progress ) * 3.0, 0.0, 1.0);
-		vec3 nor = normalize( normal );
-		vec3 offset = nor * wave;
-		pos -= nor * 0.05;
-		pos += (offset * 0.1);
-		pos.z *= 0.5;
 	#endif
 
 	#ifdef USE_INSTANCING
