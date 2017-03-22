@@ -16,6 +16,7 @@ uniform vec3 top;
 uniform vec3 cursor;
 uniform vec2 clip;
 uniform float yrot;
+uniform float progress;
 
 varying vec2 vUv;
 varying vec3 vColor;
