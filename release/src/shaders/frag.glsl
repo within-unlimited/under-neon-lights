@@ -32,6 +32,8 @@ void main() {
 
 	#ifdef USE_SWIRL
 		col = mix( col, vec3( 0.0 ), smoothstep( 0.0, 1.0, length( mPosition.xz ) ) );
+		float p = (1.0 - progress) * ( 1.0 + 0.6 ) - 0.3;
+		if (vUv.y > p || vUv.y < (p - 0.3)) discard;
 	#endif
 
 	#ifdef USE_FOG
