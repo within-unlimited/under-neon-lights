@@ -388,7 +388,6 @@
 				"\t\t\tdelta.y -= delta.y * axes.drag;",
 				"\t\t\t}",
 				"",
-				"\t\t\tconsole.log( delta.x, delta.y );",
 				"\t\t}",
 				"",
 				"\t},",
