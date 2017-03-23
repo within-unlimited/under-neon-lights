@@ -63,21 +63,15 @@
 
 						event.stopPropagation();
 
-						if ( buttonVR.isPresenting ) {
-
-							buttonVR.textContent = 'ENTER VR';
-							effect.exitPresent();
-							buttonVR.isPresenting = false;
-
-						} else {
-
-							buttonVR.textContent = 'EXIT VR';
-							effect.requestPresent();
-							buttonVR.isPresenting = true;
-
-						}
+						effect.isPresenting ? effect.exitPresent() : effect.requestPresent();
 
 					} );
+
+					window.addEventListener( 'vrdisplaypresentchange', function ( event ) {
+
+						buttonVR.textContent = effect.isPresenting ? 'EXIT VR' : 'ENTER VR';
+
+					}, false );
 
 					renderer = FRAME.getResource( 'renderer' );
 					buttonPlay.addEventListener( 'click', function ( event ) {
