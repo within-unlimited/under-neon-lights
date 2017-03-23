@@ -2720,7 +2720,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0.5;",
-				"var fog_dest = 3.1;",
+				"var fog_target = 3.1;",
 				"",
 				"function start () {",
 				"",
@@ -2733,7 +2733,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar t = TWEEN.Easing.Sinusoidal.Out( progress );",
-				"\tfog.far = t * ( ( fog_dest ) - fog_origin ) + fog_origin;",
+				"\tfog.far = t * ( ( fog_target ) - fog_origin ) + fog_origin;",
 				"",
 				"}"
 			]
@@ -2776,7 +2776,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
-				"var fog_dest = 6.4;",
+				"var fog_target = 6.4;",
 				"",
 				"function start () {",
 				"",
@@ -2789,7 +2789,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
-				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
 				"",
 				"}",
 				""
@@ -2850,7 +2850,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
-				"var fog_dest = 12.8;",
+				"var fog_target = 12.8;",
 				"",
 				"function start () {",
 				"",
@@ -2863,7 +2863,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
-				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
 				"",
 				"}"
 			]
@@ -3052,7 +3052,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
-				"var fog_dest = 1;",
+				"var fog_target = 1;",
 				"",
 				"function start () {",
 				"",
@@ -3084,7 +3084,7 @@
 				"\t\tvar t = TWEEN.Easing.Circular.In( progress );",
 				"\t\tstage.scene.position.y = - 64 * t;",
 				"\t\tstage.buffer.value = 2 * t + 1;",
-				"\t\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"\t\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
 				"",
 				"\t}",
 				"",
@@ -3141,7 +3141,7 @@
 				"var exterior = stages.exterior;",
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
-				"var fog_dest = 4;",
+				"var fog_target = 4;",
 				"",
 				"var scene;",
 				"",
@@ -3170,7 +3170,7 @@
 				"",
 				"\tscene.position.y = y;",
 				"\tscene.position.z = z;",
-				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
 				"",
 				"}"
 			]
@@ -3862,7 +3862,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 4;",
-				"var fog_dest = 12;",
+				"var fog_target = 12;",
 				"",
 				"function start () {",
 				"",
@@ -3875,7 +3875,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
-				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
 				"",
 				"}",
 				""
@@ -4006,7 +4006,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 12;",
-				"var fog_dest = 50;",
+				"var fog_target = 50;",
 				"",
 				"function start () {",
 				"",
@@ -4019,7 +4019,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
-				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
 				"",
 				"}",
 				""
@@ -4049,6 +4049,8 @@
 		[
 			"Effect",
 			[
+				"var neon = FRAME.getResource( 'neon' );",
+				"",
 				"var target = {",
 				"\tsepia: 0.8,",
 				"\tsaturation: 1.0,",
@@ -4057,9 +4059,7 @@
 				"\tneon: 1.0",
 				"}",
 				"",
-				"var initial = {};",
-				"",
-				"var neon = FRAME.getResource( 'neon' );",
+				"var origin = {};",
 				"",
 				"function start () {",
 				"",
@@ -4067,7 +4067,7 @@
 				"",
 				"\tfor ( var i in target ) {",
 				"",
-				"\t\tinitial[ i ] = THREE.neonShader.globals[ i ].value",
+				"\t\torigin[ i ] = THREE.neonShader.globals[ i ].value",
 				"",
 				"\t}",
 				"",
@@ -4077,9 +4077,9 @@
 				"",
 				"\tfor ( var i in target ) {",
 				"",
-				"\t\tif ( initial[ i ] !== undefined ) {",
+				"\t\tif ( origin[ i ] !== undefined ) {",
 				"",
-				"\t\t\tTHREE.neonShader.globals[ i ].value = initial[ i ] + progress * ( target[ i ] - initial[ i ] );",
+				"\t\t\tTHREE.neonShader.globals[ i ].value = origin[ i ] + progress * ( target[ i ] - origin[ i ] );",
 				"",
 				"\t\t}",
 				"",
@@ -4098,6 +4098,8 @@
 		[
 			"Effect",
 			[
+				"var neon = FRAME.getResource( 'neon' );",
+				"",
 				"var target = {",
 				"\tsepia: 0.4,",
 				"\tsaturation: 2.0,",
@@ -4106,9 +4108,7 @@
 				"\tneon: 1.0",
 				"}",
 				"",
-				"var initial = {};",
-				"",
-				"var neon = FRAME.getResource( 'neon' );",
+				"var origin = {};",
 				"",
 				"function start () {",
 				"",
@@ -4116,7 +4116,7 @@
 				"",
 				"\tfor ( var i in target ) {",
 				"",
-				"\t\tinitial[ i ] = THREE.neonShader.globals[ i ].value",
+				"\t\torigin[ i ] = THREE.neonShader.globals[ i ].value",
 				"",
 				"\t}",
 				"",
@@ -4126,9 +4126,9 @@
 				"",
 				"\tfor ( var i in target ) {",
 				"",
-				"\t\tif ( initial[ i ] !== undefined ) {",
+				"\t\tif ( origin[ i ] !== undefined ) {",
 				"",
-				"\t\t\tTHREE.neonShader.globals[ i ].value = initial[ i ] + progress * ( target[ i ] - initial[ i ] );",
+				"\t\t\tTHREE.neonShader.globals[ i ].value = origin[ i ] + progress * ( target[ i ] - origin[ i ] );",
 				"",
 				"\t\t}",
 				"",
@@ -4260,7 +4260,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
-				"var fog_dest = 8;",
+				"var fog_target = 8;",
 				"",
 				"function start () {",
 				"",
@@ -4273,7 +4273,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
-				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
 				"",
 				"}"
 			]
@@ -4283,7 +4283,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
-				"var fog_dest = 110;",
+				"var fog_target = 110;",
 				"",
 				"function start () {",
 				"",
@@ -4296,7 +4296,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
-				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
 				"",
 				"}",
 				""
@@ -4307,7 +4307,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
-				"var fog_dest = 220;",
+				"var fog_target = 220;",
 				"",
 				"function start () {",
 				"",
@@ -4320,7 +4320,7 @@
 				"function update( progress ) {",
 				"",
 				"\tvar t = TWEEN.Easing.Back.Out( progress );",
-				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
 				"",
 				"}",
 				""
