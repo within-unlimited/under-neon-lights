@@ -1791,7 +1791,11 @@
 				"\tindex: stages.length,",
 				"\telements: elements,",
 				"\tscene: group,",
-				"\tcursor: cursor",
+				"\tcursor: cursor,",
+				"\treset: function () {",
+				"\t\tcompass.direction.reset();",
+				"\t\tupdateDirection( true );",
+				"\t}",
 				"",
 				"} );",
 				"var stage = stages[ stages.length - 1 ];",
@@ -1852,6 +1856,8 @@
 				"",
 				"\tcursor.x += amplitude * Math.cos( compass.direction.value );",
 				"\tcursor.y += amplitude * Math.sin( compass.direction.value );",
+				"",
+				"\tconsole.log( cursor.x, cursor.y );",
 				"",
 				"\tgroup.rotation.y = compass.direction.value - HALF_PI;",
 				"",
@@ -2023,7 +2029,13 @@
 				"\tindex: stages.length,",
 				"\tscene: group,",
 				"\ttypes: types,",
-				"\tcurvature: { value: 0 }",
+				"\tcurvature: { value: 0 },",
+				"\tblocks: blocks,",
+				"\tground: ground,",
+				"\treset: function () {",
+				"\t\tcompass.direction.reset();",
+				"\t\tupdateDirection( true );",
+				"\t}",
 				"",
 				"} );",
 				"var stage = stages[ stages.length - 1 ];",
@@ -2039,6 +2051,8 @@
 				"",
 				"\tannie.userData.play( 'run' );",
 				"\tannie.rotation.y = 0;",
+				"\tblocks.position.y = 0;",
+				"\tground.position.y = 0;",
 				"",
 				"\tscene.fog.color.set( group.fog.color );",
 				"//\tscene.fog.far = group.fog.far;",
@@ -2485,7 +2499,7 @@
 				"",
 				"\tannie.userData.updateAnimation( dt );",
 				"",
-				"\tcompass.theta.destination -= controllers.axes.delta.x;",
+				"\tcompass.theta.destination -= controllers.axes.delta.x / 2;",
 				"\tcompass.update( dt );",
 				"",
 				"\tTHREE.neonShader.globals.time.value += ( dt || 0 ) * 4;",
@@ -2895,8 +2909,8 @@
 				"",
 				"\tif ( stages.current ) {",
 				"\t\tstages.current.inTransition = false;",
+				"\t\tstages.current.reset();",
 				"\t}",
-				"\tcompass.direction.reset();",
 				"",
 				"}",
 				"",
@@ -3913,8 +3927,8 @@
 				"",
 				"\tannie.userData.play( 'run' );",
 				"\tcompass.step.set( 0.1 * parameters.step.value );",
-				"\tcompass.direction.reset();",
 				"\tif ( stages.current ) {",
+				"\t\tstages.current.reset();",
 				"\t\tstages.current.inTransition = false;",
 				"\t}",
 				"",
@@ -4025,6 +4039,31 @@
 				"",
 				"}"
 			]
+		],
+		[
+			"City.Position Y",
+			[
+				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
+				"var destination = 75;",
+				"var origin = 0;",
+				"",
+				"function start () {",
+				"",
+				"}",
+				"",
+				"function end () {",
+				"",
+				"}",
+				"",
+				"function update ( progress ) {",
+				"",
+				"\tvar t = TWEEN.Easing.Sinusoidal.In( progress );",
+				"\tstage.blocks.position.y = t * ( destination - origin ) + origin;",
+				"\tstage.ground.position.y = t * ( destination - origin ) + origin;",
+				"\tstage.ground.position.y *= - 1;",
+				"",
+				"}"
+			]
 		]
 	],
 	"animations": [
@@ -4082,7 +4121,7 @@
 			266.5,
 			9,
 			47,
-			true
+			false
 		],
 		[
 			"Reveal Scene 1/3",
@@ -6415,7 +6454,7 @@
 		[
 			"Start Running",
 			100,
-			107.00000348298455,
+			105.5,
 			3,
 			46,
 			true
@@ -6439,7 +6478,7 @@
 		[
 			"Stage 3",
 			141.97619040266468,
-			232.5408855177553,
+			232.5,
 			1,
 			2,
 			true
@@ -6613,7 +6652,7 @@
 			true
 		],
 		[
-			"Animation",
+			"Annie Flies",
 			223.75,
 			225.75,
 			3,
@@ -6621,8 +6660,16 @@
 			true
 		],
 		[
+			"Split City",
+			223.75,
+			232.5,
+			5,
+			49,
+			true
+		],
+		[
 			"Stage 4",
-			232.4790920716112,
+			232.5,
 			266.5,
 			1,
 			3,
