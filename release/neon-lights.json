@@ -1873,7 +1873,6 @@
 				"",
 				"\tif ( controllers.dragging() ) {",
 				"",
-				"",
 				"\t} else {",
 				"",
 				"\t\tcamera.userData.fov.destination = 75;",
@@ -4313,7 +4312,7 @@
 			266.42,
 			0,
 			52,
-			true
+			false
 		],
 		[
 			"VR Update",
@@ -4369,7 +4368,7 @@
 			266.42,
 			10,
 			47,
-			false
+			true
 		],
 		[
 			"Reveal Scene 1/3",
