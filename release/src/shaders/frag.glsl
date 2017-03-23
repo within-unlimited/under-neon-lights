@@ -36,14 +36,17 @@ void main() {
 		if (vUv.y > p || vUv.y < (p - 0.3)) discard;
 	#endif
 
+	col = mix( vec3( length( col ) * 0.75 ), col, saturation );
+
+	col = sepiaColor( col );
+
+	#ifndef DONTUSE_NEON
+		col = neonFunc( col );
+	#endif
+
 	#ifdef USE_FOG
 		col = neonFog( col );
 	#endif
-
-	col = neonColor( col );
-
-	col = mix( vec3( length( col ) * 0.75 ), col, saturation );
-	col = sepiaColor( col );
 
 	gl_FragColor = vec4( col, 1.0 );
 
