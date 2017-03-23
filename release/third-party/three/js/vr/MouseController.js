@@ -43,7 +43,7 @@ THREE.MouseController = function ( domElement ) {
 		var x = 2 * ( e.clientX / width ) - 1;
 		var y = 2 * ( e.clientY / height ) - 1;
 		if ( axes[ 0 ] !== x || axes[ 1 ] !== y ) {
-			axes[ 0 ] = x;
+			axes[ 0 ] = - x;
 			axes[ 1 ] = y;
 			scope.dispatchEvent( { type: 'axischanged', axes: axes } );
 		}
@@ -87,7 +87,7 @@ THREE.MouseController = function ( domElement ) {
 		var x = 2 * ( touch.pageX / width ) - 1;
 		var y = 2 * ( touch.pageY / height ) - 1;
 		if ( axes[ 0 ] !== x || axes[ 1 ] !== y ) {
-			axes[ 0 ] = x;
+			axes[ 0 ] = - x;
 			axes[ 1 ] = y;
 			scope.dispatchEvent( { type: 'axischanged', axes: axes } );
 		}
