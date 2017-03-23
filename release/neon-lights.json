@@ -2716,7 +2716,7 @@
 			]
 		],
 		[
-			"Recede Fog 1/10",
+			"Fog 1-1",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0.5;",
@@ -2772,7 +2772,7 @@
 			]
 		],
 		[
-			"Recede Fog 1/2",
+			"Fog 1-2",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
@@ -2846,7 +2846,7 @@
 			]
 		],
 		[
-			"Recede Fog",
+			"Fog 1-3",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
@@ -3858,7 +3858,7 @@
 			]
 		],
 		[
-			"Set Annie's Direction",
+			"Fog 2-2",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 4;",
@@ -4002,7 +4002,7 @@
 			]
 		],
 		[
-			"Effect",
+			"Fog 3-1",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 12;",
@@ -4254,6 +4254,93 @@
 				"",
 				"function update( progress ){}"
 			]
+		],
+		[
+			"Fog 2-1",
+			[
+				"var fog = FRAME.getResource( 'scene' ).fog;",
+				"var fog_origin = 0;",
+				"var fog_dest = 8;",
+				"",
+				"function start () {",
+				"",
+				"\tfog_origin = fog.far;",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar t = TWEEN.Easing.Back.Out( progress );",
+				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"",
+				"}"
+			]
+		],
+		[
+			"Fog 3-2",
+			[
+				"var fog = FRAME.getResource( 'scene' ).fog;",
+				"var fog_origin = 0;",
+				"var fog_dest = 110;",
+				"",
+				"function start () {",
+				"",
+				"\tfog_origin = fog.far;",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar t = TWEEN.Easing.Back.Out( progress );",
+				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"",
+				"}",
+				""
+			]
+		],
+		[
+			"Fog 3-3",
+			[
+				"var fog = FRAME.getResource( 'scene' ).fog;",
+				"var fog_origin = 0;",
+				"var fog_dest = 220;",
+				"",
+				"function start () {",
+				"",
+				"\tfog_origin = fog.far;",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar t = TWEEN.Easing.Back.Out( progress );",
+				"\tfog.far = t * ( fog_dest - fog_origin ) + fog_origin;",
+				"",
+				"}",
+				""
+			]
+		],
+		[
+			"Effect",
+			[
+				"var parameters = {",
+				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
+				"};",
+				"",
+				"// function init(){}",
+				"",
+				"function start(){}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
 		]
 	],
 	"animations": [
@@ -4282,7 +4369,7 @@
 			true
 		],
 		[
-			"Reveal Scene 1/10",
+			"Fog 1-1",
 			0,
 			10.25,
 			3,
@@ -4322,7 +4409,15 @@
 			true
 		],
 		[
-			"Reveal Scene 1/3",
+			"Animation",
+			0.25,
+			2.25,
+			-1,
+			60,
+			true
+		],
+		[
+			"Fog 1-2",
 			10.252427564173855,
 			10.75,
 			3,
@@ -5250,7 +5345,7 @@
 			true
 		],
 		[
-			"Reveal Scene",
+			"Fog 1-3",
 			42,
 			42.5,
 			4,
@@ -6610,11 +6705,11 @@
 			true
 		],
 		[
-			"Reveal Bedroom",
-			88.00000239780967,
-			90.00000239780967,
+			"Fog 2-1",
+			88,
+			90,
 			4,
-			12,
+			57,
 			true
 		],
 		[
@@ -6658,7 +6753,7 @@
 			true
 		],
 		[
-			"Reveal Direction",
+			"Fog 2-2",
 			100,
 			102,
 			5,
@@ -6698,7 +6793,7 @@
 			true
 		],
 		[
-			"Got No Pride",
+			"Fog 3-1",
 			150.46987975595792,
 			154,
 			3,
@@ -6714,11 +6809,11 @@
 			true
 		],
 		[
-			"Streetlight FOV",
-			165,
-			167,
+			"Fog 3-2",
+			164.875,
+			166.875,
 			3,
-			12,
+			58,
 			true
 		],
 		[
@@ -6762,11 +6857,11 @@
 			true
 		],
 		[
-			"Reveal City",
-			184.84987228776058,
-			187.04536100956508,
+			"Fog 3-3",
+			184.9375,
+			186.9375,
 			3,
-			15,
+			59,
 			true
 		],
 		[
