@@ -4,6 +4,7 @@ THREE.neonShader = {
 		sepia: { type: 'f', value: url.number( 'sepia', 2.5 ) },
 		sepiaCol1: { type: 'c', value: new THREE.Color( 0, 0.35, 0.68 ) },
 		sepiaCol2: { type: 'c', value: new THREE.Color( 0.52, 1.10, 1.5 ) },
+		neonCol: { type: 'c', value: new THREE.Color( 1.0, 0.45, 0.3 ) },
 		neon: { type: 'f', value: url.number( 'neon', 0.0 ) },
 		time: { type: 'f', value: url.number( 'neon', 0.0 ) },
 		cursor: { type: 'v3', value: new THREE.Vector3() },
