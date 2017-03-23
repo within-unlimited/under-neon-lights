@@ -84,6 +84,13 @@ THREE.MouseController = function ( domElement ) {
 		var touches = e.touches;
 		var touch = touches[ 0 ];
 
+		var x = 2 * ( touch.pageX / width ) - 1;
+		var y = 2 * ( touch.pageY / height ) - 1;
+		if ( axes[ 0 ] !== x || axes[ 1 ] !== y ) {
+			axes[ 0 ] = x;
+			axes[ 1 ] = y;
+			scope.dispatchEvent( { type: 'axischanged', axes: axes } );
+		}
 		mouse.set( touch.pageX, touch.pageY );
 
 	};
