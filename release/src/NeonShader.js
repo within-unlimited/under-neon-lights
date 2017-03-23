@@ -125,7 +125,7 @@ THREE.neonShader.skinnedShader.setValues( {
 		}
 	] )
 } );
-THREE.neonShader.skinnedShader.defines = { USE_CLIPPING: '', DONTUSE_NEON: '' };
+THREE.neonShader.skinnedShader.defines = { USE_CLIPPING: '' };
 
 THREE.neonShader.swirlShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.swirlShader.uniforms = THREE.UniformsUtils.merge( [
