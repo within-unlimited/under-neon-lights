@@ -38,8 +38,6 @@ void main() {
 
 	col = mix( vec3( length( col ) * 0.75 ), col, saturation );
 
-	col = sepiaColor( col );
-
 	#ifndef DONTUSE_NEON
 		col = neonFunc( col );
 	#endif
@@ -47,6 +45,8 @@ void main() {
 	#ifdef USE_FOG
 		col = neonFog( col );
 	#endif
+
+	col = sepiaColor( col );
 
 	gl_FragColor = vec4( col, 1.0 );
 
