@@ -17,15 +17,16 @@ THREE.MouseController = function ( domElement ) {
 	this.visible = false;
 
 	var dragging = false;
-	var idle = debounce(function() {
-		scope.visible = false;
-	}, 350);
 
 	var mousedown = function ( e ) {
 
 		e.preventDefault();
 		scope.visible = true;
 		mouse.set( e.clientX, e.clientY );
+
+		window.addEventListener( 'mousemove', mousemove, false );
+		window.addEventListener( 'mouseup', mouseup, false );
+
 		scope.dispatchEvent( { type: 'mousedown' } );
 		dragging = true;
 
@@ -36,16 +37,17 @@ THREE.MouseController = function ( domElement ) {
 		e.preventDefault();
 		scope.visible = true;
 
-		if ( !dragging ) {
-			idle();
-		}
+		if ( dragging ) {
 
-		var x = 2 * ( e.clientX / width ) - 1;
-		var y = 2 * ( e.clientY / height ) - 1;
-		if ( axes[ 0 ] !== x || axes[ 1 ] !== y ) {
-			axes[ 0 ] = - x;
-			axes[ 1 ] = y;
-			scope.dispatchEvent( { type: 'axischanged', axes: axes } );
+			var x = 2 * ( e.clientX / width ) - 1;
+			var y = 2 * ( e.clientY / height ) - 1;
+
+			if ( axes[ 0 ] !== x || axes[ 1 ] !== y ) {
+				axes[ 0 ] = - x;
+				axes[ 1 ] = y;
+				scope.dispatchEvent( { type: 'axischanged', axes: axes } );
+			}
+
 		}
 
 		mouse.set( e.clientX, e.clientY );
@@ -55,8 +57,12 @@ THREE.MouseController = function ( domElement ) {
 	var mouseup = function ( e ) {
 
 		e.preventDefault();
-		scope.visible = true;
+		scope.visible = false;
 		mouse.set( e.clientX, e.clientY );
+
+		window.removeEventListener( 'mousemove', mousemove, false );
+		window.removeEventListener( 'mouseup', mouseup, false );
+
 		dragging = false;
 		scope.dispatchEvent( { type: 'mouseup' } );
 
@@ -98,7 +104,7 @@ THREE.MouseController = function ( domElement ) {
 	var touchend = function ( e ) {
 
 		e.preventDefault();
-		scope.visible = true;
+		scope.visible = false;
 		dragging = false;
 		scope.dispatchEvent( { type: 'mouseup' } );
 
@@ -117,8 +123,6 @@ THREE.MouseController = function ( domElement ) {
 	domElement.addEventListener( 'touchend', touchend, false );
 	domElement.addEventListener( 'touchcancel', touchend, false );
 
-	domElement.addEventListener( 'mousemove', mousemove, false );
-	domElement.addEventListener( 'mouseup', mouseup, false );
 	window.addEventListener( 'resize', resize, false );
 
 	this.resize = resize;
