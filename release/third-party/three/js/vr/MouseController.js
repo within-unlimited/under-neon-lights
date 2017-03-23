@@ -117,8 +117,8 @@ THREE.MouseController = function ( domElement ) {
 	domElement.addEventListener( 'touchend', touchend, false );
 	domElement.addEventListener( 'touchcancel', touchend, false );
 
-	window.addEventListener( 'mousemove', mousemove, false );
-	window.addEventListener( 'mouseup', mouseup, false );
+	domElement.addEventListener( 'mousemove', mousemove, false );
+	domElement.addEventListener( 'mouseup', mouseup, false );
 	window.addEventListener( 'resize', resize, false );
 
 	this.resize = resize;

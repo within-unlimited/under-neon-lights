@@ -34,62 +34,72 @@
 		</div>
 		<script src="third-party/has.js"></script>
 		<script src="src/Frame.js"></script>
-		<script src="third-party/sound.js"></script>
+		<!-- <script src="third-party/sound.js"></script> -->
 		<script>
 
 			var buttonPlay = document.getElementById( 'buttonPlay' );
 			var buttonVR = document.getElementById( 'buttonVR' );
-			var effect, renderer, sound;
 
-			var src = /localhost/.test(window.location.href)
-				? '../assets/audio/03 Under Neon Lights'
-				: '//player-dev.cabrilleros.com/NEON_LIGHTS/assets/audio/03 Under Neon Lights';
-
-			src += has.Chromium ? '.ogg' : '.mp3';
+			var effect;
 
 			//
 
 			FRAME.setDOM( document.getElementById( 'container' ) );
 
+			var player = new FRAME.Player();
+			player.currentTime = 300;
+
 			var timeline = new FRAME.Timeline();
 			timeline.load( 'neon-lights.json', function () {
 
-				sound = new Sound( src, function () {
+				// Compile
 
-					effect = FRAME.getResource( 'effect' );
-					effect.requestAnimationFrame( animate );
+				var animations = timeline.animations;
 
-					buttonVR.addEventListener( 'click', function ( event ) {
+				for ( var i = 0, l = animations.length; i < l; i ++ ) {
 
-						event.stopPropagation();
+					var animation = animations[ i ];
 
-						effect.isPresenting ? effect.exitPresent() : effect.requestPresent();
+					if ( animation.effect.program === null ) {
 
-					} );
+						animation.effect.compile( player );
 
-					window.addEventListener( 'vrdisplaypresentchange', function ( event ) {
+					}
 
-						buttonVR.textContent = effect.isPresenting ? 'EXIT VR' : 'ENTER VR';
+				}
 
-					}, false );
+				//
 
-					renderer = FRAME.getResource( 'renderer' );
-					buttonPlay.addEventListener( 'click', function ( event ) {
+				effect = FRAME.getResource( 'effect' );
+				effect.requestAnimationFrame( animate );
 
-						event.stopPropagation();
-						toggle();
+				buttonVR.addEventListener( 'click', function ( event ) {
 
-					} );
+					event.stopPropagation();
+					effect.isPresenting ? effect.exitPresent() : effect.requestPresent();
 
-				} );
+				}, true );
+
+				window.addEventListener( 'vrdisplaypresentchange', function ( event ) {
+
+					buttonVR.textContent = effect.isPresenting ? 'EXIT VR' : 'ENTER VR';
+
+				}, false );
+
+				buttonPlay.addEventListener( 'click', function ( event ) {
+
+					event.stopPropagation();
+					toggle();
+
+				}, true );
 
 				function toggle () {
 
-					if ( sound.playing ) {
-						sound.pause();
+					if ( player.isPlaying ) {
+						player.pause();
 						buttonPlay.textContent = 'PLAY';
 					} else {
-						sound.play();
+						player.play();
 						buttonPlay.textContent = 'PAUSE';
 					}
 
@@ -99,9 +109,15 @@
 
 			//
 
-			function animate() {
+			var prevTime = 0;
 
-				timeline.update( sound.currentTime );
+			function animate( time ) {
+
+				player.tick( time - prevTime );
+				timeline.update( player.currentTime );
+
+				prevTime = time;
+
 				effect.requestAnimationFrame( animate );
 
 			}

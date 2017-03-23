@@ -5,6 +5,8 @@
 var FRAME = ( function () {
 
 	var dom = null;
+	var player = null;
+
 	var resources = {};
 
 	return {
@@ -32,6 +34,76 @@ var FRAME = ( function () {
 		getResource: function ( name ) {
 
 			return resources[ name ];
+
+		},
+
+		//
+
+		Player: function () {
+
+			var audio = null;
+
+			var isPlaying = false;
+
+			var currentTime = 0;
+			var playbackRate = 1;
+
+			var loop = null;
+
+			return {
+				get isPlaying() {
+					return isPlaying;
+				},
+				get currentTime() {
+					if ( audio ) return audio.currentTime;
+					return currentTime;
+				},
+				set currentTime( value ) {
+					if ( audio ) audio.currentTime = value;
+					currentTime = value;
+				},
+				get playbackRate() {
+					if ( audio ) return audio.playbackRate;
+					return playbackRate;
+				},
+				set playbackRate( value ) {
+					playbackRate = value;
+					if ( audio ) audio.playbackRate = value;
+				},
+				getAudio: function () {
+					return audio;
+				},
+				setAudio: function ( value ) {
+					if ( audio ) audio.pause();
+					if ( value ) {
+						value.currentTime = currentTime;
+						if ( isPlaying ) value.play();
+					}
+					audio = value;
+				},
+				setLoop: function ( value ) {
+					loop = value;
+				},
+				play: function () {
+					if ( audio ) audio.play();
+					isPlaying = true;
+				},
+				pause: function () {
+					if ( audio ) audio.pause();
+					isPlaying = false;
+				},
+				tick: function ( delta ) {
+					if ( audio ) {
+						currentTime = audio.currentTime;
+					} else if ( isPlaying ) {
+						currentTime += ( delta / 1000 ) * playbackRate;
+					}
+					if ( loop ) {
+						if ( currentTime > loop[ 1 ] ) currentTime = loop[ 0 ];
+					}
+				}
+
+			}
 
 		},
 
@@ -163,9 +235,9 @@ var FRAME = ( function () {
 			this.name = name;
 			this.source = source || 'var parameters = {\n\tvalue: new FRAME.Parameters.Float( \'Value\', 1.0 )\n};\n\n// function init(){}\n\nfunction start(){}\n\nfunction end(){}\n\nfunction update( progress ){}';
 			this.program = null;
-			this.compile = function () {
+			this.compile = function ( player ) {
 
-				this.program = ( new Function( 'parameters, init, start, end, update', this.source + '\nreturn { parameters: parameters, init: init, start: start, end: end, update: update };' ) )();
+				this.program = ( new Function( 'player, parameters, init, start, end, update', this.source + '\nreturn { parameters: parameters, init: init, start: start, end: end, update: update };' ) )( player );
 
 			};
 
@@ -187,21 +259,17 @@ var FRAME = ( function () {
 				this.effect = effect;
 				this.enabled = enabled;
 
-				// compile
-
-				if ( effect.program === null ) {
-
-					effect.compile();
-
-				}
-
 			};
 
 		}(),
 
 		Timeline: function () {
 
-			var animations = [], curves = [];
+			var effects = [];
+
+			var animations = [];
+			var curves = [];
+
 			var active = [];
 
 			var next = 0, prevtime = 0;
@@ -209,25 +277,37 @@ var FRAME = ( function () {
 			function layerSort( a, b ) { return a.layer - b.layer; }
 			function startSort( a, b ) { return a.start === b.start ? layerSort( a, b ) : a.start - b.start; }
 
+			function loadFile( url, onLoad ) {
+
+				var request = new XMLHttpRequest();
+				request.open( 'GET', url, true );
+				request.addEventListener( 'load', function ( event ) {
+
+					onLoad( event.target.response );
+
+				} );
+				request.send( null );
+
+			}
+
 			return {
 
-				curves: curves,
 				animations: animations,
+				curves: curves,
 
 				load: function ( url, onLoad ) {
 
-					function loadFile( url, onLoad ) {
+					var scope = this;
 
-						var request = new XMLHttpRequest();
-						request.open( 'GET', url, true );
-						request.addEventListener( 'load', function ( event ) {
+					loadFile( url, function ( text ) {
 
-							onLoad( event.target.response );
+						scope.parse( JSON.parse( text ), onLoad );
 
-						} );
-						request.send( null );
+					} );
 
-					}
+				},
+
+				parse: function ( json, onLoad ) {
 
 					function loadLibraries( libraries, onLoad ) {
 
@@ -247,6 +327,7 @@ var FRAME = ( function () {
 							loadFile( url, function ( content ) {
 
 								var script = document.createElement( 'script' );
+								script.id = 'library-' + count;
 								script.textContent = '( function () { ' + content + '} )()';
 								document.head.appendChild( script );
 
@@ -262,69 +343,59 @@ var FRAME = ( function () {
 
 					var scope = this;
 
-					loadFile( url, function ( contents ) {
+					var libraries = json.libraries || [];
 
-						var json = JSON.parse( contents );
+					loadLibraries( libraries, function () {
 
-						var libraries = json.libraries || [];
-						var includes = json.includes;
-						var effects = json.effects;
-						var animations = json.animations;
+						for ( var i = 0; i < json.includes.length; i ++ ) {
 
-						loadLibraries( libraries, function () {
+							var data = json.includes[ i ];
+							var source = data[ 1 ];
 
-							for ( var i = 0, l = includes.length; i < l; i ++ ) {
+							if ( Array.isArray( source ) ) source = source.join( '\n' );
 
-								var data = includes[ i ];
+							var script = document.createElement( 'script' );
+							script.id = 'library-' + i;
+							script.textContent = '( function () { ' + source + '} )()';
+							document.head.appendChild( script );
 
-								var source = data[ 1 ];
+						}
 
-								if ( Array.isArray( source ) ) source = source.join( '\n' );
+						// Effects
 
-								var script = document.createElement( 'script' );
-								script.textContent = '( function () { ' + source + '} )()';
-								document.head.appendChild( script );
+						for ( var i = 0; i < json.effects.length; i ++ ) {
 
-							}
+							var data = json.effects[ i ];
 
-							var library = [];
-							var effects = json.effects;
+							var name = data[ 0 ];
+							var source = data[ 1 ];
 
-							for ( var i = 0, l = effects.length; i < l; i ++ ) {
+							if ( Array.isArray( source ) ) source = source.join( '\n' );
 
-								var data = effects[ i ];
+							effects.push( new FRAME.Effect( name, source ) );
 
-								var name = data[ 0 ];
-								var source = data[ 1 ];
+						}
 
-								if ( Array.isArray( source ) ) source = source.join( '\n' );
+						for ( var i = 0; i < json.animations.length; i ++ ) {
 
-								library.push( new FRAME.Effect( name, source ) );
+							var data = json.animations[ i ];
 
-							}
+							var animation = new FRAME.Animation(
+								data[ 0 ],
+								data[ 1 ],
+								data[ 2 ],
+								data[ 3 ],
+								effects[ data[ 4 ] ],
+								data[ 5 ]
+							);
 
-							var animations = json.animations;
+							animations.push( animation );
 
-							for ( var i = 0, l = animations.length; i < l; i ++ ) {
+						}
 
-								var data = animations[ i ];
+						scope.sort();
 
-								var animation = new FRAME.Animation(
-									data[ 0 ],
-									data[ 1 ],
-									data[ 2 ],
-									data[ 3 ],
-									library[ data[ 4 ] ],
-									data[ 5 ]
-								);
-
-								scope.add( animation );
-
-							}
-
-							if ( onLoad ) onLoad();
-
-						} );
+						if ( onLoad ) onLoad();
 
 					} );
 
