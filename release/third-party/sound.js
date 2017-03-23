@@ -128,7 +128,7 @@
 
     _volume: 1.0,
 
-    _speed: 1.0,
+    _playbackRate: 1.0,
 
     _startTime: 0,
 
@@ -175,7 +175,7 @@
       this.source.onended = this._ended;
       this.source.buffer = this.buffer;
       this.source.loop = params.loop;
-      this.source.playbackRate.value = this._speed;
+      this.source.playbackRate.value = this._playbackRate;
 
       this.source.connect(this.filter);
 
@@ -287,16 +287,16 @@
 
   });
 
-  Object.defineProperty(Sound.prototype, 'speed', {
+  Object.defineProperty(Sound.prototype, 'playbackRate', {
 
     enumerable: true,
 
     get: function() {
-      return this._speed;
+      return this._playbackRate;
     },
 
     set: function(s) {
-      this._speed = s;
+      this._playbackRate = s;
       if (this.playing) {
         this.play();
       }
@@ -310,7 +310,7 @@
 
     get: function() {
       if (this.playing) {
-        return (ctx.currentTime - this._startTime + this._offset) * this._speed;
+        return (ctx.currentTime - this._startTime + this._offset) * this._playbackRate;
       }
       return this._offset;
     },
