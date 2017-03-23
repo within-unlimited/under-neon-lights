@@ -80,7 +80,7 @@ vec3 neonFunc( vec3 col ) {
 	float neonFactor = neonNoise( p * neonFreq1 + vec3( 0.0, - time * 0.5, 0.0 ) );
 	float neonFactorFade = smoothstep( 2.0 * ( neonFade * neon ) - 1.0, 1.0, neonFactor );
 	vec3 nCol = mix( col * vec3 (6.2, 1.5, 0.5) + vec3( 2.3, 1.2, 0.5 ), col, pow( neonFactorFade, 5.2 * neonGlow ) );
-	nCol = mix( vec3 ( 0.0 ), nCol, pow( neonFactorFade, 2.0 ) );
+	nCol = mix( fogColor, nCol, pow( neonFactorFade, 3.0 ) );
 	col = mix( col, nCol, neon );
 
 	return col;
