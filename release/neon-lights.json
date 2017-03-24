@@ -3557,32 +3557,6 @@
 			]
 		],
 		[
-			"Fog Far -> 1",
-			[
-				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var stages = FRAME.getResource( 'stages' );",
-				"",
-				"var origin = 12;",
-				"var destination = 6;",
-				"",
-				"function start () {",
-				"",
-				"\torigin = fog.far;",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ) {",
-				"",
-				"\tvar scene = stages.current.scene;",
-				"\tvar t = TWEEN.Easing.Sinusoidal.In( progress );",
-				"\tfog.far = t * ( destination - origin ) + origin;",
-				"",
-				"}"
-			]
-		],
-		[
 			"Bedroom Effect",
 			[
 				"var HALF_PI = Math.PI / 2;",
@@ -4276,39 +4250,6 @@
 		[
 			"Effect",
 			[
-				"var controllers = FRAME.getResource( 'controllers' );",
-				"var effect = FRAME.getResource( 'effect' );",
-				"",
-				"function playVideo() {",
-				"\tplayer.currentTime = 0;",
-				"\tplayer.setLoop( null );",
-				"}",
-				"",
-				"var container = FRAME.getDOM();",
-				"",
-				"var buttonContainer = document.createElement( 'div' );",
-				"buttonContainer.classList.add('abs-bc');",
-				"container.appendChild( buttonContainer );",
-				"",
-				"function start(){",
-				"",
-				"\tplayer.setLoop( [ 300, 305 ] );",
-				"\t// controllers.onTriggerClick = playVideo;",
-				"",
-				"}",
-				"",
-				"function end(){",
-				"",
-				"\tcontrollers.onTriggerClick = function () {};",
-				"",
-				"}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Effect",
-			[
 				"function start(){",
 				"\tplayer.currentTime = 300;",
 				"}",
@@ -4590,21 +4531,6 @@
 			]
 		],
 		[
-			"Effect",
-			[
-				"var parameters = {",
-				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
-				"};",
-				"",
-				"",
-				"function start(){}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
 			"Fog 2-1",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
@@ -4872,6 +4798,69 @@
 				"}",
 				""
 			]
+		],
+		[
+			"Mirror",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"var child;",
+				"var adult;",
+				"var distance = 4;",
+				"",
+				"function start () {",
+				"",
+				"\tchild = annie.userData.models.child;",
+				"\tadult = annie.userData.models.adult;",
+				"\t",
+				"\tchild.visible = true;",
+				"\tadult.visible = true;",
+				"",
+				"\tchild.position.set( distance, 0, 0 );",
+				"\tadult.position.set( - distance, 0, 0 );",
+				"",
+				"\tswitchToRun( child, 'run' );",
+				"\tswitchToRun( adult, 'run' );",
+				"",
+				"}",
+				"",
+				"function end () {",
+				"",
+				"\tchild = annie.userData.models.child;",
+				"\tadult = annie.userData.models.adult;",
+				"\t",
+				"\tchild.visible = false;",
+				"\tadult.visible = false;",
+				"\t",
+				"\tchild.position.set( 0, 0, 0 );",
+				"\tadult.position.set( 0, 0, 0 );",
+				"",
+				"}",
+				"",
+				"function update( progress, dt ) {",
+				"",
+				"\tif ( child && child.mixer ) {",
+				"\t\tchild.mixer.update( dt );",
+				"\t}",
+				"\tif ( adult && adult.mixer ) {",
+				"\t\tadult.mixer.update( dt );",
+				"\t}",
+				"",
+				"}",
+				"",
+				"function switchToRun( model, action ) {",
+				"",
+				"\tvar animations = model.userData.animations;",
+				"\tfor ( var name in animations ) {",
+				"\t\tvar animation = animations[ name ];",
+				"\t\tif ( name === action ) {",
+				"\t\t\tanimation.action.play();",
+				"\t\t} else {",
+				"\t\t\tanimation.action.stop();",
+				"\t\t}",
+				"\t}",
+				"",
+				"}"
+			]
 		]
 	],
 	"animations": [
@@ -4880,8 +4869,8 @@
 			0,
 			266.42,
 			0,
-			52,
-			false
+			51,
+			true
 		],
 		[
 			"VR Update",
@@ -4896,7 +4885,7 @@
 			0,
 			266.42,
 			2,
-			61,
+			58,
 			true
 		],
 		[
@@ -4944,15 +4933,15 @@
 			0,
 			305,
 			11,
-			47,
-			true
+			46,
+			false
 		],
 		[
 			"Animation",
 			0.25,
 			2.25,
 			-1,
-			60,
+			57,
 			true
 		],
 		[
@@ -6088,7 +6077,7 @@
 			54,
 			60,
 			8,
-			38,
+			37,
 			true
 		],
 		[
@@ -6408,7 +6397,7 @@
 			62,
 			64,
 			8,
-			37,
+			36,
 			true
 		],
 		[
@@ -7040,7 +7029,7 @@
 			72.5,
 			74,
 			8,
-			39,
+			38,
 			true
 		],
 		[
@@ -7200,7 +7189,7 @@
 			78,
 			100,
 			3,
-			33,
+			32,
 			true
 		],
 		[
@@ -7208,7 +7197,7 @@
 			78,
 			83,
 			6,
-			34,
+			33,
 			true
 		],
 		[
@@ -7232,7 +7221,7 @@
 			82.76785715015578,
 			84.76785715015578,
 			7,
-			41,
+			40,
 			true
 		],
 		[
@@ -7240,7 +7229,7 @@
 			83,
 			93.00000008174365,
 			4,
-			40,
+			39,
 			true
 		],
 		[
@@ -7248,7 +7237,7 @@
 			88,
 			90,
 			5,
-			57,
+			54,
 			true
 		],
 		[
@@ -7256,7 +7245,7 @@
 			92.25893108528479,
 			93.49107392150509,
 			5,
-			42,
+			41,
 			true
 		],
 		[
@@ -7264,7 +7253,7 @@
 			92.75,
 			93.75,
 			6,
-			43,
+			42,
 			true
 		],
 		[
@@ -7272,7 +7261,7 @@
 			95.83333681500183,
 			97.83333681500183,
 			4,
-			44,
+			43,
 			true
 		],
 		[
@@ -7288,7 +7277,7 @@
 			100,
 			105.5,
 			5,
-			46,
+			45,
 			true
 		],
 		[
@@ -7296,7 +7285,7 @@
 			100,
 			102,
 			6,
-			45,
+			44,
 			true
 		],
 		[
@@ -7305,6 +7294,14 @@
 			149.9950921778805,
 			4,
 			31,
+			true
+		],
+		[
+			"Mirror Annies",
+			136,
+			144,
+			5,
+			61,
 			true
 		],
 		[
@@ -7326,9 +7323,9 @@
 		[
 			"Open Door",
 			143.99884977043894,
-			145.01591261355813,
+			145,
 			7,
-			35,
+			34,
 			true
 		],
 		[
@@ -7336,7 +7333,7 @@
 			150.46987975595792,
 			154,
 			4,
-			48,
+			47,
 			true
 		],
 		[
@@ -7352,7 +7349,7 @@
 			164.875,
 			166.875,
 			4,
-			58,
+			55,
 			true
 		],
 		[
@@ -7400,7 +7397,7 @@
 			184.9375,
 			186.9375,
 			4,
-			59,
+			56,
 			true
 		],
 		[
@@ -7488,7 +7485,7 @@
 			223.75,
 			225.75,
 			5,
-			36,
+			35,
 			true
 		],
 		[
@@ -7496,7 +7493,7 @@
 			223.75,
 			232.5,
 			7,
-			49,
+			48,
 			true
 		],
 		[
@@ -7504,7 +7501,7 @@
 			223.75,
 			232.5,
 			8,
-			50,
+			49,
 			true
 		],
 		[
@@ -7512,7 +7509,7 @@
 			225.875,
 			227.875,
 			4,
-			59,
+			56,
 			true
 		],
 		[
@@ -7528,7 +7525,7 @@
 			232.5,
 			234.90625,
 			8,
-			51,
+			50,
 			true
 		],
 		[
@@ -7536,7 +7533,7 @@
 			264.28125,
 			266.42,
 			8,
-			50,
+			49,
 			true
 		],
 		[
@@ -7544,7 +7541,7 @@
 			266.42,
 			269.70125,
 			4,
-			54,
+			52,
 			true
 		],
 		[
@@ -7552,7 +7549,7 @@
 			300,
 			305,
 			2,
-			63,
+			60,
 			true
 		],
 		[
@@ -7560,7 +7557,7 @@
 			300,
 			305,
 			3,
-			55,
+			53,
 			true
 		],
 		[
@@ -7568,7 +7565,7 @@
 			300,
 			305,
 			4,
-			62,
+			59,
 			true
 		],
 		[
