@@ -4873,7 +4873,7 @@
 			266.42,
 			0,
 			51,
-			true
+			false
 		],
 		[
 			"VR Update",
@@ -4937,7 +4937,7 @@
 			305,
 			11,
 			46,
-			false
+			true
 		],
 		[
 			"Animation",
