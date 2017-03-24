@@ -17,7 +17,7 @@ uniform float time;
 uniform float size;
 uniform vec3 cursor;
 uniform vec2 clip;
-uniform float yrot;
+uniform float yRot;
 uniform float progress;
 
 varying vec2 vUv;
@@ -77,7 +77,7 @@ float neonNoise( vec3 pos ) {
 
 vec3 neonFunc( vec3 col ) {
 
-	vec3 p = rotateY( - yrot ) * ( mPosition.xyz ) + cursor;
+	vec3 p = rotateY( - yRot ) * ( mPosition.xyz ) + cursor;
 	float neonFactor = neonNoise( p * neonFreq1 + vec3( 0.0, - time * 0.5, 0.0 ) );
 	float neonFactorFade = smoothstep( min( 2.0 * ( neonFade * neon ) - 1.0, 1.0 ), 1.0, neonFactor );
 	vec3 nCol = mix( col * neonCol * 6.0 + neonCol * 2.0, col, pow( neonFactorFade, 5.2 * neonGlow ) );
