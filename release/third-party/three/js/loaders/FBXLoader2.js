@@ -258,24 +258,21 @@
 
 					var FBX_ID = textureNode.id;
 					var name = textureNode.name;
-					// todo: paths are specific to maya and neon lights, don't use this anywhere else :P
-					var filePath = textureNode.properties.RelativeFilename
-						.replace(/\\/g, '/').replace(/\.\./i, '/assets');
-					// var filePath = textureNode.properties.FileName;
-					// var split = filePath.split( /[\\\/]/ );
-					// if ( split.length > 0 ) {
+					var filePath = textureNode.properties.FileName;
+					var split = filePath.split( /[\\\/]/ );
+					if ( split.length > 0 ) {
 
-					// 	var fileName = split[ split.length - 1 ];
+						var fileName = split[ split.length - 1 ];
 
-					// } else {
+					} else {
 
-					// 	var fileName = filePath;
+						var fileName = filePath;
 
-					// }
+					}
 					/**
 					 * @type {THREE.Texture}
 					 */
-					var texture = loader.textureLoader.load( filePath );
+					var texture = loader.textureLoader.load( resourceDirectory + '/' + fileName );
 					texture.name = name;
 					texture.FBX_ID = FBX_ID;
 
@@ -1221,23 +1218,25 @@
 								} else {
 
 									material = new THREE.MeshBasicMaterial( { color: 0x3300ff } );
+									materials.push( material );
 
 								}
 								if ( 'color' in geometry.attributes ) {
 
-									material.vertexColors = THREE.VertexColors;
+									for ( var materialIndex = 0, numMaterials = materials.length; materialIndex < numMaterials; ++materialIndex ) {
+
+										materials[ materialIndex ].vertexColors = THREE.VertexColors;
+
+									}
 
 								}
 								if ( geometry.FBX_Deformer ) {
 
 									for ( var materialsIndex = 0, materialsLength = materials.length; materialsIndex < materialsLength; ++ materialsIndex ) {
 
-										var material = materials[ materialsIndex ];
-
-										material.skinning = true;
+										materials[ materialsIndex ].skinning = true;
 
 									}
-									material.skinning = true;
 									model = new THREE.SkinnedMesh( geometry, material );
 
 								} else {
