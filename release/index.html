@@ -13,7 +13,7 @@
 		<!-- <script src="third-party/sound.js"></script> -->
 		<script>
 
-			var effect = FRAME.getResource( 'effect' );
+			var effect;
 
 			//
 
@@ -43,6 +43,7 @@
 
 				//
 
+				effect = FRAME.getResource( 'effect' );
 				effect.requestAnimationFrame( animate );
 
 				// function toggle () {
