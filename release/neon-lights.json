@@ -4061,11 +4061,14 @@
 				"",
 				"\tprevTime = time;",
 				"",
+				"\t/*",
 				"\tfor ( var i in gui.__controllers ) {",
 				"",
 				"\t\tgui.__controllers[ i ].updateDisplay();",
 				"",
 				"\t}",
+				"\t*/",
+				"\t",
 				"}"
 			]
 		],

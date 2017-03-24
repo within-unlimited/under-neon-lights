@@ -5992,7 +5992,7 @@
 				{
 					emissive: { value: new Color( 0x000000 ) },
 					roughness: { value: 0.5 },
-					metalness: { value: 0 },
+					metalness: { value: 0.5 },
 					envMapIntensity: { value: 1 } // temporary
 				}
 			] ),
@@ -7204,8 +7204,6 @@
 				}
 
 			}
-
-			return this;
 
 		},
 
@@ -16862,7 +16860,7 @@
 
 	function parseIncludes( string ) {
 
-		var pattern = /#include +<([\w\d.]+)>/g;
+		var pattern = /^\s*#include +<([\w\d.]+)>/gm;
 
 		function replace( match, include ) {
 
@@ -18925,7 +18923,7 @@
 
 		}
 
-		function enableAttributeAndDivisor( attribute, meshPerAttribute, extension ) {
+		function enableAttributeAndDivisor( attribute, meshPerAttribute ) {
 
 			newAttributes[ attribute ] = 1;
 
@@ -18937,6 +18935,8 @@
 			}
 
 			if ( attributeDivisors[ attribute ] !== meshPerAttribute ) {
+
+				var extension = extensions.get( 'ANGLE_instanced_arrays' );
 
 				extension.vertexAttribDivisorANGLE( attribute, meshPerAttribute );
 				attributeDivisors[ attribute ] = meshPerAttribute;
@@ -19755,7 +19755,7 @@
 			}
 
 			scope.numPlanes = nPlanes;
-
+			
 			return dstArray;
 
 		}
@@ -20626,13 +20626,9 @@
 
 		function setupVertexAttributes( material, program, geometry, startIndex ) {
 
-			var extension;
-
 			if ( geometry && geometry.isInstancedBufferGeometry ) {
 
-				extension = extensions.get( 'ANGLE_instanced_arrays' );
-
-				if ( extension === null ) {
+				if ( extensions.get( 'ANGLE_instanced_arrays' ) === null ) {
 
 					console.error( 'THREE.WebGLRenderer.setupVertexAttributes: using THREE.InstancedBufferGeometry but hardware does not support extension ANGLE_instanced_arrays.' );
 					return;
@@ -20678,7 +20674,7 @@
 
 							if ( data && data.isInstancedInterleavedBuffer ) {
 
-								state.enableAttributeAndDivisor( programAttribute, data.meshPerAttribute, extension );
+								state.enableAttributeAndDivisor( programAttribute, data.meshPerAttribute );
 
 								if ( geometry.maxInstancedCount === undefined ) {
 
@@ -20699,7 +20695,7 @@
 
 							if ( geometryAttribute.isInstancedBufferAttribute ) {
 
-								state.enableAttributeAndDivisor( programAttribute, geometryAttribute.meshPerAttribute, extension );
+								state.enableAttributeAndDivisor( programAttribute, geometryAttribute.meshPerAttribute );
 
 								if ( geometry.maxInstancedCount === undefined ) {
 
@@ -24073,7 +24069,7 @@
 		// helper variables
 
 		var i, j, l, o, ol;
-		var edge = [ 0, 0 ], edges = {}, e;
+		var edge = [ 0, 0 ], edges = {}, e, edge1, edge2;
 		var key, keys = [ 'a', 'b', 'c' ];
 		var vertex;
 
@@ -24091,11 +24087,12 @@
 
 				for ( j = 0; j < 3; j ++ ) {
 
-					edge[ 0 ] = face[ keys[ j ] ];
-					edge[ 1 ] = face[ keys[ ( j + 1 ) % 3 ] ];
-					edge.sort( sortFunction ); // sorting prevents duplicates
+					edge1 = face[ keys[ j ] ];
+					edge2 = face[ keys[ ( j + 1 ) % 3 ] ];
+					edge[ 0 ] = Math.min( edge1, edge2 ); // sorting prevents duplicates
+					edge[ 1 ] = Math.max( edge1, edge2 );
 
-					key = edge.toString();
+					key = edge[ 0 ] + ',' + edge[ 1 ];
 
 					if ( edges[ key ] === undefined ) {
 
@@ -24156,11 +24153,12 @@
 
 						for ( j = 0; j < 3; j ++ ) {
 
-							edge[ 0 ] = indices.getX( i + j );
-							edge[ 1 ] = indices.getX( i + ( j + 1 ) % 3 );
-							edge.sort( sortFunction ); // sorting prevents duplicates
+							edge1 = indices.getX( i + j );
+							edge2 = indices.getX( i + ( j + 1 ) % 3 );
+							edge[ 0 ] = Math.min( edge1, edge2 ); // sorting prevents duplicates
+							edge[ 1 ] = Math.max( edge1, edge2 );
 
-							key = edge.toString();
+							key = edge[ 0 ] + ',' + edge[ 1 ];
 
 							if ( edges[ key ] === undefined ) {
 
@@ -24220,14 +24218,6 @@
 		// build geometry
 
 		this.addAttribute( 'position', new Float32BufferAttribute( vertices, 3 ) );
-
-		// custom array sort function
-
-		function sortFunction( a, b ) {
-
-			return a - b;
-
-		}
 
 	}
 
@@ -26159,7 +26149,7 @@
 	 *
 	 * }
 	 **/
-
+	 
 	 function ExtrudeGeometry( shapes, options ) {
 
 		Geometry.call( this );
@@ -26180,7 +26170,7 @@
 	ExtrudeGeometry.prototype = Object.create( Geometry.prototype );
 	ExtrudeGeometry.prototype.constructor = ExtrudeGeometry;
 
-
+	 
 
 	function ExtrudeBufferGeometry( shapes, options ) {
 
@@ -26697,7 +26687,7 @@
 		/////  Internal functions
 
 		function buildLidFaces() {
-
+			
 			var start = verticesArray.length/3;
 
 			if ( bevelEnabled ) {
@@ -26747,7 +26737,7 @@
 				}
 
 			}
-
+			
 			scope.addGroup( start, verticesArray.length/3 -start, options.material !== undefined ? options.material : 0);
 
 		}
@@ -26770,7 +26760,7 @@
 				layeroffset += ahole.length;
 
 			}
-
+			
 
 			scope.addGroup( start, verticesArray.length/3 -start, options.extrudeMaterial !== undefined ? options.extrudeMaterial : 1);
 
@@ -26961,7 +26951,7 @@
 	 *  bevelSize: <float> // how far from text outline is bevel
 	 * }
 	 */
-
+	 
 
 	function TextGeometry(  text, parameters ) {
 
@@ -27678,7 +27668,7 @@
 		// helper variables
 
 		var thresholdDot = Math.cos( _Math.DEG2RAD * thresholdAngle );
-		var edge = [ 0, 0 ], edges = {};
+		var edge = [ 0, 0 ], edges = {}, edge1, edge2;
 		var key, keys = [ 'a', 'b', 'c' ];
 
 		// prepare source geometry
@@ -27710,11 +27700,12 @@
 
 			for ( var j = 0; j < 3; j ++ ) {
 
-				edge[ 0 ] = face[ keys[ j ] ];
-				edge[ 1 ] = face[ keys[ ( j + 1 ) % 3 ] ];
-				edge.sort( sortFunction );
+				edge1 = face[ keys[ j ] ];
+				edge2 = face[ keys[ ( j + 1 ) % 3 ] ];
+				edge[ 0 ] = Math.min( edge1, edge2 );
+				edge[ 1 ] = Math.max( edge1, edge2 );
 
-				key = edge.toString();
+				key = edge[ 0 ] + ',' + edge[ 1 ];
 
 				if ( edges[ key ] === undefined ) {
 
@@ -27753,14 +27744,6 @@
 		// build geometry
 
 		this.addAttribute( 'position', new Float32BufferAttribute( vertices, 3 ) );
-
-		// custom array sort function
-
-		function sortFunction( a, b ) {
-
-			return a - b;
-
-		}
 
 	}
 
@@ -32029,9 +32012,10 @@
 			var scope = this;
 
 			var loader = new FileLoader( scope.manager );
-			loader.load( url, function ( text ) {
+			loader.setResponseType( 'json' );
+			loader.load( url, function ( json ) {
 
-				onLoad( scope.parse( JSON.parse( text ) ) );
+				onLoad( scope.parse( json ) );
 
 			}, onProgress, onError );
 
@@ -32187,9 +32171,10 @@
 			var scope = this;
 
 			var loader = new FileLoader( scope.manager );
-			loader.load( url, function ( text ) {
+			loader.setResponseType( 'json' );
+			loader.load( url, function ( json ) {
 
-				onLoad( scope.parse( JSON.parse( text ) ) );
+				onLoad( scope.parse( json ) );
 
 			}, onProgress, onError );
 
@@ -32627,10 +32612,10 @@
 			var texturePath = this.texturePath && ( typeof this.texturePath === "string" ) ? this.texturePath : Loader.prototype.extractUrlBase( url );
 
 			var loader = new FileLoader( this.manager );
+			loader.setResponseType( 'json' );
 			loader.setWithCredentials( this.withCredentials );
-			loader.load( url, function ( text ) {
+			loader.load( url, function ( json ) {
 
-				var json = JSON.parse( text );
 				var metadata = json.metadata;
 
 				if ( metadata !== undefined ) {
@@ -33976,30 +33961,30 @@
 	 * @author zz85 / http://www.lab4games.net/zz85/blog
 	 * Extensible curve object
 	 *
-	 * Some common of Curve methods
+	 * Some common of curve methods:
 	 * .getPoint(t), getTangent(t)
 	 * .getPointAt(u), getTangentAt(u)
 	 * .getPoints(), .getSpacedPoints()
 	 * .getLength()
 	 * .updateArcLengths()
 	 *
-	 * This following classes subclasses THREE.Curve:
+	 * This following curves inherit from THREE.Curve:
 	 *
-	 * -- 2d classes --
+	 * -- 2D curves --
+	 * THREE.ArcCurve
+	 * THREE.CubicBezierCurve
+	 * THREE.EllipseCurve
 	 * THREE.LineCurve
 	 * THREE.QuadraticBezierCurve
-	 * THREE.CubicBezierCurve
 	 * THREE.SplineCurve
-	 * THREE.ArcCurve
-	 * THREE.EllipseCurve
 	 *
-	 * -- 3d classes --
+	 * -- 3D curves --
+	 * THREE.CatmullRomCurve3
+	 * THREE.CubicBezierCurve3
 	 * THREE.LineCurve3
 	 * THREE.QuadraticBezierCurve3
-	 * THREE.CubicBezierCurve3
-	 * THREE.CatmullRomCurve3
 	 *
-	 * A series of curves can be represented as a THREE.CurvePath
+	 * A series of curves can be represented as a THREE.CurvePath.
 	 *
 	 **/
 
@@ -34007,7 +33992,11 @@
 	 *	Abstract Curve base class
 	 **************************************************************/
 
-	function Curve() {}
+	function Curve() {
+
+		this.arcLengthDivisions = 200;
+
+	}
 
 	Object.assign( Curve.prototype, {
 
@@ -34016,7 +34005,7 @@
 
 		getPoint: function () {
 
-			console.warn( "THREE.Curve: Warning, getPoint() not implemented!" );
+			console.warn( 'THREE.Curve: .getPoint() not implemented.' );
 			return null;
 
 		},
@@ -34080,13 +34069,12 @@
 
 		getLengths: function ( divisions ) {
 
-			if ( divisions === undefined ) divisions = ( this.__arcLengthDivisions ) ? ( this.__arcLengthDivisions ) : 200;
+			if ( divisions === undefined ) divisions = this.arcLengthDivisions;
 
-			if ( this.cacheArcLengths
-				&& ( this.cacheArcLengths.length === divisions + 1 )
-				&& ! this.needsUpdate ) {
+			if ( this.cacheArcLengths &&
+				( this.cacheArcLengths.length === divisions + 1 ) &&
+				! this.needsUpdate ) {
 
-				//console.log( "cached", this.cacheArcLengths );
 				return this.cacheArcLengths;
 
 			}
@@ -34110,7 +34098,7 @@
 
 			this.cacheArcLengths = cache;
 
-			return cache; // { sums: cache, sum:sum }; Sum is in the last element.
+			return cache; // { sums: cache, sum: sum }; Sum is in the last element.
 
 		},
 
@@ -34140,8 +34128,6 @@
 				targetArcLength = u * arcLengths[ il - 1 ];
 
 			}
-
-			//var time = Date.now();
 
 			// binary search for the index with largest value smaller than target u distance
 
@@ -34174,12 +34160,9 @@
 
 			i = high;
 
-			//console.log('b' , i, low, high, Date.now()- time);
-
 			if ( arcLengths[ i ] === targetArcLength ) {
 
-				var t = i / ( il - 1 );
-				return t;
+				return i / ( il - 1 );
 
 			}
 
@@ -34354,6 +34337,8 @@
 
 	function LineCurve( v1, v2 ) {
 
+		Curve.call( this );
+
 		this.v1 = v1;
 		this.v2 = v2;
 
@@ -34406,6 +34391,8 @@
 	 **************************************************************/
 
 	function CurvePath() {
+
+		Curve.call( this );
 
 		this.curves = [];
 
@@ -34494,7 +34481,7 @@
 
 			this.needsUpdate = true;
 			this.cacheLengths = null;
-			this.getLengths();
+			this.getCurveLengths();
 
 		},
 
@@ -34631,6 +34618,8 @@
 
 	function EllipseCurve( aX, aY, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation ) {
 
+		Curve.call( this );
+
 		this.aX = aX;
 		this.aY = aY;
 
@@ -34713,6 +34702,8 @@
 
 	function SplineCurve( points /* array of Vector2 */ ) {
 
+		Curve.call( this );
+
 		this.points = ( points === undefined ) ? [] : points;
 
 	}
@@ -34744,6 +34735,8 @@
 
 	function CubicBezierCurve( v0, v1, v2, v3 ) {
 
+		Curve.call( this );
+
 		this.v0 = v0;
 		this.v1 = v1;
 		this.v2 = v2;
@@ -34766,6 +34759,8 @@
 	};
 
 	function QuadraticBezierCurve( v0, v1, v2 ) {
+
+		Curve.call( this );
 
 		this.v0 = v0;
 		this.v1 = v1;
@@ -36154,7 +36149,7 @@
 			return this.gain.gain.value;
 
 		},
-
+		
 		setVolume: function ( value ) {
 
 			this.gain.gain.value = value;
@@ -37627,8 +37622,8 @@
 
 		this.repetitions = Infinity; 		// no. of repetitions when looping
 
-		this.paused = false;				// false -> zero effective time scale
-		this.enabled = true;				// true -> zero effective weight
+		this.paused = false;				// true -> zero effective time scale
+		this.enabled = true;				// false -> zero effective weight
 
 		this.clampWhenFinished 	= false;	// keep feeding the last frame?
 
@@ -37781,7 +37776,7 @@
 
 		// Time Scale Control
 
-		// set the weight stopping any scheduled warping
+		// set the time scale stopping any scheduled warping
 		// although .paused = true yields an effective time scale of zero, this
 		// method does *not* change .paused, because it would be confusing
 		setEffectiveTimeScale: function( timeScale ) {
@@ -37888,7 +37883,17 @@
 		// Interna
 
 		_update: function( time, deltaTime, timeDirection, accuIndex ) {
+
 			// called by the mixer
+
+			if ( ! this.enabled ) {
+
+				// call ._updateWeight() to update ._effectiveWeight
+
+				this._updateWeight( time );
+				return;
+
+			}
 
 			var startTime = this._startTime;
 
@@ -38817,11 +38822,7 @@
 
 				var action = actions[ i ];
 
-				if ( action.enabled ) {
-
-					action._update( time, deltaTime, timeDirection, accuIndex );
-
-				}
+				action._update( time, deltaTime, timeDirection, accuIndex );
 
 			}
 
@@ -41437,6 +41438,8 @@
 
 	function CatmullRomCurve3( p /* array of Vector3 */ ) {
 
+		Curve.call( this );
+
 		this.points = p || [];
 		this.closed = false;
 
@@ -41528,6 +41531,8 @@
 
 	function CubicBezierCurve3( v0, v1, v2, v3 ) {
 
+		Curve.call( this );
+
 		this.v0 = v0;
 		this.v1 = v1;
 		this.v2 = v2;
@@ -41552,6 +41557,8 @@
 
 	function QuadraticBezierCurve3( v0, v1, v2 ) {
 
+		Curve.call( this );
+
 		this.v0 = v0;
 		this.v1 = v1;
 		this.v2 = v2;
@@ -41574,6 +41581,8 @@
 	};
 
 	function LineCurve3( v1, v2 ) {
+
+		Curve.call( this );
 
 		this.v1 = v1;
 		this.v2 = v2;
@@ -42358,6 +42367,23 @@
 		set: function () {
 
 			console.warn( 'THREE.Skeleton: useVertexTexture has been removed.' );
+
+		}
+
+	} );
+
+	Object.defineProperty( Curve.prototype, '__arcLengthDivisions', {
+
+		get: function () {
+
+			console.warn( 'THREE.Curve: .__arcLengthDivisions is now .arcLengthDivisions.' );
+			return this.arcLengthDivisions;
+
+		},
+		set: function ( value ) {
+
+			console.warn( 'THREE.Curve: .__arcLengthDivisions is now .arcLengthDivisions.' );
+			this.arcLengthDivisions = value;
 
 		}
 
