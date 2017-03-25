@@ -39,7 +39,7 @@ var WEBVR = {
 		}
 
 		if ( options.message !== undefined ) {
-			
+
 			if ( opts.silent ) return true;
 
 			var template = '<div class="dialog"><p><%= message %></p><button class="dismiss"><%= dismiss %></button></div>';
@@ -66,7 +66,7 @@ var WEBVR = {
 
 		var button = document.createElement( 'a' );
 		button.classList.add('button'); // moved styles into vr-menu.scss
-		button.innerHTML = icon + 'Enter VR';
+		button.innerHTML = icon + 'Start in VR';
 		button.onclick = function(e) {
 
 			e.preventDefault();
@@ -76,7 +76,7 @@ var WEBVR = {
 
 		window.addEventListener( 'vrdisplaypresentchange', function ( event ) {
 
-			button.innerHTML = icon + ( effect.isPresenting ? 'Exit VR' : 'Enter VR' );
+			button.innerHTML = icon + ( effect.isPresenting ? 'Exit VR' : 'Start in VR' );
 
 		}, false );
 
