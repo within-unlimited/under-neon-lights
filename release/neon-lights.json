@@ -4111,6 +4111,7 @@
 				"\tvar t = TWEEN.Easing.Sinusoidal.In( progress );",
 				"\tstage.blocks.position.y = t * ( destination - origin ) + origin;",
 				"\tstage.ground.position.y = t * ( destination - origin ) + origin;",
+				"\tstage.blocks.position.y *= - 1;",
 				"\tstage.ground.position.y *= - 1;",
 				"",
 				"}"
@@ -7604,7 +7605,7 @@
 		[
 			"Annie can Fly?",
 			218.55,
-			223.75,
+			225.5,
 			4,
 			29,
 			true
@@ -7615,14 +7616,6 @@
 			232.4950495049505,
 			6,
 			21,
-			true
-		],
-		[
-			"Annie Flies",
-			223.75,
-			225.75,
-			5,
-			35,
 			true
 		],
 		[
@@ -7639,6 +7632,14 @@
 			232.5,
 			8,
 			49,
+			true
+		],
+		[
+			"Annie Flies",
+			225.5,
+			227.5,
+			5,
+			35,
 			true
 		],
 		[
