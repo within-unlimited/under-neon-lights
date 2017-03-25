@@ -1258,19 +1258,19 @@
 				"\t\tname: 'forest',",
 				"\t\tfiles: [",
 				"",
-				"\t\t\t'mdl_env_1_forest_flower_a_v01.json'",
-				"\t\t\t'mdl_env_1_forest_grass_d_v01.json'",
-				"\t\t\t'mdl_env_1_forest_grass_e_v01.json'",
-				"\t\t\t'mdl_env_1_forest_grass_f_v01.json'",
-				"\t\t\t'mdl_env_1_forest_grass_g_v01.json'",
-				"\t\t\t'mdl_env_1_forest_mushroom_a_v01.json'",
-				"\t\t\t'mdl_env_1_forest_mushroom_b_v01.json'",
-				"\t\t\t'mdl_env_1_forest_mushroom_c_v01.json'",
-				"\t\t\t'mdl_env_1_forest_rock_a_v01.json'",
-				"\t\t\t'mdl_env_1_forest_rock_a_v02.json'",
-				"\t\t\t'mdl_env_1_forest_tree_e_v01.json'",
-				"\t\t\t'mdl_env_1_forest_tree_f_v01.json'",
-				"\t\t\t'mdl_env_1_forest_tree_g_v01.json'",
+				"\t\t\t'mdl_env_1_forest_flower_a_v01.json',",
+				"\t\t\t'mdl_env_1_forest_grass_d_v01.json',",
+				"\t\t\t'mdl_env_1_forest_grass_e_v01.json',",
+				"\t\t\t'mdl_env_1_forest_grass_f_v01.json',",
+				"\t\t\t'mdl_env_1_forest_grass_g_v01.json',",
+				"\t\t\t'mdl_env_1_forest_mushroom_a_v01.json',",
+				"\t\t\t'mdl_env_1_forest_mushroom_b_v01.json',",
+				"\t\t\t'mdl_env_1_forest_mushroom_c_v01.json',",
+				"\t\t\t'mdl_env_1_forest_rock_a_v01.json',",
+				"\t\t\t'mdl_env_1_forest_rock_a_v02.json',",
+				"\t\t\t'mdl_env_1_forest_tree_e_v01.json',",
+				"\t\t\t'mdl_env_1_forest_tree_f_v01.json',",
+				"\t\t\t'mdl_env_1_forest_tree_g_v01.json',",
 				"\t\t\t'mdl_env_1_forest_tree_h_v01.json'",
 				"",
 				"\t\t]",
@@ -5003,6 +5003,18 @@
 			]
 		],
 		[
+			"Effect",
+			[
+				"function start () {",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"}"
+			]
+		],
+		[
 			"Stage 2 inTransition",
 			[
 				"var stages = FRAME.getResource( 'stages' );",
@@ -5031,7 +5043,7 @@
 			]
 		],
 		[
-			"Effect",
+			"Increase Stage Limit",
 			[
 				"var stages = FRAME.getResource( 'stages' );",
 				"",
@@ -5046,6 +5058,18 @@
 				"function end(){}",
 				"",
 				"function update( progress ){}"
+			]
+		],
+		[
+			"Effect",
+			[
+				"function start () {",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"}"
 			]
 		]
 	],
@@ -7487,7 +7511,7 @@
 			132.33,
 			136,
 			7,
-			63,
+			64,
 			true
 		],
 		[
@@ -7503,7 +7527,7 @@
 			138,
 			140,
 			7,
-			66,
+			65,
 			true
 		],
 		[
