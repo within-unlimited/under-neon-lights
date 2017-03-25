@@ -4637,7 +4637,7 @@
 				"function start(){",
 				"",
 				"\tfadeIn();",
-				"\tplayer.setLoop( [ 300, 305 ] );",
+				"\tplayer.setLoop( [ 300, 302 ] );",
 				"",
 				"}",
 				"",
