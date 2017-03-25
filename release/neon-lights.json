@@ -2993,7 +2993,7 @@
 			]
 		],
 		[
-			"Effect",
+			"City.curvature 2",
 			[
 				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
 				"",
@@ -3594,7 +3594,7 @@
 			]
 		],
 		[
-			"Effect",
+			"Annie Fly",
 			[
 				"var annie = FRAME.getResource( 'annie' );",
 				"",
@@ -4161,7 +4161,7 @@
 			]
 		],
 		[
-			"Effect",
+			"Start Intro Effect",
 			[
 				"function start(){",
 				"\tvar intro = FRAME.getResource( 'stages' ).intro;",
@@ -4700,22 +4700,6 @@
 			]
 		],
 		[
-			"Effect",
-			[
-				"var parameters = {",
-				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
-				"};",
-				"",
-				"// function init(){}",
-				"",
-				"function start(){}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
 			"Update Experience",
 			[
 				"var Ease = FRAME.getResource( 'Ease' );",
@@ -5003,18 +4987,6 @@
 			]
 		],
 		[
-			"Effect",
-			[
-				"function start () {",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ) {",
-				"}"
-			]
-		],
-		[
 			"Stage 2 inTransition",
 			[
 				"var stages = FRAME.getResource( 'stages' );",
@@ -5059,18 +5031,6 @@
 				"",
 				"function update( progress ){}"
 			]
-		],
-		[
-			"Effect",
-			[
-				"function start () {",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ) {",
-				"}"
-			]
 		]
 	],
 	"animations": [
@@ -5095,7 +5055,7 @@
 			0,
 			266.42,
 			2,
-			58,
+			57,
 			true
 		],
 		[
@@ -5145,14 +5105,6 @@
 			11,
 			46,
 			false
-		],
-		[
-			"Animation",
-			0.25,
-			2.25,
-			-1,
-			57,
-			true
 		],
 		[
 			"Fog 1-2",
@@ -7511,7 +7463,7 @@
 			132.33,
 			136,
 			7,
-			64,
+			62,
 			true
 		],
 		[
@@ -7519,7 +7471,7 @@
 			136,
 			144,
 			6,
-			61,
+			60,
 			true
 		],
 		[
@@ -7527,7 +7479,7 @@
 			138,
 			140,
 			7,
-			65,
+			63,
 			true
 		],
 		[
@@ -7535,7 +7487,7 @@
 			138.42105263157902,
 			140.42105263157902,
 			0,
-			65,
+			63,
 			true
 		],
 		[
@@ -7551,7 +7503,7 @@
 			141.98,
 			144.375,
 			9,
-			62,
+			61,
 			true
 		],
 		[
@@ -7791,7 +7743,7 @@
 			300,
 			302,
 			2,
-			60,
+			59,
 			true
 		],
 		[
@@ -7807,7 +7759,7 @@
 			300,
 			302,
 			4,
-			59,
+			58,
 			true
 		],
 		[
