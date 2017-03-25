@@ -156,8 +156,6 @@ THREE.neonShader._vert = [
 
 THREE.neonShader._frag = [
 	"const float PI = 3.141592653589793;",
-	"const vec3 b = vec3( 0.0, 69.0, 116.0 ) * 1.5;",
-	"const vec3 a = vec3( 89.0, 188.0, 255.0 ) * 1.5;",
 	"uniform vec3 fogColor;",
 	"uniform float fogNear;",
 	"uniform float fogFar;",
@@ -193,9 +191,16 @@ THREE.neonShader._frag = [
 	"	return  col - layer * 0.1 * sepia;",
 	"}",
 	"vec3 neonFog( vec3 col ) {",
-	"	float fogDepth = length( mPosition.xz );",
+	"	#ifdef USE_MIRROR_FOG",
+	"		float md = 6.5;",
+	"		vec2 mPos = mPosition.xz;",
+	"		mPos.x = mod( mPos.x + md / 2.0, md ) - ( md / 2.0 );",
+	"		float fogDepth = length( mPos );",
+	"	#else",
+	"		float fogDepth = length( mPosition.xz );",
+	"	#endif",
 	"	float fogFactor = smoothstep( fogNear, fogFar, fogDepth );",
-	"	return mix( col, fogColor, fogFactor );",
+	"	return  mix( col, fogColor, fogFactor );",
 	"}",
 	"mat3 rotateY( float rad ) {",
 	"	float c = cos( rad );",
@@ -333,6 +338,9 @@ THREE.neonShader.skinnedShader.setValues( {
 	side: THREE.DoubleSide,
 	vertexColors: true,
 	skinning: true,
+	defines: {
+		USE_MIRROR_FOG: ''
+	},
 	uniforms: THREE.UniformsUtils.merge( [
 		THREE.neonShader._uniforms, {
 			clip: { type: 'v2', value: new THREE.Vector2( -1e10, 1e10 ) }
@@ -357,7 +365,7 @@ THREE.neonShader.swirlShader.blending = THREE.AdditiveBlending;
 
 THREE.neonShader.floorShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.floorShader.defines = { USE_FAKE_SHADOW: '' };
-THREE.neonShader.floorShader.uniforms.color.value.set( 0x72fa8c );
+THREE.neonShader.floorShader.uniforms.color.value.set( 0x08FA82 );
 
 THREE.neonShader.waveShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.waveShader.defines = { USE_WAVE: '' };
@@ -373,6 +381,10 @@ THREE.neonShader.vertexColoredDoubleSided = THREE.neonShader.basicShader.clone()
 THREE.neonShader.vertexColoredDoubleSided.vertexColors = true;
 THREE.neonShader.vertexColoredDoubleSided.defines = { USE_FAKE_SHADOW: '' };
 THREE.neonShader.vertexColoredDoubleSided.side = THREE.DoubleSide;
+
+THREE.neonShader.hallway = THREE.neonShader.vertexColoredDoubleSided.clone();
+THREE.neonShader.hallway.defines = { USE_FAKE_SHADOW: '' };
+THREE.neonShader.hallway.defines.USE_MIRROR_FOG = '';
 
 THREE.neonShader.vertexColored = THREE.neonShader.basicShader.clone();
 THREE.neonShader.vertexColored.vertexColors = true;
