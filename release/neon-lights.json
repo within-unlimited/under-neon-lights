@@ -2238,6 +2238,7 @@
 				"\tannie.rotation.y = 0;",
 				"\tblocks.position.y = 0;",
 				"\tground.position.y = 0;",
+				"\tgroup.position.y = 0;",
 				"",
 				"\tscene.add( group );",
 				"\tgroup.visible = true;",
@@ -4108,7 +4109,7 @@
 			"City.Position Y",
 			[
 				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
-				"var destination = 75;",
+				"var destination = 150;",
 				"var origin = 0;",
 				"",
 				"function start(){}",
@@ -4118,10 +4119,8 @@
 				"function update ( progress ) {",
 				"",
 				"\tvar t = TWEEN.Easing.Sinusoidal.In( progress );",
-				"\tstage.blocks.position.y = t * ( destination - origin ) + origin;",
-				"\tstage.ground.position.y = t * ( destination - origin ) + origin;",
-				"\tstage.blocks.position.y *= - 1;",
-				"\tstage.ground.position.y *= - 1;",
+				"\tstage.scene.position.y = t * ( destination - origin ) + origin;",
+				"\tstage.scene.position.y *= - 1;",
 				"",
 				"}"
 			]
