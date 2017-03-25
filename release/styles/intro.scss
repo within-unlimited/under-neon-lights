@@ -82,17 +82,15 @@ body {
 		}
 	}
 
-	@media (min-width: 420px) {
-		+ .button {
-			margin-left: 20px;
-		}
+	@media (min-width: 470px) {
+		+ .button { margin-left: 20px; }
 	}
 
-	@media (max-width: 419px) {
+	@media (max-width: 469px) {
 		display: block;
 		width: 100%;
 
-		+ .button { margin-top: 20px; }
+		+ .button { margin-top: 50px; }
 	}
 }
 
@@ -103,4 +101,8 @@ body {
 	width: 100%;
 	text-align: center;
 	padding: 0 20px;
+
+	@media (max-width: 469px) {
+		bottom: 20px;
+	}
 }
