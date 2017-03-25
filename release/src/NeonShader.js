@@ -265,11 +265,6 @@ THREE.neonShader._frag = [
 	"		float shadow = smoothstep( 0.09, 0.15, pow( dist, 0.5 ) );",
 	"		col = mix( col * 0.75, col, shadow );",
 	"	#endif",
-	"	#ifdef USE_SWIRL",
-	"		col = mix( col, vec3( 0.0 ), smoothstep( 0.0, 1.0, length( mPosition.xz ) ) );",
-	"		float p = (1.0 - progress) * ( 1.0 + 0.6 ) - 0.3;",
-	"		if (vUv.y > p || vUv.y < (p - 0.3)) discard;",
-	"	#endif",
 	"	col = mix( vec3( length( col ) * 0.75 ), col, saturation );",
 	"	#ifndef DONTUSE_NEON",
 	"		col = neonFunc( col );",
@@ -278,6 +273,11 @@ THREE.neonShader._frag = [
 	"		col = neonFog( col );",
 	"	#endif",
 	"	col = sepiaColor( col );",
+	"	#ifdef USE_SWIRL",
+	"		float p = min( progress, 1.0 - progress ) * 2.0;",
+	"		float l = length( ( ( vUv + vec2( 0.0, progress - 0.5 ) ) * 2.0 - vec2( 1.0 ) ) / vec2( 1.0, p ) );",
+	"		col = vec3( 1.0 - min( l, 1.0 ) ) * p;",
+	"	#endif",
 	"	gl_FragColor = vec4( col, 1.0 );",
 	"}",
 ].join( '\n' );
@@ -347,7 +347,13 @@ THREE.neonShader.swirlShader.uniforms = THREE.UniformsUtils.merge( [
 		progress: { type: 'f', value: 0 }
 	}
 ] );
-THREE.neonShader.swirlShader.defines = { USE_SWIRL: '' };
+THREE.neonShader.swirlShader.defines = { USE_SWIRL: '', DONTUSE_NEON: '' };
+THREE.neonShader.swirlShader.transparent = true;
+THREE.neonShader.swirlShader.depthWrite = false;
+THREE.neonShader.swirlShader.fog = false;
+THREE.neonShader.swirlShader.side = THREE.DoubleSide;
+THREE.neonShader.swirlShader.blending = THREE.AdditiveBlending;
+
 
 THREE.neonShader.floorShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.floorShader.defines = { USE_FAKE_SHADOW: '' };
