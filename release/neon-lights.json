@@ -1716,7 +1716,7 @@
 				"\tdolly.userData.reset();",
 				"",
 				"\tannie.userData.age( 'child' );",
-				"\tannie.userData.play( 'run' );",
+				"\tannie.userData.play( 'run', true );",
 				"\tannie.rotation.y = 0;",
 				"",
 				"\tscene.add( group );",
