@@ -767,7 +767,7 @@
 				"",
 				"\t\ttoy: THREE.neonShader.vertexColoredDoubleSided,",
 				"\t\t",
-				"\t\thallway: THREE.neonShader.vertexColoredDoubleSided",
+				"\t\thallway: THREE.neonShader.hallway",
 				"",
 				"\t},",
 				"",
