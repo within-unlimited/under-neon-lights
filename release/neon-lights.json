@@ -1930,11 +1930,13 @@
 				"var stages = FRAME.getResource( 'stages' );",
 				"stages.push( {",
 				"",
+				"\thideNextRoom: false,",
 				"\tinTransition: true,",
 				"\tindex: stages.length,",
 				"\telements: elements,",
 				"\tscene: group,",
 				"\tcursor: cursor,",
+				"\tlimit: 1,",
 				"\treset: function () {",
 				"\t\tstage.inTransition = true;",
 				"\t\tcursor.set( 0, 0 );",
@@ -1950,6 +1952,7 @@
 				"",
 				"\tstages.current = stage;",
 				"\tstages.index = stage.index;",
+				"\tstage.hideNextRoom = false;",
 				"",
 				"\tannie.userData.age( 'teenager' );",
 				"\tannie.rotation.y = 0;",
@@ -2039,6 +2042,7 @@
 				"",
 				"\tfor ( var i = 0; i < elements.length; i++ ) {",
 				"",
+				"\t\tvar ix, iy;",
 				"\t\tvar mesh = elements[ i ];",
 				"\t\tvar offset = mesh.userData.offset;",
 				"",
@@ -2050,6 +2054,15 @@
 				"",
 				"\t\tmesh.position.x *= - size * cols;",
 				"\t\tmesh.position.z *= - size * rows;",
+				"",
+				"\t\tif ( stage.hideNextRoom ) {",
+				"\t\t\tix = Math.floor( 2 * x * cols );",
+				"\t\t\tiy = Math.floor( Math.abs( 2 * y * cols ) );",
+				"\t\t\t// console.log( stage.limit, ix, iy );",
+				"\t\t\tmesh.visible = ix >= stage.limit;",
+				"\t\t} else {",
+				"\t\t\tmesh.visible = true;",
+				"\t\t}",
 				"",
 				"\t}",
 				"",
@@ -3473,7 +3486,7 @@
 				"var group = new THREE.Scene();",
 				"var house;",
 				"",
-				"var origin = new THREE.Vector3( 0, 0.1, 29.66 );",
+				"var origin = new THREE.Vector3( 0, 0.1, 42.5 );",
 				"var destination = new THREE.Vector3( 0, 0.1, - 10.5 );",
 				"",
 				"models.ready( function () {",
@@ -3941,7 +3954,7 @@
 				"var compass = FRAME.getResource( 'compass' );",
 				"",
 				"var parameters = {",
-				"\tstep: new FRAME.Parameters.Float( 'Step', 0.8 )",
+				"\tstep: new FRAME.Parameters.Float( 'Step', 0.8125 )",
 				"};",
 				"",
 				"function start () {",
@@ -4969,6 +4982,10 @@
 				"\tswitchToRun( child, 'run' );",
 				"\tswitchToRun( adult, 'run' );",
 				"",
+				"\tif ( annie.userData.prevModel ) {",
+				"\t\tdelete annie.userData.prevModel;",
+				"\t}",
+				"",
 				"}",
 				"",
 				"function end () {",
@@ -5040,6 +5057,52 @@
 				"",
 				"}"
 			]
+		],
+		[
+			"Stage 2 inTransition",
+			[
+				"var stages = FRAME.getResource( 'stages' );",
+				"var state = false;",
+				"",
+				"function start () {",
+				"",
+				"\tif ( stages.current ) {",
+				"\t\tstate = stages.current.inTransition;",
+				"\t\tstages.current.inTransition = true;",
+				"\t\tstages.current.hideNextRoom = true;",
+				"\t\tstages.current.limit = -1;",
+				"\t}",
+				"",
+				"}",
+				"",
+				"function end () {",
+				"",
+				"\tif ( stages.current ) {",
+				"\t\tstages.current.limit = 0;",
+				"\t}",
+				"",
+				"}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Effect",
+			[
+				"var stages = FRAME.getResource( 'stages' );",
+				"",
+				"function start() {",
+				"",
+				"\tif ( stages.current ) {",
+				"\t\tstages.current.limit = 1;",
+				"\t}",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
 		]
 	],
 	"animations": [
@@ -5049,7 +5112,7 @@
 			266.42,
 			0,
 			51,
-			true
+			false
 		],
 		[
 			"VR Update",
@@ -7446,7 +7509,7 @@
 		[
 			"Stage 2",
 			100,
-			135.96875,
+			140.2516185258964,
 			4,
 			1,
 			true
@@ -7469,18 +7532,42 @@
 		],
 		[
 			"Exit House",
-			136,
-			149.9950921778805,
-			4,
+			132,
+			150,
+			5,
 			31,
+			true
+		],
+		[
+			"Lock Annie's Direction",
+			132.33,
+			136,
+			7,
+			63,
 			true
 		],
 		[
 			"Mirror Annies",
 			136,
 			144,
-			5,
+			6,
 			61,
+			true
+		],
+		[
+			"Animation",
+			138,
+			140,
+			7,
+			66,
+			true
+		],
+		[
+			"Animation",
+			138.42105263157902,
+			140.42105263157902,
+			0,
+			65,
 			true
 		],
 		[
@@ -7495,7 +7582,7 @@
 			"Keep City Out of Mirror",
 			141.98,
 			144.375,
-			8,
+			9,
 			62,
 			true
 		],
@@ -7503,7 +7590,7 @@
 			"Out the Door",
 			143.0212765957447,
 			145.48949581270216,
-			6,
+			7,
 			30,
 			true
 		],
@@ -7511,7 +7598,7 @@
 			"Open Door",
 			143.99884977043894,
 			145,
-			7,
+			8,
 			34,
 			true
 		],
