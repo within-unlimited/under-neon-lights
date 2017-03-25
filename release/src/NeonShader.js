@@ -383,6 +383,7 @@ THREE.neonShader.vertexColoredDoubleSided.defines = { USE_FAKE_SHADOW: '' };
 THREE.neonShader.vertexColoredDoubleSided.side = THREE.DoubleSide;
 
 THREE.neonShader.hallway = THREE.neonShader.vertexColoredDoubleSided.clone();
+THREE.neonShader.hallway.defines = { USE_FAKE_SHADOW: '' };
 THREE.neonShader.hallway.defines.USE_MIRROR_FOG = '';
 
 THREE.neonShader.vertexColored = THREE.neonShader.basicShader.clone();
