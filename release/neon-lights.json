@@ -4669,6 +4669,8 @@
 				"\t",
 				"\tcontrols.update();",
 				"\t",
+				"\tcontrollers.update( camera );",
+				"\t",
 				"\tTWEEN.update();",
 				"\t",
 				"\teffect.render( scene, camera );",
