@@ -260,7 +260,7 @@ THREE.neonShader._frag = [
 	"		if ( mPosition.y < clip.x * 2.0 || mPosition.y > clip.y * 2.0 ) discard;",
 	"	#endif",
 	"	#ifdef USE_GRASS",
-	"		col = mix( vec3( 0.55, 0.98, 0.45 ), vec3( 0.559, 0.776, 0.247 ), abs( vUv.y ) );",
+	"		col = mix( vec3( 0.031, 0.980, 0.509 ), vec3(  0.559, 0.776, 0.247 ), abs( vUv.y ) );",
 	"	#endif",
 	"	#ifdef USE_ROAD",
 	"		col = roadFunc();",
