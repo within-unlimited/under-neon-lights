@@ -8,40 +8,55 @@ body {
   margin: 0px;
   overflow: hidden; }
 
-button {
-  font-family: "proxima-nova", "Proxima Nova", sans-serif; }
-
 .button {
+  position: relative;
   display: inline-block;
   width: 200px;
-  padding: 11px;
-  cursor: pointer;
-  background-color: transparent;
-  letter-spacing: 2px;
-  text-transform: uppercase;
   text-decoration: none;
-  line-height: 30px;
-  color: #c0538d;
-  border: 3px solid #c0538d;
-  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #fff;
   font-weight: bold;
-  font-size: 16px;
-  font-style: normal;
   text-align: center;
   user-select: none;
-  z-index: 999;
-  box-shadow: 0 0 5px 1px rgba(192, 83, 141, 0.6), 0 0 5px 1px rgba(192, 83, 141, 0.6) inset;
-  -webkit-transition: box-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-  -moz-transition: box-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-  transition: box-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
-  .button:hover {
+  z-index: 999; }
+  .button .button-box {
+    padding: 11px;
+    background-color: transparent;
+    letter-spacing: 2px;
+    line-height: 30px;
+    border: 3px solid #fff;
+    border-radius: 6px;
+    font-size: 16px;
+    box-shadow: 0 0 5px 1px rgba(192, 83, 141, 0.6), 0 0 5px 1px rgba(192, 83, 141, 0.6) inset;
+    -webkit-transition: box-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    -moz-transition: box-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition: box-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), background-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+  .button:not(.webvr-not-available):hover {
     background-color: rgba(192, 83, 141, 0.2);
     color: #fff;
     box-shadow: 0 0 15px 2px rgba(192, 83, 141, 0.6), 0 0 15px 2px rgba(192, 83, 141, 0.6) inset; }
   .button img {
     width: 30px;
     vertical-align: middle;
-    margin-right: 5px; }
+    margin-right: 10px; }
+  .button .message {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    line-height: 1;
+    letter-spacing: 1px;
+    font-size: 12px;
+    padding: 15px 10px;
+    width: 100%;
+    -webkit-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    -moz-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+  .button.webvr-not-available .button-box, .button.webvr-not-available .message {
+    opacity: 0.5; }
+  .button.webvr-not-available:hover .message {
+    opacity: 1;
+    text-shadow: 0 0 10px #c0538d; }
   @media (min-width: 420px) {
     .button + .button {
       margin-left: 20px; } }
@@ -58,46 +73,5 @@ button {
   width: 100%;
   text-align: center;
   padding: 0 20px; }
-
-.message {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #101421;
-  z-index: 1001;
-  padding: 25px 125px 25px 25px; }
-  .message .dialog > * {
-    display: inline-block;
-    font-size: 12.54px;
-    line-height: 16.5px;
-    color: #bcbdc0; }
-  .message .dialog a {
-    color: #bcbdc0;
-    -webkit-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    -moz-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
-    .message .dialog a:hover {
-      color: #fff; }
-  .message .dialog p {
-    margin: 0;
-    margin-right: 6.25px; }
-  .message .dialog p + p {
-    margin-top: 8.33333px; }
-  .message .dialog button {
-    position: absolute;
-    right: 25px;
-    top: 15.5px;
-    background: #101421;
-    padding: 9.5px 19px 7.6px;
-    border: 1px solid #bcbdc0;
-    border-radius: 6.33333px;
-    cursor: pointer;
-    -webkit-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), border-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    -moz-transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), border-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    transition: color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), border-color 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
-    .message .dialog button:hover {
-      color: #fff;
-      border-color: #fff; }
 
 /*# sourceMappingURL=intro.css.map */
