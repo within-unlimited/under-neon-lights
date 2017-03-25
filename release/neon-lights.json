@@ -4383,7 +4383,7 @@
 				"",
 				"var floorGeo = new THREE.PlaneBufferGeometry( 50, 50 );",
 				"var floorMat = THREE.neonShader.floorShader;",
-				"floorMat.uniforms.color.value.setHex( 0x72fa8c );",
+				"floorMat.uniforms.color.value.setHex( 0x08FA82 );",
 				"var floor = new THREE.Mesh( floorGeo, floorMat );",
 				"floor.position.y = -0.01;",
 				"floor.rotation.x = - Math.PI / 2;",

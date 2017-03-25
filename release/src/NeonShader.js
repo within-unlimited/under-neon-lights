@@ -365,7 +365,7 @@ THREE.neonShader.swirlShader.blending = THREE.AdditiveBlending;
 
 THREE.neonShader.floorShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.floorShader.defines = { USE_FAKE_SHADOW: '' };
-THREE.neonShader.floorShader.uniforms.color.value.set( 0x72fa8c );
+THREE.neonShader.floorShader.uniforms.color.value.set( 0x08FA82 );
 
 THREE.neonShader.waveShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.waveShader.defines = { USE_WAVE: '' };
