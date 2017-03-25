@@ -3991,6 +3991,7 @@
 				"var prevTime;",
 				"",
 				"var gui = new dat.GUI();",
+				"gui.closed = true;",
 				"",
 				"gui.add(THREE.neonShader.globals.neon, 'value', 0, 1).name('neon').onChange( function() {",
 				"\tneon.isAnimating = true;",
