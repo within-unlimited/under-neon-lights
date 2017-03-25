@@ -2,14 +2,14 @@
   box-sizing: border-box; }
 
 body {
-  font-family: sans-serif;
+  font-family: "proxima-nova", "Proxima Nova", sans-serif;
   background-color: #333333;
   color: #fff;
   margin: 0px;
   overflow: hidden; }
 
 button {
-  font-family: sans-serif; }
+  font-family: "proxima-nova", "Proxima Nova", sans-serif; }
 
 .button {
   display: inline-block;
