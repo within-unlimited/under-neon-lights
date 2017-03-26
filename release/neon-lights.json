@@ -262,7 +262,6 @@
 				"",
 				"var dolly = new THREE.Camera();",
 				"var camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 550 );",
-				"// camera.position.z = -1; // for animating mouth in editor -david",
 				"",
 				"dolly.userData.distance = 2;",
 				"dolly.userData.target = new THREE.Vector3( 0.0, 1.7, 0 );",
@@ -273,6 +272,10 @@
 				"\tdolly.lookAt( dolly.userData.target );",
 				"",
 				"};",
+				"",
+				"// for animating mouth in editor -david",
+				"// camera.position.z = - 1;",
+				"// dolly.userData.target.y = 0.5;",
 				"",
 				"camera.userData.fov = {",
 				"\tcurrent: camera.fov,",
@@ -5201,6 +5204,44 @@
 				"",
 				"function end () {}"
 			]
+		],
+		[
+			"Got No Husband, Got No Wife",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"// Got no husband, got no wife",
+				"var keyframes = [",
+				"",
+				"\t6, 7, 6, // Got",
+				"\t6, 7, 6, // No",
+				"",
+				"\t6, 6, 7, 7, 6, 6, // Hus-",
+				"\t6, 6, 7, 7, 6, 6, // -band",
+				"",
+				"\t6, 7, 6, // Got",
+				"\t6, 7, 6, // No",
+				"",
+				"\t6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6,",
+				"",
+				"];",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
 		]
 	],
 	"animations": [
@@ -7562,6 +7603,14 @@
 			80.18071607097225,
 			9,
 			9,
+			true
+		],
+		[
+			"Got No Husband Got No Wife",
+			82.03409090968204,
+			85.05681820014293,
+			9,
+			67,
 			true
 		],
 		[
