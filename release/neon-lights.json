@@ -4824,7 +4824,7 @@
 				"\t_vec.copy( THREE.neonShader.globals.motionVector.value )",
 				"\t\t.multiplyScalar( THREE.neonShader.globals.neonFreq1.value );",
 				"\tTHREE.neonShader.globals.cursor.value.add( _vec );",
-				"\t//THREE.neonShader.globals.yRot.value += THREE.neonShader.globals.ySpin.value;",
+				"\tTHREE.neonShader.globals.yRot.value += THREE.neonShader.globals.ySpin.value;",
 				"\t//THREE.neonShader.globals.yRot.value = Math.PI / 2;",
 				"\t//THREE.neonShader.globals.neon.value = 1;",
 				"",
@@ -5220,6 +5220,38 @@
 				"}",
 				"",
 				"function end () {}"
+			]
+		],
+		[
+			"Effect",
+			[
+				"var parameters = {",
+				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
+				"};",
+				"",
+				"// function init(){}",
+				"",
+				"function start(){}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Effect",
+			[
+				"var parameters = {",
+				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
+				"};",
+				"",
+				"// function init(){}",
+				"",
+				"function start(){}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ){}"
 			]
 		]
 	],
@@ -7966,6 +7998,14 @@
 			302,
 			4,
 			58,
+			true
+		],
+		[
+			"Neon",
+			300,
+			302,
+			5,
+			64,
 			true
 		],
 		[
