@@ -64,10 +64,14 @@ body {
   @media (max-width: 469px) {
     .button {
       display: block;
-      width: 100%; }
-      .button + .button {
-        margin-top: 50px; } }
+      width: 100%; } }
 
+@media (max-width: 469px) {
+  .button:first-child {
+    margin-bottom: 20px; }
+
+  .button.webvr-not-available {
+    margin-bottom: 50px; } }
 .button-container {
   position: absolute;
   bottom: 90px;
