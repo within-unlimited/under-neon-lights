@@ -3,18 +3,9 @@
 * { box-sizing: border-box; }
 
 $pink: #c0538d;
-$font-family: "proxima-nova", "Proxima Nova", sans-serif;
-
-body {
-	font-family: $font-family;
-	background-color: #333333;
-	color: #fff;
-	margin: 0px;
-	overflow: hidden;
-}
 
 // vr toggle and play button
-.button {
+.unl-button {
 	position: relative;
 	display: inline-block;
 	width: 200px;
@@ -28,7 +19,7 @@ body {
 	z-index: 999;
 
 	// separate from button so that opacity can be controlled separately from message
-	.button-box {
+	.unl-button-box {
 		padding: 11px;
 		background-color: transparent;
 		letter-spacing: 2px;
@@ -47,7 +38,7 @@ body {
 
 	}
 
-	&:not(.webvr-not-available):hover .button-box {
+	&:not(.webvr-not-available):hover .unl-button-box {
 		background-color: transparentize($pink, 0.8);
 		color: #fff;
 		text-shadow: 0 0 15px $pink;
@@ -61,7 +52,7 @@ body {
 		margin-right: 10px;
 	}
 
-	.message {
+	.unl-message {
 		position: absolute;
     top: 100%;
     left: 0;
@@ -76,35 +67,33 @@ body {
 	}
 
 	&.webvr-not-available {
-		.button-box,
-		.message {
+		.unl-button-box,
+		.unl-message {
 			opacity: 0.5;
 		}
 
-		&:hover .message {
+		&:hover .unl-message {
 			opacity: 1;
 			text-shadow: 0 0 10px $pink;
 		}
 	}
 
 	@media (min-width: 470px) {
-		+ .button { margin-left: 20px; }
+		+ .unl-button { margin-left: 20px; }
 	}
 
 	@media (max-width: 469px) {
 		display: block;
 		width: 100%;
-
-		// + .button { margin-top: 50px; }
 	}
 }
 
 @media (max-width: 469px) {
-	.button:first-child { margin-bottom: 20px; }
-	.button.webvr-not-available { margin-bottom: 50px; }
+	.unl-button:first-child { margin-bottom: 20px; }
+	.unl-button.webvr-not-available { margin-bottom: 50px; }
 }
 
-.button-container {
+.unl-button-container {
 	position: absolute;
 	bottom: 90px;
 	width: 100%;
@@ -115,7 +104,7 @@ body {
 	opacity: 0;
 	@include transition(opacity 2s $ease-in-out-circ);
 
-	body.intro & {
+	body.unl-intro & {
 		opacity: 1;
 		pointer-events: auto;
 	}
