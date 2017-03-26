@@ -4501,7 +4501,6 @@
 				"",
 				"var clickTime = 0;",
 				"var isQuickClick = function () {",
-				"console.log( Date.now() - clickTime );",
 				"\treturn ( Date.now() - clickTime ) < 200;",
 				"};",
 				"",
