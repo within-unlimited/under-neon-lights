@@ -1303,37 +1303,22 @@
 				"\tforest: {",
 				"\t\tname: 'forest',",
 				"\t\tfiles: [",
-				"\t\t\t",
-				"\t\t\t'mdl_env_1_forest_flower_a_v01.json',",
 				"",
-				"\t\t\t'mdl_env_1_forest_grass_a01_v01.json',",
-				"\t\t\t'mdl_env_1_forest_grass_a02_v01.json',",
-				"\t\t\t'mdl_env_1_forest_grass_b01_v01.json',",
-				"\t\t\t'mdl_env_1_forest_grass_b02_v01.json',",
-				"\t\t\t'mdl_env_1_forest_grass_c01_v01.json',",
-				"\t\t\t'mdl_env_1_forest_grass_c02_v01.json',",
-				"\t\t\t'mdl_env_1_forest_grass_c03_v01.json',",
+				"\t\t\t'mdl_env_1_forest_flower_a_v01.json',",
 				"\t\t\t'mdl_env_1_forest_grass_d_v01.json',",
 				"\t\t\t'mdl_env_1_forest_grass_e_v01.json',",
 				"\t\t\t'mdl_env_1_forest_grass_f_v01.json',",
 				"\t\t\t'mdl_env_1_forest_grass_g_v01.json',",
-				"\t\t\t",
-				"\t\t\t'mdl_env_1_forest_rock_a_v01.json',",
-				"\t\t\t'mdl_env_1_forest_rock_b_v01.json',",
-				"",
 				"\t\t\t'mdl_env_1_forest_mushroom_a_v01.json',",
 				"\t\t\t'mdl_env_1_forest_mushroom_b_v01.json',",
 				"\t\t\t'mdl_env_1_forest_mushroom_c_v01.json',",
-				"",
-				"\t\t\t'mdl_env_1_forest_tree_a_v01.json',",
-				"\t\t\t'mdl_env_1_forest_tree_b_v01.json',",
-				"\t\t\t'mdl_env_1_forest_tree_c_v01.json',",
-				"\t\t\t'mdl_env_1_forest_tree_d_v01.json',",
+				"\t\t\t'mdl_env_1_forest_rock_a_v01.json',",
+				"\t\t\t'mdl_env_1_forest_rock_a_v02.json',",
 				"\t\t\t'mdl_env_1_forest_tree_e_v01.json',",
 				"\t\t\t'mdl_env_1_forest_tree_f_v01.json',",
 				"\t\t\t'mdl_env_1_forest_tree_g_v01.json',",
 				"\t\t\t'mdl_env_1_forest_tree_h_v01.json'",
-				"\t\t\t",
+				"",
 				"\t\t]",
 				"\t},",
 				"",
@@ -1894,11 +1879,13 @@
 				"var stages = FRAME.getResource( 'stages' );",
 				"stages.push( {",
 				"",
+				"\thideNextRoom: false,",
 				"\tinTransition: true,",
 				"\tindex: stages.length,",
 				"\telements: elements,",
 				"\tscene: group,",
 				"\tcursor: cursor,",
+				"\tlimit: 1,",
 				"\treset: function () {",
 				"\t\tstage.inTransition = true;",
 				"\t\tcursor.set( 0, 0 );",
@@ -1914,6 +1901,7 @@
 				"",
 				"\tstages.current = stage;",
 				"\tstages.index = stage.index;",
+				"\tstage.hideNextRoom = false;",
 				"",
 				"\tannie.userData.age( 'teenager' );",
 				"\tannie.rotation.y = 0;",
@@ -2003,6 +1991,7 @@
 				"",
 				"\tfor ( var i = 0; i < elements.length; i++ ) {",
 				"",
+				"\t\tvar ix, iy;",
 				"\t\tvar mesh = elements[ i ];",
 				"\t\tvar offset = mesh.userData.offset;",
 				"",
@@ -2014,6 +2003,15 @@
 				"",
 				"\t\tmesh.position.x *= - size * cols;",
 				"\t\tmesh.position.z *= - size * rows;",
+				"",
+				"\t\tif ( stage.hideNextRoom ) {",
+				"\t\t\tix = Math.floor( 2 * x * cols );",
+				"\t\t\tiy = Math.floor( Math.abs( 2 * y * cols ) );",
+				"\t\t\t// console.log( stage.limit, ix, iy );",
+				"\t\t\tmesh.visible = ix >= stage.limit;",
+				"\t\t} else {",
+				"\t\t\tmesh.visible = true;",
+				"\t\t}",
 				"",
 				"\t}",
 				"",
@@ -3039,7 +3037,7 @@
 			]
 		],
 		[
-			"Effect",
+			"City.curvature 2",
 			[
 				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
 				"",
@@ -3303,8 +3301,9 @@
 				"",
 				"\tbird.visible = true;",
 				"\tstring.visible = true;",
-				"\tbird.frustumCulled = false;",
-				"\tstring.frustumCulled = false;",
+				"",
+				"\tbird.traverse( removeFrustumCulling );",
+				"\tstring.traverse( removeFrustumCulling );",
 				"",
 				"\tbird.rotation.z = Math.PI / 2;",
 				"",
@@ -3363,6 +3362,12 @@
 				"\t\tstring.mixer.update( dt );",
 				"\t}",
 				"",
+				"}",
+				"",
+				"function removeFrustumCulling ( obj ) {",
+				"\tif ( obj.isMesh ) {",
+				"\t\tobj.frustumCulled = false;",
+				"\t}",
 				"}"
 			]
 		],
@@ -3436,7 +3441,7 @@
 				"var group = new THREE.Scene();",
 				"var house;",
 				"",
-				"var origin = new THREE.Vector3( 0, 0.1, 29.66 );",
+				"var origin = new THREE.Vector3( 0, 0.1, 42.5 );",
 				"var destination = new THREE.Vector3( 0, 0.1, - 10.5 );",
 				"",
 				"models.ready( function () {",
@@ -3640,7 +3645,7 @@
 			]
 		],
 		[
-			"Effect",
+			"Annie Fly",
 			[
 				"var annie = FRAME.getResource( 'annie' );",
 				"",
@@ -3904,7 +3909,7 @@
 				"var compass = FRAME.getResource( 'compass' );",
 				"",
 				"var parameters = {",
-				"\tstep: new FRAME.Parameters.Float( 'Step', 0.8 )",
+				"\tstep: new FRAME.Parameters.Float( 'Step', 0.8125 )",
 				"};",
 				"",
 				"function start () {",
@@ -4176,7 +4181,7 @@
 			]
 		],
 		[
-			"Effect",
+			"Start Intro Effect",
 			[
 				"function start(){",
 				"\tvar intro = FRAME.getResource( 'stages' ).intro;",
@@ -4716,22 +4721,6 @@
 			]
 		],
 		[
-			"Effect",
-			[
-				"var parameters = {",
-				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
-				"};",
-				"",
-				"// function init(){}",
-				"",
-				"function start(){}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
 			"Update Experience",
 			[
 				"var Ease = FRAME.getResource( 'Ease' );",
@@ -4932,6 +4921,10 @@
 				"\tswitchToRun( child, 'run' );",
 				"\tswitchToRun( adult, 'run' );",
 				"",
+				"\tif ( annie.userData.prevModel ) {",
+				"\t\tdelete annie.userData.prevModel;",
+				"\t}",
+				"",
 				"}",
 				"",
 				"function end () {",
@@ -5005,11 +4998,49 @@
 			]
 		],
 		[
-			"Effect",
+			"Stage 2 inTransition",
 			[
-				"function start () {}",
+				"var stages = FRAME.getResource( 'stages' );",
+				"var state = false;",
+				"",
+				"function start () {",
+				"",
+				"\tif ( stages.current ) {",
+				"\t\tstate = stages.current.inTransition;",
+				"\t\tstages.current.inTransition = true;",
+				"\t\tstages.current.hideNextRoom = true;",
+				"\t\tstages.current.limit = -1;",
+				"\t}",
+				"",
+				"}",
+				"",
+				"function end () {",
+				"",
+				"\tif ( stages.current ) {",
+				"\t\tstages.current.limit = 0;",
+				"\t}",
+				"",
+				"}",
+				"",
+				"function update( progress ){}"
+			]
+		],
+		[
+			"Increase Stage Limit",
+			[
+				"var stages = FRAME.getResource( 'stages' );",
+				"",
+				"function start() {",
+				"",
+				"\tif ( stages.current ) {",
+				"\t\tstages.current.limit = 1;",
+				"\t}",
+				"",
+				"}",
+				"",
 				"function end(){}",
-				"function update( progress ) {}"
+				"",
+				"function update( progress ){}"
 			]
 		],
 		[
@@ -5167,7 +5198,7 @@
 			266.42,
 			0,
 			51,
-			true
+			false
 		],
 		[
 			"VR Update",
@@ -5182,7 +5213,7 @@
 			0,
 			266.42,
 			2,
-			58,
+			57,
 			true
 		],
 		[
@@ -5239,15 +5270,7 @@
 			302,
 			11,
 			46,
-			true
-		],
-		[
-			"Animation",
-			0.25,
-			2.25,
-			-1,
-			57,
-			true
+			false
 		],
 		[
 			"Fog 1-2",
@@ -7580,7 +7603,7 @@
 		[
 			"Stage 2",
 			100,
-			135.96875,
+			140.2516185258964,
 			4,
 			1,
 			true
@@ -7603,41 +7626,49 @@
 		],
 		[
 			"Exit House",
-			136,
-			149.9950921778805,
-			4,
+			132,
+			150,
+			5,
 			31,
+			true
+		],
+		[
+			"Lock Annie's Direction",
+			132.33,
+			136,
+			7,
+			62,
 			true
 		],
 		[
 			"Mirror Annies",
 			136,
 			144,
-			5,
-			61,
+			6,
+			60,
 			true
 		],
 		[
-			"Stage 3",
-			141.97619040266468,
-			232.5,
-			3,
-			2,
+			"Hide Next Room",
+			138,
+			140,
+			7,
+			63,
 			true
 		],
 		[
 			"Keep City Out of Mirror",
 			141.98,
 			144.375,
-			8,
-			62,
+			9,
+			61,
 			true
 		],
 		[
 			"Out the Door",
 			143.0212765957447,
 			145.48949581270216,
-			6,
+			7,
 			30,
 			true
 		],
@@ -7645,15 +7676,23 @@
 			"Open Door",
 			143.99884977043894,
 			145,
-			7,
+			8,
 			34,
+			true
+		],
+		[
+			"Stage 3",
+			144,
+			232.5,
+			3,
+			2,
 			true
 		],
 		[
 			"Neon Stage 3",
 			144,
 			144.5,
-			5,
+			4,
 			66,
 			true
 		],
@@ -7878,7 +7917,7 @@
 			300,
 			302,
 			2,
-			60,
+			59,
 			true
 		],
 		[
@@ -7894,7 +7933,7 @@
 			300,
 			302,
 			4,
-			59,
+			58,
 			true
 		],
 		[
