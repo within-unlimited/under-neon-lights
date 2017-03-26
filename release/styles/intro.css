@@ -67,14 +67,22 @@ body {
       .button + .button {
         margin-top: 50px; } }
 
-.abs-bc {
+.button-container {
   position: absolute;
   bottom: 90px;
   width: 100%;
   text-align: center;
-  padding: 0 20px; }
+  padding: 0 20px;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: opacity 2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  -moz-transition: opacity 2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition: opacity 2s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+  body.intro .button-container {
+    opacity: 1;
+    pointer-events: auto; }
   @media (max-width: 469px) {
-    .abs-bc {
+    .button-container {
       bottom: 20px; } }
 
 /*# sourceMappingURL=intro.css.map */
