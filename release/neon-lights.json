@@ -4830,52 +4830,6 @@
 			]
 		],
 		[
-			"Neon Default",
-			[
-				"var neon = FRAME.getResource( 'neon' );",
-				"",
-				"var target = {",
-				"\tneon: THREE.neonShader.globals.neon.value,",
-				"\tsepia: THREE.neonShader.globals.sepia.value,",
-				"\tsaturation: THREE.neonShader.globals.saturation.value,",
-				"\tneonFade: THREE.neonShader.globals.neonFade.value,",
-				"\tneonGlow: THREE.neonShader.globals.neonGlow.value,",
-				"\tneonFreq1: THREE.neonShader.globals.neonFreq1.value",
-				"}",
-				"",
-				"var origin = {};",
-				"",
-				"function start () {",
-				"",
-				"\tfor ( var i in target ) {",
-				"",
-				"\torigin[ i ] = THREE.neonShader.globals[ i ].value",
-				"",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function update( progress ){",
-				"",
-				"\tvar t = TWEEN.Easing.Sinusoidal.InOut( progress );",
-				"",
-				"\tfor ( var i in target ) {",
-				"",
-				"\tif ( origin[ i ] !== undefined ) {",
-				"",
-				"\tTHREE.neonShader.globals[ i ].value = origin[ i ] + t * ( target[ i ] - origin[ i ] );",
-				"",
-				"\t}",
-				"",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end () {}",
-				""
-			]
-		],
-		[
 			"Fog Intro",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
@@ -5196,6 +5150,57 @@
 				"",
 				"function end () {}"
 			]
+		],
+		[
+			"Neon Intro",
+			[
+				"var neon = FRAME.getResource( 'neon' );",
+				"",
+				"var target = {",
+				"\tdefault: {",
+				"\t\tneon: 0,",
+				"\t\tsepia: 3.5,",
+				"\t\tsaturation: 0.21,",
+				"\t\tneonFade: 0.0,",
+				"\t\tneonGlow: 0.0,",
+				"\t\tneonFreq1: 1.1,",
+				"\t\tneonFreq2: 2,",
+				"\t\tneonNearClip: 0,",
+				"\t\tsepiaCol1: 0x1488b9,",
+				"\t\tsepiaCol2: 0x10bfca,",
+				"\t\tneonCol: 0x000000,",
+				"\t\tfogCol: 0x333333",
+				"\t},",
+				"\tactive: {",
+				"\t\tneon: 1,",
+				"\t\tsepia: 2.8,",
+				"\t\tsaturation: 0.48,",
+				"\t\tneonFade: 0.73,",
+				"\t\tneonGlow: 0.85,",
+				"\t\tneonFreq1: 1.1,",
+				"\t\tneonFreq2: 2,",
+				"\t\tneonNearClip: 0,",
+				"\t\tsepiaCol1: 0x24fc4,",
+				"\t\tsepiaCol2: 0xefff,",
+				"\t\tneonCol: 0x000000,",
+				"\t\tfogCol: 0x000000",
+				"\t}",
+				"}",
+				"",
+				"function start () {",
+				"\tneon.setLerpOrigin();",
+				"\t// neon.origin.default = target.default;",
+				"\t// neon.origin.active = target.active;",
+				"\tneon.target.default = target.default;",
+				"\tneon.target.active = target.active;",
+				"}",
+				"",
+				"function update( progress ){",
+				"\tneon.lerp( progress );",
+				"}",
+				"",
+				"function end () {}"
+			]
 		]
 	],
 	"animations": [
@@ -5244,7 +5249,7 @@
 			0,
 			3.5,
 			5,
-			64,
+			63,
 			true
 		],
 		[
@@ -7372,7 +7377,7 @@
 			72.65625,
 			73.5,
 			3,
-			65,
+			64,
 			true
 		],
 		[
@@ -7644,7 +7649,7 @@
 			132.33,
 			136,
 			7,
-			62,
+			61,
 			true
 		],
 		[
@@ -7652,7 +7657,7 @@
 			136,
 			144,
 			6,
-			60,
+			59,
 			true
 		],
 		[
@@ -7660,7 +7665,7 @@
 			138,
 			140,
 			7,
-			63,
+			62,
 			true
 		],
 		[
@@ -7668,7 +7673,7 @@
 			141.98,
 			144.375,
 			9,
-			61,
+			60,
 			true
 		],
 		[
@@ -7700,7 +7705,7 @@
 			144,
 			144.5,
 			4,
-			66,
+			65,
 			true
 		],
 		[
@@ -7924,7 +7929,7 @@
 			300,
 			302,
 			2,
-			59,
+			58,
 			true
 		],
 		[
@@ -7936,19 +7941,11 @@
 			true
 		],
 		[
-			"Neon Default",
-			300,
-			302,
-			4,
-			58,
-			true
-		],
-		[
 			"Neon",
 			300,
 			302,
-			5,
-			64,
+			4,
+			66,
 			true
 		],
 		[
