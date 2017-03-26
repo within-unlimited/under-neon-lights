@@ -95,12 +95,21 @@ body {
 }
 
 // button container, absolute bottom center
-.abs-bc {
+.button-container {
 	position: absolute;
 	bottom: 90px;
 	width: 100%;
 	text-align: center;
 	padding: 0 20px;
+	pointer-events: none;
+
+	opacity: 0;
+	@include transition(opacity 2s $ease-in-out-circ);
+
+	body.intro & {
+		opacity: 1;
+		pointer-events: auto;
+	}
 
 	@media (max-width: 469px) {
 		bottom: 20px;
