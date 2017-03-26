@@ -42,10 +42,10 @@ body {
 		@include transition(box-shadow 0.35s $ease-in-out-circ,
 												color 0.35s $ease-in-out-circ,
 												background-color 0.35s $ease-in-out-circ);
+
 	}
 
-
-	&:not(.webvr-not-available):hover {
+	&:not(.webvr-not-available):hover .button-box {
 		background-color: transparentize($pink, 0.8);
 		color: #fff;
 		box-shadow: 0 0 15px 2px transparentize($pink, 0.4),
@@ -68,11 +68,12 @@ body {
     padding: 15px 10px;
     width: 100%;
 
-    @include transition(color 0.35s $ease-in-out-circ);
+    @include transition(opacity 0.35s $ease-in-out-circ);
 	}
 
 	&.webvr-not-available {
-		.button-box, .message {
+		.button-box,
+		.message {
 			opacity: 0.5;
 		}
 
@@ -94,7 +95,6 @@ body {
 	}
 }
 
-// button container, absolute bottom center
 .button-container {
 	position: absolute;
 	bottom: 90px;
