@@ -49,9 +49,9 @@ body {
     font-size: 12px;
     padding: 15px 10px;
     width: 100%;
-    -webkit-transition: opacity 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    -moz-transition: opacity 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    transition: opacity 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+    -webkit-transition: opacity 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), text-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    -moz-transition: opacity 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), text-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition: opacity 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), text-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
   .button.webvr-not-available .button-box,
   .button.webvr-not-available .message {
     opacity: 0.5; }
@@ -64,10 +64,14 @@ body {
   @media (max-width: 469px) {
     .button {
       display: block;
-      width: 100%; }
-      .button + .button {
-        margin-top: 50px; } }
+      width: 100%; } }
 
+@media (max-width: 469px) {
+  .button:first-child {
+    margin-bottom: 20px; }
+
+  .button.webvr-not-available {
+    margin-bottom: 50px; } }
 .button-container {
   position: absolute;
   bottom: 90px;

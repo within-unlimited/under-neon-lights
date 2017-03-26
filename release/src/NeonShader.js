@@ -13,8 +13,7 @@ THREE.neonShader = {
 		neonCol: { type: 'c', value: new THREE.Color( 0x000000 ) },
 		time: { type: 'f', value: 0.0 },
 		cursor: { type: 'v3', value: new THREE.Vector3() },
-		motionVector: { type: 'v3', value: new THREE.Vector3() },
-		ySpin: { type: 'f', value: 0 },
+		motion: { type: 'f', value: 0 },
 		yRot: { type: 'f', value: 0 }
 	}
 }

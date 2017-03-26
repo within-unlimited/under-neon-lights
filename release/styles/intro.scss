@@ -68,7 +68,8 @@ body {
     padding: 15px 10px;
     width: 100%;
 
-    @include transition(opacity 0.35s $ease-in-out-circ);
+    @include transition(opacity 0.35s $ease-in-out-circ,
+    										text-shadow 0.35s $ease-in-out-circ);
 	}
 
 	&.webvr-not-available {
@@ -91,8 +92,13 @@ body {
 		display: block;
 		width: 100%;
 
-		+ .button { margin-top: 50px; }
+		// + .button { margin-top: 50px; }
 	}
+}
+
+@media (max-width: 469px) {
+	.button:first-child { margin-bottom: 20px; }
+	.button.webvr-not-available { margin-bottom: 50px; }
 }
 
 .button-container {
