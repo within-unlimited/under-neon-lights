@@ -401,6 +401,24 @@ var FRAME = ( function () {
 
 				},
 
+				compile: function ( player ) {
+
+					var animations = this.animations;
+
+					for ( var i = 0, l = animations.length; i < l; i ++ ) {
+
+						var animation = animations[ i ];
+
+						if ( animation.effect.program === null ) {
+
+							animation.effect.compile( player );
+
+						}
+
+					}
+
+				},
+
 				add: function ( animation ) {
 
 					animations.push( animation );

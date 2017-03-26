@@ -25,21 +25,7 @@
 			var timeline = new FRAME.Timeline();
 			timeline.load( 'neon-lights.json', function () {
 
-				// Compile
-
-				var animations = timeline.animations;
-
-				for ( var i = 0, l = animations.length; i < l; i ++ ) {
-
-					var animation = animations[ i ];
-
-					if ( animation.effect.program === null ) {
-
-						animation.effect.compile( player );
-
-					}
-
-				}
+				timeline.compile( player );
 
 				//
 
