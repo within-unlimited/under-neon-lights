@@ -262,7 +262,7 @@
 				"",
 				"var dolly = new THREE.Camera();",
 				"var camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 550 );",
-				"camera.userData.targetY = 0.6;",
+				"camera.userData.targetY = 1;",
 				"camera.position.y = camera.userData.targetY;",
 				"",
 				"dolly.userData.distance = 2;",
