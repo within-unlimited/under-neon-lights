@@ -376,6 +376,7 @@
 				"FRAME.addResource( 'compass', compass );",
 				"FRAME.addResource( 'clock', clock );",
 				"FRAME.addResource( 'stages', [] );",
+				"FRAME.addResource( 'audio', {} );",
 				"",
 				"FRAME.addResource( 'neon', neon );",
 				"FRAME.addResource( 'renderer', renderer );",
@@ -5772,6 +5773,7 @@
 			[
 				"var root = FRAME.getResource( 'root' );",
 				"var src = [ root, '/audio/credits', has.Chromium ? '.ogg' : '.mp3' ].join( '' );",
+				"var exports = FRAME.getResource( 'audio' );",
 				"",
 				"var audio = document.createElement( 'audio' );",
 				"audio.src = src;",
@@ -5781,6 +5783,8 @@
 				"var audio = new Sound( src );",
 				"audio.loop = true;",
 				"*/",
+				"",
+				"exports.credits = audio;",
 				"",
 				"function start(){",
 				"",
@@ -5794,7 +5798,7 @@
 				"",
 				"}",
 				"",
-				"function update( progress ){}"
+				"function update( progress ) {}"
 			]
 		],
 		[
@@ -5928,7 +5932,7 @@
 				"\tt = TWEEN.Easing.Quintic.InOut( t );",
 				"",
 				"\tbyline.material.opacity = t;",
-				"\tbyline.position.z = ( 1 - t ) * dolly.userData.distance * 0.25 + dolly.userData.distance;",
+				"\tbyline.position.z = ( 1 - t ) * dolly.userData.distance * 0.1 + dolly.userData.distance;",
 				"",
 				"}"
 			]
@@ -5963,6 +5967,52 @@
 				"function end(){}",
 				"",
 				"function update( progress ){}"
+			]
+		],
+		[
+			"Fog Audio Fade In",
+			[
+				"var audio = FRAME.getResource( 'audio' );",
+				"var fog = FRAME.getResource( 'scene' ).fog;",
+				"",
+				"var fo = 1;",
+				"var fd = 12;",
+				"",
+				"function start () {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tfog.far = progress * ( fd - fo ) + fo;",
+				"\tif ( audio.credits ) {",
+				"\t\taudio.credits.volume = progress;",
+				"\t}",
+				"",
+				"}"
+			]
+		],
+		[
+			"Audio Fog Fade Out",
+			[
+				"var audio = FRAME.getResource( 'audio' );",
+				"var fog = FRAME.getResource( 'scene' ).fog;",
+				"",
+				"var fo = 12;",
+				"var fd = 1;",
+				"",
+				"function start () {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tfog.far = progress * ( fd - fo ) + fo;",
+				"\tif ( audio.credits ) {",
+				"\t\taudio.credits.volume = 1 - progress;",
+				"\t}",
+				"",
+				"}"
 			]
 		]
 	],
@@ -6042,26 +6092,10 @@
 		[
 			"Stats",
 			0,
-			372,
+			373,
 			11,
 			46,
 			false
-		],
-		[
-			"Animation",
-			1.53125,
-			3.53125,
-			0,
-			73,
-			true
-		],
-		[
-			"Animation",
-			2.09375,
-			4.09375,
-			0,
-			72,
-			true
 		],
 		[
 			"Fog 1-2",
@@ -8738,15 +8772,15 @@
 		[
 			"Ambient Music",
 			330,
-			372,
+			373,
 			0,
 			68,
-			true
+			false
 		],
 		[
 			"VR Update",
 			330,
-			372,
+			373,
 			1,
 			4,
 			true
@@ -8754,7 +8788,7 @@
 		[
 			"Update",
 			330,
-			372,
+			373,
 			2,
 			69,
 			true
@@ -8762,7 +8796,7 @@
 		[
 			"Credits",
 			330,
-			372,
+			373,
 			3,
 			67,
 			true
@@ -8770,15 +8804,23 @@
 		[
 			"Filter Settings",
 			330,
-			372,
+			373,
 			4,
 			70,
 			true
 		],
 		[
+			"Credits Fade In",
+			330,
+			332,
+			6,
+			74,
+			true
+		],
+		[
 			"Render Loop",
 			330,
-			372,
+			373,
 			10,
 			5,
 			true
@@ -8845,6 +8887,14 @@
 			371,
 			5,
 			71,
+			true
+		],
+		[
+			"Fade Out Credits",
+			371,
+			373,
+			6,
+			75,
 			true
 		]
 	]
