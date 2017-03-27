@@ -307,45 +307,48 @@ var FRAME = ( function () {
 
 				},
 
-				parse: function ( json, onLoad ) {
+				/*
+				loadLibraries: function ( libraries, onLoad ) {
 
-					function loadLibraries( libraries, onLoad ) {
+					var count = 0;
 
-						var count = 0;
+					function loadNext() {
 
-						function loadNext() {
+						if ( count === libraries.length ) {
 
-							if ( count === libraries.length ) {
-
-								onLoad();
-								return;
-
-							}
-
-							var url = libraries[ count ++ ];
-
-							loadFile( url, function ( content ) {
-
-								var script = document.createElement( 'script' );
-								script.id = 'library-' + count;
-								script.textContent = '( function () { ' + content + '} )()';
-								document.head.appendChild( script );
-
-								loadNext();
-
-							} );
+							onLoad();
+							return;
 
 						}
 
-						loadNext();
+						var url = libraries[ count ++ ];
+
+						loadFile( url, function ( content ) {
+
+							var script = document.createElement( 'script' );
+							script.id = 'library-' + count;
+							script.textContent = '( function () { ' + content + '} )()';
+							document.head.appendChild( script );
+
+							loadNext();
+
+						} );
+
 
 					}
 
+					loadNext();
+
+				},
+				*/
+
+				parse: function ( json, onLoad ) {
+
 					var scope = this;
 
-					var libraries = json.libraries || [];
+					// var libraries = json.libraries || [];
 
-					loadLibraries( libraries, function () {
+					// this.loadLibraries( libraries, function () {
 
 						for ( var i = 0; i < json.includes.length; i ++ ) {
 
@@ -397,7 +400,7 @@ var FRAME = ( function () {
 
 						if ( onLoad ) onLoad();
 
-					} );
+					// } );
 
 				},
 
