@@ -1986,6 +1986,8 @@
 				"var elements = [];",
 				"var material = materials.room;",
 				"",
+				"group.rotation.y = - HALF_PI;",
+				"",
 				"roomModels.ready( function () {",
 				"",
 				"\tvar geometries = roomModels.geometries;",
