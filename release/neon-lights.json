@@ -2207,7 +2207,17 @@
 				"\tvar offset = compass.direction.drag;",
 				"\tvar dist = pc.distanceTo( cursor.destination );",
 				"",
-				"\tif ( dist >= limit ) {",
+				"\tif ( stage.hideNextRoom ) {",
+				"",
+				"\t\tif ( dist >= limit / 2 ) {",
+				"",
+				"\t\t\tstage.limit += 0.75;",
+				"",
+				"\t\t\tpc.copy( cursor.destination );",
+				"",
+				"\t\t}",
+				"",
+				"\t} else if ( dist >= limit ) {",
 				"",
 				"\t\tangle = 4 * compass.theta.destination / TWO_PI;",
 				"\t\tangle = TWO_PI * Math.round( angle ) / 4;",
@@ -5297,21 +5307,14 @@
 				"function start () {",
 				"",
 				"\tif ( stages.current ) {",
-				"\t\tstate = stages.current.inTransition;",
-				"\t\tstages.current.inTransition = true;",
+				"//\t\tstages.current.inTransition = true;",
 				"\t\tstages.current.hideNextRoom = true;",
-				"\t\tstages.current.limit = - 1;",
+				"\t\tstages.current.limit = - 2.75;",
 				"\t}",
 				"",
 				"}",
 				"",
-				"function end () {",
-				"",
-				"\tif ( stages.current ) {",
-				"\t\tstages.current.limit = 0;",
-				"\t}",
-				"",
-				"}",
+				"function end () {}",
 				"",
 				"function update( progress ){}"
 			]
@@ -8476,6 +8479,14 @@
 			true
 		],
 		[
+			"Lock Annie's Direction",
+			131,
+			136,
+			7,
+			60,
+			true
+		],
+		[
 			"Exit House",
 			132,
 			150,
@@ -8484,27 +8495,11 @@
 			true
 		],
 		[
-			"Lock Annie's Direction",
-			132.33,
-			136,
-			7,
-			60,
-			true
-		],
-		[
 			"Mirror Annies",
 			136,
 			144,
 			6,
 			59,
-			true
-		],
-		[
-			"Hide Next Room",
-			137,
-			140,
-			7,
-			61,
 			true
 		],
 		[
