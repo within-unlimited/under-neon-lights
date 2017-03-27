@@ -307,6 +307,8 @@
 				"\t}",
 				"};",
 				"",
+				"controls.virtualReality.standing = true;",
+				"",
 				"var effect = new THREE.VREffect( renderer );",
 				"",
 				"if ( navigator.getVRDisplays ) {",
