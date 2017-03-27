@@ -51,19 +51,33 @@
 				effect = FRAME.getResource( 'effect' );
 				effect.requestAnimationFrame( animate );
 
-				// function toggle () {
+				var annie = FRAME.getResource( 'annie' );
+				var models = FRAME.getResource( 'models' );
+				var textures = FRAME.getResource( 'textures' );
 
-				// 	if ( player.isPlaying ) {
-				// 		player.pause();
-				// 		// buttonPlay.textContent = 'PLAY';
-				// 	} else {
-				// 		player.play();
-				// 		// buttonPlay.textContent = 'PAUSE';
-				// 	}
+				var complete = function () {
 
-				// }
+					complete.index++;
+					if ( complete.index === complete.amount ) {
+						player.play();
+					}
 
-				player.play();
+				};
+				complete.index = 0;
+				complete.amount = 2;
+
+				for ( var k in models ) {
+					complete.amount++;
+					models[ k ].ready( complete );
+				}
+
+				annie.userData.models.complete.ready( complete );
+				annie.userData.animations.complete.ready( complete );
+
+				for ( var k in textures ) {
+					complete.amount++;
+					textures[ k ].ready( complete );
+				}
 
 			} );
 
