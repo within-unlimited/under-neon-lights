@@ -4310,7 +4310,7 @@
 			"City.Position Y",
 			[
 				"var stage = FRAME.getResource( 'stages' )[ 2 ];",
-				"var destination = 75;",
+				"var destination = 50;",
 				"var origin = 0;",
 				"",
 				"function start(){}",
