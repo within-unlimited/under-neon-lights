@@ -4385,6 +4385,7 @@
 		[
 			"Audio Player",
 			[
+				"var exports = FRAME.getResource( 'audio' );",
 				"var root = FRAME.getResource( 'root' );",
 				"var src = [ root, '/audio/03 Under Neon Lights', has.Chromium ? '.ogg' : '.mp3' ].join( '' );",
 				"",
@@ -4394,6 +4395,8 @@
 				"/*",
 				"var audio = new Sound( src );",
 				"*/",
+				"",
+				"exports.music = audio;",
 				"",
 				"function start(){",
 				"",
@@ -6024,7 +6027,7 @@
 			266.42,
 			0,
 			51,
-			false
+			true
 		],
 		[
 			"VR Update",
