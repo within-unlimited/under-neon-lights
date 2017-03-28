@@ -4424,7 +4424,11 @@
 				"",
 				"}",
 				"",
-				"function end(){}",
+				"function end(){",
+				"",
+				"\tplayer.setAudio( null );",
+				"",
+				"}",
 				"",
 				"function update( progress ){}"
 			]
