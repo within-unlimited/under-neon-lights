@@ -6045,7 +6045,6 @@
 				"",
 				"\tvar t = TWEEN.Easing.Linear.None( progress );",
 				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
-				"\tconsole.log( fog.near, fog.far );",
 				"",
 				"}",
 				""
