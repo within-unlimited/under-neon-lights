@@ -3003,7 +3003,7 @@
 			"Fog 1-2",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 6.4;",
 				"",
 				"function start () {",
@@ -3077,7 +3077,7 @@
 			"Fog 1-3",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 11;",
 				"",
 				"function start () {",
@@ -4133,7 +4133,7 @@
 			"Fog 2-2",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 4;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 12;",
 				"",
 				"function start () {",
@@ -4297,7 +4297,7 @@
 			"Fog 3-1",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 12;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 50;",
 				"",
 				"function start () {",
@@ -5051,7 +5051,7 @@
 			"Fog 2-1",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 8;",
 				"",
 				"function start () {",
@@ -5074,7 +5074,7 @@
 			"Fog 3-2",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 110;",
 				"",
 				"function start () {",
@@ -5098,7 +5098,7 @@
 			"Fog 3-3",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 220;",
 				"",
 				"function start () {",
@@ -5338,32 +5338,6 @@
 				"}",
 				"",
 				"function end () {}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Increase Stage Limit",
-			[
-				"var stages = FRAME.getResource( 'stages' );",
-				"",
-				"function start() {",
-				"",
-				"\tif ( stages.current ) {",
-				"\t\tstages.current.limit = 1;",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end () {",
-				"",
-				"\t/*",
-				"\tif ( stages.current ) {",
-				"\t\tstages.current.limit = 2;",
-				"\t}",
-				"\t*/",
-				"",
-				"}",
 				"",
 				"function update( progress ){}"
 			]
@@ -6051,6 +6025,31 @@
 				"",
 				"}"
 			]
+		],
+		[
+			"Fog 3-4",
+			[
+				"var fog = FRAME.getResource( 'scene' ).fog;",
+				"var fog_origin = fog.far;",
+				"var fog_target = 13;",
+				"",
+				"function start () {",
+				"",
+				"\tfog_origin = fog.far;",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar t = TWEEN.Easing.Linear.None( progress );",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
+				"\tconsole.log( fog.near, fog.far );",
+				"",
+				"}",
+				""
+			]
 		]
 	],
 	"animations": [
@@ -6099,7 +6098,7 @@
 			0,
 			3.5,
 			5,
-			62,
+			61,
 			true
 		],
 		[
@@ -8227,7 +8226,7 @@
 			72.65625,
 			73.5,
 			3,
-			63,
+			62,
 			true
 		],
 		[
@@ -8419,7 +8418,7 @@
 			82.03409090968204,
 			85.05681820014293,
 			9,
-			66,
+			65,
 			true
 		],
 		[
@@ -8547,7 +8546,7 @@
 			144,
 			144.5,
 			4,
-			64,
+			63,
 			true
 		],
 		[
@@ -8616,8 +8615,8 @@
 		],
 		[
 			"Fog 3-3",
-			184.9375,
-			186.9375,
+			184.96875,
+			186.96875,
 			4,
 			56,
 			true
@@ -8719,19 +8718,35 @@
 			true
 		],
 		[
-			"Fog",
-			225.875,
-			227.875,
+			"Animation",
+			226.71875,
+			227.53125,
 			4,
 			56,
 			true
 		],
 		[
+			"Animation",
+			227.6875,
+			228.53125,
+			4,
+			63,
+			true
+		],
+		[
 			"Neon Out",
-			229.28125,
+			229,
 			232.5,
-			8,
+			4,
 			49,
+			true
+		],
+		[
+			"Fog 3-4",
+			229,
+			232.5,
+			5,
+			74,
 			true
 		],
 		[
@@ -8745,8 +8760,8 @@
 		[
 			"Neon In",
 			232.5,
-			234.90625,
-			8,
+			235,
+			4,
 			50,
 			true
 		],
@@ -8763,7 +8778,7 @@
 			266.4,
 			268,
 			4,
-			72,
+			71,
 			true
 		],
 		[
@@ -8787,7 +8802,7 @@
 			300,
 			302,
 			4,
-			65,
+			64,
 			true
 		],
 		[
@@ -8803,7 +8818,7 @@
 			325,
 			383,
 			0,
-			68,
+			67,
 			true
 		],
 		[
@@ -8819,7 +8834,7 @@
 			325,
 			383,
 			2,
-			69,
+			68,
 			true
 		],
 		[
@@ -8827,7 +8842,7 @@
 			325,
 			383,
 			3,
-			67,
+			66,
 			true
 		],
 		[
@@ -8835,7 +8850,7 @@
 			325,
 			383,
 			4,
-			70,
+			69,
 			true
 		],
 		[
@@ -8843,7 +8858,7 @@
 			325,
 			332,
 			6,
-			73,
+			72,
 			true
 		],
 		[
@@ -8859,7 +8874,7 @@
 			330,
 			336,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8867,7 +8882,7 @@
 			337,
 			341,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8875,7 +8890,7 @@
 			342,
 			346,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8883,7 +8898,7 @@
 			347,
 			351,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8891,7 +8906,7 @@
 			352,
 			356,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8899,7 +8914,7 @@
 			357,
 			361,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8907,7 +8922,7 @@
 			362,
 			366,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8915,7 +8930,7 @@
 			367,
 			371,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8923,7 +8938,7 @@
 			372,
 			376,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8931,7 +8946,7 @@
 			381,
 			383,
 			6,
-			74,
+			73,
 			true
 		],
 		[
