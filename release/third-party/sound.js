@@ -27,11 +27,7 @@
     this.url = url;
 
     this._ended = function() {
-      if (scope.currentTime < scope.buffer.duration) {
-        scope._offset = scope.currentTime;
-      } else {
-        scope._offset = 0;
-      }
+      scope._offset = scope.currentTime;
       scope.playing = false;
     };
 
