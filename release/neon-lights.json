@@ -3177,10 +3177,11 @@
 		[
 			"Building Y Scale",
 			[
-				"var stage = FRAME.getResource( 'stages' ).current;",
+				"var stage;",
 				"",
 				"function start () {",
 				"",
+				"\tstage = FRAME.getResource( 'stages' ).current;",
 				"\tvar types = stage.types;",
 				"\tif ( !types ) {",
 				"\t\treturn;",
@@ -3211,10 +3212,11 @@
 		[
 			"Building Y Scale + 0.5",
 			[
-				"var stage = FRAME.getResource( 'stages' ).current;",
+				"var stage;",
 				"",
 				"function start () {",
 				"",
+				"\tstage = FRAME.getResource( 'stages' ).current;",
 				"\tvar types = stage.types;",
 				"\tif ( !types ) {",
 				"\t\treturn;",
@@ -3245,10 +3247,11 @@
 		[
 			"City Curvature",
 			[
-				"var stage = FRAME.getResource( 'stages' ).current;",
+				"var stage;",
 				"",
 				"function start () {",
 				"",
+				"\tstage = FRAME.getResource( 'stages' ).current;",
 				"\tstage.curvature.value = 0;",
 				"",
 				"}",
@@ -3271,10 +3274,11 @@
 		[
 			"Randomize Building Y",
 			[
-				"var stage = FRAME.getResource( 'stages' ).current;",
+				"var stage;",
 				"",
 				"function start () {",
 				"",
+				"\tstage = FRAME.getResource( 'stages' ).current;",
 				"\tvar types = stage.types;",
 				"\tif ( !types ) {",
 				"\t\treturn;",
@@ -3305,10 +3309,11 @@
 		[
 			"City.curvature 2",
 			[
-				"var stage = FRAME.getResource( 'stages' ).current;",
+				"var stage;",
 				"",
 				"function start () {",
 				"",
+				"\tstage = FRAME.getResource( 'stages' ).current;",
 				"\tstage.curvature.value = 0;",
 				"",
 				"}",
@@ -4372,11 +4377,15 @@
 		[
 			"City.Position Y",
 			[
-				"var stage = FRAME.getResource( 'stages' ).current;",
+				"var stage;",
 				"var destination = 50;",
 				"var origin = 0;",
 				"",
-				"function start(){}",
+				"function start () {",
+				"",
+				"\tstage = FRAME.getResource( 'stages' ).current;",
+				"",
+				"}",
 				"",
 				"function end(){}",
 				"",
