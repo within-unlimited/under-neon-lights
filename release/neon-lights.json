@@ -364,6 +364,7 @@
 				"var objectLoader = new THREE.ObjectLoader();",
 				"var bufferGeometryLoader = new THREE.BufferGeometryLoader();",
 				"var textureLoader = new THREE.TextureLoader();",
+				"textureLoader.crossOrigin = 'anonymous';",
 				"",
 				"var clock = new THREE.Clock();",
 				"var compass = {",
