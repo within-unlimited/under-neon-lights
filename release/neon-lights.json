@@ -5879,6 +5879,7 @@
 				"",
 				"function start(){",
 				"",
+				"\taudio.currentTime = 0;",
 				"\taudio.play();",
 				"",
 				"}",
