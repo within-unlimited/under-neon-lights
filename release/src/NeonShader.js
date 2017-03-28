@@ -399,6 +399,43 @@ THREE.neonShader.vertexColored.defines = { USE_FAKE_SHADOW: '' };
 THREE.neonShader.doubleSided = THREE.neonShader.roadShader.clone();
 THREE.neonShader.doubleSided.side = THREE.DoubleSide;
 
+THREE.neonShader.particleShader = new THREE.ShaderMaterial( {
+	transparent: true,
+	blending: THREE.AdditiveBlending,
+	depthWrite: false,
+	uniforms: THREE.UniformsUtils.merge( [
+		THREE.neonShader._uniforms, {
+			progress: { type: 'f', value: 0 },
+			col: { type: 'c', value: new THREE.Color( 0.3, 0.3, 0.3 ) }
+		}
+	] ),
+	vertexShader: [
+		"attribute float size;",
+		"attribute vec3 destination;",
+		"varying vec3 vColor;",
+		"uniform float time;",
+		"uniform float progress;",
+		"void main() {",
+		"	vColor = vec3(1.0);",
+		"	vec4 mvPosition = modelViewMatrix * vec4( mix( position, destination, progress ), 1.0 );",
+		"	gl_PointSize = size * ( 10.0 / -mvPosition.z );",
+		"	gl_Position = projectionMatrix * mvPosition;",
+		"}",
+	].join( '\n' ),
+	fragmentShader: [
+		"uniform float progress;",
+		"uniform vec3 col;",
+		"varying vec3 vColor;",
+		"void main() {",
+		"	float gradient = max( 0.0, 1.0 - length( gl_PointCoord * 2.0 - vec2( 1.0 ) ) );",
+		"	float alpha = min( 1.0, min( progress * 2.0  , ( 1.0 - progress ) * 3.0 ) );",
+		"	gl_FragColor = vec4( col * vColor * vec3( gradient ), alpha );",
+		"}",
+	].join( '\n' ),
+	// vertexShader: THREE.neonShader.load( '../release/src/shaders/particle_vert.glsl' ),
+	// fragmentShader: THREE.neonShader.load( '../release/src/shaders/particle_frag.glsl' )
+} );
+
 for ( var i in THREE.neonShader  ) {
 	if ( THREE.neonShader[i] instanceof THREE.ShaderMaterial ) {
 		for ( var j in THREE.neonShader.globals ) {
