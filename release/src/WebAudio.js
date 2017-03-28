@@ -22,6 +22,7 @@ function WebAudio() {
 		request.addEventListener( 'load', function ( event ) {
 			context.decodeAudioData( event.target.response, function ( data ) {
 				buffer = data;
+				if ( paused === false ) play();
 			} );
 		} );
 		request.send();
@@ -30,13 +31,14 @@ function WebAudio() {
 
 	function getCurrentTime() {
 
+		if ( buffer === undefined || paused === true ) return currentTime;
 		return currentTime + ( context.currentTime - startAt ) * playbackRate;
 
 	}
 
 	function play() {
 
-		if ( buffer === undefined ) return false;
+		if ( buffer === undefined ) return;
 
 		source = context.createBufferSource();
 		source.buffer = buffer;
@@ -47,30 +49,31 @@ function WebAudio() {
 
 		startAt = context.currentTime;
 
-		return true;
-
 	}
 
 	function stop() {
+
+		if ( buffer === undefined ) return;
 
 		source.stop();
 		source.disconnect( context.destination );
 
 		currentTime = getCurrentTime();
 
-		return true;
-
 	}
 
 	return {
 		play: function () {
-			if ( paused ) paused = play() === false;
+			if ( paused ) {
+				play(); paused = false;
+			}
 		},
 		pause: function () {
-			if ( paused === false ) paused = stop();
+			if ( paused === false ) {
+				stop(); paused = true;
+			}
 		},
 		get currentTime() {
-			if ( paused === true ) return currentTime;
 			return getCurrentTime();
 		},
 		set currentTime( value ) {
