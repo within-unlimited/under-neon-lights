@@ -2619,7 +2619,7 @@
 				"\tamount: new FRAME.Parameters.Integer( 'Amount', 256 ),",
 				"\ttheta: new FRAME.Parameters.Float( 'Theta', 10 ),",
 				"\tstep: new FRAME.Parameters.Float( 'Step', 1 ),",
-				"\tforceField: new FRAME.Parameters.Float( 'Field', 0.025 )",
+				"\tminDistance: new FRAME.Parameters.Float( 'Min Distance', 10.0 )",
 				"};",
 				"",
 				"var cursor = new THREE.Vector3();",
@@ -2696,15 +2696,11 @@
 				"\tstages.current = stage;",
 				"\tstages.index = stage.index;",
 				"",
-				"\t// cursor.set( 0, 0, 0 );",
-				"",
 				"\tcameraYaw.reset();",
 				"\tcameraPitch.reset();",
 				"\tworldYaw.reset();",
 				"\tworldPitch.reset();",
 				"",
-				"\t// annie.userData.age( 'adult' );",
-				"\t// annie.userData.play( 'fly' );",
 				"\tannie.rotation.y = 0;",
 				"",
 				"\tscene.add( group );",
@@ -2733,13 +2729,7 @@
 				"\t\tcompass.step.destination = 0.2 * parameters.step.value;",
 				"\t\tcamera.userData.fov.destination = 100;",
 				"",
-				"\t\t/*",
-				"\t\tif ( animation ) {",
-				"\t\t\tanimation.action.timeScale = 1.3;",
-				"\t\t}",
-				"\t\t*/",
-				"",
-				"\t} else { ",
+				"\t} else {",
 				"",
 				"\t\tif ( animation ) {",
 				"\t\t\tanimation.action.timeScale = 1;",
@@ -2754,7 +2744,7 @@
 				"\tcameraPitch.destination += controllers.axes.delta.y;",
 				"",
 				"\tcameraPitch.destination = clamp( cameraPitch.destination, - HALF_PI, HALF_PI );",
-				"\t",
+				"",
 				"\tif ( controllers.axes.delta.y === 0 ) {",
 				"\t\tworldPitch.destination = cameraPitch.value;",
 				"\t}",
@@ -2797,14 +2787,12 @@
 				"\tdolly.position.x = distance * Math.sin( cameraYaw.value - worldYaw.value );",
 				"\tdolly.position.z = - distance * Math.cos( cameraYaw.value - worldYaw.value );",
 				"\tdolly.position.y = - distance * Math.sin( cameraPitch.value - worldPitch.value );",
-				"\tdolly.lookAt( dolly.userData.target );\t",
+				"\tdolly.lookAt( dolly.userData.target );",
 				"",
 				"\tvar t = ( timelineDelta || 0 );",
 				"",
 				"\tvar size = parameters.size.value;",
 				"\tvar amplitude = compass.step.value * t;",
-				"\tvar forceField = parameters.forceField.value;",
-				"\tvar buffer = forceField * ( 128 / size );",
 				"",
 				"\ttemp.set(",
 				"\t\t\tMath.cos( worldYaw.value ),",
@@ -2819,6 +2807,10 @@
 				"\tgroup.rotation.x = worldPitch.value;",
 				"\tgroup.rotation.y = worldYaw.value - Math.PI / 2;",
 				"",
+				"\tvar minDist = parameters.minDistance.value;",
+				"\tvar bufferBlend = 0, dist;",
+				"\tvar posNorm = new THREE.Vector3();",
+				"",
 				"\tfor ( var i = 0; i < elements.length; i++ ) {",
 				"",
 				"\t\tvar mesh = elements[ i ];",
@@ -2828,28 +2820,18 @@
 				"\t\tvar y = mod( cursor.y + offset.y, 1 ) - 0.5;",
 				"\t\tvar z = mod( cursor.z + offset.z, 1 ) - 0.5;",
 				"",
-				"\t\tvar angle = Math.atan2( - z, - x );",
-				"\t\tvar phi = angle + Math.PI;",
-				"",
-				"\t\tmesh.position.x = x;// + Math.cos( phi ) * buffer;",
-				"\t\tmesh.position.z = z;// + Math.sin( phi ) * buffer;",
-				"",
-				"\t\tangle = Math.atan2( - y, 0 );",
-				"\t\tphi = angle + Math.PI;",
-				"",
-				"\t\tmesh.position.y = y;// + Math.sin( phi ) * buffer;",
-				"",
-				"\t\tvar rv = mesh.userData.velocity.rotation;",
-				"",
-				"\t\t/*",
-				"\t\tmesh.rotation.x += t * rv.x;",
-				"\t\tmesh.rotation.y += t * rv.y;",
-				"\t\tmesh.rotation.z += t * rv.z;",
-				"\t\t*/",
+				"\t\tmesh.position.x = x;",
+				"\t\tmesh.position.z = z;",
+				"\t\tmesh.position.y = y;",
 				"",
 				"\t\tmesh.position.x *= - size;",
 				"\t\tmesh.position.z *= - size;",
 				"\t\tmesh.position.y *= - size;",
+				"\t\t",
+				"\t\tdist = mesh.position.length() - mesh.geometry.boundingSphere.radius;",
+				"\t\tbufferBlend = Math.min( dist, minDist ) / minDist;",
+				"\t\tposNorm.copy(mesh.position).setLength( minDist );",
+				"\t\tmesh.position.lerp( posNorm, 1.0 - bufferBlend );",
 				"",
 				"\t}",
 				"",
@@ -2865,7 +2847,8 @@
 				"\t\tv -= e * l;",
 				"\t}",
 				"\treturn v % l;",
-				"}"
+				"}",
+				""
 			]
 		],
 		[
@@ -3043,7 +3026,6 @@
 				"var types;",
 				"var list;",
 				"var type;",
-				"var frameCount = 0;",
 				"",
 				"function start () {",
 				"",
@@ -3060,9 +3042,7 @@
 				"\tvar type = list[ Math.floor( Math.random() * list.length ) ];",
 				"\tvar items = types[ type ];",
 				"",
-				"\tframeCount++;",
-				"",
-				"\tif ( items.exhausted || !( frameCount % 2 ) ) {",
+				"\tif ( items.exhausted ) {",
 				"\t\treturn;",
 				"\t}",
 				"",
@@ -3076,7 +3056,7 @@
 			"Fog 1-2",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 6.4;",
 				"",
 				"function start () {",
@@ -3149,7 +3129,7 @@
 			"Fog 1-3",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 11;",
 				"",
 				"function start () {",
@@ -4205,7 +4185,7 @@
 			"Fog 2-2",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 4;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 12;",
 				"",
 				"function start () {",
@@ -4369,7 +4349,7 @@
 			"Fog 3-1",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 12;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 50;",
 				"",
 				"function start () {",
@@ -5123,7 +5103,7 @@
 			"Fog 2-1",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 8;",
 				"",
 				"function start () {",
@@ -5146,7 +5126,7 @@
 			"Fog 3-2",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 110;",
 				"",
 				"function start () {",
@@ -5170,7 +5150,7 @@
 			"Fog 3-3",
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = fog.far;",
 				"var fog_target = 220;",
 				"",
 				"function start () {",
@@ -5410,32 +5390,6 @@
 				"}",
 				"",
 				"function end () {}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Increase Stage Limit",
-			[
-				"var stages = FRAME.getResource( 'stages' );",
-				"",
-				"function start() {",
-				"",
-				"\tif ( stages.current ) {",
-				"\t\tstages.current.limit = 1;",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end () {",
-				"",
-				"\t/*",
-				"\tif ( stages.current ) {",
-				"\t\tstages.current.limit = 2;",
-				"\t}",
-				"\t*/",
-				"",
-				"}",
 				"",
 				"function update( progress ){}"
 			]
@@ -6123,6 +6077,30 @@
 				"",
 				"}"
 			]
+		],
+		[
+			"Fog 3-4",
+			[
+				"var fog = FRAME.getResource( 'scene' ).fog;",
+				"var fog_origin = fog.far;",
+				"var fog_target = 13;",
+				"",
+				"function start () {",
+				"",
+				"\tfog_origin = fog.far;",
+				"",
+				"}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar t = TWEEN.Easing.Linear.None( progress );",
+				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
+				"",
+				"}",
+				""
+			]
 		]
 	],
 	"animations": [
@@ -6171,7 +6149,7 @@
 			0,
 			3.5,
 			5,
-			62,
+			61,
 			true
 		],
 		[
@@ -8299,7 +8277,7 @@
 			72.65625,
 			73.5,
 			3,
-			63,
+			62,
 			true
 		],
 		[
@@ -8491,7 +8469,7 @@
 			82.03409090968204,
 			85.05681820014293,
 			9,
-			66,
+			65,
 			true
 		],
 		[
@@ -8619,7 +8597,7 @@
 			144,
 			144.5,
 			4,
-			64,
+			63,
 			true
 		],
 		[
@@ -8688,8 +8666,8 @@
 		],
 		[
 			"Fog 3-3",
-			184.9375,
-			186.9375,
+			184.96875,
+			186.96875,
 			4,
 			56,
 			true
@@ -8791,19 +8769,19 @@
 			true
 		],
 		[
-			"Fog",
-			225.875,
-			227.875,
+			"Neon Out",
+			229,
+			232.5,
 			4,
-			56,
+			49,
 			true
 		],
 		[
-			"Neon Out",
-			229.28125,
+			"Fog 3-4",
+			229,
 			232.5,
-			8,
-			49,
+			5,
+			74,
 			true
 		],
 		[
@@ -8817,8 +8795,8 @@
 		[
 			"Neon In",
 			232.5,
-			234.90625,
-			8,
+			235,
+			4,
 			50,
 			true
 		],
@@ -8835,7 +8813,7 @@
 			266.4,
 			268,
 			4,
-			72,
+			71,
 			true
 		],
 		[
@@ -8859,7 +8837,7 @@
 			300,
 			302,
 			4,
-			65,
+			64,
 			true
 		],
 		[
@@ -8875,7 +8853,7 @@
 			325,
 			383,
 			0,
-			68,
+			67,
 			true
 		],
 		[
@@ -8891,7 +8869,7 @@
 			325,
 			383,
 			2,
-			69,
+			68,
 			true
 		],
 		[
@@ -8899,7 +8877,7 @@
 			325,
 			383,
 			3,
-			67,
+			66,
 			true
 		],
 		[
@@ -8907,7 +8885,7 @@
 			325,
 			383,
 			4,
-			70,
+			69,
 			true
 		],
 		[
@@ -8915,7 +8893,7 @@
 			325,
 			332,
 			6,
-			73,
+			72,
 			true
 		],
 		[
@@ -8931,7 +8909,7 @@
 			330,
 			336,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8939,7 +8917,7 @@
 			337,
 			341,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8947,7 +8925,7 @@
 			342,
 			346,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8955,7 +8933,7 @@
 			347,
 			351,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8963,7 +8941,7 @@
 			352,
 			356,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8971,7 +8949,7 @@
 			357,
 			361,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8979,7 +8957,7 @@
 			362,
 			366,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8987,7 +8965,7 @@
 			367,
 			371,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -8995,7 +8973,7 @@
 			372,
 			376,
 			5,
-			71,
+			70,
 			true
 		],
 		[
@@ -9003,7 +8981,7 @@
 			381,
 			383,
 			6,
-			74,
+			73,
 			true
 		],
 		[
