@@ -59,7 +59,13 @@
 
 					complete.index++;
 					if ( complete.index === complete.amount ) {
+
 						player.play();
+
+						document.addEventListener( 'visibilitychange', function ( event ) {
+							document.hidden ? player.pause() : player.play();
+						}, false );
+
 					}
 
 				};
