@@ -4,7 +4,7 @@
 
 function WebAudio() {
 
-	var context = new AudioContext();
+	var context = new ( AudioContext || webkitAudioContext )();
 	var source, buffer;
 
 	var currentTime = 0;
