@@ -13,10 +13,18 @@ THREE.MouseController = function ( domElement ) {
 	var height = domElement.clientHeight || window.innerHeight;
 
 	this.rotation.reorder( 'YXZ' );
+	this.wheelSpeed = 0.033;
 	this.matrixAutoUpdate = false;
 	this.visible = false;
 
 	var dragging = false;
+	var resetAxes = debounce( function () {
+
+		scope.visible = false;
+		axes[ 0 ] = 0;
+		axes[ 1 ] = 0;
+
+	}, 150 );
 
 	var mousedown = function ( e ) {
 
@@ -51,6 +59,33 @@ THREE.MouseController = function ( domElement ) {
 		}
 
 		mouse.set( e.clientX, e.clientY );
+
+	};
+
+	var mousewheel = function ( e ) {
+
+		scope.visible = true;
+
+		var a = 0;
+		var b = 1;
+
+		if ( e.shiftKey ) {
+			a = 1;
+			b = 0;
+		}
+
+		var dx = e.deltaX > 0 ? 1 : ( e.deltaX < 0 ? - 1 : 0 );
+		var dy = e.deltaY > 0 ? 1 : ( e.deltaY < 0 ? - 1 : 0 );
+
+		axes[ a ] = axes[ a ] + scope.wheelSpeed * dx;
+		axes[ a ] = Math.min( Math.max( axes[ a ], - 1 ), 1 );
+
+		axes[ b ] = axes[ b ] + scope.wheelSpeed * dy;
+		axes[ b ] = Math.min( Math.max( axes[ b ], - 1 ), 1 );
+
+		scope.dispatchEvent( { type: 'axischanged', axes: axes } );
+
+		resetAxes();
 
 	};
 
@@ -118,6 +153,7 @@ THREE.MouseController = function ( domElement ) {
 	};
 
 	domElement.addEventListener( 'mousedown', mousedown, false );
+	domElement.addEventListener( 'wheel', mousewheel, false );
 	domElement.addEventListener( 'touchstart', touchstart, false );
 	domElement.addEventListener( 'touchmove', touchmove, false );
 	domElement.addEventListener( 'touchend', touchend, false );
