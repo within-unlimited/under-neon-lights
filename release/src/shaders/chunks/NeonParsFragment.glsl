@@ -72,8 +72,7 @@ float neonNoise( vec3 pos ) {
 }
 
 vec3 neonFunc( vec3 col ) {
-
-	vec3 p = rotateY( - yRot ) * ( mPosition.xyz ) + cursor / neonFreq1;
+	vec3 p = rotateY( - yRot ) * ( mPosition.xyz - vec3( 0.0, time * 0.2, 0.0 ) ) + cursor / neonFreq1;
 	float neonFactor = neonNoise( p * neonFreq1 );
 	float neonFactorFade = smoothstep( min( 2.0 * ( neonFade * neon ) - 1.0, 1.0 ), 1.0, neonFactor );
 	vec3 nCol = mix( col * neonCol * 6.0 + neonCol * 2.0, col, pow( neonFactorFade, 5.2 * neonGlow ) );
