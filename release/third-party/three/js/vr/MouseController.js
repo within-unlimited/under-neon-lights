@@ -13,7 +13,7 @@ THREE.MouseController = function ( domElement ) {
 	var height = domElement.clientHeight || window.innerHeight;
 
 	this.rotation.reorder( 'YXZ' );
-	this.wheelSpeed = 0.033;
+	this.wheelSpeed = 0.1;
 	this.matrixAutoUpdate = false;
 	this.visible = false;
 
@@ -50,7 +50,10 @@ THREE.MouseController = function ( domElement ) {
 			var x = 2 * ( e.clientX / width ) - 1;
 			var y = 2 * ( e.clientY / height ) - 1;
 
-			if ( axes[ 0 ] !== x || axes[ 1 ] !== y ) {
+			x *= 2;
+			y *= 2;
+
+			if ( axes[ 0 ] !== - x || axes[ 1 ] !== y ) {
 				axes[ 0 ] = - x;
 				axes[ 1 ] = y;
 				scope.dispatchEvent( { type: 'axischanged', axes: axes } );
@@ -77,13 +80,16 @@ THREE.MouseController = function ( domElement ) {
 		var dx = e.deltaX > 0 ? 1 : ( e.deltaX < 0 ? - 1 : 0 );
 		var dy = e.deltaY > 0 ? 1 : ( e.deltaY < 0 ? - 1 : 0 );
 
-		axes[ a ] = axes[ a ] + scope.wheelSpeed * dx;
-		axes[ a ] = Math.min( Math.max( axes[ a ], - 1 ), 1 );
+		var x = axes[ 0 ] + scope.wheelSpeed * dx;
+		var y = axes[ 1 ] + scope.wheelSpeed * dy;
 
-		axes[ b ] = axes[ b ] + scope.wheelSpeed * dy;
-		axes[ b ] = Math.min( Math.max( axes[ b ], - 1 ), 1 );
+		if ( axes[ a ] !== x || axes[ b ] !== y) {
 
-		scope.dispatchEvent( { type: 'axischanged', axes: axes } );
+			axes[ a ] = x;
+			axes[ b ] = y;
+			scope.dispatchEvent( { type: 'axischanged', axes: axes } );
+
+		}
 
 		resetAxes();
 
