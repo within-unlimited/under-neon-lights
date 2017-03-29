@@ -6322,6 +6322,44 @@
 				"",
 				"}"
 			]
+		],
+		[
+			"Let it go, let it go",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"// Got no husband, got no wife",
+				"var keyframes = [",
+				"",
+				"\t6, 7, 6, 4, // Let",
+				"\t6, 7, 6, 4, // It",
+				"\t5, 7, 5, 4, // Go",
+				"\t",
+				"\t4, 4, 4, 4,",
+				"\t4, 4, 4, 4,",
+				"\t",
+				"\t6, 7, 6, 4, // Let",
+				"\t6, 7, 6, 4, // It",
+				"\t5, 7, 5, 4, // Go",
+				"",
+				"];",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
 		]
 	],
 	"animations": [
@@ -8753,6 +8791,70 @@
 			"C",
 			104.87247485446886,
 			105.75151111875124,
+			9,
+			9,
+			true
+		],
+		[
+			"Let it go",
+			105.75151111875124,
+			106.86274509803904,
+			9,
+			78,
+			true
+		],
+		[
+			"C",
+			106.86274509803904,
+			109.67073005447433,
+			9,
+			9,
+			true
+		],
+		[
+			"Let it go",
+			109.67073005447433,
+			110.78196403376214,
+			9,
+			78,
+			true
+		],
+		[
+			"C",
+			110.78196403376214,
+			113.58994899019743,
+			9,
+			9,
+			true
+		],
+		[
+			"Let it go",
+			113.58994899019743,
+			114.70118296948523,
+			9,
+			78,
+			true
+		],
+		[
+			"C",
+			114.70118296948523,
+			117.50916792592052,
+			9,
+			9,
+			true
+		],
+		[
+			"Let it go",
+			117.50916792592052,
+			118.62040190520833,
+			9,
+			78,
+			true
+		],
+		[
+			"C",
+			118.62040190520833,
+			121.42838686164362,
 			9,
 			9,
 			true
