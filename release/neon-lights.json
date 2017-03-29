@@ -6360,6 +6360,42 @@
 				"",
 				"}"
 			]
+		],
+		[
+			"Eye to eye face to face",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"// Got no husband, got no wife",
+				"var keyframes = [",
+				"",
+				"\t6, 7, 6, 4, // eye",
+				"\t6, 5, 5, 4, // to",
+				"\t6, 7, 7, 7, 7, 7, 7, 7, 7, 6, // eye",
+				"\t",
+				"\t4, 4, 4, 4,",
+				"\t",
+				"\t6, 7, 6, 4, // face",
+				"\t6, 5, 5, 4, // to",
+				"\t6, 7, 7, 7, 7, 7, 7, 7, 7, 6, 4, // face",
+				"]; ",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
 		]
 	],
 	"animations": [
@@ -8857,6 +8893,14 @@
 			121.42838686164362,
 			9,
 			9,
+			true
+		],
+		[
+			"Eye to Eye",
+			121.42838686164362,
+			128.5625,
+			9,
+			79,
 			true
 		],
 		[
