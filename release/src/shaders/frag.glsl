@@ -4,6 +4,10 @@
 	uniform vec3 color;
 #endif
 
+#ifdef USE_OPACITY
+	uniform float opacity;
+#endif
+
 #ifdef USE_ROAD
 	#inject ../release/src/shaders/chunks/RoadFunc.glsl
 #endif
@@ -11,6 +15,7 @@
 void main() {
 
 	vec3 col = vColor;
+	float alpha = 1.0;
 
 	#ifdef USE_CLIPPING
 		if ( mPosition.y < clip.x * 2.0 || mPosition.y > clip.y * 2.0 ) discard;
@@ -48,6 +53,10 @@ void main() {
 		col = vec3( 1.0 - min( l, 1.0 ) ) * p;
 	#endif
 
-	gl_FragColor = vec4( col, 1.0 );
+	#ifdef USE_OPACITY
+		alpha = opacity;
+	#endif
+	gl_FragColor = vec4( col, alpha );
+
 
 }
