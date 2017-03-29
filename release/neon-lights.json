@@ -5499,7 +5499,6 @@
 				"}",
 				"",
 				"function start () {",
-				"\t//neon.setLerpOrigin();",
 				"\tneon.origin.default = target.default;",
 				"\tneon.origin.active = target.active;",
 				"\tneon.target.default = target.default;",
@@ -5648,7 +5647,8 @@
 				"}",
 				"",
 				"function start () {",
-				"\tneon.setLerpOrigin();",
+				"\tneon.origin.default = target.default;",
+				"\tneon.origin.active = target.active;",
 				"\tneon.target.default = target.default;",
 				"\tneon.target.active = target.active;",
 				"}",
@@ -5657,10 +5657,7 @@
 				"\tneon.lerp( progress );",
 				"}",
 				"",
-				"function end () {",
-				"\tneon.origin.default = target.default;",
-				"\tneon.origin.active = target.active;",
-				"}"
+				"function end () {}"
 			]
 		],
 		[
@@ -6046,7 +6043,8 @@
 				"}",
 				"",
 				"function start () {",
-				"\tneon.setLerpOrigin();",
+				"\tneon.origin.default = target.default;",
+				"\tneon.origin.active = target.active;",
 				"\tneon.target.default = target.default;",
 				"\tneon.target.active = target.active;",
 				"}",
