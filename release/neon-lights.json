@@ -4617,7 +4617,7 @@
 				"\tvar onOrientationChange = function() {",
 				"\t\tvar isPortrait;",
 				"\t\t",
-				"\t\tif ( window.screen ) {",
+				"\t\tif ( window.screen.orientation ) {",
 				"\t\t\tvar orientation = window.screen.orientation.type;",
 				"\t\t\tvar rePortrait = /portrait/i;",
 				"\t\t\tisPortrait = rePortrait.test(orientation);",
