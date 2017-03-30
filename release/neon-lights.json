@@ -5679,7 +5679,7 @@
 				"\t4, 6, 7, 6, // -band // A",
 				"",
 				"\t4, 5, 7, 5, // Got // View",
-				"\t4, 6, 7, 5, // No // To",
+				"\t4, 6, 7, 7, 5, // No // To",
 				"",
 				"\t6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 4 // Wife // Night",
 				"",
@@ -6307,7 +6307,7 @@
 				"\t4, 6, 7, 6, // Un",
 				"\t4, 5, 7, 5, // der",
 				"",
-				"\t4, 5, 5, 5, // Ne",
+				"\t4, 6, 6, 6, // Ne",
 				"\t7, 7, 7, 7, // on",
 				"\t6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 4 // Lights",
 				"",
@@ -6386,6 +6386,244 @@
 				"\t6, 5, 5, 4, // to",
 				"\t6, 7, 7, 7, 7, 7, 7, 7, 7, 6, 4, // face",
 				"]; ",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
+		],
+		[
+			"I guess this is heaven",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"// Got no husband, got no wife",
+				"var keyframes = [",
+				"",
+				"\t6, 7, 6, 4, // I",
+				"\t6, 7, 7, 7, 7, 6, 4, // guess",
+				"\t6, 7, 6, 4, // this",
+				"\t6, 7, 6, 4, // is",
+				"\t6, 7, 7, 7, 7, // hea",
+				"\t6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 4 // ven",
+				"]; ",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
+		],
+		[
+			"I guess I'm in heaven",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"// Got no husband, got no wife",
+				"var keyframes = [",
+				"",
+				"\t6, 7, 6, 4, // I",
+				"\t6, 7, 7, 7, 6, 4, // guess",
+				"\t6, 7, 6, 4, // I'm",
+				"\t6, 7, 6, 4, // in",
+				"\t6, 7, 7, 7, 7, 7, 7, 7, 7, // hea",
+				"\t6, 7, 7, 7, 7, 7, 7, 6, 4 // ven",
+				"]; ",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
+		],
+		[
+			"As she moves to suicide short",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"// Got no husband, got no wife",
+				"var keyframes = [",
+				"",
+				"\t5, 5, 7, 5, // As",
+				"\t6, 6, 6, 6, // She",
+				"",
+				"\t4, 5, 7, 5, // Moves",
+				"\t4, 5, 7, 5, // To",
+				"",
+				"\t4, 5, 5, 5, // Su",
+				"\t6, 6, 6, 6, // i",
+				"\t6, 7, 7, 7, 7, 7, 7, 7, 7, 6, 4 // cide",
+				"",
+				"];",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
+		],
+		[
+			"Under Neon Lights Short",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"",
+				"var keyframes = [",
+				"",
+				"\t6, 7, 6, 4, // Un",
+				"\t5, 7, 5, 4, // der",
+				"",
+				"\t6, 6, 6, // Ne",
+				"\t7, 7, 7, 7, 6, 6, // on",
+				"\t",
+				"\t6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, // Ligh",
+				"\t6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4 // tsss",
+				"",
+				"];",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
+		],
+		[
+			"Go No Husband Short",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"// Got no husband, got no wife",
+				"var keyframes = [",
+				"",
+				"\t5, 7, 5, 4, // Got",
+				"\t6, 7, 5, 5, // No",
+				"",
+				"\t6, 7, 7, 6, // Hus",
+				"\t4, 6, 7, 7, 7, 6, 4 // band",
+				"",
+				"];",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
+		],
+		[
+			"Got No Wife Short",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"// Got no husband, got no wife",
+				"var keyframes = [",
+				"",
+				"\t5, 5, 7, 5, // All // Got",
+				"\t4, 6, 7, 5, // I // No",
+				"\t4, 6, 7, 7, 7, 7, 6, 6, 6, 6, 6, 4 // Want // Wife",
+				"",
+				"];",
+				"",
+				"function start() {}",
+				"",
+				"function end(){}",
+				"",
+				"function update( progress ) {",
+				"",
+				"\tvar model = annie.userData.model;",
+				"",
+				"\tif ( !model ) return;",
+				"",
+				"\tvar mouth = model.userData.mouth;",
+				"\tvar animator = mouth.animator;",
+				"",
+				"\tanimator.currentTile = keyframes[ Math.floor( progress * keyframes.length ) ];",
+				"",
+				"}"
+			]
+		],
+		[
+			"Is this really all I want",
+			[
+				"var annie = FRAME.getResource( 'annie' );",
+				"// Got no husband, got no wife",
+				"var keyframes = [",
+				"",
+				"\t6, 7, 6, 4, // Is",
+				"\t6, 7, 6, 4, // This",
+				"\t6, 7, 6, 4, // Rea",
+				"\t6, 7, 6, 4, // lly",
+				"\t6, 7, 6, 4, // All",
+				"\t5, 7, 6, 5, // I",
+				"\t4, 6, 7, 7, 7, 7, 6, 6, 6, 6, 6, 4 // Want",
+				"",
+				"];",
 				"",
 				"function start() {}",
 				"",
@@ -8912,6 +9150,22 @@
 			true
 		],
 		[
+			"C",
+			128.5625,
+			128.7241434930207,
+			9,
+			9,
+			true
+		],
+		[
+			"I guess this is heaven",
+			128.7241434930207,
+			133.74237804878064,
+			9,
+			80,
+			true
+		],
+		[
 			"Lock Annie's Direction",
 			131,
 			136,
@@ -8928,11 +9182,27 @@
 			true
 		],
 		[
+			"C",
+			133.74237804878064,
+			137.24330725608723,
+			9,
+			9,
+			true
+		],
+		[
 			"Mirror Annies",
 			136,
 			144,
 			6,
 			59,
+			true
+		],
+		[
+			"Got no pride got no name ",
+			137.24330725608723,
+			144.37742039444362,
+			9,
+			79,
 			true
 		],
 		[
@@ -8968,11 +9238,43 @@
 			true
 		],
 		[
+			"C",
+			144.37742039444362,
+			144.6851677835685,
+			9,
+			9,
+			true
+		],
+		[
+			"I guess this is heaven",
+			144.6851677835685,
+			149.70340233932842,
+			9,
+			80,
+			true
+		],
+		[
+			"C",
+			149.70340233932842,
+			150.51114972845303,
+			9,
+			9,
+			true
+		],
+		[
 			"Fog 3-1",
 			150.46987975595792,
 			154,
 			4,
 			47,
+			true
+		],
+		[
+			"I guess Im in heaven",
+			150.51114972845303,
+			156.22293267131008,
+			9,
+			81,
 			true
 		],
 		[
@@ -8984,11 +9286,35 @@
 			true
 		],
 		[
+			"C",
+			156.22293267131008,
+			160.46901023121325,
+			9,
+			9,
+			true
+		],
+		[
+			"I guess Im in heaven",
+			160.46901023121325,
+			166.1807931740703,
+			9,
+			81,
+			true
+		],
+		[
 			"Fog 3-2",
 			164.875,
 			166.875,
 			4,
 			55,
+			true
+		],
+		[
+			"C",
+			166.1807931740703,
+			184.8544069658576,
+			9,
+			9,
 			true
 		],
 		[
@@ -9032,11 +9358,27 @@
 			true
 		],
 		[
+			"As she moves to suicide",
+			184.8544069658576,
+			188.35701132349817,
+			9,
+			76,
+			true
+		],
+		[
 			"Fog 3-3",
 			184.96875,
 			186.96875,
 			4,
 			56,
+			true
+		],
+		[
+			"C",
+			188.35701132349817,
+			188.8685442525673,
+			9,
+			9,
 			true
 		],
 		[
@@ -9048,6 +9390,22 @@
 			true
 		],
 		[
+			"In and Under Neon Lights",
+			188.8685442525673,
+			192.34436289592213,
+			9,
+			77,
+			true
+		],
+		[
+			"C",
+			192.34436289592213,
+			192.76920747256594,
+			9,
+			9,
+			true
+		],
+		[
 			"Bounce Buildings",
 			192.71875,
 			193.96875,
@@ -9056,11 +9414,35 @@
 			true
 		],
 		[
+			"Got No Husband Got No Wife",
+			192.76920747256594,
+			196.19541399983947,
+			9,
+			65,
+			true
+		],
+		[
+			"C",
+			196.19541399983947,
+			196.77117157559718,
+			9,
+			9,
+			true
+		],
+		[
 			"Bounce Buildings",
 			196.75,
 			198,
 			5,
 			18,
+			true
+		],
+		[
+			"All I Wants A View Tonight",
+			196.77117157559718,
+			200.1519235574162,
+			9,
+			65,
 			true
 		],
 		[
@@ -9080,11 +9462,67 @@
 			true
 		],
 		[
+			"C",
+			200.1519235574162,
+			200.72768113317392,
+			9,
+			9,
+			true
+		],
+		[
+			"All I Wants A View Tonight",
+			200.72768113317392,
+			204.10843311499295,
+			9,
+			65,
+			true
+		],
+		[
+			"C",
+			204.10843311499295,
+			204.68419069075065,
+			9,
+			9,
+			true
+		],
+		[
+			"All I Wants A View Tonight",
+			204.68419069075065,
+			208.06494267256969,
+			9,
+			65,
+			true
+		],
+		[
+			"C",
+			208.06494267256969,
+			208.6407002483274,
+			9,
+			9,
+			true
+		],
+		[
+			"All I Wants A View Tonight",
+			208.6407002483274,
+			212.02145223014642,
+			9,
+			65,
+			true
+		],
+		[
 			"Bounce Buildings",
 			208.70544554455435,
 			209.95544554455435,
 			5,
 			18,
+			true
+		],
+		[
+			"C",
+			212.02145223014642,
+			212.59720980590413,
+			9,
+			9,
 			true
 		],
 		[
@@ -9096,11 +9534,27 @@
 			true
 		],
 		[
+			"All I Wants A View Tonight",
+			212.59720980590413,
+			216.47796178772305,
+			9,
+			65,
+			true
+		],
+		[
 			"Radical Riff",
 			214.72277227722773,
 			216.72277227722773,
 			4,
 			20,
+			true
+		],
+		[
+			"Got No Husband Got No Wife",
+			216.47796178772305,
+			219.90416831499658,
+			9,
+			65,
 			true
 		],
 		[
@@ -9120,6 +9574,38 @@
 			true
 		],
 		[
+			"C",
+			219.90416831499658,
+			220.4799258907543,
+			9,
+			9,
+			true
+		],
+		[
+			"All I Wants A View Tonight",
+			220.4799258907543,
+			223.86067787257332,
+			9,
+			65,
+			true
+		],
+		[
+			"C",
+			223.86067787257332,
+			224.43643544833103,
+			9,
+			9,
+			true
+		],
+		[
+			"All I Wants A View Tonight",
+			224.43643544833103,
+			227.81718743015006,
+			9,
+			65,
+			true
+		],
+		[
 			"Annie Flies",
 			225.5,
 			227.5,
@@ -9133,6 +9619,22 @@
 			232.5,
 			7,
 			48,
+			true
+		],
+		[
+			"C",
+			227.81718743015006,
+			228.39294500590776,
+			9,
+			9,
+			true
+		],
+		[
+			"All I Wants A View Tonight",
+			228.39294500590776,
+			231.7736969877268,
+			9,
+			65,
 			true
 		],
 		[
@@ -9152,6 +9654,14 @@
 			true
 		],
 		[
+			"C",
+			231.7736969877268,
+			234.68278789681784,
+			9,
+			9,
+			true
+		],
+		[
 			"Stage 4",
 			232.5,
 			268,
@@ -9165,6 +9675,126 @@
 			235,
 			4,
 			50,
+			true
+		],
+		[
+			"As she moves to suicide",
+			234.68278789681784,
+			236.93539225445852,
+			9,
+			82,
+			true
+		],
+		[
+			"C",
+			236.93539225445852,
+			238.98337205243854,
+			9,
+			9,
+			true
+		],
+		[
+			"Under Neon Lights",
+			238.98337205243854,
+			241.38095238095232,
+			9,
+			83,
+			true
+		],
+		[
+			"C",
+			241.38095238095232,
+			242.6926516911275,
+			9,
+			9,
+			true
+		],
+		[
+			"Got No Husband",
+			242.6926516911275,
+			244.33361929398544,
+			9,
+			84,
+			true
+		],
+		[
+			"C",
+			244.33361929398544,
+			246.764366223208,
+			9,
+			9,
+			true
+		],
+		[
+			"Got No Wife",
+			246.764366223208,
+			248.59987505719255,
+			9,
+			85,
+			true
+		],
+		[
+			"C",
+			248.59987505719255,
+			250.74490770070088,
+			9,
+			9,
+			true
+		],
+		[
+			"All I Want",
+			250.74490770070088,
+			251.9675133088786,
+			9,
+			85,
+			true
+		],
+		[
+			"C",
+			251.9675133088786,
+			254.72544917819377,
+			9,
+			9,
+			true
+		],
+		[
+			"All I Want",
+			254.72544917819377,
+			255.9641838186298,
+			9,
+			85,
+			true
+		],
+		[
+			"C",
+			255.9641838186298,
+			258.7059906556867,
+			9,
+			9,
+			true
+		],
+		[
+			"All I Want",
+			258.7059906556867,
+			259.8963381993486,
+			9,
+			85,
+			true
+		],
+		[
+			"C",
+			259.8963381993486,
+			262.2994353589863,
+			9,
+			9,
+			true
+		],
+		[
+			"Is this really all I want",
+			262.2994353589863,
+			264.85637867247016,
+			9,
+			86,
 			true
 		],
 		[
