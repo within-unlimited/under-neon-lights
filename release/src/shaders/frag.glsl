@@ -64,8 +64,8 @@ void main() {
 
 	#ifdef USE_MAP
 		vec4 tex = texture2D( map, vUv * offsetRepeat.zw + offsetRepeat.xy );
-		col = tex.rgb;
-		alpha = tex.a;
+		col *= tex.rgb;
+		alpha *= tex.a;
 	#endif
 
 	gl_FragColor = vec4( col, alpha );
