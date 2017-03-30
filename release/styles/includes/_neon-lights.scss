@@ -3,6 +3,7 @@
 * { box-sizing: border-box; }
 
 $pink: #c0538d;
+$red: #FF1177;
 
 // vr toggle and play button
 .unl-button {
@@ -24,26 +25,35 @@ $pink: #c0538d;
 		background-color: transparent;
 		letter-spacing: 2px;
 		line-height: 30px;
-		border: 3px solid #fff;
 		border-radius: 6px;
 		font-size: 16px;
+		border: 3px solid #fff;
 		text-shadow: 0 0 5px $pink;
-		box-shadow: 0 0 5px 1px transparentize($pink, 0.4),
-								0 0 5px 1px transparentize($pink, 0.4) inset;
+		box-shadow: 0 0 0px #fff,
+								0 0 5px transparentize($pink, 0.4),
+								0 0 0px #fff inset,
+								0 0 5px transparentize($pink, 0.4) inset;
 
-		@include transition(text-shadow 0.35s $ease-in-out-circ,
-												box-shadow 0.35s $ease-in-out-circ,
-												color 0.35s $ease-in-out-circ,
-												background-color 0.35s $ease-in-out-circ);
-
+		@include transition(text-shadow 0.5s,
+												box-shadow 0.5s,
+												color 0.5s,
+												border-color 0.5s,
+												background-color 0.5s);
 	}
 
 	&:not(.webvr-not-available):hover .unl-button-box {
-		background-color: transparentize($pink, 0.8);
-		color: #fff;
-		text-shadow: 0 0 15px $pink;
-		box-shadow: 0 0 15px 2px transparentize($pink, 0.4),
-								0 0 15px 2px transparentize($pink, 0.4) inset;
+		text-shadow: 0 0 10px #fff,
+								 0 0 20px #fff,
+								 0 0 30px #fff,
+								 0 0 40px $red,
+								 0 0 70px $red,
+								 0 0 80px $red,
+								 0 0 100px $red,
+								 0 0 150px $red;
+		box-shadow: 0 0 10px #fff,
+								0 0 40px $red,
+								0 0 10px #fff inset,
+								0 0 40px $red inset;
 	}
 
 	img {
@@ -54,16 +64,16 @@ $pink: #c0538d;
 
 	.unl-message {
 		position: absolute;
-    top: 100%;
-    left: 0;
-    line-height: 1;
-    letter-spacing: 1px;
-    font-size: 12px;
-    padding: 15px 10px;
-    width: 100%;
+		top: 100%;
+		left: 0;
+		line-height: 1;
+		letter-spacing: 1px;
+		font-size: 12px;
+		padding: 15px 10px;
+		width: 100%;
 
-    @include transition(opacity 0.35s $ease-in-out-circ,
-    										text-shadow 0.35s $ease-in-out-circ);
+		@include transition(opacity 0.35s $ease-in-out-circ,
+												text-shadow 0.35s $ease-in-out-circ);
 	}
 
 	&.webvr-not-available {
