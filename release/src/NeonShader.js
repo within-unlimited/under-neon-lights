@@ -256,6 +256,10 @@ THREE.neonShader._frag = [
 	"	return color;",
 	"}",
 	"#endif",
+	"#ifdef USE_MAP",
+	"	uniform sampler2D map;",
+	"	uniform vec4 offsetRepeat;",
+	"#endif",
 	"void main() {",
 	"	vec3 col = vColor;",
 	"	float alpha = 1.0;",
@@ -289,6 +293,11 @@ THREE.neonShader._frag = [
 	"	#ifdef USE_OPACITY",
 	"		alpha = opacity;",
 	"	#endif",
+	"	#ifdef USE_MAP",
+	"		vec4 tex = texture2D( map, vUv * offsetRepeat.zw + offsetRepeat.xy );",
+	"		col = tex.rgb;",
+	"		alpha = tex.a;",
+	"	#endif",
 	"	gl_FragColor = vec4( col, alpha );",
 	"}",
 ].join( '\n' );
@@ -309,6 +318,21 @@ THREE.neonShader.basicShader = new THREE.ShaderMaterial( {
 	vertexShader: THREE.neonShader._vert,
 	fragmentShader: THREE.neonShader._frag
 } );
+
+THREE.neonShader.faceShader = THREE.neonShader.basicShader.clone();
+THREE.neonShader.faceShader.uniforms = THREE.UniformsUtils.merge( [
+	THREE.neonShader._uniforms, {
+		map: { type: 't', value: new THREE.Texture() },
+		clip: { type: 'v2', value: new THREE.Vector2( -1e10, 1e10 ) },
+		offsetRepeat: { type: 'v4', value: new THREE.Vector4() }
+	}
+] );
+THREE.neonShader.faceShader.map = THREE.neonShader.faceShader.uniforms.map.value;
+THREE.neonShader.faceShader.transparent = true;
+THREE.neonShader.faceShader.defines = {
+	USE_CLIPPING: '',
+	USE_MAP: ''
+}
 
 THREE.neonShader.grassShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.grassShader.setValues( {
