@@ -12,6 +12,11 @@
 	#inject ../release/src/shaders/chunks/RoadFunc.glsl
 #endif
 
+#ifdef USE_MAP
+	uniform sampler2D map;
+	uniform vec4 offsetRepeat;
+#endif
+
 void main() {
 
 	vec3 col = vColor;
@@ -56,6 +61,13 @@ void main() {
 	#ifdef USE_OPACITY
 		alpha = opacity;
 	#endif
+
+	#ifdef USE_MAP
+		vec4 tex = texture2D( map, vUv * offsetRepeat.zw + offsetRepeat.xy );
+		col *= tex.rgb;
+		alpha *= tex.a;
+	#endif
+
 	gl_FragColor = vec4( col, alpha );
 
 
