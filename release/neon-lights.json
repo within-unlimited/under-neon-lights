@@ -3407,7 +3407,7 @@
 			[
 				"var fog = FRAME.getResource( 'scene' ).fog;",
 				"var fog_origin = 0;",
-				"var fog_target = 1;",
+				"var fog_target = 3.5;",
 				"",
 				"function start () {",
 				"",
@@ -3497,7 +3497,7 @@
 				"var stages = FRAME.getResource( 'stages' );",
 				"var exterior = stages.exterior;",
 				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = 0;",
+				"var fog_origin = 25;",
 				"var fog_target = 3.5;",
 				"",
 				"var scene;",
@@ -3507,7 +3507,7 @@
 				"",
 				"function start () {\t",
 				"",
-				"\tfog_origin = fog.far;",
+				"//\tfog_origin = fog.far;",
 				"\tscene = exterior.scene;",
 				"\tscene.position.copy( origin );",
 				"",
@@ -3961,12 +3961,13 @@
 				"",
 				"\tannie.userData.age( 'child' );",
 				"",
-				"\tgroup.visible = true;",
 				"\tif ( stages.bedroom.room ) {",
 				"\t\tgroup.add( stages.bedroom.room );",
 				"\t\tstages.bedroom.room.position.set( 0, 0, 0 );",
 				"\t\tstages.bedroom.room.rotation.y = 0;",
 				"\t}",
+				"",
+				"\tgroup.visible = true;",
 				"\tscene.add( group );",
 				"",
 				"}",
@@ -6189,7 +6190,7 @@
 				"",
 				"\tfog.far = progress * ( fd - fo ) + fo;",
 				"\tif ( audio.credits ) {",
-				"\t\taudio.credits.volume = progress;",
+				"\t\taudio.credits.volume = 2 * Math.max( progress - 0.5, 0 );",
 				"\t}",
 				"",
 				"}"
@@ -6713,7 +6714,7 @@
 		[
 			"Audio",
 			0,
-			268,
+			274,
 			0,
 			51,
 			true
@@ -6721,7 +6722,7 @@
 		[
 			"VR Update",
 			0,
-			268,
+			274,
 			1,
 			4,
 			true
@@ -6729,7 +6730,7 @@
 		[
 			"Update",
 			0,
-			268,
+			274,
 			2,
 			57,
 			true
@@ -6777,7 +6778,7 @@
 		[
 			"Render",
 			0,
-			268,
+			274,
 			10,
 			5,
 			true
@@ -9729,7 +9730,7 @@
 		[
 			"Stage 4",
 			232.5,
-			268,
+			274,
 			3,
 			3,
 			true
@@ -9872,8 +9873,8 @@
 		],
 		[
 			"Roll Credits",
-			266.4,
-			268,
+			270,
+			274,
 			4,
 			71,
 			true
@@ -9953,7 +9954,7 @@
 		[
 			"Credits Fade In",
 			325,
-			332,
+			332.02,
 			6,
 			72,
 			true
