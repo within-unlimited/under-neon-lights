@@ -19,6 +19,10 @@ function WebAudio( context ) {
 	var paused = true;
 	var startAt = 0;
 
+	var gain = context.createGain();
+	gain.connect( context.destination );
+	gain.gain.value = 1;
+
 	function load( url ) {
 
 		var request = new XMLHttpRequest();
@@ -50,7 +54,7 @@ function WebAudio( context ) {
 		source.loop = loop;
 		source.playbackRate.value = playbackRate;
 		source.start( 0, currentTime );
-		source.connect( context.destination );
+		source.connect( gain );
 
 		startAt = context.currentTime;
 
@@ -61,7 +65,7 @@ function WebAudio( context ) {
 		if ( buffer === undefined ) return;
 
 		source.stop();
-		source.disconnect( context.destination );
+		source.disconnect( gain );
 
 		currentTime = getCurrentTime();
 
@@ -77,6 +81,12 @@ function WebAudio( context ) {
 			if ( paused === false ) {
 				stop(); paused = true;
 			}
+		},
+		get volume() {
+			return gain.gain.value;
+		},
+		set volume(v) {
+			gain.gain.value = v;
 		},
 		get currentTime() {
 			return getCurrentTime();
