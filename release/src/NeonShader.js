@@ -392,6 +392,12 @@ THREE.neonShader.swirlShader.fog = false;
 THREE.neonShader.swirlShader.side = THREE.DoubleSide;
 THREE.neonShader.swirlShader.blending = THREE.AdditiveBlending;
 
+THREE.neonShader.dandelionShader = THREE.neonShader.basicShader.clone();
+THREE.neonShader.dandelionShader.defines = { USE_OPACITY: '' };
+THREE.neonShader.dandelionShader.transparent = true;
+THREE.neonShader.dandelionShader.vertexColors = true;
+THREE.neonShader.dandelionShader.side = THREE.DoubleSide;
+THREE.neonShader.dandelionShader.uniforms.opacity = { type: 'f', value: 1 };
 
 THREE.neonShader.floorShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.floorShader.defines = { USE_FAKE_SHADOW: '' };
@@ -451,7 +457,8 @@ THREE.neonShader.particleShader = new THREE.ShaderMaterial( {
 		"uniform vec3 col;",
 		"varying vec3 vColor;",
 		"void main() {",
-		"	float gradient = max( 0.0, 1.0 - length( gl_PointCoord * 2.0 - vec2( 1.0 ) ) );",
+		" float dist = length( gl_PointCoord * 2.0 - vec2( 1.0 ) );",
+		"	float gradient = max( 0.0, pow( 1.0 - dist, 0.5 ) );",
 		"	float alpha = min( 1.0, min( progress * 2.0  , ( 1.0 - progress ) * 3.0 ) );",
 		"	gl_FragColor = vec4( col * vColor * vec3( gradient ), alpha );",
 		"}",
