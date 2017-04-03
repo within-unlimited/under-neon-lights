@@ -43,13 +43,12 @@ $red: #FF1177;
 
 	&:not(.webvr-not-available):hover .unl-button-box {
 		text-shadow: 0 0 10px #fff,
-								 0 0 20px #fff,
-								 0 0 30px #fff,
+								 0 0 15px #fff,
+								 0 0 20px $red,
+								 0 0 30px $red,
 								 0 0 40px $red,
-								 0 0 70px $red,
-								 0 0 80px $red,
-								 0 0 100px $red,
-								 0 0 150px $red;
+								 0 0 50px $red,
+								 0 0 60px $red;
 		box-shadow: 0 0 10px #fff,
 								0 0 40px $red,
 								0 0 10px #fff inset,

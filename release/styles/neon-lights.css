@@ -27,7 +27,7 @@
     -moz-transition: text-shadow 0.5s, box-shadow 0.5s, color 0.5s, border-color 0.5s, background-color 0.5s;
     transition: text-shadow 0.5s, box-shadow 0.5s, color 0.5s, border-color 0.5s, background-color 0.5s; }
   .unl-button:not(.webvr-not-available):hover .unl-button-box {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177;
+    text-shadow: 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 30px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 60px #FF1177;
     box-shadow: 0 0 10px #fff, 0 0 40px #FF1177, 0 0 10px #fff inset, 0 0 40px #FF1177 inset; }
   .unl-button img {
     width: 30px;
