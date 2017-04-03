@@ -368,6 +368,19 @@ THREE.neonShader.skinnedShader.setValues( {
 	side: THREE.DoubleSide,
 	vertexColors: true,
 	skinning: true,
+	uniforms: THREE.UniformsUtils.merge( [
+		THREE.neonShader._uniforms, {
+			clip: { type: 'v2', value: new THREE.Vector2( -1e10, 1e10 ) }
+		}
+	] )
+} );
+THREE.neonShader.skinnedShader.defines = { USE_CLIPPING: '' };
+
+THREE.neonShader.skinnedTransparentShader = THREE.neonShader.basicShader.clone();
+THREE.neonShader.skinnedTransparentShader.setValues( {
+	side: THREE.DoubleSide,
+	vertexColors: true,
+	skinning: true,
 	transparent: true,
 	uniforms: THREE.UniformsUtils.merge( [
 		THREE.neonShader._uniforms, {
@@ -376,7 +389,7 @@ THREE.neonShader.skinnedShader.setValues( {
 		}
 	] )
 } );
-THREE.neonShader.skinnedShader.defines = {
+THREE.neonShader.skinnedTransparentShader.defines = {
 	USE_CLIPPING: '',
 	USE_OPACITY: ''
 };
