@@ -368,16 +368,18 @@ THREE.neonShader.skinnedShader.setValues( {
 	side: THREE.DoubleSide,
 	vertexColors: true,
 	skinning: true,
-	defines: {
-		USE_MIRROR_FOG: ''
-	},
+	transparent: true,
 	uniforms: THREE.UniformsUtils.merge( [
 		THREE.neonShader._uniforms, {
-			clip: { type: 'v2', value: new THREE.Vector2( -1e10, 1e10 ) }
+			clip: { type: 'v2', value: new THREE.Vector2( -1e10, 1e10 ) },
+			opacity: { type: 'f', value: 1.0 }
 		}
 	] )
 } );
-THREE.neonShader.skinnedShader.defines = { USE_CLIPPING: '' };
+THREE.neonShader.skinnedShader.defines = {
+	USE_CLIPPING: '',
+	USE_OPACITY: ''
+};
 
 THREE.neonShader.swirlShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.swirlShader.uniforms = THREE.UniformsUtils.merge( [
@@ -397,7 +399,7 @@ THREE.neonShader.dandelionShader.defines = { USE_OPACITY: '' };
 THREE.neonShader.dandelionShader.transparent = true;
 THREE.neonShader.dandelionShader.vertexColors = true;
 THREE.neonShader.dandelionShader.side = THREE.DoubleSide;
-THREE.neonShader.dandelionShader.uniforms.opacity = { type: 'f', value: 1 };
+THREE.neonShader.dandelionShader.uniforms.opacity = { type: 'f', value: 1.0 };
 
 THREE.neonShader.floorShader = THREE.neonShader.basicShader.clone();
 THREE.neonShader.floorShader.defines = { USE_FAKE_SHADOW: '' };
