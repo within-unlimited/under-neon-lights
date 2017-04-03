@@ -2270,7 +2270,7 @@
 				"",
 				"\t\ta.userData.offset = b.userData.offset;",
 				"\t\ta.userData.reference = b;",
-				"\t\ta.rotation.y = - group.rotation.y;",
+				"\t\ta.rotation.y = HALF_PI;",
 				"",
 				"\t\telements.splice( mid, 1, a );",
 				"\t\tgroup.add( a );",
