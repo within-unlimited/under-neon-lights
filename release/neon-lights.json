@@ -4649,6 +4649,8 @@
 			"Intro",
 			[
 				"var container = FRAME.getDOM();",
+				"container.classList.add('unl-container');",
+				"",
 				"var stages = FRAME.getResource( 'stages' );",
 				"",
 				"var scene = FRAME.getResource( 'scene' );",
