@@ -1,10 +1,9 @@
 @import "bourbon/bourbon";
 @import "includes/neon-lights";
 
-* { box-sizing: border-box; }
-
-$pink: #c0538d;
 $font-family: "proxima-nova", "Proxima Nova", sans-serif;
+
+* { box-sizing: border-box; }
 
 body {
 	font-family: $font-family;

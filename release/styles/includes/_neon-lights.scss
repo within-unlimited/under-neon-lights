@@ -1,9 +1,20 @@
 @import "bourbon/bourbon";
 
-* { box-sizing: border-box; }
-
+$font-family: "proxima-nova", "Proxima Nova", sans-serif;
 $pink: #c0538d;
 $red: #FF1177;
+
+.unl-container * {
+	box-sizing: border-box;
+}
+
+.unl-container {
+	font-family: $font-family;
+	background-color: #333333;
+	color: #fff;
+	margin: 0px;
+	overflow: hidden;
+}
 
 // vr toggle and play button
 .unl-button {
