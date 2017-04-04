@@ -5070,7 +5070,7 @@
 				"\tdocument.body.classList.add('unl-intro');",
 				"",
 				"\tcamera.position.set( 0, 1, 0 );",
-				"\tcontrols.orbit.target.set( 0, 0.7, -2 );",
+				"\tcontrols.orbit.target.set( 0, 0.7, -camera.parent.position.z );",
 				"\tcontrols.orbit.enabled = !effect.isPresenting;",
 				"",
 				"\tcontrollers.daydream.userData.previousParent = controllers.daydream.parent;",
