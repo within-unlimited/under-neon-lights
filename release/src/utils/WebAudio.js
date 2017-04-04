@@ -10,6 +10,7 @@ function WebAudio( context ) {
 
 	}
 
+	var scope = this;
 	var source, buffer;
 
 	var currentTime = 0;

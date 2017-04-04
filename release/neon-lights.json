@@ -17,8 +17,8 @@
 		"../release/third-party/orientation-arm-model.js",
 		"../release/third-party/three/js/vr/ViveController.js",
 		"../release/third-party/three/js/controls/OrbitControls.js",
-		"../release/src/NeonShader.js",
-		"../release/src/WebAudio.js"
+		"../release/src/utils/NeonShader.js",
+		"../release/src/utils/WebAudio.js"
 	],
 	"includes": [
 		[
@@ -374,13 +374,14 @@
 				"\t\tcompass.step.update( timelineDelta );",
 				"\t}",
 				"};",
+				"var audio = FRAME.getResource( 'audio' ) || { context: new ( window.AudioContext || window.webkitAudioContext )() };",
 				"",
 				"FRAME.addResource( 'bird', new THREE.Group() );",
 				"",
 				"FRAME.addResource( 'compass', compass );",
 				"FRAME.addResource( 'clock', clock );",
 				"FRAME.addResource( 'stages', [] );",
-				"FRAME.addResource( 'audio', { context: new ( window.AudioContext || window.webkitAudioContext )() } );",
+				"FRAME.addResource( 'audio', audio );",
 				"",
 				"FRAME.addResource( 'neon', neon );",
 				"FRAME.addResource( 'renderer', renderer );",
@@ -4743,7 +4744,7 @@
 				"buttonContainer.classList.add('unl-button-container');",
 				"container.appendChild( buttonContainer );",
 				"",
-				"var icon = '<img src=\"../release/images/cardboard.svg\" alt=\"VR Headset\" />';",
+				"var icon = '<img src=\"' + root + '/images/cardboard.svg\" alt=\"VR Headset\" />';",
 				"",
 				"var vrButton = document.createElement( 'a' );",
 				"vrButton.classList.add('unl-button');",
