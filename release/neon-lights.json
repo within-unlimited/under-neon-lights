@@ -4721,6 +4721,7 @@
 				"controls.orbit.minAzimuthAngle = - Math.PI / 2;",
 				"controls.orbit.maxAzimuthAngle = Math.PI / 2;",
 				"controls.orbit.enablePan = false;",
+				"controls.orbit.enableZoom = false;",
 				"controls.orbit.enableDamping = true;",
 				"controls.orbit.dampingFactor = 0.3;",
 				"",
