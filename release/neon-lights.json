@@ -4614,7 +4614,7 @@
 			[
 				"var exports = FRAME.getResource( 'audio' );",
 				"var root = FRAME.getResource( 'root' );",
-				"var src = [ root, '/audio/03 Under Neon Lights', has.Chromium ? '.ogg' : '.mp3' ].join( '' );",
+				"var src = [ root, '/audio/03 Under Neon Lights_96k', has.Chromium ? '.ogg' : '.mp3' ].join( '' );",
 				"",
 				"var audio = new WebAudio( exports.context );",
 				"audio.src = src;",
@@ -4682,7 +4682,7 @@
 				"",
 				"var exports = FRAME.getResource( 'audio' );",
 				"var root = FRAME.getResource( 'root' );",
-				"var src = [ root, '/audio/apple.mp3' ].join( '' );",
+				"var src = [ root, '/audio/apple_96k.mp3' ].join( '' );",
 				"",
 				"var audio = new WebAudio( exports.context );",
 				"audio.src = src;",
@@ -6066,7 +6066,7 @@
 			"Audio Credits Effect",
 			[
 				"var root = FRAME.getResource( 'root' );",
-				"var src = [ root, '/audio/credits', has.Chromium ? '.ogg' : '.mp3' ].join( '' );",
+				"var src = [ root, '/audio/credits_96k', has.Chromium ? '.ogg' : '.mp3' ].join( '' );",
 				"var exports = FRAME.getResource( 'audio' );",
 				"",
 				"var audio = new WebAudio( exports.context );",
