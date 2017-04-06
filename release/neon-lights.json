@@ -374,7 +374,7 @@
 				"\t\tcompass.step.update( timelineDelta );",
 				"\t}",
 				"};",
-				"var audio = FRAME.getResource( 'audio' ) || { context: new ( window.AudioContext || window.webkitAudioContext )() };",
+				"var audio = FRAME.getResource( 'audio' ) || createAudio();",
 				"",
 				"FRAME.addResource( 'bird', new THREE.Group() );",
 				"",
@@ -396,7 +396,14 @@
 				"FRAME.addResource( 'fbxLoader', fbxLoader );",
 				"FRAME.addResource( 'objectLoader', objectLoader );",
 				"FRAME.addResource( 'bufferGeometryLoader', bufferGeometryLoader );",
-				"FRAME.addResource( 'textureLoader', textureLoader );"
+				"FRAME.addResource( 'textureLoader', textureLoader );",
+				"",
+				"function createAudio () {",
+				"\treturn\t{",
+				"\t\t// TODO: See what this returns in an <iframe />",
+				"\t\tcontext: new ( window.AudioContext || window.webkitAudioContext )()",
+				"\t};",
+				"}"
 			]
 		],
 		[

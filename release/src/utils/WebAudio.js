@@ -6,12 +6,12 @@ function WebAudio( context ) {
 
 	if ( context === undefined ) {
 
-		context = new ( window.AudioContext || window.webkitAudioContext )();
+		context = WebAudio.context;
 
 	}
 
 	var scope = this;
-	var source, buffer;
+	var source, buffer, binary;
 
 	var currentTime = 0;
 	var loop = false;
@@ -20,9 +20,13 @@ function WebAudio( context ) {
 	var paused = true;
 	var startAt = 0;
 
-	var gain = context.createGain();
-	gain.connect( context.destination );
-	gain.gain.value = 1;
+	var volume;
+
+	if ( context ) {
+
+		createVolume();
+
+	}
 
 	function load( url ) {
 
@@ -30,12 +34,35 @@ function WebAudio( context ) {
 		request.open( 'GET', url, true );
 		request.responseType = 'arraybuffer';
 		request.addEventListener( 'load', function ( event ) {
-			context.decodeAudioData( event.target.response, function ( data ) {
-				buffer = data;
-				if ( paused === false ) play();
-			} );
+			binary = event.target.response;
+			if ( context ) {
+				decode();
+			}
 		} );
 		request.send();
+
+	}
+
+	function decode() {
+
+		context.decodeAudioData( binary, function ( data ) {
+			buffer = data;
+			if ( paused === false ) play();
+		} );
+
+	}
+
+	function createVolume() {
+
+		if ( !context.volume ) {
+			context.volume = context.createGain();
+			context.volume.connect( context.destination );
+			context.volume.gain.value = 1;
+		}
+
+		volume = context.createGain();
+		volume.connect( context.volume );
+		volume.gain.value = 1;
 
 	}
 
@@ -48,6 +75,16 @@ function WebAudio( context ) {
 
 	function play() {
 
+		if ( context === undefined ) {
+
+			context = WebAudio.getContext();
+			createVolume();
+
+			paused = false;
+			decode();
+
+		}
+
 		if ( buffer === undefined ) return;
 
 		source = context.createBufferSource();
@@ -55,7 +92,7 @@ function WebAudio( context ) {
 		source.loop = loop;
 		source.playbackRate.value = playbackRate;
 		source.start( 0, currentTime );
-		source.connect( gain );
+		source.connect( volume );
 
 		startAt = context.currentTime;
 
@@ -66,7 +103,7 @@ function WebAudio( context ) {
 		if ( buffer === undefined ) return;
 
 		source.stop();
-		source.disconnect( gain );
+		source.disconnect( volume );
 
 		currentTime = getCurrentTime();
 
@@ -84,10 +121,10 @@ function WebAudio( context ) {
 			}
 		},
 		get volume() {
-			return gain.gain.value;
+			return volume.gain.value;
 		},
 		set volume(v) {
-			gain.gain.value = v;
+			volume.gain.value = v;
 		},
 		get currentTime() {
 			return getCurrentTime();
@@ -120,3 +157,15 @@ function WebAudio( context ) {
 	}
 
 }
+
+WebAudio.getContext = function() {
+
+	if ( WebAudio.context ) {
+		return WebAudio.context;
+	}
+
+	WebAudio.context = new ( window.AudioContext || window.webkitAudioContext )();
+
+	return WebAudio.context;
+
+};
