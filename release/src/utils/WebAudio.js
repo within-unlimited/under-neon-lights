@@ -153,6 +153,9 @@ function WebAudio( context ) {
 		},
 		get paused() {
 			return paused;
+		},
+		get buffer() {
+			return buffer;
 		}
 	}
 
