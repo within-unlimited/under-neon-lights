@@ -16,6 +16,16 @@ $red: #FF1177;
 	overflow: hidden;
 }
 
+.unl-title {
+	position: absolute;
+	width: 100%;
+	padding: 20px;
+	pointer-events: none;
+	opacity: 0;
+	@include transition(opacity 2s $ease-in-out-circ);
+	body.unl-intro & { opacity: 1; }
+}
+
 // vr toggle and play button
 .unl-button {
 	position: relative;
@@ -38,6 +48,7 @@ $red: #FF1177;
 		line-height: 30px;
 		border-radius: 6px;
 		font-size: 16px;
+		opacity: 0.8;
 		border: 3px solid #fff;
 		text-shadow: 0 0 5px $pink;
 		box-shadow: 0 0 0px #fff,
@@ -49,10 +60,12 @@ $red: #FF1177;
 												box-shadow 0.5s,
 												color 0.5s,
 												border-color 0.5s,
-												background-color 0.5s);
+												background-color 0.5s,
+												opacity 0.5s);
 	}
 
 	&:not(.webvr-not-available):hover .unl-button-box {
+		opacity: 1;
 		text-shadow: 0 0 10px #fff,
 								 0 0 15px #fff,
 								 0 0 20px $red,
@@ -89,7 +102,7 @@ $red: #FF1177;
 	&.webvr-not-available {
 		.unl-button-box,
 		.unl-message {
-			opacity: 0.5;
+			opacity: 0.4;
 		}
 
 		&:hover .unl-message {
@@ -97,20 +110,6 @@ $red: #FF1177;
 			text-shadow: 0 0 10px $pink;
 		}
 	}
-
-	@media (min-width: 470px) {
-		+ .unl-button { margin-left: 20px; }
-	}
-
-	@media (max-width: 469px) {
-		display: block;
-		width: 100%;
-	}
-}
-
-@media (max-width: 469px) {
-	.unl-button:first-child { margin-bottom: 20px; }
-	.unl-button.webvr-not-available { margin-bottom: 50px; }
 }
 
 .unl-button-container {
@@ -129,7 +128,33 @@ $red: #FF1177;
 		pointer-events: auto;
 	}
 
-	@media (max-width: 469px) {
+	body.has-mobile & {
 		bottom: 20px;
+	}
+}
+
+@media (max-width: 469px) {
+	.unl-button-container { bottom: 20px; }
+
+	.unl-button {
+		display: block;
+		width: 100%;
+
+		&:first-child { margin-bottom: 20px; }
+
+		&.webvr-not-available { margin-bottom: 50px; }
+
+		.unl-button-box {
+			padding: 7px;
+			border-width: 2px;
+		}
+	}
+
+
+}
+
+@media (min-width: 470px) {
+	.unl-button + .unl-button {
+		margin-left: 20px;
 	}
 }

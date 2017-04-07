@@ -8,6 +8,18 @@
   margin: 0px;
   overflow: hidden; }
 
+.unl-title {
+  position: absolute;
+  width: 100%;
+  padding: 20px;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: opacity 2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  -moz-transition: opacity 2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition: opacity 2s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+  body.unl-intro .unl-title {
+    opacity: 1; }
+
 .unl-button {
   position: relative;
   display: inline-block;
@@ -27,13 +39,15 @@
     line-height: 30px;
     border-radius: 6px;
     font-size: 16px;
+    opacity: 0.8;
     border: 3px solid #fff;
     text-shadow: 0 0 5px #c0538d;
     box-shadow: 0 0 0px #fff, 0 0 5px rgba(192, 83, 141, 0.6), 0 0 0px #fff inset, 0 0 5px rgba(192, 83, 141, 0.6) inset;
-    -webkit-transition: text-shadow 0.5s, box-shadow 0.5s, color 0.5s, border-color 0.5s, background-color 0.5s;
-    -moz-transition: text-shadow 0.5s, box-shadow 0.5s, color 0.5s, border-color 0.5s, background-color 0.5s;
-    transition: text-shadow 0.5s, box-shadow 0.5s, color 0.5s, border-color 0.5s, background-color 0.5s; }
+    -webkit-transition: text-shadow 0.5s, box-shadow 0.5s, color 0.5s, border-color 0.5s, background-color 0.5s, opacity 0.5s;
+    -moz-transition: text-shadow 0.5s, box-shadow 0.5s, color 0.5s, border-color 0.5s, background-color 0.5s, opacity 0.5s;
+    transition: text-shadow 0.5s, box-shadow 0.5s, color 0.5s, border-color 0.5s, background-color 0.5s, opacity 0.5s; }
   .unl-button:not(.webvr-not-available):hover .unl-button-box {
+    opacity: 1;
     text-shadow: 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 30px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 60px #FF1177;
     box-shadow: 0 0 10px #fff, 0 0 40px #FF1177, 0 0 10px #fff inset, 0 0 40px #FF1177 inset; }
   .unl-button img {
@@ -54,24 +68,11 @@
     transition: opacity 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86), text-shadow 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
   .unl-button.webvr-not-available .unl-button-box,
   .unl-button.webvr-not-available .unl-message {
-    opacity: 0.5; }
+    opacity: 0.4; }
   .unl-button.webvr-not-available:hover .unl-message {
     opacity: 1;
     text-shadow: 0 0 10px #c0538d; }
-  @media (min-width: 470px) {
-    .unl-button + .unl-button {
-      margin-left: 20px; } }
-  @media (max-width: 469px) {
-    .unl-button {
-      display: block;
-      width: 100%; } }
 
-@media (max-width: 469px) {
-  .unl-button:first-child {
-    margin-bottom: 20px; }
-
-  .unl-button.webvr-not-available {
-    margin-bottom: 50px; } }
 .unl-button-container {
   position: absolute;
   bottom: 90px;
@@ -86,8 +87,25 @@
   body.unl-intro .unl-button-container {
     opacity: 1;
     pointer-events: auto; }
-  @media (max-width: 469px) {
-    .unl-button-container {
-      bottom: 20px; } }
+  body.has-mobile .unl-button-container {
+    bottom: 20px; }
+
+@media (max-width: 469px) {
+  .unl-button-container {
+    bottom: 20px; }
+
+  .unl-button {
+    display: block;
+    width: 100%; }
+    .unl-button:first-child {
+      margin-bottom: 20px; }
+    .unl-button.webvr-not-available {
+      margin-bottom: 50px; }
+    .unl-button .unl-button-box {
+      padding: 7px;
+      border-width: 2px; } }
+@media (min-width: 470px) {
+  .unl-button + .unl-button {
+    margin-left: 20px; } }
 
 /*# sourceMappingURL=site-neon-lights.css.map */
