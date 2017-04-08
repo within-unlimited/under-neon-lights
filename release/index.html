@@ -104,12 +104,26 @@
 
 			function UIWebViewFocus() {
 				shouldRender = true;
-				document.head.querySelector('title').innerHTML = 'high brian!';
+				var div = document.createElement('div');
+				div.style.position = 'absolute';
+				div.style.top = 0;
+				div.style.left = 0;
+				div.style.right = 0;
+				div.style.bottom = 0;
+				div.style.background = 'red';
+				document.body.appendChild(div);
 			}
 
 			function UIWebViewBlur() {
 				shouldRender = false;
-				document.head.querySelector('title').innerHTML = 'bye brian!';
+				var div = document.createElement('div');
+				div.style.position = 'absolute';
+				div.style.top = 0;
+				div.style.left = 0;
+				div.style.right = 0;
+				div.style.bottom = 0;
+				div.style.background = 'yellow';
+				document.body.appendChild(div);
 			}
 
 			function animate( time ) {
