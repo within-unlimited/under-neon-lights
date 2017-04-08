@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<title>Under Neon Lights</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="styles/neon-lights.css">
@@ -99,19 +100,24 @@
 			//
 
 			var prevTime = 0;
+			var shouldRender = true;
 
 			function UIWebViewFocus() {
-				alert('focus');
+				shouldRender = true;
+				document.head.querySelector('title').innerHTML = 'high brian!';
 			}
 
 			function UIWebViewBlur() {
-				alert('blur');
+				shouldRender = false;
+				document.head.querySelector('title').innerHTML = 'bye brian!';
 			}
 
 			function animate( time ) {
 
-				player.tick( time - prevTime );
-				timeline.update( player.currentTime );
+				if ( shouldRender ) {
+					player.tick( time - prevTime );
+					timeline.update( player.currentTime );
+				}
 
 				prevTime = time;
 
