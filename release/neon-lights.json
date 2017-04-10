@@ -5518,7 +5518,7 @@
 				"\t\treturn;",
 				"\t}",
 				"",
-				"\tcompass.theta.destination -= controllers.axes.delta.x / 2;",
+				"\tcompass.theta.destination -= controllers.axes.delta.x;",
 				"\tcompass.update( clock.getDelta(), dt );",
 				"",
 				"\tvar distance = dolly.userData.distance;",

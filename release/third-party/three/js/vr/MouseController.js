@@ -53,15 +53,52 @@ THREE.MouseController = function ( domElement ) {
 			x *= 2;
 			y *= 2;
 
-			if ( axes[ 0 ] !== - x || axes[ 1 ] !== y ) {
-				axes[ 0 ] = - x;
-				axes[ 1 ] = y;
-				scope.dispatchEvent( { type: 'axischanged', axes: axes } );
-			}
+			// if ( axes[ 0 ] !== - x || axes[ 1 ] !== y ) {
+			// 	axes[ 0 ] = - x;
+			// 	axes[ 1 ] = y;
+			// 	scope.dispatchEvent( { type: 'axischanged', axes: axes } );
+			// }
 
 		}
 
 		mouse.set( e.clientX, e.clientY );
+
+	};
+
+	var keydown = function ( e ) {
+
+		var changed = false;
+
+		switch ( e.which ) {
+			// left
+			case 65:
+			case 37:
+				axes[ 0 ] -= scope.wheelSpeed;
+				changed = true;
+				break;
+			// right
+			case 68:
+			case 39:
+				axes[ 0 ] += scope.wheelSpeed;
+				changed = true;
+				break;
+			// up
+			case 87:
+			case 38:
+				axes[ 1 ] -= scope.wheelSpeed;
+				changed = true;
+				break;
+			// down
+			case 83:
+			case 40:
+				axes[ 1 ] += scope.wheelSpeed;
+				changed = true;
+				break;
+		}
+
+		if ( changed ) {
+			scope.dispatchEvent( { type: 'axischanged', axes: axes } );
+		}
 
 	};
 
@@ -166,6 +203,7 @@ THREE.MouseController = function ( domElement ) {
 	domElement.addEventListener( 'touchcancel', touchend, false );
 
 	window.addEventListener( 'resize', resize, false );
+	window.addEventListener( 'keydown', keydown, false );
 
 	this.resize = resize;
 
