@@ -298,6 +298,10 @@ THREE.neonShader._frag = [
 	"		col = tex.rgb;",
 	"		alpha = tex.a;",
 	"	#endif",
+	"	#ifdef USE_TRANSPARENT",
+	"		float alphaFactor = length( mvPosition.xz ) - 2.0;",
+	"		alpha *= mix( 0.66, 1.0, clamp( alphaFactor, 0.0, 1.0 ) );",
+	"	#endif",
 	"	gl_FragColor = vec4( col, alpha );",
 	"}",
 ].join( '\n' );
@@ -440,6 +444,14 @@ THREE.neonShader.hallway.defines.USE_MIRROR_FOG = '';
 THREE.neonShader.vertexColored = THREE.neonShader.basicShader.clone();
 THREE.neonShader.vertexColored.vertexColors = true;
 THREE.neonShader.vertexColored.defines = { USE_FAKE_SHADOW: '' };
+
+THREE.neonShader.vertexColoredTransparent = THREE.neonShader.basicShader.clone();
+THREE.neonShader.vertexColoredTransparent.vertexColors = true;
+THREE.neonShader.vertexColoredTransparent.transparent = true;
+THREE.neonShader.vertexColoredTransparent.defines = {
+	USE_FAKE_SHADOW: '',
+	USE_TRANSPARENT: ''
+};
 
 THREE.neonShader.doubleSided = THREE.neonShader.roadShader.clone();
 THREE.neonShader.doubleSided.side = THREE.DoubleSide;

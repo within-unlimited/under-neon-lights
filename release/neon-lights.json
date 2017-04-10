@@ -883,7 +883,7 @@
 				"",
 				"\thouse: {",
 				"",
-				"\t\troom: THREE.neonShader.vertexColored,",
+				"\t\troom: THREE.neonShader.vertexColoredTransparent,",
 				"",
 				"\t\ttoy: THREE.neonShader.vertexColoredDoubleSided,",
 				"\t\t",
