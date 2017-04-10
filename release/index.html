@@ -101,29 +101,26 @@
 
 			var prevTime = 0;
 			var shouldRender = true;
+			var wasPlaying = false;
 
+			/**
+			 * Special callout functions for native iOS embed
+			 */
 			function UIWebViewFocus() {
 				shouldRender = true;
-				var div = document.createElement('div');
-				div.style.position = 'absolute';
-				div.style.top = 0;
-				div.style.left = 0;
-				div.style.right = 0;
-				div.style.bottom = 0;
-				div.style.background = 'red';
-				document.body.appendChild(div);
+				if ( wasPlaying ) {
+					player.play();
+				}
 			}
 
 			function UIWebViewBlur() {
 				shouldRender = false;
-				var div = document.createElement('div');
-				div.style.position = 'absolute';
-				div.style.top = 0;
-				div.style.left = 0;
-				div.style.right = 0;
-				div.style.bottom = 0;
-				div.style.background = 'yellow';
-				document.body.appendChild(div);
+				if ( player.isPlaying ) {
+					player.pause();
+					wasPlaying = true;
+				} else {
+					wasPlaying = false;
+				}
 			}
 
 			function animate( time ) {
