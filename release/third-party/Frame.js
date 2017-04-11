@@ -469,20 +469,13 @@ var FRAME = ( function () {
 
 							if ( animation.end > time ) {
 
+								if ( animation.effect.program.start ) {
+
+									animation.effect.program.start();
+
+								}
+
 								active.push( animation );
-
-							}
-
-							var program = animation.effect.program;
-
-							if ( program.start ) program.start();
-
-							if ( animation.end < time ) {
-
-								// TODO: Remove this when using curves
-
-								if ( program.update ) program.update( 1 );
-								if ( program.end ) program.end();
 
 							}
 
@@ -502,12 +495,11 @@ var FRAME = ( function () {
 
 						if ( animation.start > time || animation.end < time ) {
 
-							var program = animation.effect.program;
+							if ( animation.effect.program.end ) {
 
-							// TODO: Remove this when using curves
+								animation.effect.program.end();
 
-							if ( program.update ) program.update( 1 );
-							if ( program.end ) program.end();
+							}
 
 							active.splice( i, 1 );
 
@@ -551,9 +543,6 @@ var FRAME = ( function () {
 						var animation = active.pop();
 						var program = animation.effect.program;
 
-						// TODO: Remove this when using curves
-
-						if ( program.update ) program.update( 1 );
 						if ( program.end ) program.end();
 
 					}
