@@ -4290,131 +4290,6 @@
 			]
 		],
 		[
-			"Bedroom.position Z Walk",
-			[
-				"var stages = FRAME.getResource( 'stages' );",
-				"",
-				"var origin = new THREE.Vector3( 0, 0, 3.508108108108109 );",
-				"var destination = new THREE.Vector3( 0, 0, 0 );",
-				"",
-				"function start () {",
-				"",
-				"\tvar bedroom = stages.bedroom;",
-				"\tif ( !bedroom || !bedroom.teddy ) {",
-				"\t\treturn;",
-				"\t}",
-				"\tvar teddy = bedroom.teddy;",
-				"\tteddy.visible = true;",
-				"",
-				"}",
-				"",
-				"function end() {",
-				"",
-				"\tTHREE.neonShader.globals.motion.value = 0;",
-				"",
-				"}",
-				"",
-				"function update( progress ) {",
-				"",
-				"\tvar bedroom = stages.bedroom;",
-				"\tif ( !bedroom ) {",
-				"\t\treturn;",
-				"\t}",
-				"\tvar scene = bedroom.scene;",
-				"",
-				"\tvar y = progress * ( destination.y - origin.y ) + origin.y;",
-				"\tvar z = progress * ( destination.z - origin.z ) + origin.z;",
-				"",
-				"\tTHREE.neonShader.globals.motion.value = scene.position.z - z;",
-				"",
-				"\tscene.position.y = y;",
-				"\tscene.position.z = z;",
-				"",
-				"}"
-			]
-		],
-		[
-			"Annie Walk",
-			[
-				"var annie = FRAME.getResource( 'annie' );",
-				"",
-				"function start () {",
-				"",
-				"\tannie.userData.play( 'walk' );",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Teddy Effect",
-			[
-				"var stages = FRAME.getResource( 'stages' );",
-				"",
-				"// TODO: Explode!",
-				"",
-				"var bedroom;",
-				"var originScale = new THREE.Vector3();",
-				"var originPos = new THREE.Vector3();",
-				"",
-				"function start () {",
-				"",
-				"\tbedroom = stages.bedroom;",
-				"",
-				"\tif ( bedroom && bedroom.teddy ) {",
-				"\t\tbedroom.teddy.visible = true;",
-				"\t\toriginScale.copy( bedroom.teddy.scale );",
-				"\t\toriginPos.copy( bedroom.teddy.position );",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function end () {",
-				"",
-				"\tvar bedroom = stages.bedroom;",
-				"",
-				"\tif ( bedroom && bedroom.teddy ) {",
-				"\t\tbedroom.teddy.visible = false;",
-				"\t\tbedroom.teddy.scale.copy( originScale );",
-				"\t\tbedroom.teddy.position.copy( originPos );",
-				"\t}",
-				"",
-				"}",
-				"",
-				"function update( progress ){",
-				"",
-				"\tvar t = TWEEN.Easing.Elastic.In( progress );",
-				"\tvar it = 1 - t;",
-				"",
-				"\tif ( bedroom && bedroom.teddy ) {",
-				"\t\t",
-				"\t\tbedroom.teddy.scale.set( originScale.x * it, originScale.y * it, originScale.z * it );",
-				"\t\tbedroom.teddy.position.y = originPos.y + 0.5 * t;",
-				"\t}",
-				"",
-				"}"
-			]
-		],
-		[
-			"Annie Idle Effect",
-			[
-				"var annie = FRAME.getResource( 'annie' );",
-				"",
-				"function start () {",
-				"",
-				"\tannie.userData.play( 'idle' );",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
 			"Annie.userData.age Teenager",
 			[
 				"var annie = FRAME.getResource( 'annie' );",
@@ -4429,30 +4304,6 @@
 				"function end(){}",
 				"",
 				"function update( progress ){}"
-			]
-		],
-		[
-			"Fog 2-2",
-			[
-				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = fog.far;",
-				"var fog_target = 12;",
-				"",
-				"function start () {",
-				"",
-				"\tfog_origin = fog.far;",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ) {",
-				"",
-				"\tvar t = TWEEN.Easing.Back.Out( progress );",
-				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
-				"",
-				"}",
-				""
 			]
 		],
 		[
@@ -5385,29 +5236,6 @@
 				"",
 				"\teffect.render( scene, camera );",
 				"\t",
-				"}"
-			]
-		],
-		[
-			"Fog 2-1",
-			[
-				"var fog = FRAME.getResource( 'scene' ).fog;",
-				"var fog_origin = fog.far;",
-				"var fog_target = 8;",
-				"",
-				"function start () {",
-				"",
-				"\tfog_origin = fog.far;",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ) {",
-				"",
-				"\tvar t = TWEEN.Easing.Back.Out( progress );",
-				"\tfog.far = t * ( fog_target - fog_origin ) + fog_origin;",
-				"",
 				"}"
 			]
 		],
@@ -7090,46 +6918,6 @@
 			]
 		],
 		[
-			"Bedroom Position Z",
-			[
-				"function start(){}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Bedroom Position Y Effect",
-			[
-				"var stages = FRAME.getResource( 'stages' );",
-				"",
-				"var origin = new THREE.Vector3( 0, 0, 1.33 );",
-				"var destination = new THREE.Vector3( 0, 0, 0 );",
-				"",
-				"function start(){}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ) {",
-				"",
-				"\tvar bedroom = stages.bedroom;",
-				"",
-				"\tif ( !bedroom ) {",
-				"\t\treturn;",
-				"\t}",
-				"",
-				"\tvar scene = bedroom.scene;\t",
-				"\tprogress = TWEEN.Easing.Sinusoidal.InOut( progress );",
-				"",
-				"\tscene.position.x = progress * ( destination.x - origin.x ) + origin.x;",
-				"\tscene.position.y = progress * ( destination.y - origin.y ) + origin.y;",
-				"\tscene.position.z = progress * ( destination.z - origin.z ) + origin.z;",
-				"",
-				"}"
-			]
-		],
-		[
 			"Stick to Stage 2 Effect",
 			[
 				"var stages = FRAME.getResource( 'stages' );",
@@ -7263,22 +7051,6 @@
 				"\tgroup.position.z = z;",
 				"",
 				"}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"var parameters = {",
-				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
-				"};",
-				"",
-				"// function init(){}",
-				"",
-				"function start(){}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
 			]
 		],
 		[
@@ -7431,80 +7203,6 @@
 				"",
 				"}"
 			]
-		],
-		[
-			"Effect",
-			[
-				"var parameters = {",
-				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
-				"};",
-				"",
-				"// function init(){}",
-				"",
-				"function start(){}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
-		],
-		[
-			"Enter Bedroom Effect",
-			[
-				"var annie = FRAME.getResource( 'annie' );",
-				"var stages = FRAME.getResource( 'stages' );",
-				"",
-				"var origin = new THREE.Vector3( 0, 0, 1.33 );",
-				"var destination = new THREE.Vector3( 0, 0, 0 );",
-				"",
-				"function start () {",
-				"",
-				"\tannie.userData.play( 'walk' );",
-				"\tvar bedroom = stages.bedroom;",
-				"",
-				"\tif ( !bedroom ) {",
-				"\t\treturn;",
-				"\t}",
-				"\t",
-				"\tvar scene = bedroom.scene;",
-				"\torigin.copy( scene.position );",
-				"",
-				"}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ) {",
-				"",
-				"\tvar bedroom = stages.bedroom;",
-				"",
-				"\tif ( !bedroom ) {",
-				"\t\treturn;",
-				"\t}",
-				"",
-				"\tvar scene = bedroom.scene;\t",
-				"",
-				"\tscene.position.x = progress * ( destination.x - origin.x ) + origin.x;",
-				"\tscene.position.y = progress * ( destination.y - origin.y ) + origin.y;",
-				"\tscene.position.z = progress * ( destination.z - origin.z ) + origin.z;",
-				"",
-				"}"
-			]
-		],
-		[
-			"Effect",
-			[
-				"var parameters = {",
-				"\tvalue: new FRAME.Parameters.Float( 'Value', 1.0 )",
-				"};",
-				"",
-				"// function init(){}",
-				"",
-				"function start(){}",
-				"",
-				"function end(){}",
-				"",
-				"function update( progress ){}"
-			]
 		]
 	],
 	"animations": [
@@ -7513,7 +7211,7 @@
 			0,
 			274,
 			0,
-			51,
+			46,
 			true
 		],
 		[
@@ -7529,7 +7227,7 @@
 			0,
 			274,
 			2,
-			57,
+			51,
 			true
 		],
 		[
@@ -7553,7 +7251,7 @@
 			0,
 			3.5,
 			5,
-			61,
+			55,
 			true
 		],
 		[
@@ -7585,7 +7283,7 @@
 			0,
 			385,
 			11,
-			46,
+			41,
 			false
 		],
 		[
@@ -7953,7 +7651,7 @@
 			23,
 			26,
 			4,
-			88,
+			82,
 			true
 		],
 		[
@@ -8009,7 +7707,7 @@
 			25.96875,
 			29.5,
 			5,
-			75,
+			69,
 			true
 		],
 		[
@@ -8121,7 +7819,7 @@
 			30,
 			32,
 			5,
-			75,
+			69,
 			true
 		],
 		[
@@ -8233,7 +7931,7 @@
 			34.00125,
 			36.0025,
 			5,
-			75,
+			69,
 			true
 		],
 		[
@@ -8353,7 +8051,7 @@
 			38,
 			40,
 			6,
-			75,
+			69,
 			true
 		],
 		[
@@ -9713,7 +9411,7 @@
 			72.65625,
 			73.5,
 			3,
-			62,
+			56,
 			true
 		],
 		[
@@ -9745,7 +9443,7 @@
 			73.7489200326034,
 			77.25152439024396,
 			9,
-			76,
+			70,
 			true
 		],
 		[
@@ -9769,7 +9467,7 @@
 			77.76305731931308,
 			81.2388759626679,
 			9,
-			77,
+			71,
 			true
 		],
 		[
@@ -9801,7 +9499,7 @@
 			81.66372053931171,
 			85.08992706658525,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -9817,7 +9515,7 @@
 			85.66568464234294,
 			89.04643662416197,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -9825,7 +9523,7 @@
 			88.5,
 			93.75,
 			7,
-			89,
+			83,
 			true
 		],
 		[
@@ -9841,7 +9539,7 @@
 			89.62219419991966,
 			93.0029461817387,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -9849,7 +9547,7 @@
 			91,
 			93,
 			6,
-			43,
+			39,
 			true
 		],
 		[
@@ -9857,7 +9555,7 @@
 			91.75,
 			92.25,
 			4,
-			95,
+			86,
 			true
 		],
 		[
@@ -9865,7 +9563,7 @@
 			91.75,
 			93.75,
 			5,
-			75,
+			69,
 			true
 		],
 		[
@@ -9881,7 +9579,7 @@
 			93.57870375749638,
 			96.95945573931542,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -9897,7 +9595,7 @@
 			93.75,
 			95.75,
 			4,
-			45,
+			40,
 			true
 		],
 		[
@@ -9905,7 +9603,7 @@
 			93.75,
 			94.75,
 			6,
-			96,
+			87,
 			true
 		],
 		[
@@ -9921,7 +9619,7 @@
 			97.53521331507311,
 			100.91596529689214,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -9937,7 +9635,7 @@
 			101.49172287264983,
 			104.87247485446886,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -9953,7 +9651,7 @@
 			105.75151111875124,
 			106.86274509803904,
 			9,
-			78,
+			72,
 			true
 		],
 		[
@@ -9969,7 +9667,7 @@
 			109.67073005447433,
 			110.78196403376214,
 			9,
-			78,
+			72,
 			true
 		],
 		[
@@ -9985,7 +9683,7 @@
 			113.58994899019743,
 			114.70118296948523,
 			9,
-			78,
+			72,
 			true
 		],
 		[
@@ -10001,7 +9699,7 @@
 			117.50916792592052,
 			118.62040190520833,
 			9,
-			78,
+			72,
 			true
 		],
 		[
@@ -10017,7 +9715,7 @@
 			121.42838686164362,
 			128.5625,
 			9,
-			79,
+			73,
 			true
 		],
 		[
@@ -10025,7 +9723,7 @@
 			128,
 			133,
 			7,
-			60,
+			54,
 			true
 		],
 		[
@@ -10041,7 +9739,7 @@
 			128.7241434930207,
 			133.74237804878064,
 			9,
-			80,
+			74,
 			true
 		],
 		[
@@ -10057,7 +9755,7 @@
 			129,
 			136.33,
 			5,
-			92,
+			84,
 			true
 		],
 		[
@@ -10065,7 +9763,7 @@
 			133,
 			143,
 			6,
-			59,
+			53,
 			true
 		],
 		[
@@ -10081,7 +9779,7 @@
 			136.33,
 			150,
 			5,
-			93,
+			85,
 			true
 		],
 		[
@@ -10089,7 +9787,7 @@
 			137.24330725608723,
 			144.37742039444362,
 			9,
-			79,
+			73,
 			true
 		],
 		[
@@ -10121,7 +9819,7 @@
 			144,
 			164.90625,
 			6,
-			63,
+			57,
 			true
 		],
 		[
@@ -10137,7 +9835,7 @@
 			144.6851677835685,
 			149.70340233932842,
 			9,
-			80,
+			74,
 			true
 		],
 		[
@@ -10153,7 +9851,7 @@
 			150,
 			153,
 			4,
-			97,
+			88,
 			true
 		],
 		[
@@ -10161,7 +9859,7 @@
 			150.51114972845303,
 			156.22293267131008,
 			9,
-			81,
+			75,
 			true
 		],
 		[
@@ -10169,7 +9867,7 @@
 			153,
 			157,
 			5,
-			75,
+			69,
 			true
 		],
 		[
@@ -10193,7 +9891,7 @@
 			158,
 			160.5,
 			4,
-			47,
+			42,
 			true
 		],
 		[
@@ -10201,7 +9899,7 @@
 			160.46901023121325,
 			166.1807931740703,
 			9,
-			81,
+			75,
 			true
 		],
 		[
@@ -10209,7 +9907,7 @@
 			164.875,
 			166.875,
 			4,
-			55,
+			49,
 			true
 		],
 		[
@@ -10265,7 +9963,7 @@
 			184.8544069658576,
 			188.35701132349817,
 			9,
-			76,
+			70,
 			true
 		],
 		[
@@ -10273,7 +9971,7 @@
 			184.96875,
 			186.96875,
 			4,
-			56,
+			50,
 			true
 		],
 		[
@@ -10297,7 +9995,7 @@
 			188.8685442525673,
 			192.34436289592213,
 			9,
-			77,
+			71,
 			true
 		],
 		[
@@ -10321,7 +10019,7 @@
 			192.76920747256594,
 			196.19541399983947,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10345,7 +10043,7 @@
 			196.77117157559718,
 			200.1519235574162,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10377,7 +10075,7 @@
 			200.72768113317392,
 			204.10843311499295,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10393,7 +10091,7 @@
 			204.68419069075065,
 			208.06494267256969,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10409,7 +10107,7 @@
 			208.6407002483274,
 			212.02145223014642,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10441,7 +10139,7 @@
 			212.59720980590413,
 			216.47796178772305,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10457,7 +10155,7 @@
 			216.47796178772305,
 			219.90416831499658,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10489,7 +10187,7 @@
 			220.4799258907543,
 			223.86067787257332,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10505,7 +10203,7 @@
 			224.43643544833103,
 			227.81718743015006,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10521,7 +10219,7 @@
 			225.5,
 			232.5,
 			7,
-			48,
+			43,
 			true
 		],
 		[
@@ -10537,7 +10235,7 @@
 			228.39294500590776,
 			231.7736969877268,
 			9,
-			65,
+			59,
 			true
 		],
 		[
@@ -10545,7 +10243,7 @@
 			229,
 			232.5,
 			4,
-			49,
+			44,
 			true
 		],
 		[
@@ -10553,7 +10251,7 @@
 			229,
 			232.5,
 			5,
-			74,
+			68,
 			true
 		],
 		[
@@ -10577,7 +10275,7 @@
 			232.5,
 			235,
 			4,
-			50,
+			45,
 			true
 		],
 		[
@@ -10585,7 +10283,7 @@
 			234.68278789681784,
 			236.93539225445852,
 			9,
-			82,
+			76,
 			true
 		],
 		[
@@ -10601,7 +10299,7 @@
 			238.98337205243854,
 			241.38095238095232,
 			9,
-			83,
+			77,
 			true
 		],
 		[
@@ -10617,7 +10315,7 @@
 			242.6926516911275,
 			244.33361929398544,
 			9,
-			84,
+			78,
 			true
 		],
 		[
@@ -10633,7 +10331,7 @@
 			246.764366223208,
 			248.59987505719255,
 			9,
-			85,
+			79,
 			true
 		],
 		[
@@ -10649,7 +10347,7 @@
 			250.74490770070088,
 			251.9675133088786,
 			9,
-			85,
+			79,
 			true
 		],
 		[
@@ -10665,7 +10363,7 @@
 			254.72544917819377,
 			255.9641838186298,
 			9,
-			85,
+			79,
 			true
 		],
 		[
@@ -10681,7 +10379,7 @@
 			258.7059906556867,
 			259.8963381993486,
 			9,
-			85,
+			79,
 			true
 		],
 		[
@@ -10697,7 +10395,7 @@
 			262.2994353589863,
 			264.85637867247016,
 			9,
-			86,
+			80,
 			true
 		],
 		[
@@ -10705,7 +10403,7 @@
 			264,
 			268,
 			7,
-			87,
+			81,
 			true
 		],
 		[
@@ -10713,7 +10411,7 @@
 			269,
 			270,
 			8,
-			49,
+			44,
 			true
 		],
 		[
@@ -10721,7 +10419,7 @@
 			270,
 			274,
 			4,
-			71,
+			65,
 			true
 		],
 		[
@@ -10729,7 +10427,7 @@
 			300,
 			302,
 			2,
-			58,
+			52,
 			true
 		],
 		[
@@ -10737,7 +10435,7 @@
 			300,
 			302,
 			3,
-			53,
+			48,
 			true
 		],
 		[
@@ -10745,7 +10443,7 @@
 			300,
 			302,
 			4,
-			64,
+			58,
 			true
 		],
 		[
@@ -10761,7 +10459,7 @@
 			325,
 			385,
 			0,
-			67,
+			61,
 			true
 		],
 		[
@@ -10777,7 +10475,7 @@
 			325,
 			385,
 			2,
-			68,
+			62,
 			true
 		],
 		[
@@ -10785,7 +10483,7 @@
 			325,
 			385,
 			3,
-			66,
+			60,
 			true
 		],
 		[
@@ -10793,7 +10491,7 @@
 			325,
 			385,
 			4,
-			69,
+			63,
 			true
 		],
 		[
@@ -10801,7 +10499,7 @@
 			325,
 			332.02,
 			6,
-			72,
+			66,
 			true
 		],
 		[
@@ -10817,7 +10515,7 @@
 			330,
 			336,
 			5,
-			70,
+			64,
 			true
 		],
 		[
@@ -10825,7 +10523,7 @@
 			337,
 			341,
 			5,
-			70,
+			64,
 			true
 		],
 		[
@@ -10833,7 +10531,7 @@
 			342,
 			346,
 			5,
-			70,
+			64,
 			true
 		],
 		[
@@ -10841,7 +10539,7 @@
 			347,
 			351,
 			5,
-			70,
+			64,
 			true
 		],
 		[
@@ -10849,7 +10547,7 @@
 			352,
 			356,
 			5,
-			70,
+			64,
 			true
 		],
 		[
@@ -10857,7 +10555,7 @@
 			357,
 			361,
 			5,
-			70,
+			64,
 			true
 		],
 		[
@@ -10865,7 +10563,7 @@
 			362,
 			366,
 			5,
-			70,
+			64,
 			true
 		],
 		[
@@ -10873,7 +10571,7 @@
 			367,
 			371,
 			5,
-			70,
+			64,
 			true
 		],
 		[
@@ -10881,7 +10579,7 @@
 			372,
 			380,
 			5,
-			70,
+			64,
 			true
 		],
 		[
@@ -10889,7 +10587,7 @@
 			382,
 			384,
 			6,
-			73,
+			67,
 			true
 		],
 		[
@@ -10897,7 +10595,7 @@
 			385,
 			387,
 			4,
-			52,
+			47,
 			true
 		]
 	]
