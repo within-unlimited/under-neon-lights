@@ -438,7 +438,7 @@
 				"\t\torigin: new THREE.Vector2(),",
 				"\t\tdrag: 0.125,",
 				"\t\tlastEvent: Date.now(),",
-				"\t\teventTime: 150, // millis",
+				"\t\teventTime: 350, // millis",
 				"\t\treOculusTouch: /Oculus Touch/i,",
 				"",
 				"\t\tset: function ( type, data, now ) {",
