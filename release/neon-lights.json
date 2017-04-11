@@ -158,6 +158,14 @@
 			[
 				"var Ease = FRAME.getResource( 'Ease' );",
 				"",
+				"(function() {",
+
+				"\tif (window.console && window.console.log && !(/localhost/i.test(window.location.href))) {",
+				"\t\tconsole.log('Think Under Neon Lights is pretty clever? there’s more where that came from! http://github.com/within-unlimited/under-neon-lights/');",
+				"\t}",
+
+				"})();",
+				"",
 				"var dom = FRAME.getDOM();",
 				"var neon = new Ease( 0, 0.01 );",
 				"",
