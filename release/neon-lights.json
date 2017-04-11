@@ -7089,7 +7089,6 @@
 				"\tvar mesh = bear.children[ 1 ];",
 				"\tvar t = TWEEN.Easing.Sinusoidal.Out( progress );",
 				"",
-				"\tconsole.log( mesh );",
 				"\tmesh.material.uniforms.opacity.value = ( 1 - t );",
 				"",
 				"}"
