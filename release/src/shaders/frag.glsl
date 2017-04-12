@@ -68,11 +68,6 @@ void main() {
 		alpha *= tex.a;
 	#endif
 
-	#ifdef USE_TRANSPARENT
-		float alphaFactor = length( mvPosition.xz ) - 2.0;
-		alpha *= mix( 0.66, 1.0, clamp( alphaFactor, 0.0, 1.0 ) );
-	#endif
-
 	gl_FragColor = vec4( col, alpha );
 
 
