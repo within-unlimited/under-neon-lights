@@ -3,10 +3,6 @@
 	"libraries": [
 		"release/third-party/url.js",
 		"release/third-party/has.js",
-		"release/third-party/url.js",
-		"release/third-party/signals.min.js",
-		"release/third-party/has.js",
-		"release/third-party/tween.js",
 		"release/third-party/signals.min.js",
 		"release/third-party/tween.js",
 		"release/third-party/three.js",
