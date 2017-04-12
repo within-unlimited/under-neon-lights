@@ -1,0 +1,160 @@
+#viewport {
+	position: absolute;
+	top: 32px;
+	bottom: calc(30% + 32px);
+	left: 0px;
+	right: 300px;
+	background-color: #000;
+}
+
+#effect {
+	position: absolute;
+	top: 32px;
+	bottom: calc(30% + 32px);
+	left: 0px;
+	right: 300px;
+	opacity: 0.9;
+}
+
+#controls {
+	position: absolute;
+	background-color: #666;
+	top: calc(70% - 32px);
+	left: 0px;
+	right: 300px;
+	height: 32px;
+}
+
+#timeline {
+	position: absolute;
+	top: 70%;
+	left: 0px;
+	right: 300px;
+	height: 30%;
+	background-color: #555;
+}
+
+	#timeline .block {
+		background-color: #88f;
+		border-left: 1px solid #aaf;
+		border-top: 1px solid #aaf;
+		border-right: 1px solid #77f;
+		border-bottom: 1px solid #77f;
+		overflow: hidden;
+	}
+
+	#timeline .block:hover {
+		background-color: #99f;
+	}
+
+	#timeline .block .name {
+		margin: 7px 10px;
+		color: rgba(0,0,0,0.5);
+		cursor: default;
+		white-space: nowrap;
+	}
+
+	#timeline .block.selected {
+		background-color: #8f8;
+		border-left: 1px solid #afa;
+		border-top: 1px solid #afa;
+		border-right: 1px solid #5f5;
+		border-bottom: 1px solid #5f5;
+	}
+
+	#timeline .block.disabled {
+		background: repeating-linear-gradient( 45deg, #88f, #88f 5px, #77f 5px, #77f 10px );
+	}
+
+	#timeline .block.disabled.selected {
+		background: repeating-linear-gradient( 45deg, #8f8, #8f8 5px, #5f5 5px, #5f5 10px );
+	}
+
+#menubar {
+	position: absolute;
+	width: 100%;
+	height: 32px;
+	background-color: #444;
+	padding: 0px;
+	margin: 0px;
+}
+
+	#menubar .menu {
+		float: left;
+		width: 50px;
+		cursor: pointer;
+	}
+
+	#menubar .Panel {
+		color: #888;
+	}
+
+		#menubar .menu .options {
+			display: none;
+			padding: 5px 0px;
+			background-color: #333;
+			width: 140px;
+		}
+
+		#menubar .menu:hover .options {
+			display: block;
+		}
+
+			#menubar .menu .options hr {
+				border-color: #ddd;
+			}
+
+			#menubar .menu .options .option {
+				color: #888;
+				background-color: transparent;
+				padding: 5px 10px;
+				margin: 0px !important;
+			}
+
+				#menubar .menu .options .option:hover {
+					color: #fff;
+					background-color: #08f;
+				}
+
+#sidebar {
+	position: absolute;
+	right: 0;
+	top: 32px;
+	bottom: 0px;
+	width: 300px;
+	color: #888;
+	background-color: #555;
+}
+
+	#sidebar * {
+		vertical-align: middle;
+	}
+
+	#sidebar hr {
+		border-color: #666;
+	}
+
+	#sidebar .Panel {
+		color: #888;
+		padding: 10px;
+	}
+
+	#sidebar .Row {
+		min-height: 20px;
+		margin-bottom: 10px;
+	}
+
+#tabs {
+	background-color: #333;
+}
+
+	#tabs span {
+		color: #555;
+		border-right: 1px solid #444;
+		padding: 10px;
+	}
+
+	#tabs span.selected {
+		color: #888;
+		background-color: #555;
+	}

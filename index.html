@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Neon Lights: Editor</title>
+	</head>
+	<link href="css/main.css" rel="stylesheet" />
+	<link id="theme" href="css/dark.css" rel="stylesheet" />
+	<body>
+
+		<link rel="stylesheet" href="js/libs/codemirror/codemirror.css">
+		<link rel="stylesheet" href="js/libs/codemirror/theme/monokai.css">
+		<script src="js/libs/codemirror/codemirror.js"></script>
+		<script src="js/libs/codemirror/mode/javascript.js"></script>
+
+		<script src="../release/third-party/has.js"></script>
+		<script src="js/libs/signals.min.js"></script>
+		<script src="js/libs/ui.js"></script>
+
+		<script src="js/Editor.js"></script>
+		<script src="js/Code.js"></script>
+		<script src="js/Config.js"></script>
+		<script src="js/Menubar.js"></script>
+		<script src="js/Menubar.File.js"></script>
+		<script src="js/Menubar.Edit.js"></script>
+		<script src="js/Menubar.View.js"></script>
+		<script src="js/Menubar.Help.js"></script>
+		<script src="js/Sidebar.js"></script>
+		<script src="js/Sidebar.Animation.js"></script>
+		<script src="js/Sidebar.Project.js"></script>
+		<script src="js/Sidebar.Settings.js"></script>
+		<script src="js/Viewport.js"></script>
+		<script src="js/Controls.js"></script>
+		<script src="js/Timeline.js"></script>
+		<script src="js/Timeline.Animations.js"></script>
+		<script src="js/Timeline.Curves.js"></script>
+
+		<script src="./release/third-party/Frame.js"></script>
+
+		<!-- Project specific files -->
+
+		<script>
+
+			FRAME.addResource( 'debug', true );
+
+			var editor = new Editor();
+
+			var viewport = new Viewport( editor );
+			document.body.appendChild( viewport.dom );
+
+			var code = new Code( editor );
+			document.body.appendChild( code.dom );
+
+			var sidebar = new Sidebar( editor );
+			document.body.appendChild( sidebar.dom );
+
+			var controls = new Controls( editor );
+			document.body.appendChild( controls.dom );
+
+			var timeline = new Timeline( editor );
+			document.body.appendChild( timeline.dom );
+
+			var menubar = new Menubar( editor );
+			document.body.appendChild( menubar.dom );
+
+			// LocalStorage
+
+			editor.signals.animationAdded.add( saveState );
+			editor.signals.animationModified.add( saveState );
+			editor.signals.animationRemoved.add( saveState );
+			editor.signals.animationRenamed.add( saveState );
+			editor.signals.effectCompiled.add( saveState );
+			editor.signals.effectRenamed.add( saveState );
+			editor.signals.includeChanged.add( saveState );
+			editor.signals.includeRemoved.add( saveState );
+			editor.signals.editorCleared.add( saveState );
+
+			var timeout;
+
+			function saveState() {
+
+				clearTimeout( timeout );
+
+				timeout = setTimeout( function () {
+
+					editor.config.setKey( 'state', JSON.stringify( editor.toJSON() ) );
+
+				}, 1000 );
+
+			}
+
+			//
+
+			var state = editor.config.getKey( 'state' );
+			var hash = window.location.hash;
+
+			if ( hash.substr( 1, 5 ) === 'file=' ) {
+
+				var file = hash.substr( 6 );
+
+				var xhr = new XMLHttpRequest();
+				xhr.addEventListener( 'load', function ( event ) {
+
+					editor.fromJSON( JSON.parse( event.target.responseText ) );
+					window.location.hash = '';
+
+				} );
+				xhr.open( 'GET' , file );
+				xhr.send();
+
+			} else if ( state !== undefined ) {
+
+				editor.fromJSON( JSON.parse( state ) );
+
+			} else {
+
+				var file = 'release/neon-lights.json';
+
+				var xhr = new XMLHttpRequest();
+				xhr.addEventListener( 'load', function ( event ) {
+
+					editor.fromJSON( JSON.parse( event.target.responseText ) );
+					window.location.hash = '';
+
+				} );
+				xhr.open( 'GET' , file );
+				xhr.send();
+
+			}
+
+			
+
+			// Short-cuts
+
+			document.addEventListener( 'keydown', function ( event ) {
+
+				if ( event.metaKey || event.ctrlKey ) {
+
+					switch ( event.keyCode ) {
+						case 83: // prevent CMD + S
+							event.preventDefault();
+							break;
+						case 69: // CMD + E to export
+							event.preventDefault();
+							editor.signals.exportState.dispatch();
+							break;
+					}
+
+					return;
+
+				}
+
+				switch ( event.keyCode ) {
+
+					case 8: // prevent browser back
+						event.preventDefault();
+						break;
+					case 32:
+						editor.player.isPlaying ? editor.stop() : editor.play();
+						break;
+					case 37:
+						event.preventDefault();
+						editor.setTime( editor.player.currentTime - 1 );
+						break;
+					case 39:
+						event.preventDefault();
+						editor.setTime( editor.player.currentTime + 1 );
+						break;
+					case 38:
+						event.preventDefault();
+						editor.speedUp();
+						break;
+					case 40:
+						event.preventDefault();
+						editor.speedDown();
+						break;
+					case 83:
+						break;
+
+				}
+
+			} );
+
+			// Drop
+
+			document.addEventListener( 'dragover', function ( event ) {
+
+				event.preventDefault();
+				event.dataTransfer.dropEffect = 'copy';
+
+			}, false );
+
+			document.addEventListener( 'drop', function ( event ) {
+
+				event.preventDefault();
+
+				if ( event.dataTransfer.files.length > 0 ) {
+
+					var reader = new FileReader();
+					reader.addEventListener( 'load', function ( event ) {
+
+						if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
+
+							editor.clear();
+							editor.fromJSON( JSON.parse( event.target.result ) );
+
+						}
+
+					}, false );
+					reader.readAsText( event.dataTransfer.files[ 0 ] );
+
+				}
+
+			}, false );
+
+			//
+
+			window.addEventListener( 'resize', function () {
+
+				editor.signals.windowResized.dispatch();
+
+			} );
+
+			editor.signals.windowResized.dispatch();
+
+		</script>
+	</body>
+</html>
