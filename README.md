@@ -1,3 +1,5 @@
+![Under Neon Lights](http://cdn1.with.in/541-CHEM_BROS/images/ChemBros_486x256_Main.jpg)
+
 # Under Neon Lights
 A snapshot of [Under Neon Lights](https://with.in/watch/under-neon-lights/), an interactive WebVR Music Video.
 
@@ -7,4 +9,4 @@ In order to create this project, the Within Team relied heavily on two open-sour
 ## Models
 All working models are freely available in this zip under Creative Commons Attribution-ShareAlike: http://cdn1.with.in/541-CHEM_BROS/dist/assets/assets.zip
 
-![](https://licensebuttons.net/l/by-sa/3.0/88x31.png)
+![Creative Commons Attribution-ShareAlike](https://licensebuttons.net/l/by-sa/3.0/88x31.png)
