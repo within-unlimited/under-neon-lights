@@ -19,6 +19,7 @@ $red: #FF1177;
 
 .unl-title {
 	position: absolute;
+	top: 0;
 	width: 100%;
 	padding: 20px;
 	pointer-events: none;
@@ -150,7 +151,7 @@ $red: #FF1177;
 			border-width: 2px;
 		}
 	}
-	
+
 	.unl-button-controls { margin-top: 10px; }
 }
 
