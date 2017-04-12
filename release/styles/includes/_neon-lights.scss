@@ -11,6 +11,7 @@ $red: #FF1177;
 .unl-container {
 	font-family: $font-family;
 	background-color: #333333;
+	text-transform: uppercase;
 	color: #fff;
 	margin: 0px;
 	overflow: hidden;
@@ -33,7 +34,6 @@ $red: #FF1177;
 	width: 200px;
 	text-decoration: none;
 	cursor: pointer;
-	text-transform: uppercase;
 	color: #fff;
 	font-weight: bold;
 	text-align: center;
@@ -87,12 +87,13 @@ $red: #FF1177;
 
 	.unl-message {
 		position: absolute;
-		top: 100%;
+		bottom: 0;
 		left: 0;
 		line-height: 1;
 		letter-spacing: 1px;
-		font-size: 12px;
-		padding: 15px 10px;
+		font-size: 10px;
+		font-weight: normal;
+		padding: 5px 10px 8px 43px;
 		width: 100%;
 
 		@include transition(opacity 0.35s $ease-in-out-circ,
@@ -114,7 +115,7 @@ $red: #FF1177;
 
 .unl-button-container {
 	position: absolute;
-	bottom: 90px;
+	bottom: 65px;
 	width: 100%;
 	text-align: center;
 	padding: 0 20px;
@@ -133,6 +134,8 @@ $red: #FF1177;
 	}
 }
 
+.unl-button-controls { margin-top: 20px; }
+
 @media (max-width: 469px) {
 	.unl-button-container { bottom: 20px; }
 
@@ -140,21 +143,145 @@ $red: #FF1177;
 		display: block;
 		width: 100%;
 
-		&:first-child { margin-bottom: 20px; }
-
-		&.webvr-not-available { margin-bottom: 50px; }
+		+ .unl-button { margin-top: 10px; }
 
 		.unl-button-box {
 			padding: 7px;
 			border-width: 2px;
 		}
 	}
-
-
+	
+	.unl-button-controls { margin-top: 10px; }
 }
 
 @media (min-width: 470px) {
 	.unl-button + .unl-button {
 		margin-left: 20px;
+	}
+}
+
+// instructions
+
+.unl-instructions-button {
+	display: inline-block;
+	opacity: 0.6;
+	padding: 25px;
+	letter-spacing: 1px;
+	font-size: 13px;
+	font-weight: bold;
+	@include transition(opacity 0.5s);
+
+	&:hover {
+		cursor: pointer;
+		opacity: 1;
+	}
+
+	img {
+		width: 30px;
+		height: 30px;
+		margin-bottom: 6px;
+	}
+}
+
+.unl-modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0,0,0,0.94);
+	z-index: 1000;
+	text-align: center;
+	padding: 20px;
+	pointer-events: none;
+	opacity: 0;
+	@include transition(opacity 0.5s);
+
+	&.unl-modal-open {
+		pointer-events: auto;
+		opacity: 1;
+	}
+}
+
+.unl-table {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.unl-cell {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.unl-cell-container {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.unl-modal-title {
+	letter-spacing: 3px;
+	font-size: 30px;
+	margin: 0 0 30px;
+}
+
+.unl-modal-img {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body.has-mobile .unl-modal-img {
+	max-width: 300px;
+}
+
+.unl-tab-container {
+	max-width: 400px;
+	margin: 0 auto;
+
+	// clearfix
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+.unl-tab-column {
+	width: 50%;
+	float: left;
+	padding: 10px;
+}
+
+.unl-tab {
+	display: block;
+	width: 100%;
+	padding: 10px 20px;
+	color: #000;
+	background: #828282;
+	border-radius: 6px;
+	font-size: 12px;
+	font-weight: bold;
+
+	&:hover { cursor: pointer; }
+
+	&.unl-tab-active { background: #eceba9; }
+}
+
+.unl-modal-x {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-weight: bold;
+	font-size: 34px;
+	line-height: 1;
+	opacity: 0.8;
+	@include transition(opacity 0.5s);
+
+	&:hover {
+		cursor: pointer;
+		opacity: 1;
 	}
 }
